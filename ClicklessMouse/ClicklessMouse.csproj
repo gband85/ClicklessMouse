@@ -86,7 +86,7 @@
     <Compile Include="WindowChangelog.xaml.cs">
       <DependentUpon>WindowChangelog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="WindowsInput Native.cs" />
+    <Compile Include="WindowsInputNative.cs" />
     <Compile Include="WindowsInput.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
