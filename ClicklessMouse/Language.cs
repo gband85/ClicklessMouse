@@ -191,7 +191,7 @@ namespace ClicklessMouse
                     "Right square = right mouse button holding on/off"))));
 
                 BitmapImage bitmap = new BitmapImage(new Uri(
-                    "pack://application:,,,/Clickless Mouse;component/1en.jpg"));
+                    "pack://application:,,,/ClicklessMouse;component/1en.jpg"));
                 System.Windows.Controls.Image image = new System.Windows.Controls.Image();
                 image.Source = bitmap;
                 image.Width = 442;
