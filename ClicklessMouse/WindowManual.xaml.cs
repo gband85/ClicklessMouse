@@ -2,7 +2,7 @@
 using System.Windows.Documents;
 using System.Windows.Input;
 
-namespace Clickless_Mouse
+namespace ClicklessMouse
 {
     /// <summary>
     /// Interaction logic for Window1.xaml

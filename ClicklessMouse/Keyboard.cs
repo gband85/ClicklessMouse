@@ -3,7 +3,7 @@ using System.Threading;
 using System.Windows;
 using WindowsInput.Native;
 
-namespace Clickless_Mouse
+namespace ClicklessMouse
 {
     public partial class MainWindow : Window
     {

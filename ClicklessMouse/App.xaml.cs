@@ -5,7 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Windows;
 
-namespace Clickless_Mouse_2
+namespace ClicklessMouse
 {
     /// <summary>
     /// Interaction logic for App.xaml

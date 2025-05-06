@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
 
-namespace Clickless_Mouse
+namespace ClicklessMouse
 {
     /// <summary>
     /// Interaction logic for WindowEULA.xaml

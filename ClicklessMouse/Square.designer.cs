@@ -1,4 +1,4 @@
-﻿namespace Clickless_Mouse
+﻿namespace ClicklessMouse
 {
     partial class Square
     {

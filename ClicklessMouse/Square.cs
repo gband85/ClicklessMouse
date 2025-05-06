@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 
-namespace Clickless_Mouse
+namespace ClicklessMouse
 {
     public partial class Square : Form
     {

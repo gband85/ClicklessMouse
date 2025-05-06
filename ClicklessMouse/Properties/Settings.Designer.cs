@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Clickless_Mouse.Properties {
+namespace ClicklessMouse.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

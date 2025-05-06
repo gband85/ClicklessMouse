@@ -14,7 +14,7 @@ using WindowsInput.Native;
 using System.Net;
 using System.Windows.Media;
 
-namespace Clickless_Mouse
+namespace ClicklessMouse
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

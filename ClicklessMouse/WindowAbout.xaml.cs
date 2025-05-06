@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
 
-namespace Clickless_Mouse
+namespace ClicklessMouse
 {
     /// <summary>
     /// Interaction logic for WindowAbout.xaml

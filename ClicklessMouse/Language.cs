@@ -4,7 +4,7 @@ using System.Windows.Documents;
 using System.Windows.Forms;
 using System.Windows.Media.Imaging;
 
-namespace Clickless_Mouse
+namespace ClicklessMouse
 {
     public partial class MainWindow : Window
     {
