@@ -77,6 +77,7 @@ namespace ClicklessMouse
 
         Square SL, SR, SM, SLH, SRH;
         DateTime last_click_time;
+        CancellationTokenSource cts1,cts2;
         Thread THRmouse_monitor, THRsquares_monitor, THRmouse_monitor2;
         int displacement = 0;
         
@@ -320,7 +321,7 @@ namespace ClicklessMouse
         int SRH_end_x;
         int SRH_end_y;
         
-        void monitor_mouse2()
+        void monitor_mouse2(CancellationToken token)
         {
             //Thread.Sleep(5000); //debug only
 
@@ -330,6 +331,10 @@ namespace ClicklessMouse
 
             while (true)
             {
+                if (token.IsCancellationRequested)
+                {
+                    break;
+                }
                 //user may change screen resolution so max_x and max_y should be updated
                 max_x = Screen.PrimaryScreen.Bounds.Width - 1;
                 max_y = Screen.PrimaryScreen.Bounds.Height - 1;
@@ -614,8 +619,8 @@ namespace ClicklessMouse
                             wm.Dispatcher.Invoke(DispatcherPriority.Normal,
                                 new Action(() => { wm.Focus(); }));
                         }
-
-                        THRsquares_monitor = new Thread(new ThreadStart(monitor_squares));
+                        cts1 = new CancellationTokenSource();
+                        THRsquares_monitor = new Thread(()=> monitor_squares(cts1.Token));
                         THRsquares_monitor.Priority = ThreadPriority.Highest;
                         THRsquares_monitor.Start();
                         i = 0;
@@ -626,7 +631,8 @@ namespace ClicklessMouse
                 }
                 else if (i > loops_to_start_mouse_movement && squares_visible)
                 {
-                    THRsquares_monitor.Abort();
+                    cts1.Cancel();
+                    cts1.Dispose();
                     squares_visible = false;
                     if (SL_enabled)
                         show_SL(false);
@@ -645,142 +651,148 @@ namespace ClicklessMouse
             }
         }
 
-        void monitor_squares()
+        void monitor_squares(CancellationToken token)
         {
             int i_SL = 0, i_SR = 0, i_SM = 0, i_SLH = 0, i_SRH = 0;
             int i_max = cursor_time_in_square_ms / loop_time_ms;
             int pos_x, pos_y;
 
-            while (i_SL < i_max && i_SR < i_max && i_SM < i_max
-                && i_SLH < i_max && i_SRH < i_max && squares_visible)
-            {
+
+                while (i_SL < i_max && i_SR < i_max && i_SM < i_max
+                    && i_SLH < i_max && i_SRH < i_max && squares_visible)
+                {
+                if (token.IsCancellationRequested)
+                {
+                    break;
+                }
                 pos_x = System.Windows.Forms.Cursor.Position.X;
-                pos_y = System.Windows.Forms.Cursor.Position.Y;
+                    pos_y = System.Windows.Forms.Cursor.Position.Y;
 
-                if (SL_enabled)
-                {
-                    if (is_cursor_in_SL(pos_x, pos_y))
+                    if (SL_enabled)
                     {
-                        i_SL++;
+                        if (is_cursor_in_SL(pos_x, pos_y))
+                        {
+                            i_SL++;
+                        }
+                        else i_SL = 0;
                     }
-                    else i_SL = 0;
-                }
-                if (SR_enabled)
-                {
-                    if (is_cursor_in_SR(pos_x, pos_y))
+                    if (SR_enabled)
                     {
-                        i_SR++;
+                        if (is_cursor_in_SR(pos_x, pos_y))
+                        {
+                            i_SR++;
+                        }
+                        else i_SR = 0;
                     }
-                    else i_SR = 0;
-                }
-                if (SM_enabled)
-                {
-                    if (is_cursor_in_SM(pos_x, pos_y))
+                    if (SM_enabled)
                     {
-                        i_SM++;
+                        if (is_cursor_in_SM(pos_x, pos_y))
+                        {
+                            i_SM++;
+                        }
+                        else i_SM = 0;
                     }
-                    else i_SM = 0;
-                }
-                if (SLH_enabled)
-                {
-                    if (is_cursor_in_SLH(pos_x, pos_y))
+                    if (SLH_enabled)
                     {
-                        i_SLH++;
+                        if (is_cursor_in_SLH(pos_x, pos_y))
+                        {
+                            i_SLH++;
+                        }
+                        else i_SLH = 0;
                     }
-                    else i_SLH = 0;
-                }
-                if (SRH_enabled)
-                {
-                    if (is_cursor_in_SRH(pos_x, pos_y))
+                    if (SRH_enabled)
                     {
-                        i_SRH++;
+                        if (is_cursor_in_SRH(pos_x, pos_y))
+                        {
+                            i_SRH++;
+                        }
+                        else i_SRH = 0;
                     }
-                    else i_SRH = 0;
+                    Thread.Sleep(loop_time_ms);
                 }
-                Thread.Sleep(loop_time_ms);
+                if (i_SL >= i_max)
+                {
+                    LMBClick(x, y, 100);
+                    if (SL_enabled)
+                        show_SL(false);
+                    if (SR_enabled)
+                        show_SR(false);
+                    if (SM_enabled)
+                        show_SM(false);
+                    if (SLH_enabled)
+                        show_SLH(false);
+                    if (SRH_enabled)
+                        show_SRH(false);
+                    last_click_time = DateTime.Now;
+                    squares_visible = false;
+                }
+                else if (i_SR >= i_max)
+                {
+                    RMBClick(x, y, 100);
+                    if (SL_enabled)
+                        show_SL(false);
+                    if (SR_enabled)
+                        show_SR(false);
+                    if (SM_enabled)
+                        show_SM(false);
+                    if (SLH_enabled)
+                        show_SLH(false);
+                    if (SRH_enabled)
+                        show_SRH(false);
+                    last_click_time = DateTime.Now;
+                    squares_visible = false;
+                }
+                else if (i_SM >= i_max)
+                {
+                    DLMBClick(x, y, 100);
+                    if (SL_enabled)
+                        show_SL(false);
+                    if (SR_enabled)
+                        show_SR(false);
+                    if (SM_enabled)
+                        show_SM(false);
+                    if (SLH_enabled)
+                        show_SLH(false);
+                    if (SRH_enabled)
+                        show_SRH(false);
+                    last_click_time = DateTime.Now;
+                    squares_visible = false;
+                }
+                if (i_SLH >= i_max)
+                {
+                    LMBHold(x, y, 100);
+                    if (SL_enabled)
+                        show_SL(false);
+                    if (SR_enabled)
+                        show_SR(false);
+                    if (SM_enabled)
+                        show_SM(false);
+                    if (SLH_enabled)
+                        show_SLH(false);
+                    if (SRH_enabled)
+                        show_SRH(false);
+                    last_click_time = DateTime.Now;
+                    squares_visible = false;
+                }
+                else if (i_SRH >= i_max)
+                {
+                    RMBHold(x, y, 100);
+                    if (SL_enabled)
+                        show_SL(false);
+                    if (SR_enabled)
+                        show_SR(false);
+                    if (SM_enabled)
+                        show_SM(false);
+                    if (SLH_enabled)
+                        show_SLH(false);
+                    if (SRH_enabled)
+                        show_SRH(false);
+                    last_click_time = DateTime.Now;
+                    squares_visible = false;
+                }
             }
-            if (i_SL >= i_max)
-            {
-                LMBClick(x, y, 100);
-                if (SL_enabled)
-                    show_SL(false);
-                if (SR_enabled)
-                    show_SR(false);
-                if (SM_enabled)
-                    show_SM(false);
-                if (SLH_enabled)
-                    show_SLH(false);
-                if (SRH_enabled)
-                    show_SRH(false);
-                last_click_time = DateTime.Now;
-                squares_visible = false;
-            }
-            else if (i_SR >= i_max)
-            {
-                RMBClick(x, y, 100);
-                if (SL_enabled)
-                    show_SL(false);
-                if (SR_enabled)
-                    show_SR(false);
-                if (SM_enabled)
-                    show_SM(false);
-                if (SLH_enabled)
-                    show_SLH(false);
-                if (SRH_enabled)
-                    show_SRH(false);
-                last_click_time = DateTime.Now;
-                squares_visible = false;
-            }
-            else if (i_SM >= i_max)
-            {
-                DLMBClick(x, y, 100);
-                if (SL_enabled)
-                    show_SL(false);
-                if (SR_enabled)
-                    show_SR(false);
-                if (SM_enabled)
-                    show_SM(false);
-                if (SLH_enabled)
-                    show_SLH(false);
-                if (SRH_enabled)
-                    show_SRH(false);
-                last_click_time = DateTime.Now;
-                squares_visible = false;
-            }
-            if (i_SLH >= i_max)
-            {
-                LMBHold(x, y, 100);
-                if (SL_enabled)
-                    show_SL(false);
-                if (SR_enabled)
-                    show_SR(false);
-                if (SM_enabled)
-                    show_SM(false);
-                if (SLH_enabled)
-                    show_SLH(false);
-                if (SRH_enabled)
-                    show_SRH(false);
-                last_click_time = DateTime.Now;
-                squares_visible = false;
-            }
-            else if (i_SRH >= i_max)
-            {
-                RMBHold(x, y, 100);
-                if (SL_enabled)
-                    show_SL(false);
-                if (SR_enabled)
-                    show_SR(false);
-                if (SM_enabled)
-                    show_SM(false);
-                if (SLH_enabled)
-                    show_SLH(false);
-                if (SRH_enabled)
-                    show_SRH(false);
-                last_click_time = DateTime.Now;
-                squares_visible = false;
-            }
-        }
 
+        
         private void mouse_move_detected()
         {
             if (squares_visible)
@@ -1429,7 +1441,8 @@ namespace ClicklessMouse
         {
             if (CHBscreen_panning.IsChecked == true && THRmouse_monitor2 == null)
             {
-                THRmouse_monitor2 = new Thread(new ThreadStart(monitor_mouse2));
+                cts2 = new CancellationTokenSource();
+                THRmouse_monitor2 = new Thread(()=>monitor_mouse2(cts2.Token));
                 THRmouse_monitor2.Priority = ThreadPriority.Highest;
                 THRmouse_monitor2.Start();
                 screen_panning = true;
@@ -1437,7 +1450,8 @@ namespace ClicklessMouse
             else if (CHBscreen_panning.IsChecked == false && THRmouse_monitor2 != null)
             {
                 screen_panning = false;
-                THRmouse_monitor2.Abort();
+                cts2.Cancel();
+                cts2.Dispose();
                 THRmouse_monitor2 = null;
             }
 
