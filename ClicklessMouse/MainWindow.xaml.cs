@@ -9,8 +9,8 @@ using System.IO;
 using System.Windows.Forms;
 using System.Globalization;
 using System.Windows.Threading;
-using WindowsInput;
-using WindowsInput.Native;
+using ClicklessMouse.WindowsInput;
+using ClicklessMouse.Enums;
 using System.Net;
 using System.Windows.Media;
 

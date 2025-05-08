@@ -1,5 +1,6 @@
 ﻿using System.Windows;
-using WindowsInput.Native;
+using ClicklessMouse.Enums;
+using ClicklessMouse.WindowsInput;
 
 namespace ClicklessMouse
 {

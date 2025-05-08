@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Threading;
 using System.Windows;
-using WindowsInput.Native;
+using ClicklessMouse.WindowsInput;
+using ClicklessMouse.Enums;
 
 namespace ClicklessMouse
 {
