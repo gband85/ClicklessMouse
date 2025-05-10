@@ -2,9 +2,11 @@ using System.Diagnostics;
 using System.Windows.Input;
 using System.Windows;
 using System;
+using Avalonia.Interactivity;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using Avalonia.Input;
 
 namespace ClicklessMouse
 {
@@ -25,28 +27,28 @@ namespace ClicklessMouse
             }
         }
 
-        private void Beula_Click(object sender, RoutedEventArgs e)
+        private void Beula_Click(object sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
             WindowEULA w = new WindowEULA();
             w.Show();
         }
 
-        private void Lhomepage_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        private void Lhomepage_PreviewMouseUp(object sender, PointerReleasedEventArgs e)
         {
             Process.Start("https://" + Lhomepage.Content.ToString());
         }
 
-        private void Lhomepage_MouseEnter(object sender, MouseEventArgs e)
+        private void Lhomepage_MouseEnter(object sender, PointerEventArgs e)
         {
             Mouse.OverrideCursor = Cursors.Hand;
         }
 
-        private void Lhomepage_MouseLeave(object sender, MouseEventArgs e)
+        private void Lhomepage_MouseLeave(object sender, PointerEventArgs e)
         {
             Mouse.OverrideCursor = null;
         }
 
-        private void Bchangelog_Click(object sender, RoutedEventArgs e)
+        private void Bchangelog_Click(object sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
             WindowChangelog wc = new WindowChangelog();
             wc.Show();

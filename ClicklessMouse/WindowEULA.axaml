@@ -4,9 +4,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="680" d:DesignHeight="730"
         x:Class="ClicklessMouse.WindowEULA"
-        Title="EULA" Height="680" Width="730" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="EULA" Height="680" Width="730" WindowStartupLocation="CenterScreen" CanResize="False">
 	<Grid>
-		<TextBox Name="TB" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Visible"
+		<TextBox Name="TB" TextWrapping="Wrap" AcceptsReturn="True" ScrollViewer.VerticalScrollBarVisibility="Visible"
                  Margin="10">
 		</TextBox>
 	</Grid>
