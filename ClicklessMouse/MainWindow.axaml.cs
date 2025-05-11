@@ -564,18 +564,18 @@ namespace ClicklessMouse
                         bool is_this_focused = false;
                         bool is_instructions_focused = false;
 
-                        this.MIfile.Dispatcher.Invoke(DispatcherPriority.Normal,
-                            new Action(() => { mi_file_open = MIfile.IsSubmenuOpen; }));
-                        this.MIrestore.Dispatcher.Invoke(DispatcherPriority.Normal,
-                            new Action(() => { mi_restore_open = MIrestore.IsSubmenuOpen; }));
-                        this.MIlanguage.Dispatcher.Invoke(DispatcherPriority.Normal,
-                            new Action(() => { mi_language_open = MIlanguage.IsSubmenuOpen; }));
-                        this.MIhelp.Dispatcher.Invoke(DispatcherPriority.Normal,
-                            new Action(() => { mi_help_open = MIhelp.IsSubmenuOpen; }));
+                        Dispatcher.UIThread.Invoke(
+                            new Action(() => { mi_file_open = MIfile.IsSubMenuOpen; }));
+                        Dispatcher.UIThread.Invoke(
+                            new Action(() => { mi_restore_open = MIrestore.IsSubMenuOpen; }));
+                        Dispatcher.UIThread.Invoke(
+                            new Action(() => { mi_language_open = MIlanguage.IsSubMenuOpen; }));
+                        Dispatcher.UIThread.Invoke(
+                            new Action(() => { mi_help_open = MIhelp.IsSubMenuOpen; }));
 
-                        this.Dispatcher.Invoke(DispatcherPriority.Normal,
+                        Dispatcher.UIThread.Invoke(
                             new Action(() => { is_this_focused = this.IsActive; }));
-                        wm.Dispatcher.Invoke(DispatcherPriority.Normal,
+                        Dispatcher.UIThread.Invoke(
                             new Action(() => { is_instructions_focused = wm.IsActive; }));
 
                         if (SL_enabled)
@@ -593,28 +593,28 @@ namespace ClicklessMouse
 
                         //reopen submenu that was closed because squares appeared
                         if (mi_file_open)
-                            this.MIfile.Dispatcher.Invoke(DispatcherPriority.Normal,
-                            new Action(() => { MIfile.IsSubmenuOpen = mi_file_open; }));
+                            Dispatcher.UIThread.Invoke(
+                            new Action(() => { MIfile.IsSubMenuOpen = mi_file_open; }));
                         if (mi_restore_open)
-                            this.MIrestore.Dispatcher.Invoke(DispatcherPriority.Normal,
-                            new Action(() => { MIrestore.IsSubmenuOpen = mi_restore_open; }));
+                            Dispatcher.UIThread.Invoke(
+                            new Action(() => { MIrestore.IsSubMenuOpen = mi_restore_open; }));
                         if (mi_language_open)
-                            this.MIlanguage.Dispatcher.Invoke(DispatcherPriority.Normal,
-                            new Action(() => { MIlanguage.IsSubmenuOpen = mi_language_open; }));
+                            Dispatcher.UIThread.Invoke(
+                            new Action(() => { MIlanguage.IsSubMenuOpen = mi_language_open; }));
                         if (mi_help_open)
-                            this.MIhelp.Dispatcher.Invoke(DispatcherPriority.Normal,
-                            new Action(() => { MIhelp.IsSubmenuOpen = mi_help_open; }));
+                            Dispatcher.UIThread.Invoke(
+                            new Action(() => { MIhelp.IsSubMenuOpen = mi_help_open; }));
 
                         //give back stolen focus (by squares) to a Window if it
                         //was focused before they appeared
                         if (is_this_focused)
                         {
-                            this.Dispatcher.Invoke(DispatcherPriority.Normal,
+                            Dispatcher.UIThread.Invoke(
                                 new Action(() => { this.Focus(); }));
                         }
                         else if (is_instructions_focused)
                         {
-                            wm.Dispatcher.Invoke(DispatcherPriority.Normal,
+                            Dispatcher.UIThread.Invoke(
                                 new Action(() => { wm.Focus(); }));
                         }
                         cts1 = new CancellationTokenSource();
