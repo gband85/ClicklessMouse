@@ -11,6 +11,8 @@ using Avalonia.Media;
 using Avalonia.Platform;
 using Avalonia.Threading;
 using HarfBuzzSharp;
+using ClicklessMouse.Enums;
+using ClicklessMouse.WindowsInput;
 
 namespace ClicklessMouse
 {
