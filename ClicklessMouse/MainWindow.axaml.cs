@@ -12,7 +12,12 @@ using Avalonia.Platform;
 using Avalonia.Threading;
 using HarfBuzzSharp;
 using ClicklessMouse.Enums;
+using Screen = System.Windows.Forms.Screen;
+using RoutedEventArgs = Avalonia.Interactivity.RoutedEventArgs;
+using Window = Avalonia.Controls.Window;
 using ClicklessMouse.WindowsInput;
+using WindowState = Avalonia.Controls.WindowState;
+using Avalonia.Input;
 
 namespace ClicklessMouse
 {
