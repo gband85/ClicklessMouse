@@ -13,9 +13,12 @@ using Avalonia.Threading;
 using HarfBuzzSharp;
 using ClicklessMouse.Enums;
 using Screen = System.Windows.Forms.Screen;
+using System.Windows;
 using RoutedEventArgs = Avalonia.Interactivity.RoutedEventArgs;
+using System.Windows.Forms;
 using Window = Avalonia.Controls.Window;
 using ClicklessMouse.WindowsInput;
+using System.Windows.Input;
 using WindowState = Avalonia.Controls.WindowState;
 using Avalonia.Input;
 
