@@ -1730,7 +1730,7 @@ namespace ClicklessMouse
 
         ColorDialog colorDialog2 = new ColorDialog();
 
-        private void TBsquare_color1_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        private void TBsquare_color1_PreviewMouseUp(object sender, PointerReleasedEventArgs e)
         {
             try
             {
@@ -1764,7 +1764,7 @@ namespace ClicklessMouse
             }
         }
 
-        private void TBsquare_color2_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        private void TBsquare_color2_PreviewMouseUp(object sender, PointerReleasedEventArgs e)
         {
             try
             {
