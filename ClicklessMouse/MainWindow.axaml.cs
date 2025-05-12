@@ -1214,7 +1214,7 @@ namespace ClicklessMouse
             ni.Visible = false;
             Show();
             this.WindowState = WindowState.Normal;
-            SetForegroundWindow(new System.Windows.Interop.WindowInteropHelper(this).Handle);
+            SetForegroundWindow(Process.GetCurrentProcess().MainWindowHandle);
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
