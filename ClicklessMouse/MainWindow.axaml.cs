@@ -197,6 +197,8 @@ namespace ClicklessMouse
                 System.Windows.Forms.MessageBox.Show(prog_name + " is already running.",
                         "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Process.GetCurrentProcess().Kill();
+                var box=MessageBoxManager.GetMessageBoxStandard("Error", prog_name + "is already running.", ButtonEnum.Ok);
+                var result = await box.ShowWindowAsync();
             }
         }
 
@@ -1302,7 +1304,7 @@ namespace ClicklessMouse
             wm.Show();
         }
 
-        private void MIabout_Click(object sender, RoutedEventArgs e)
+        private async void MIabout_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -1331,7 +1333,8 @@ namespace ClicklessMouse
             }
             catch (Exception ex)
             {
-                System.Windows.MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                var box = MessageBoxManager.GetMessageBoxStandard(error_title, ex.Message, ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error);
+                var result = await box.ShowAsync();
             }
         }
 
@@ -1482,7 +1485,7 @@ namespace ClicklessMouse
             }
         }
 
-        private void TBcursor_idle_before_squares_appear_TextChanged(object sender, TextChangedEventArgs e)
+        private async void TBcursor_idle_before_squares_appear_TextChanged(object sender, TextChangedEventArgs e)
         {
             try
             {
@@ -1514,11 +1517,12 @@ namespace ClicklessMouse
             }
             catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show(ex.Message, error_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var box = MessageBoxManager.GetMessageBoxStandard(error_title, ex.Message, ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error);
+                var result = await box.ShowAsync();
             }
         }
 
-        private void TBtime_to_start_mouse_TextChanged(object sender, TextChangedEventArgs e)
+        private async void TBtime_to_start_mouse_TextChanged(object sender, TextChangedEventArgs e)
         {
             try
             {
@@ -1550,11 +1554,12 @@ namespace ClicklessMouse
             }
             catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show(ex.Message, error_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var box = MessageBoxManager.GetMessageBoxStandard(error_title, ex.Message,ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error);
+                var result = await box.ShowAsync();
             }
         }
 
-        private void TBcursor_time_in_square_TextChanged(object sender, TextChangedEventArgs e)
+        private async void TBcursor_time_in_square_TextChanged(object sender, TextChangedEventArgs e)
         {
             try
             {
@@ -1580,7 +1585,8 @@ namespace ClicklessMouse
             }
             catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show(ex.Message, error_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var box = MessageBoxManager.GetMessageBoxStandard(error_title, ex.Message, ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error);
+                var result = await box.ShowAsync();
             }
         }
 
@@ -1609,7 +1615,7 @@ namespace ClicklessMouse
             }
         }
 
-        void generate_bat_file()
+        async void  generate_bat_file()
         {
             FileStream fs = null;
             StreamWriter sw = null;
@@ -1639,7 +1645,8 @@ namespace ClicklessMouse
             }
             catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show(ex.Message, error_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var box = MessageBoxManager.GetMessageBoxStandard(error_title, ex.Message, ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error);
+                var result = await box.ShowAsync();
 
                 try
                 {
@@ -1667,7 +1674,7 @@ namespace ClicklessMouse
             }
         }
 
-        private void TBsquare_size_TextChanged(object sender, TextChangedEventArgs e)
+        private async void TBsquare_size_TextChanged(object sender, TextChangedEventArgs e)
         {
             try
             {
@@ -1694,11 +1701,12 @@ namespace ClicklessMouse
             }
             catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show(ex.Message, error_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var box = MessageBoxManager.GetMessageBoxStandard(error_title, ex.Message, ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error);
+                var result = await box.ShowAsync();
             }
         }
 
-        private void TBsquare_border_TextChanged(object sender, TextChangedEventArgs e)
+        private async void TBsquare_border_TextChanged(object sender, TextChangedEventArgs e)
         {
             try
             {
@@ -1722,7 +1730,8 @@ namespace ClicklessMouse
             }
             catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show(ex.Message, error_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var box = MessageBoxManager.GetMessageBoxStandard(error_title, ex.Message, ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error);
+                var result = await box.ShowAsync();
             }
         }
 
@@ -1730,7 +1739,7 @@ namespace ClicklessMouse
 
         ColorDialog colorDialog2 = new ColorDialog();
 
-        private void TBsquare_color1_PreviewMouseUp(object sender, PointerReleasedEventArgs e)
+        private async void TBsquare_color1_PreviewMouseUp(object sender, PointerReleasedEventArgs e)
         {
             try
             {
@@ -1760,11 +1769,12 @@ namespace ClicklessMouse
             }
             catch (Exception ex)
             {
-                System.Windows.MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                var box = MessageBoxManager.GetMessageBoxStandard(error_title, ex.Message, ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error);
+                var result = await box.ShowAsync();
             }
         }
 
-        private void TBsquare_color2_PreviewMouseUp(object sender, PointerReleasedEventArgs e)
+        private async void TBsquare_color2_PreviewMouseUp(object sender, PointerReleasedEventArgs e)
         {
             try
             {
@@ -1794,11 +1804,13 @@ namespace ClicklessMouse
             }
             catch (Exception ex)
             {
-                System.Windows.MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                var box = MessageBoxManager.GetMessageBoxStandard(error_title, ex.Message, ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error);
+                var result = await box.ShowAsync();
+
             }
         }
 
-        private void TBmin_square_size_TextChanged(object sender, TextChangedEventArgs e)
+        private async void TBmin_square_size_TextChanged(object sender, TextChangedEventArgs e)
         {
             try
             {
@@ -1831,11 +1843,12 @@ namespace ClicklessMouse
             }
             catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show(ex.Message, error_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var box = MessageBoxManager.GetMessageBoxStandard(error_title, ex.Message, ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error);
+                var result = await box.ShowAsync();
             }
         }
 
-        private void Click_Bset_recommended_square(object sender, RoutedEventArgs e)
+        private async void Click_Bset_recommended_square(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -1869,11 +1882,12 @@ namespace ClicklessMouse
             }
             catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show(ex.Message, error_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var box = MessageBoxManager.GetMessageBoxStandard(error_title, ex.Message, ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error);
+                var result = await box.ShowAsync();
             }
         }
 
-        private void save_settings()
+        private async void save_settings()
         {
             FileStream fs = null;
             StreamWriter sw = null;
@@ -1915,7 +1929,8 @@ namespace ClicklessMouse
             }
             catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show(ex.Message, error_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var box = MessageBoxManager.GetMessageBoxStandard(error_title, ex.Message, ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error);
+                var result = await box.ShowAsync();
 
                 try
                 {
@@ -1928,7 +1943,7 @@ namespace ClicklessMouse
             }
         }
 
-        private void load_settings()
+        private async void load_settings()
         {
             FileStream fs = null;
             StreamReader sr = null;
@@ -2011,7 +2026,8 @@ namespace ClicklessMouse
             catch (Exception ex)
             {
                 loading_error = true;
-                System.Windows.Forms.MessageBox.Show(ex.Message + loading_error_msg, error_title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var box = MessageBoxManager.GetMessageBoxStandard(error_title, ex.Message + loading_error_msg, ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error);
+                var result = await box.ShowAsync();
 
                 try
                 {
@@ -2024,7 +2040,7 @@ namespace ClicklessMouse
             }
         }
 
-        void update_app_if_necessary()
+        async void update_app_if_necessary()
         {
             try
             {
@@ -2049,12 +2065,10 @@ namespace ClicklessMouse
 
             if ((bool)CHBcheck_for_updates.IsChecked && update_available)
             {
-                MessageBoxResult dialogResult = System.Windows.MessageBox.Show("A new program version" +
-                    " is available. Do you want to download it now?",
-                //    " is available. Do you want to perform an automatic update now?",
-                    "New Version Available", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-                if (dialogResult == MessageBoxResult.Yes)
+                var box = MessageBoxManager.GetMessageBoxStandard("New Version Available", "A new program version" +
+                    " is available. Do you want to download it now?", ButtonEnum.YesNo, MsBox.Avalonia.Enums.Icon.Question);
+                var dialogResult = await box.ShowWindowAsync();
+                if (dialogResult == ButtonResult.Yes)
                 {
                     //Open download page
                     Process.Start("https://" + url_homepage);
