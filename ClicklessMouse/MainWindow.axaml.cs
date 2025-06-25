@@ -174,8 +174,9 @@ namespace ClicklessMouse
             double screenHeight = System.Windows.SystemParameters.PrimaryScreenHeight;
             double windowWidth = this.Width;
             double windowHeight = this.Height;
-            this.Left = (screenWidth / 2) - (windowWidth / 2);
-            this.Top = (screenHeight / 2) - (windowHeight / 2);
+            int x = (int)((screenWidth / 2) - (windowWidth / 2));
+            int y = (int)((screenHeight / 2) - (windowHeight / 2));
+            this.Position = new Avalonia.PixelPoint(x, y);
         }
 
         void is_program_already_running()
