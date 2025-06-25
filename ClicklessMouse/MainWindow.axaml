@@ -30,6 +30,7 @@
 			</MenuItem>
 		</Menu>
 		<GroupBox x:Name="GBmain_settings" Header="Main Settings" HorizontalAlignment="Left" Height="271" Margin="10,29,0,0" VerticalAlignment="Top" Width="308" Foreground="Black">
+	<ctrl:GroupBox Margin="0,0,0,0" Grid.Row="1" x:Name="GBmain_settings" Header="{x:Static p:Resources.GBmain_settings}" Theme="{StaticResource GroupBoxClassic}" RenderOptions.EdgeMode="Antialias" HorizontalAlignment="Left" Width="308">
 			<Grid>
 				<CheckBox x:Name="CHBLMB" Content="LMB click" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Checked="CHBLMB_CheckedChanged" Unchecked="CHBLMB_CheckedChanged"/>
 				<CheckBox x:Name="CHBRMB" Content="RMB click" HorizontalAlignment="Left" Margin="10,40,0,0" VerticalAlignment="Top" Checked="CHBRMB_CheckedChanged" Unchecked="CHBRMB_CheckedChanged"/>
@@ -46,7 +47,10 @@
 
 			</Grid>
 		</GroupBox>
-		<GroupBox x:Name="GBother_settings" Header="Other Settings" HorizontalAlignment="Left" Height="155" Margin="10,305,0,0" VerticalAlignment="Top" Width="308">
+		</ctrl:GroupBox>
+		<ctrl:GroupBox x:Name="GBother_settings" Grid.Row="2" Grid.Column="0" Header="{x:Static p:Resources.GBother_settings}" Theme="{StaticResource GroupBoxClassic}" RenderOptions.EdgeMode="Antialias" HorizontalAlignment="Left" Width="308">
+		</ctrl:GroupBox>
+	<ctrl:GroupBox x:Name="GBsquare_settings" Grid.Row="1" Grid.Column="1" Header="{x:Static p:Resources.GBsquare_settings}" Theme="{StaticResource GroupBoxClassic}" RenderOptions.EdgeMode="Antialias" HorizontalAlignment="Left" Width="291">
 			<Grid>
 				<CheckBox x:Name="CHBrun_at_startup" Content="Run when computer starts" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Checked="CHBrun_at_startup_CheckedChanged" Unchecked="CHBrun_at_startup_CheckedChanged"/>
 				<CheckBox x:Name="CHBstart_minimized" Content="Start minimized" HorizontalAlignment="Left" Margin="10,40,0,0" VerticalAlignment="Top" Checked="CHBstart_minimized_CheckedChanged" Unchecked="CHBstart_minimized_CheckedChanged"/>
@@ -55,8 +59,8 @@
                           HorizontalAlignment="Left" Margin="10,100,0,0" VerticalAlignment="Top" FontSize="14"
                           Checked="CHBcheck_for_updates_CheckedChanged" Unchecked="CHBcheck_for_updates_CheckedChanged  "/>
 			</Grid>
-		</GroupBox>
-		<GroupBox x:Name="GBsquare_settings" Header="Squares Settings" HorizontalAlignment="Left" Height="188" Margin="323,33,0,0" VerticalAlignment="Top" Width="291">
+	</ctrl:GroupBox>
+		<ctrl:GroupBox x:Name="GBrecommended_square_size" Grid.Row="2" Grid.Column="1" Header="{x:Static p:Resources.GBrecommended_square_size}" Theme="{StaticResource GroupBoxClassic}" RenderOptions.EdgeMode="Antialias" HorizontalAlignment="Left" Height="135" VerticalAlignment="Top" Width="291">
 			<Grid>
 				<Label x:Name="Lsquare_size" Content="Size [px]:" HorizontalAlignment="Left" Margin="5,10,0,0" VerticalAlignment="Top"/>
 				<Label x:Name="Lsquare_border" Content="Border width [px]:" HorizontalAlignment="Left" Margin="5,40,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
@@ -69,7 +73,7 @@
 				<TextBox x:Name="TBsquare_color2" HorizontalAlignment="Left" Height="23" Margin="171,102,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="95" PreviewMouseUp="TBsquare_color2_PreviewMouseUp"/>
 				<TextBox x:Name="TBmin_square_size" HorizontalAlignment="Left" Height="23" Margin="171,134,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="45" TextChanged="TBmin_square_size_TextChanged"/>
 			</Grid>
-		</GroupBox>
+		</ctrl:GroupBox>
 		<GroupBox x:Name="GBrecommended_square_size" Header="Recommended Square Size" HorizontalAlignment="Left" Height="135" Margin="323,226,0,0" VerticalAlignment="Top" Width="291">
 			<Grid>
 				<Label x:Name="Lscreen_size" Content="Diagonal screen size [in]:" HorizontalAlignment="Left" Margin="5,10,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
