@@ -24,6 +24,7 @@
 			</MenuItem>
 			<MenuItem x:Name="MIhelp" Header="{x:Static p:Resources.MIhelp}">
 				<MenuItem x:Name="MImanual" Header="{x:Static p:Resources.MImanual}"  Background="#FFEAEAEA" Click="MImanual_Click"/>
+				<MenuItem x:Name="MIabout" Header="{x:Static p:Resources.MIabout}" Click="MIabout_Click"/>
 			</MenuItem>
 			<MenuItem x:Name="MIabout" Header="About" Click="MIabout_Click">
 			</MenuItem>
