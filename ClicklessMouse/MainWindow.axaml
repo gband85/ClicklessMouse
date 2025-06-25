@@ -3,6 +3,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="512" d:DesignHeight="641"
+        x:Name="Wmain"
         x:Class="ClicklessMouse.MainWindow"
         Title="Clickless Mouse" Height="512" Width="641" FontSize="13"
         xmlns:ctrl="using:GroupBox.Avalonia.Controls"
