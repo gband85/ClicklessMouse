@@ -1,6 +1,6 @@
 ﻿namespace ClicklessMouse
 {
-    partial class Square
+    partial class SquareForm
     {
         /// <summary>
         /// Required designer variable.

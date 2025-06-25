@@ -3,14 +3,14 @@ using System.Windows.Forms;
 
 namespace ClicklessMouse
 {
-    public partial class Square : Form
+    public partial class SquareForm : Form
     {
         int side = 1;
         int line_width = 1;
         Color c1;
         Color c2;
 
-        public Square(int Side, int Line_width, Color color1, Color color2)
+        public SquareForm(int Side, int Line_width, Color color1, Color color2)
         {
             InitializeComponent();
 
