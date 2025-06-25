@@ -4,25 +4,25 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="512" d:DesignHeight="641"
         x:Class="ClicklessMouse.MainWindow"
-        Title="Clickless Mouse" Height="512" Width="641" FontSize="14"
-        WindowStartupLocation="CenterScreen" Closing="Window_Closing"
-        StateChanged="Wmain_StateChanged" ResizeMode="CanMinimize">
-	<Grid>
-		<!-- Menu -->
-		<Menu x:Name="Mmain" Width="Auto" Height="28" Background="#FFEAEAEA" VerticalAlignment="Top" FontSize="13" Padding="0,2,2,0">
+        Title="Clickless Mouse" Height="512" Width="641" FontSize="13"
+        xmlns:ctrl="using:GroupBox.Avalonia.Controls"
+        xmlns:local="clr-namespace:ClicklessMouse"
+        xmlns:p="clr-namespace:ClicklessMouse.Properties"
+        WindowStartupLocation="CenterScreen"
+        CanResize="True" Closing="Window_Closing">
 			<MenuItem x:Name="MIfile" Header="File">
 				<MenuItem x:Name="MIexit" Header="Exit" Click="MIexit_Click" Background="#FFEAEAEA" />
 			</MenuItem>
-			<MenuItem x:Name="MIrestore" Header="Restore">
-				<MenuItem x:Name="MIdefault_colors" Background="#FFEAEAEA" Header="Default Square Colors" Click="MIdefault_colors_Click" />
-				<MenuItem x:Name="MIdefault_settings" Background="#FFEAEAEA" Header="Default Settings" Click="MIdefault_settings_Click" />
+			<MenuItem x:Name="MIrestore" Header="{x:Static p:Resources.MIrestore}">
+				<MenuItem x:Name="MIdefault_colors" Background="#FFEAEAEA" Header="{x:Static p:Resources.MIdefault_colors}" Click="MIdefault_colors_Click" />
+				<MenuItem x:Name="MIdefault_settings" Background="#FFEAEAEA" Header="{x:Static p:Resources.MIdefault_settings}" Click="MIdefault_settings_Click" />
 			</MenuItem>
-			<MenuItem x:Name="MIlanguage" Header="Language">
-				<MenuItem x:Name="MIenglish" Header="English" Background="#FFEAEAEA" Click="MIenglish_Click" />
-				<MenuItem x:Name="MIpolish" Header="Polish" Background="#FFEAEAEA" Click="MIpolish_Click" />
+			<MenuItem x:Name="MIlanguage" Header="{x:Static p:Resources.MIlanguage}">
+				<MenuItem x:Name="MIenglish" Header="{x:Static p:Resources.MIenglish}" Background="#FFEAEAEA" Click="MIenglish_Click" />
+				<MenuItem x:Name="MIpolish" Header="{x:Static p:Resources.MIpolish}" Background="#FFEAEAEA" Click="MIpolish_Click" />
 			</MenuItem>
-			<MenuItem x:Name="MIhelp" Header="Help">
-				<MenuItem x:Name="MImanual" Header="User Guide"  Background="#FFEAEAEA" Click="MImanual_Click"/>
+			<MenuItem x:Name="MIhelp" Header="{x:Static p:Resources.MIhelp}">
+				<MenuItem x:Name="MImanual" Header="{x:Static p:Resources.MImanual}"  Background="#FFEAEAEA" Click="MImanual_Click"/>
 			</MenuItem>
 			<MenuItem x:Name="MIabout" Header="About" Click="MIabout_Click">
 			</MenuItem>
