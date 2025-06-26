@@ -67,8 +67,8 @@ namespace ClicklessMouse
         int cursor_time_in_square_ms; //cursor hover time in square needed to perform a click
         int size;
         int border_width;
-        System.Drawing.Color color1 = System.Drawing.Color.FromArgb(default_color1); //square color 1
-        System.Drawing.Color color2 = System.Drawing.Color.FromArgb(default_color2); //square color 2
+        Avalonia.Media.Color color1 = Avalonia.Media.Color.FromUInt32(default_color1); //square color 1
+        Avalonia.Media.Color color2 = Avalonia.Media.Color.FromUInt32(default_color2); //square color 2
         string square_color1_str;
         string square_color2_str;
         int min_square_size_percents = default_min_square_size_percents; //how much square size can
