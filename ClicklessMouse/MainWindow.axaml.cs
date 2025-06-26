@@ -50,8 +50,8 @@ namespace ClicklessMouse
         const int lowest_size = 10;
         const int default_border_width = 2;
         const int lowest_border_width = 1;
-        const int default_color1 = -16776961;
-        const int default_color2 = -256;
+        const uint default_color1 = 4278190335;
+        const uint default_color2 = 4294967040;
         const int default_min_square_size_percents = 60;
         const int lowest_min_square_size_percents = 10;
         const int loop_time_ms = 10; //how often is cursor position checked (10ms recommended)
