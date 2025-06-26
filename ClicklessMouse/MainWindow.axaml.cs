@@ -932,7 +932,7 @@ namespace ClicklessMouse
 
         void show_SL(bool show)
         {
-            if (SL.InvokeRequired)
+            if (!SL.CheckAccess())
             {
                 try
                 {
@@ -956,7 +956,7 @@ namespace ClicklessMouse
         }
         void show_SR(bool show)
         {
-            if (SR.InvokeRequired)
+            if (!SR.CheckAccess())
             {
                 try
                 {
@@ -980,7 +980,7 @@ namespace ClicklessMouse
         }
         void show_SM(bool show)
         {
-            if (SM.InvokeRequired)
+            if (!SM.CheckAccess())
             {
                 try
                 {
@@ -1004,7 +1004,7 @@ namespace ClicklessMouse
         }
         void show_SLH(bool show)
         {
-            if (SLH.InvokeRequired)
+            if (!SLH.CheckAccess())
             {
                 try
                 {
@@ -1028,7 +1028,7 @@ namespace ClicklessMouse
         }
         void show_SRH(bool show)
         {
-            if (SRH.InvokeRequired)
+            if (!SRH.CheckAccess())
             {
                 try
                 {
@@ -1055,7 +1055,7 @@ namespace ClicklessMouse
 
         void regenerate_SL()
         {
-            if (SL != null && SL.InvokeRequired)
+            if (SL != null && !SL.CheckAccess())
             {
                 try
                 {
@@ -1084,7 +1084,7 @@ namespace ClicklessMouse
 
         void regenerate_SR()
         {
-            if (SR != null && SR.InvokeRequired)
+            if (SR != null && !SR.CheckAccess())
             {
                 try
                 {
@@ -1113,7 +1113,7 @@ namespace ClicklessMouse
 
         void regenerate_SM()
         {
-            if (SM != null && SM.InvokeRequired)
+            if (SM != null && !SM.CheckAccess())
             {
                 try
                 {
@@ -1142,7 +1142,7 @@ namespace ClicklessMouse
 
         void regenerate_SLH()
         {
-            if (SLH != null && SLH.InvokeRequired)
+            if (SLH != null && !SLH.CheckAccess())
             {
                 try
                 {
@@ -1171,7 +1171,7 @@ namespace ClicklessMouse
 
         void regenerate_SRH()
         {
-            if (SRH != null && SRH.InvokeRequired)
+            if (SRH != null && !SRH.CheckAccess())
             {
                 try
                 {
