@@ -1,6 +1,9 @@
-﻿using System.Windows;
-using ClicklessMouse.Enums;
-using ClicklessMouse.WindowsInput;
+﻿using System.Diagnostics;
+using System.Threading;
+using System.Windows;
+//using ClicklessMouse.Enums;
+using WindowsInput;
+using WindowsInput.Native;
 using Window = Avalonia.Controls.Window;
 
 namespace ClicklessMouse
@@ -25,6 +28,17 @@ namespace ClicklessMouse
         void right_up()
         {
             sim.Mouse.RightButtonUp();
+        }
+
+        void freeze_mouse(int X, int Y, int time)
+        {
+            Stopwatch stopwatch = Stopwatch.StartNew();
+            do
+            {
+                System.Windows.Forms.Cursor.Position = new System.Drawing.Point(X, Y);
+                Thread.Sleep(1);
+            }
+            while (stopwatch.ElapsedMilliseconds < time);
         }
 
         public void LMBClick(int X, int Y, int time)
