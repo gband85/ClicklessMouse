@@ -1070,7 +1070,7 @@ namespace ClicklessMouse
             else
             {
                 if (SL != null)
-                    SL.Dispose();
+                    SL.Close();
 
                 SL = new Square(size, border_width, color1, color2);
                 SL.TopMost = true;
@@ -1099,7 +1099,7 @@ namespace ClicklessMouse
             else
             {
                 if (SR != null)
-                    SR.Dispose();
+                    SR.Close();
 
                 SR = new Square(size, border_width, color1, color2);
                 SR.TopMost = true;
@@ -1128,7 +1128,7 @@ namespace ClicklessMouse
             else
             {
                 if (SM != null)
-                    SM.Dispose();
+                    SM.Close();
 
                 SM = new Square(size, border_width, color1, color2);
                 SM.TopMost = true;
@@ -1157,7 +1157,7 @@ namespace ClicklessMouse
             else
             {
                 if (SLH != null)
-                    SLH.Dispose();
+                    SLH.Close();
 
                 SLH = new Square(size, border_width, color1, color2);
                 SLH.TopMost = true;
@@ -1186,7 +1186,7 @@ namespace ClicklessMouse
             else
             {
                 if (SRH != null)
-                    SRH.Dispose();
+                    SRH.Close();
 
                 SRH = new Square(size, border_width, color1, color2);
                 SRH.TopMost = true;
