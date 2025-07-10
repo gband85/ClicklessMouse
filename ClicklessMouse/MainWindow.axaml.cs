@@ -206,27 +206,45 @@ namespace ClicklessMouse
         void fix_wrong_values()
         {
             if (cursor_idle_time_ms < lowest_cursor_idle_time_ms)
+            {
                 TBcursor_idle_before_squares_appear.Text = lowest_cursor_idle_time_ms.ToString();
+                cursor_idle_time_ms = lowest_cursor_idle_time_ms;
+            }
 
             if (time_to_start_mouse_movement_ms < lowest_time_to_start_mouse_movement_ms)
+            {
                 TBtime_to_start_mouse.Text = lowest_time_to_start_mouse_movement_ms.ToString();
+                time_to_start_mouse_movement_ms = lowest_time_to_start_mouse_movement_ms;
+            }
 
             if (cursor_time_in_square_ms < lowest_cursor_time_in_square_ms)
+            {
                 TBcursor_time_in_square.Text = lowest_cursor_time_in_square_ms.ToString();
-
+                cursor_time_in_square_ms = lowest_cursor_time_in_square_ms;
+            }
             if (size < lowest_size)
+            {
                 TBsquare_size.Text = lowest_size.ToString();
+                size = lowest_size;
+            }
 
             if (border_width < lowest_border_width)
+            {
                 TBsquare_border.Text = lowest_border_width.ToString();
+                border_width = lowest_border_width;
+            }
 
             if (min_square_size_percents < lowest_min_square_size_percents)
             {
                 TBmin_square_size.Text = lowest_min_square_size_percents.ToString();
+                min_square_size_percents = lowest_min_square_size_percents;
             }
+
             else if (min_square_size_percents > 100)
             {
+
                 TBmin_square_size.Text = "100";
+                min_square_size_percents = 100;
             }
         }
 
@@ -250,6 +268,8 @@ namespace ClicklessMouse
             CHBcheck_for_updates_CheckedChanged(null, null);
 
             TBcursor_idle_before_squares_appear.Text = default_cursor_idle_time_ms.ToString();
+            cursor_idle_time_ms = default_cursor_idle_time_ms;
+
             TBtime_to_start_mouse.Text = default_time_to_start_mouse_movement_ms.ToString();
             TBcursor_time_in_square.Text = default_cursor_time_in_square_ms.ToString();
 
