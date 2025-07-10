@@ -271,7 +271,10 @@ namespace ClicklessMouse
             cursor_idle_time_ms = default_cursor_idle_time_ms;
 
             TBtime_to_start_mouse.Text = default_time_to_start_mouse_movement_ms.ToString();
+            time_to_start_mouse_movement_ms = default_time_to_start_mouse_movement_ms;
+
             TBcursor_time_in_square.Text = default_cursor_time_in_square_ms.ToString();
+            cursor_time_in_square_ms = default_cursor_time_in_square_ms;
 
             CHBrun_at_startup.IsChecked = false;
             CHBstart_minimized.IsChecked = false;
@@ -279,7 +282,10 @@ namespace ClicklessMouse
             CHBcheck_for_updates.IsChecked = false;
 
             TBsquare_size.Text = default_size.ToString();
+            size = default_size;
+
             TBsquare_border.Text = default_border_width.ToString();
+            border_width=default_border_width;
 
             square_color1_str = default_color1.ToString();
             square_color2_str = default_color2.ToString();
