@@ -198,7 +198,7 @@ namespace ClicklessMouse
                 System.Windows.Forms.MessageBox.Show(prog_name + " is already running.",
                         "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Process.GetCurrentProcess().Kill();
-                var box=MessageBoxManager.GetMessageBoxStandard("Error", prog_name + "is already running.", ButtonEnum.Ok);
+                var box=MessageBoxManager.GetMessageBoxStandard("Error", prog_name + "is already running.", ButtonEnum.Ok,MsBox.Avalonia.Enums.Icon.Error);
                 var result = await box.ShowWindowAsync();
             }
         }
