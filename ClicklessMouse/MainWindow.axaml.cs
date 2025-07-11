@@ -974,7 +974,7 @@ namespace ClicklessMouse
             {
                 if (show)
                 {
-                    SL.Location = new System.Drawing.Point(SL_start_x, SL_start_y);
+                        SL.Position = new PixelPoint(SL_start_x, SL_start_y);
                     SL.Show();
                 }
                 else SL.Hide();
@@ -998,7 +998,7 @@ namespace ClicklessMouse
             {
                 if (show)
                 {
-                    SR.Location = new System.Drawing.Point(SR_start_x, SR_start_y);
+                    SR.Position = new PixelPoint(SR_start_x, SR_start_y);
                     SR.Show();
                 }
                 else SR.Hide();
@@ -1022,7 +1022,7 @@ namespace ClicklessMouse
             {
                 if (show)
                 {
-                    SM.Location = new System.Drawing.Point(SM_start_x, SM_start_y);
+                    SM.Position = new PixelPoint(SM_start_x, SM_start_y);
                     SM.Show();
                 }
                 else SM.Hide();
@@ -1046,7 +1046,7 @@ namespace ClicklessMouse
             {
                 if (show)
                 {
-                    SLH.Location = new System.Drawing.Point(SLH_start_x, SLH_start_y);
+                    SLH.Position = new PixelPoint(SLH_start_x, SLH_start_y);
                     SLH.Show();
                 }
                 else SLH.Hide();
@@ -1070,7 +1070,7 @@ namespace ClicklessMouse
             {
                 if (show)
                 {
-                    SRH.Location = new System.Drawing.Point(SRH_start_x, SRH_start_y);
+                    SRH.Position = new PixelPoint(SRH_start_x, SRH_start_y);
                     SRH.Show();
                 }
                 else SRH.Hide();
