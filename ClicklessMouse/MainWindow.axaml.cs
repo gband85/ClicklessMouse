@@ -1099,7 +1099,7 @@ namespace ClicklessMouse
                     SL.Close();
 
                 SL = new Square(size, border_width, color1, color2);
-                SL.TopMost = true;
+                    SL.Topmost = true;
                 SL.Show();
                 SL.Height = size;
                 SL.Width = size;
@@ -1128,7 +1128,7 @@ namespace ClicklessMouse
                     SR.Close();
 
                 SR = new Square(size, border_width, color1, color2);
-                SR.TopMost = true;
+                SR.Topmost = true;
                 SR.Show();
                 SR.Height = size;
                 SR.Width = size;
@@ -1157,7 +1157,7 @@ namespace ClicklessMouse
                     SM.Close();
 
                 SM = new Square(size, border_width, color1, color2);
-                SM.TopMost = true;
+                SM.Topmost = true;
                 SM.Show();
                 SM.Height = size;
                 SM.Width = size;
@@ -1186,7 +1186,7 @@ namespace ClicklessMouse
                     SLH.Close();
 
                 SLH = new Square(size, border_width, color1, color2);
-                SLH.TopMost = true;
+                SLH.Topmost = true;
                 SLH.Show();
                 SLH.Height = size;
                 SLH.Width = size;
@@ -1215,7 +1215,7 @@ namespace ClicklessMouse
                     SRH.Close();
 
                 SRH = new Square(size, border_width, color1, color2);
-                SRH.TopMost = true;
+                SRH.Topmost = true;
                 SRH.Show();
                 SRH.Height = size;
                 SRH.Width = size;
