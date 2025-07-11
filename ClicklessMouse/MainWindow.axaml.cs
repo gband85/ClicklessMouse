@@ -170,8 +170,8 @@ namespace ClicklessMouse
 
         private void CenterWindowOnScreen()
         {
-            double screenWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
-            double screenHeight = System.Windows.SystemParameters.PrimaryScreenHeight;
+            double screenWidth = Screens.Primary.Bounds.Width;
+            double screenHeight = Screens.Primary.Bounds.Height;
             double windowWidth = this.Width;
             double windowHeight = this.Height;
             int x = (int)((screenWidth / 2) - (windowWidth / 2));
@@ -317,8 +317,8 @@ namespace ClicklessMouse
             TBmin_square_size.Text = default_min_square_size_percents.ToString();
 
             TBscreen_size.Text = "";
-            int x = Screen.PrimaryScreen.Bounds.Width;
-            int y = Screen.PrimaryScreen.Bounds.Height;
+            int x = Screens.Primary.Bounds.Width;
+            int y = Screens.Primary.Bounds.Height;
 
             Lscreen_resolution.Content = contentLscreen_resolution + x + "x" + y;
         }
@@ -373,8 +373,8 @@ namespace ClicklessMouse
                     break;
                 }
                 //user may change screen resolution so max_x and max_y should be updated
-                max_x = Screen.PrimaryScreen.Bounds.Width - 1;
-                max_y = Screen.PrimaryScreen.Bounds.Height - 1;
+                max_x = Screens.Primary.Bounds.Width - 1;
+                max_y = Screens.Primary.Bounds.Height - 1;
 
                 x1 = System.Windows.Forms.Cursor.Position.X;
                 y1 = System.Windows.Forms.Cursor.Position.Y;
