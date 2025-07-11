@@ -290,7 +290,7 @@ namespace ClicklessMouse
             square_color1_str = default_color1.ToString();
             square_color2_str = default_color2.ToString();
 
-            int argb = Convert.ToInt32(square_color1_str);
+            uint argb = Convert.ToUInt32(square_color1_str);
 
             byte[] values = BitConverter.GetBytes(argb);
 
@@ -302,7 +302,7 @@ namespace ClicklessMouse
             TBsquare_color1.Background = new SolidColorBrush(Color.FromArgb(a, r, g, b));
             color1 = Avalonia.Media.Color.FromArgb(a, r, g, b);
 
-            argb = Convert.ToInt32(square_color2_str);
+            argb = Convert.ToUInt32(square_color2_str);
 
             values = BitConverter.GetBytes(argb);
 
@@ -1257,7 +1257,7 @@ namespace ClicklessMouse
             square_color1_str = default_color1.ToString();
             square_color2_str = default_color2.ToString();
 
-            int argb = Convert.ToInt32(square_color1_str);
+            uint argb = Convert.ToUInt32(square_color1_str);
 
             byte[] values = BitConverter.GetBytes(argb);
 
