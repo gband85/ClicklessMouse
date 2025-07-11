@@ -179,7 +179,7 @@ namespace ClicklessMouse
             this.Position = new Avalonia.PixelPoint(x, y);
         }
 
-        void is_program_already_running()
+        async void is_program_already_running()
         {
             Process[] arr = Process.GetProcesses();
             string[] a;
