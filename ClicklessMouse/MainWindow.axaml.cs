@@ -300,7 +300,7 @@ namespace ClicklessMouse
             byte b = values[0];
 
             TBsquare_color1.Background = new SolidColorBrush(Color.FromArgb(a, r, g, b));
-            color1 = System.Drawing.Color.FromArgb(a, r, g, b);
+            color1 = Avalonia.Media.Color.FromArgb(a, r, g, b);
 
             argb = Convert.ToInt32(square_color2_str);
 
@@ -312,7 +312,7 @@ namespace ClicklessMouse
             b = values[0];
 
             TBsquare_color2.Background = new SolidColorBrush(Color.FromArgb(a, r, g, b));
-            color2 = System.Drawing.Color.FromArgb(a, r, g, b);
+            color2 = Avalonia.Media.Color.FromArgb(a, r, g, b);
 
             TBmin_square_size.Text = default_min_square_size_percents.ToString();
 
@@ -1267,7 +1267,7 @@ namespace ClicklessMouse
             byte b = values[0];
 
             TBsquare_color1.Background = new SolidColorBrush(Color.FromArgb(a, r, g, b));
-            color1 = System.Drawing.Color.FromArgb(a, r, g, b);
+            color1 = Avalonia.Media.Color.FromArgb(a, r, g, b);
 
             argb = Convert.ToInt32(square_color2_str);
 
@@ -1279,7 +1279,7 @@ namespace ClicklessMouse
             b = values[0];
 
             TBsquare_color2.Background = new SolidColorBrush(Color.FromArgb(a, r, g, b));
-            color2 = System.Drawing.Color.FromArgb(a, r, g, b);
+            color2 = Avalonia.Media.Color.FromArgb(a, r, g, b);
 
             regenerate_squares();
 
@@ -2012,7 +2012,7 @@ namespace ClicklessMouse
                     byte b = values[0];
 
                     TBsquare_color1.Background = new SolidColorBrush(Color.FromArgb(a, r, g, b));
-                    color1 = System.Drawing.Color.FromArgb(a, r, g, b);
+                    color1 = Avalonia.Media.Color.FromArgb(a, r, g, b);
 
                     argb = Convert.ToInt32(square_color2_str);
 
@@ -2024,7 +2024,7 @@ namespace ClicklessMouse
                     b = values[0];
 
                     TBsquare_color2.Background = new SolidColorBrush(Color.FromArgb(a, r, g, b));
-                    color2 = System.Drawing.Color.FromArgb(a, r, g, b);
+                    color2 = Avalonia.Media.Color.FromArgb(a, r, g, b);
 
                     TBmin_square_size.Text = sr.ReadLine();
                     TBscreen_size.Text = sr.ReadLine();
