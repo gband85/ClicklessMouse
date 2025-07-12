@@ -97,7 +97,7 @@ namespace ClicklessMouse
         bool loading_error = false;
         Process prc;
 
-        NotifyIcon ni = new NotifyIcon();
+        //NotifyIcon ni = new NotifyIcon();
 
         InputSimulator sim = new InputSimulator();
 
@@ -111,11 +111,11 @@ namespace ClicklessMouse
 
             InitializeComponent();
 
-            Stream iconStream = System.Windows.Application.GetResourceStream(
-                new Uri("pack://application:,,,/ClicklessMouse;component/clickless_mouse.ico")).Stream;
-            ni.Icon = new System.Drawing.Icon(iconStream);
-            iconStream.Close();
-            ni.MouseClick += new System.Windows.Forms.MouseEventHandler(ni_MouseClick);
+            //Stream iconStream = System.Windows.Application.GetResourceStream(
+            //    new Uri("pack://application:,,,/ClicklessMouse;component/clickless_mouse.ico")).Stream;
+            //ni.Icon = new System.Drawing.Icon(iconStream);
+            //iconStream.Close();
+            //ni.MouseClick += new System.Windows.Forms.MouseEventHandler(ni_MouseClick);
 
             CultureInfo ci = CultureInfo.InstalledUICulture;
 
@@ -154,7 +154,7 @@ namespace ClicklessMouse
                 if (CHBminimize_to_tray.IsChecked == true)
                 {
                     this.Hide();
-                    ni.Visible = true;
+                    //ni.Visible = true;
                 }
             }
 
@@ -1224,13 +1224,13 @@ namespace ClicklessMouse
             if (this.WindowState == WindowState.Minimized && CHBminimize_to_tray.IsChecked == true)
             {
                 this.Hide();
-                ni.Visible = true;
+                //ni.Visible = true;
             }
         }
 
         void ni_MouseClick(object sender, System.Windows.Forms.MouseEventArgs e)
         {
-            ni.Visible = false;
+            //ni.Visible = false;
             Show();
             this.WindowState = WindowState.Normal;
             SetForegroundWindow(Process.GetCurrentProcess().MainWindowHandle);
@@ -1243,8 +1243,8 @@ namespace ClicklessMouse
 
         private void MIexit_Click(object sender, RoutedEventArgs e)
         {
-            ni.Visible = false;
-            ni.Dispose();
+            //ni.Visible = false;
+            //ni.Dispose();
 
             release_buttons_and_keys();
             Process.GetCurrentProcess().Kill();
