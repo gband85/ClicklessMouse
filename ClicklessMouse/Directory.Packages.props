@@ -3,10 +3,16 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="Avalonia" Version="11.2.1" />
-    <PackageVersion Include="Avalonia.Desktop" Version="11.2.1" />
-    <PackageVersion Include="Avalonia.Themes.Fluent" Version="11.2.1" />
-    <PackageVersion Include="Avalonia.Fonts.Inter" Version="11.2.1" />
-    <PackageVersion Include="Avalonia.Diagnostics" Version="11.2.1"/>
+    <PackageVersion Include="Avalonia" Version="11.3.0" />
+    <PackageVersion Include="Avalonia.Controls.ColorPicker" Version="11.3.0" />
+    <PackageVersion Include="Avalonia.Desktop" Version="11.3.0" />
+    <PackageVersion Include="Avalonia.Themes.Fluent" Version="11.3.0" />
+    <PackageVersion Include="Avalonia.Fonts.Inter" Version="11.3.0" />
+    <PackageVersion Include="Avalonia.Diagnostics" Version="11.3.0" />
+    <PackageVersion Include="Avalonia.Themes.Simple" Version="11.3.0" />
+    <PackageVersion Include="BinToss.GroupBox.Avalonia" Version="1.0.0" />
+    <PackageVersion Include="InputSimulatorCore" Version="1.0.5" />
+    <PackageVersion Include="MessageBox.Avalonia" Version="3.2.0" />
+    <PackageVersion Include="X11" Version="1.0.6" />
   </ItemGroup>
 </Project>
