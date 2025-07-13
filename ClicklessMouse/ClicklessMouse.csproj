@@ -36,9 +36,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Update="DialogColor.axaml.cs">
-      <DependentUpon>DialogColor.axaml</DependentUpon>
-    </Compile>
   </ItemGroup>
 
   <ItemGroup>
