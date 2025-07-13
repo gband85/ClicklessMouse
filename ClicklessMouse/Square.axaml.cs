@@ -3,7 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using Avalonia.Threading;
-using System.Drawing;
+using System.Drawing;using Color = Avalonia.Media.Color;
 using System.Windows.Forms;
 using Color = Avalonia.Media.Color;
 
