@@ -4,6 +4,8 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Window = Avalonia.Controls.Window;
+using MsBox.Avalonia;
+using MsBox.Avalonia.Enums;
 
 namespace ClicklessMouse
 {
@@ -43,8 +45,13 @@ namespace ClicklessMouse
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error WE001", MessageBoxButton.OK, MessageBoxImage.Error);
+                ShowError(ex);
             }
+        }
+        async private void ShowError(Exception ex)
+        {
+            var box = MessageBoxManager.GetMessageBoxStandard("Error WE001", ex.Message, MsBox.Avalonia.Enums.ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error);
+            await box.ShowAsync();
         }
     }
 }

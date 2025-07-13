@@ -4,6 +4,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Window = Avalonia.Controls.Window;
+using MsBox.Avalonia;
 
 namespace ClicklessMouse;
 
@@ -30,7 +31,12 @@ public partial class WindowChangelog : Window
         }
         catch (Exception ex)
         {
-            MessageBox.Show(ex.Message, "Error WC001", MessageBoxButton.OK, MessageBoxImage.Error);
+            ShowError(ex);
         }
+    }
+    async private void ShowError(Exception ex)
+    {
+        var box = MessageBoxManager.GetMessageBoxStandard("Error WC001", ex.Message, MsBox.Avalonia.Enums.ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error);
+        await box.ShowAsync();
     }
 }
