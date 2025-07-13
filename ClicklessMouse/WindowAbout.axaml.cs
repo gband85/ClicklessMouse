@@ -1,12 +1,15 @@
-using System.Diagnostics;
-using System.Windows.Input;
-using System.Windows;
-using System;
-using Avalonia.Interactivity;
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
 using Avalonia.Input;
+using Avalonia.Interactivity;
+using Avalonia.Markup.Xaml;
+using MsBox.Avalonia;
+using MsBox.Avalonia.Enums;
+using System;
+using System.Diagnostics;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
 
 namespace ClicklessMouse
 {
@@ -23,29 +26,19 @@ namespace ClicklessMouse
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error WC001", MessageBoxButton.OK, MessageBoxImage.Error);
+                ShowError(ex);
             }
         }
 
+        async private void ShowError(Exception ex)
+        {
+var box = MessageBoxManager.GetMessageBoxStandard("Error WC001", ex.Message, ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error);
+                var result = await box.ShowAsync();
+        }
         private void Beula_Click(object sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
             WindowEULA w = new WindowEULA();
             w.Show();
-        }
-
-        private void Lhomepage_PreviewMouseUp(object sender, PointerReleasedEventArgs e)
-        {
-            Process.Start("https://" + Lhomepage.Content.ToString());
-        }
-
-        private void Lhomepage_MouseEnter(object sender, PointerEventArgs e)
-        {
-            Mouse.OverrideCursor = Cursors.Hand;
-        }
-
-        private void Lhomepage_MouseLeave(object sender, PointerEventArgs e)
-        {
-            Mouse.OverrideCursor = null;
         }
 
         private void Bchangelog_Click(object sender, Avalonia.Interactivity.RoutedEventArgs e)
