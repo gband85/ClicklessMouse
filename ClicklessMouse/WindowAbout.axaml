@@ -12,15 +12,14 @@
 		<Label x:Name="Llatest_version" Content="Latest version:" Canvas.Left="10" Canvas.Top="41"
                            FontSize="16"/>
 		<Label x:Name="Lcopyright" Content="..." Canvas.Left="10" Canvas.Top="138" FontSize="16"/>
-		<Label x:Name="Lhomepage2" Content="Homepage:" Canvas.Left="10" Canvas.Top="102" FontSize="16"/>
+		<Label x:Name="Lhomepage2" Content="Homepage: " Canvas.Left="10" Canvas.Top="102" FontSize="16"/>
 		<Label x:Name="Linstalled_version" Content="Installed version:" Canvas.Left="10"
                            Canvas.Top="72" FontSize="16"/>
-		<Label x:Name="Lhomepage" Content="link" Canvas.Left="97" Canvas.Top="102" FontSize="16"
-                           Foreground="Blue" PointerReleased="Lhomepage_PreviewMouseUp"
-                           PointerEntered="Lhomepage_MouseEnter" PointerExited="Lhomepage_MouseLeave"/>
+		
+		<HyperlinkButton VerticalAlignment="Top" FontSize="16" Content="link" Canvas.Left="97" Canvas.Top="100" x:Name="HBhomepage" NavigateUri="link"></HyperlinkButton>
 		<Button Foreground="Black" BorderBrush="Black" x:Name="Bchangelog" Content="Changelog"
                     Canvas.Left="16" Canvas.Top="184"
-                    Width="197" Height="46" FontSize="16" Click="Bchangelog_Click">
+                    Width="197" Height="46" FontSize="16" Click="Bchangelog_Click" >
 			<Button.Background>
 				<LinearGradientBrush EndPoint="0.5,1"
                                          StartPoint="0.5,0">
