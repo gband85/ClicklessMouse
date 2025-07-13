@@ -1228,7 +1228,7 @@ namespace ClicklessMouse
             }
         }
 
-        void ni_MouseClick(object sender, System.Windows.Forms.MouseEventArgs e)
+        void ni_MouseClick(object sender,PointerEventArgs e)
         {
             //ni.Visible = false;
             Show();
