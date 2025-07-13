@@ -5,7 +5,7 @@
         mc:Ignorable="d" d:DesignWidth="745" d:DesignHeight="703"
         x:Class="ClicklessMouse.WindowManual"
         Title="User Guide" Height="703" Width="745" WindowStartupLocation="CenterScreen"
-        FontSize="14" ResizeMode="CanMinimize" Closing="Window_Closing">
+        FontSize="14" Closing="Window_Closing" x:Name="Wmanual">
     <Grid>
 		<ScrollViewer x:Name="RTBinstructions" VerticalScrollBarVisibility="Visible"></ScrollViewer>
 
