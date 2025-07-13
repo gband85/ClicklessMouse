@@ -7,13 +7,7 @@
         Title="User Guide" Height="703" Width="745" WindowStartupLocation="CenterScreen"
         FontSize="14" ResizeMode="CanMinimize" Closing="Window_Closing">
     <Grid>
-        <RichTextBox x:Name="RTBinstructions" HorizontalAlignment="Left" 
-                     Height="654" VerticalAlignment="Top" Width="724"
-                     VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled"
-                     IsReadOnly="True" IsDocumentEnabled="True">            
-            <FlowDocument>
-            </FlowDocument>
-        </RichTextBox>
+		<ScrollViewer x:Name="RTBinstructions" VerticalScrollBarVisibility="Visible"></ScrollViewer>
 
     </Grid>
 </Window>
