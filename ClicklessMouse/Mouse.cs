@@ -1,7 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Threading;
 using System.Windows;
-//using ClicklessMouse.Enums;
 using WindowsInput;
 using WindowsInput.Native;
 using Window = Avalonia.Controls.Window;
@@ -35,7 +34,7 @@ namespace ClicklessMouse
             Stopwatch stopwatch = Stopwatch.StartNew();
             do
             {
-                System.Windows.Forms.Cursor.Position = new System.Drawing.Point(X, Y);
+                WinInput.SetCursorPos(X, Y);
                 Thread.Sleep(1);
             }
             while (stopwatch.ElapsedMilliseconds < time);

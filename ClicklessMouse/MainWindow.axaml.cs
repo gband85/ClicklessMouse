@@ -21,6 +21,8 @@ using ClicklessMouse.WindowsInput;
 using System.Windows.Input;
 using WindowState = Avalonia.Controls.WindowState;
 using Avalonia.Input;
+using WindowsInput;
+using WindowsInput.Native;
 
 namespace ClicklessMouse
 {

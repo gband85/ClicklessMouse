@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading;
 using System.Windows;
-using ClicklessMouse.WindowsInput;
-using ClicklessMouse.Enums;
+using WindowsInput;
+using WindowsInput.Native;
 using Window = Avalonia.Controls.Window;
 
 namespace ClicklessMouse
