@@ -371,6 +371,7 @@ namespace ClicklessMouse
             int x1, y1;
             bool pressed_up, pressed_left, pressed_down, pressed_right;
             pressed_up = pressed_left = pressed_down = pressed_right = false;
+            System.Drawing.Point one;
 
             while (true)
             {
@@ -382,9 +383,18 @@ namespace ClicklessMouse
                 max_x = Screens.Primary.Bounds.Width - 1;
                 max_y = Screens.Primary.Bounds.Height - 1;
 
-                x1 = System.Windows.Forms.Cursor.Position.X;
-                y1 = System.Windows.Forms.Cursor.Position.Y;
-
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                {
+                    var coords = X11Input.GetCursorPos();
+                    x1 = coords[0];
+                    y1 = coords[1];
+                }
+                else
+                {
+                    WinInput.GetCursorPos(out one);
+                    x1 = one.X;
+                    y1 = one.Y;
+                }
                 if (x1 == 0) //if (x1 == 0 && pressed_left == false) would be a mistake (we need
                              //continous pressing as well as holding)
                 {
@@ -472,15 +482,29 @@ namespace ClicklessMouse
         {
             int i = 0;
             int x1 = 0, x2 = 0, y1 = 0, y2 = 0;
-
+            System.Drawing.Point one;
             while (true)
             {
-                x1 = System.Windows.Forms.Cursor.Position.X;
-                y1 = System.Windows.Forms.Cursor.Position.Y;
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                {
+                    var coords = X11Input.GetCursorPos();
+                    x1 = coords[0];
+                    y1 = coords[1];
                 Thread.Sleep(loop_time_ms);
-                x2 = System.Windows.Forms.Cursor.Position.X;
-                y2 = System.Windows.Forms.Cursor.Position.Y;
+                    x2 = coords[0];
+                    y2 = coords[1];
+                }
+                else
+                {
 
+                    WinInput.GetCursorPos(out one);
+                    x1 = one.X;
+                    y1 = one.Y;
+                    Thread.Sleep(loop_time_ms);
+                x2 = one.X;
+                    y2 = one.Y;
+                    
+                }
                 //max_x and max_y are updated in monitor_mouse2 by THRmouse_monitor2 which works
                 //only when screen_panning == true
                 if (screen_panning && (x2 == 0 || x2 == max_x || y2 == 0 || y2 == max_y))
@@ -699,6 +723,7 @@ namespace ClicklessMouse
             int i_SL = 0, i_SR = 0, i_SM = 0, i_SLH = 0, i_SRH = 0;
             int i_max = cursor_time_in_square_ms / loop_time_ms;
             int pos_x, pos_y;
+            System.Drawing.Point one;
 
 
             while (i_SL < i_max && i_SR < i_max && i_SM < i_max
@@ -708,9 +733,18 @@ namespace ClicklessMouse
                 {
                     break;
                 }
-                pos_x = System.Windows.Forms.Cursor.Position.X;
-                pos_y = System.Windows.Forms.Cursor.Position.Y;
-
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                {
+                    var coords = X11Input.GetCursorPos();
+                    pos_x = coords[0];
+                    pos_y = coords[1];
+                }
+                else
+                {
+                    WinInput.GetCursorPos(out one);
+                    pos_x = one.X;
+                    pos_y = one.Y;
+                }
                 if (SL_enabled)
                 {
                     if (is_cursor_in_SL(pos_x, pos_y))
@@ -840,8 +874,20 @@ namespace ClicklessMouse
         {
             if (squares_visible)
             {
-                int x1 = System.Windows.Forms.Cursor.Position.X,
-                    y1 = System.Windows.Forms.Cursor.Position.Y;
+                int x1, y1;
+                System.Drawing.Point one;
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                {
+                    var coords = X11Input.GetCursorPos();
+                    x1 = coords[0];
+                            y1 = coords[1];
+                }
+                else
+                {
+                    WinInput.GetCursorPos(out one);
+                    x1 = one.X;
+                    y1 = one.Y;
+                }
                 if (is_cursor_outside_zone(x1, y1))
                 {
                     if (SL_enabled)
