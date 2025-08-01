@@ -105,15 +105,19 @@ namespace ClicklessMouse
 
         InputSimulator sim = new InputSimulator();
 
+        //ColorDialog colorDialog1 = new ColorDialog();
+
+        //ColorDialog colorDialog2 = new ColorDialog();
+
         WindowManual wm = new WindowManual();
          
         public MainWindow()
         {
-            is_program_already_running();
+                is_program_already_running();
 
-            prc = Process.GetCurrentProcess();
-            prc.PriorityClass = ProcessPriorityClass.High;
-            Thread.CurrentThread.Priority = ThreadPriority.Highest;
+            // prc = Process.GetCurrentProcess();
+            // prc.PriorityClass = ProcessPriorityClass.High;
+            // Thread.CurrentThread.Priority = ThreadPriority.Highest;
 
             InitializeComponent();
 
@@ -137,11 +141,11 @@ namespace ClicklessMouse
 
             restore_default_settings();
 
-            load_settings();
+            //load_settings();
 
             fix_wrong_values();
 
-            saving_enabled = true;
+            // saving_enabled = true;
 
             regenerate_squares();
 
@@ -201,8 +205,6 @@ namespace ClicklessMouse
 
             if (i > 1)
             {
-                System.Windows.Forms.MessageBox.Show(prog_name + " is already running.",
-                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Process.GetCurrentProcess().Kill();
                 var box=MessageBoxManager.GetMessageBoxStandard("Error", prog_name + "is already running.", ButtonEnum.Ok,MsBox.Avalonia.Enums.Icon.Error);
                 var result = await box.ShowWindowAsync();
@@ -490,7 +492,7 @@ namespace ClicklessMouse
                     var coords = X11Input.GetCursorPos();
                     x1 = coords[0];
                     y1 = coords[1];
-                Thread.Sleep(loop_time_ms);
+                    Thread.Sleep(loop_time_ms);
                     x2 = coords[0];
                     y2 = coords[1];
                 }
@@ -724,7 +726,6 @@ namespace ClicklessMouse
             int i_max = cursor_time_in_square_ms / loop_time_ms;
             int pos_x, pos_y;
             System.Drawing.Point one;
-
 
             while (i_SL < i_max && i_SR < i_max && i_SM < i_max
                 && i_SLH < i_max && i_SRH < i_max && squares_visible)
@@ -995,17 +996,6 @@ namespace ClicklessMouse
             stopwatch.Stop();
         }
 
-        void freeze_mouse(int X, int Y, int time)
-        {
-            Stopwatch stopwatch = Stopwatch.StartNew();
-            do
-            {
-                System.Windows.Forms.Cursor.Position = new System.Drawing.Point(X, Y);
-                Thread.Sleep(1);
-            }
-            while (stopwatch.ElapsedMilliseconds < time);
-        }
-
         delegate void Callback1(bool show);
 
         void show_SL(bool show)
@@ -1026,7 +1016,7 @@ namespace ClicklessMouse
                 if (show)
                 {
                         SL.Position = new PixelPoint(SL_start_x, SL_start_y);
-                    SL.Show();
+                        SL.Show();
                 }
                 else SL.Hide();
             }
@@ -1144,13 +1134,13 @@ namespace ClicklessMouse
                 if (SL != null)
                     SL.Close();
 
-                SL = new Square(size, border_width, color1, color2);
+                    SL = new Square(size, border_width, color1, color2);
                     SL.Topmost = true;
-                SL.Show();
-                SL.Height = size;
-                SL.Width = size;
+                    SL.Show();
+                    SL.Height = size;
+                    SL.Width = size;
 
-                SL.Hide();
+                    SL.Hide();
             }
         }
 
@@ -1352,7 +1342,6 @@ namespace ClicklessMouse
             save_settings();
         }
 
-        WindowManual wm = new WindowManual();
 
         private void MIenglish_Click(object sender, RoutedEventArgs e)
         {
@@ -1805,80 +1794,76 @@ namespace ClicklessMouse
             }
         }
 
-        ColorDialog colorDialog1 = new ColorDialog();
+        //private async void TBsquare_color1_PreviewMouseUp(object sender, PointerReleasedEventArgs e)
+        //{
+        //    try
+        //    {
+        //        System.Windows.Forms.DialogResult dr = colorDialog1.ShowDialog();
+        //        if (dr == System.Windows.Forms.DialogResult.OK)
+        //        {
+        //            int argb = Convert.ToInt32(colorDialog1.Color.ToArgb().ToString());
 
-        ColorDialog colorDialog2 = new ColorDialog();
+        //            byte[] values = BitConverter.GetBytes(argb);
 
-        private async void TBsquare_color1_PreviewMouseUp(object sender, PointerReleasedEventArgs e)
-        {
-            try
-            {
-                System.Windows.Forms.DialogResult dr = colorDialog1.ShowDialog();
-                if (dr == System.Windows.Forms.DialogResult.OK)
-                {
-                    int argb = Convert.ToInt32(colorDialog1.Color.ToArgb().ToString());
+        //            byte a = values[3];
+        //            byte r = values[2];
+        //            byte g = values[1];
+        //            byte b = values[0];
 
-                    byte[] values = BitConverter.GetBytes(argb);
+        //            TBsquare_color1.Background = new SolidColorBrush(Color.FromArgb(a, r, g, b));
+        //            color1 = Avalonia.Media.Color.FromArgb(a, r, g, b);
 
-                    byte a = values[3];
-                    byte r = values[2];
-                    byte g = values[1];
-                    byte b = values[0];
+        //            square_color1_str = argb.ToString();
 
-                    TBsquare_color1.Background = new SolidColorBrush(Color.FromArgb(a, r, g, b));
-                    color1 = System.Drawing.Color.FromArgb(a, r, g, b);
+        //            if (saving_enabled)
+        //            {
+        //                regenerate_squares();
+        //                save_settings();
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        var box = MessageBoxManager.GetMessageBoxStandard(error_title, ex.Message, ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error);
+        //        var result = await box.ShowAsync();
+        //    }
+        //}
 
-                    square_color1_str = argb.ToString();
+        //private async void TBsquare_color2_PreviewMouseUp(object sender, PointerReleasedEventArgs e)
+        //{
+        //    try
+        //    {
+        //        System.Windows.Forms.DialogResult dr = colorDialog2.ShowDialog();
+        //        if (dr == System.Windows.Forms.DialogResult.OK)
+        //        {
+        //            int argb = Convert.ToInt32(colorDialog2.Color.ToArgb().ToString());
 
-                    if (saving_enabled)
-                    {
-                        regenerate_squares();
-                        save_settings();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                var box = MessageBoxManager.GetMessageBoxStandard(error_title, ex.Message, ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error);
-                var result = await box.ShowAsync();
-            }
-        }
+        //            byte[] values = BitConverter.GetBytes(argb);
 
-        private async void TBsquare_color2_PreviewMouseUp(object sender, PointerReleasedEventArgs e)
-        {
-            try
-            {
-                System.Windows.Forms.DialogResult dr = colorDialog2.ShowDialog();
-                if (dr == System.Windows.Forms.DialogResult.OK)
-                {
-                    int argb = Convert.ToInt32(colorDialog2.Color.ToArgb().ToString());
+        //            byte a = values[3];
+        //            byte r = values[2];
+        //            byte g = values[1];
+        //            byte b = values[0];
 
-                    byte[] values = BitConverter.GetBytes(argb);
+        //            TBsquare_color2.Background = new SolidColorBrush(Color.FromArgb(a, r, g, b));
+        //            color2 = Avalonia.Media.Color.FromArgb(a, r, g, b);
 
-                    byte a = values[3];
-                    byte r = values[2];
-                    byte g = values[1];
-                    byte b = values[0];
+        //            square_color2_str = argb.ToString();
 
-                    TBsquare_color2.Background = new SolidColorBrush(Color.FromArgb(a, r, g, b));
-                    color2 = System.Drawing.Color.FromArgb(a, r, g, b);
+        //            if (saving_enabled)
+        //            {
+        //                regenerate_squares();
+        //                save_settings();
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        var box = MessageBoxManager.GetMessageBoxStandard(error_title, ex.Message, ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error);
+        //        var result = await box.ShowAsync();
 
-                    square_color2_str = argb.ToString();
-
-                    if (saving_enabled)
-                    {
-                        regenerate_squares();
-                        save_settings();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                var box = MessageBoxManager.GetMessageBoxStandard(error_title, ex.Message, ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error);
-                var result = await box.ShowAsync();
-
-            }
-        }
+        //    }
+        //}
 
         private async void TBmin_square_size_TextChanged(object sender, TextChangedEventArgs e)
         {
