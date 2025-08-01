@@ -59,99 +59,12 @@ namespace ClicklessMouse
             if(lang == language.en)
             {
                 wm.Title = "User Guide";
-                //FlowDocument fd = new FlowDocument();
-                //Paragraph p1 = new Paragraph();
-                TextBlock p1 = new TextBlock();
-                //ScrollViewer scrollViewer = new ScrollViewer();
-                //scrollViewer.VerticalScrollBarVisibility = "Visible";
-                p1.Inlines.Add(new Run(
-                    "Clickless Mouse makes using a computer easier for people with repetitive strain injury, carpal tunnel syndrome, some motor disabilities and other health problems.\n\n"));
-                p1.Inlines.Add(new Run(
-                    "This application allows using a mouse without clicking - by moving it only. By reacting to user mouse movements this program simulates left/right mouse button click, double left mouse button click and left/right mouse button holding.\n\n"));
-                p1.Inlines.Add(new Run("Clickless Mouse can be used with a virtual keyboard to type by moving the mouse (e.g. Free Virtual Keyboard: "));
-
-                //Hyperlink link = new Hyperlink();
-                //link.IsEnabled = true;
-                //link.Inlines.Add("https://freevirtualkeyboard.com/");
-                //link.NavigateUri = new Uri("https://freevirtualkeyboard.com/");
-                //link.RequestNavigate += (sender, args) => System.Diagnostics.Process.Start(args.Uri.ToString());
-                //p1.Inlines.Add(link);
-
-                p1.Inlines.Add(new Run(").\n\nBy using Clickless Mouse with a virtual keyboard a user can fully control a computer by moving a mouse. \n\nWhen you want to click/hold a mouse button: stop moving the mouse, wait for the squares to appear and move the mouse cursor to the chosen square:\n\n"));
-
-                p1.Inlines.Add(new Run {
-                        Text = "•  Top center square = double left mouse button click\n",
-                        Classes = { "bullet" }
-                });
-                p1.Inlines.Add(new Run
+                wm.RTBinstructions.Source = new Uri("avares://ClicklessMouse/Assets/1en.md");
+            }
+            else if (lang == language.pl)
                 {
-                    Text = "•  Top left square = left mouse button click\n",
-                    Classes = { "bullet" }
-                });
-                p1.Inlines.Add(new Run
-                {
-                    Text = "•  Top right square = right mouse button click\n",
-                    Classes = { "bullet" }
-                });
-                p1.Inlines.Add(new Run
-                {
-                    Text = "•  Left square = left mouse button holding on/off\n",
-                    Classes = { "bullet" }
-
-                });
-                p1.Inlines.Add(new Run{
-                        Text = "•  Right square = right mouse button holding on/off",
-                        Classes = { "bullet" }
-                });
-
-                p1.Inlines.Add(new LineBreak());
-
-                p1.Inlines.Add(new Image
-                {
-                    Source = new Bitmap(AssetLoader.Open(new Uri("avares://ClicklessMouse/Assets/1en.jpg")))
-                }
-);
-
-                p1.Inlines.Add(new Run(
-                    "\nWhen the mouse cursor is located inside a square long enough (depending on cursor time in square to register click setting), it automatically moves back to the previous position to simulate an action based on the square that was previously entered.\n\n"));
-                p1.Inlines.Add(new Run(
-                    "If the mouse cursor is too close to the top edge of the screen, squares for LMB click, RMB click, and LMB double click are shown below the mouse cursor.\n\n"));
-                p1.Inlines.Add(new Run(
-                    "If the mouse cursor is too close to the left/right edge of the screen all squares size decrease so at least 25% of a square is visible. By default decreased square size cannot be lower than 60% of the normal size.\nSquares size doesn't decrease if the mouse cursor is so close to the edge of the screen that the smallest size isn't enough to show a square.\n\n"));
-                p1.Inlines.Add(new Run("The squares that aren't needed can be disabled.\n\n"));
-                p1.Inlines.Add(new Run("Screen panning - when this mode is on, moving the mouse cursor to the edges of the screen presses keys: up at top edge, down at bottom edge, left at left edge, right at right edge. While screen panning is enabled the squares don't show when the mouse cursor is located at the  screen edge.\n\n"));
-                p1.Inlines.Add(new Run("Clickless Mouse works only in programs and games that are run in borderless or windowed mode (fullscreen mode is not supported).\n\n"));
-                Bold b = new Bold();
-                b.Inlines.Add(new Run("First steps:\n\n"));
-                p1.Inlines.Add(b);
-                p1.Inlines.Add(new Run("1.  Type your diagonal screen size and press 'Set recommended square size button'.\n"));
-                p1.Inlines.Add(new Run("2.  Decide which mouse functionality you need. Most users need 'LMB Click', 'RMB click', 'LMB click', 'LMB double click', and 'LMB holding'.\n"));
-                p1.Inlines.Add(new Run("3.  If you have a motor disability consider increasing cursor idle time before squares appear, time to start mouse movement after squares appear, and square size.\n\n"));
-                b = new Bold();
-                b.Inlines.Add(new Run("Lowest possible values (the program ignores lower values and uses following values instead):\n\n"));
-                p1.Inlines.Add(b);
-                p1.Inlines.Add(new Run("Cursor idle time before squares appear [ms]: " + lowest_cursor_idle_time_ms));
-                p1.Inlines.Add(new LineBreak());
-                p1.Inlines.Add(new Run("Time to start mouse movement after squares appear [ms]: " + lowest_time_to_start_mouse_movement_ms));
-                p1.Inlines.Add(new LineBreak());
-                p1.Inlines.Add(new Run("Cursor time in square to register click [ms]: " + lowest_cursor_time_in_square_ms));
-                p1.Inlines.Add(new LineBreak());
-                p1.Inlines.Add(new Run("Size [px]: " + lowest_size));
-                p1.Inlines.Add(new LineBreak());
-                p1.Inlines.Add(new Run("Border width [px]: " + lowest_border_width));
-                p1.Inlines.Add(new LineBreak());
-                p1.Inlines.Add(new Run("Minimum size [%]: " + lowest_min_square_size_percents));
-
-                p1.TextWrapping = Avalonia.Media.TextWrapping.Wrap;
-                p1.LineSpacing = 4;
-                wm.RTBinstructions.Content = p1;
-                //wm.RTBinstructions.Children.Add(new InlineUIContainer
-                //{
-                //    Child = new Image
-                //    {
-                //        Source = new Bitmap(AssetLoader.Open(new Uri("avares://ClicklessMouse/Assets/1en.jpg")))
-                //    }
-                //});
+                wm.Title = "Instrukcja obsługi";
+                wm.RTBinstructions.Source = new Uri("avares://ClicklessMouse/Assets/1pl.md");
             }
             //else if(lang == language.pl)
             //{
