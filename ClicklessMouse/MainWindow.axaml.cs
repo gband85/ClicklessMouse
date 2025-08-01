@@ -339,8 +339,8 @@ namespace ClicklessMouse
         }
 
         public int x = 0, y = 0;
-        int max_x = Screen.PrimaryScreen.Bounds.Width - 1,
-            max_y = Screen.PrimaryScreen.Bounds.Height - 1;
+        int max_x;
+        int max_y;
         public bool squares_visible = false;
         int show_zone;
         int SL_start_x;
