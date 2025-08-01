@@ -105,6 +105,8 @@ namespace ClicklessMouse
 
         InputSimulator sim = new InputSimulator();
 
+        WindowManual wm = new WindowManual();
+         
         public MainWindow()
         {
             is_program_already_running();
