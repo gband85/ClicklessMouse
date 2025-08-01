@@ -326,7 +326,7 @@ namespace ClicklessMouse
             int x = Screens.Primary.Bounds.Width;
             int y = Screens.Primary.Bounds.Height;
 
-            Lscreen_resolution.Content = contentLscreen_resolution + x + "x" + y;
+            TBscreen_resolution.Text = x + "x" + y;
         }
 
         void regenerate_squares()
