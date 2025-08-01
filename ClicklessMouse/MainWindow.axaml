@@ -3,11 +3,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="512" d:DesignHeight="641"
-        x:Name="Wmain"
 		x:Class="ClicklessMouse.MainWindow"
         Title="Clickless Mouse" Height="512" Width="641" FontSize="13"
         xmlns:ctrl="using:GroupBox.Avalonia.Controls"
-        xmlns:local="clr-namespace:ClicklessMouse"
         xmlns:p="clr-namespace:ClicklessMouse.Properties"
         WindowStartupLocation="CenterScreen"
         CanResize="True" >
@@ -113,7 +111,7 @@
 	</StackPanel>
 	<StackPanel Grid.Column="1" Classes="l1" >
 	<ctrl:GroupBox x:Name="GBsquare_settings" Grid.Row="1" Grid.Column="1" Header="{x:Static p:Resources.GBsquare_settings}" Theme="{StaticResource GroupBoxClassic}" RenderOptions.EdgeMode="Antialias" HorizontalAlignment="Left" Width="291">
-		
+		<StackPanel>
 			<Grid>
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="*"></ColumnDefinition>
@@ -137,8 +135,10 @@
 			<TextBox Grid.Row="3" Grid.Column="1" x:Name="TBsquare_color2" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="95" ScrollViewer.VerticalScrollBarVisibility="Hidden"/>
 			<TextBox Grid.Row="4" Grid.Column="1" x:Name="TBmin_square_size" HorizontalAlignment="Left" Height="25" TextWrapping="Wrap" VerticalAlignment="Top" Width="45" TextChanged="TBmin_square_size_TextChanged" ScrollViewer.VerticalScrollBarVisibility="Hidden"/>
 			</Grid>
+		</StackPanel>
 	</ctrl:GroupBox>
 		<ctrl:GroupBox x:Name="GBrecommended_square_size" Grid.Row="2" Grid.Column="1" Header="{x:Static p:Resources.GBrecommended_square_size}" Theme="{StaticResource GroupBoxClassic}" RenderOptions.EdgeMode="Antialias" HorizontalAlignment="Left" Height="135" VerticalAlignment="Top" Width="291">
+			<StackPanel>
 			<Grid>
 				<Grid.RowDefinitions>
 					<RowDefinition Height="25"></RowDefinition>
@@ -155,6 +155,7 @@
 				<TextBlock Grid.Row="1" Grid.Column="1"  x:Name="TBscreen_resolution" TextWrapping="Wrap" VerticalAlignment="Center" Width="100" HorizontalAlignment="Left"/>
 				<Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" x:Name="Bset_recommended_square" Background="#FFEAEAEA" Content="{x:Static p:Resources.Bset_recommended_square}" Click="Click_Bset_recommended_square" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 			</Grid>
+			</StackPanel>
 		</ctrl:GroupBox>
 	</StackPanel>
 </Grid>
