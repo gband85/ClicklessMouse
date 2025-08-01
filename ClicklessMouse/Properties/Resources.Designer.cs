@@ -22,7 +22,7 @@ namespace ClicklessMouse.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace ClicklessMouse.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ClicklessMouse.Properties.Resources", typeof(Resources).Assembly);
@@ -51,12 +51,453 @@ namespace ClicklessMouse.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to About.
+        /// </summary>
+        public static string about_title {
+            get {
+                return ResourceManager.GetString("about_title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ARGB color value must be lower than 0.
+        /// </summary>
+        public static string argb_error {
+            get {
+                return ResourceManager.GetString("argb_error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set recommended square size.
+        /// </summary>
+        public static string Bset_recommended_square {
+            get {
+                return ResourceManager.GetString("Bset_recommended_square", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Check for updates automatically.
+        /// </summary>
+        public static string CHBcheck_for_updates {
+            get {
+                return ResourceManager.GetString("CHBcheck_for_updates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LMB double click.
+        /// </summary>
+        public static string CHBdoubleLMB {
+            get {
+                return ResourceManager.GetString("CHBdoubleLMB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LMB holding.
+        /// </summary>
+        public static string CHBholdLMB {
+            get {
+                return ResourceManager.GetString("CHBholdLMB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to RMB holding.
+        /// </summary>
+        public static string CHBholdRMB {
+            get {
+                return ResourceManager.GetString("CHBholdRMB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LMB click.
+        /// </summary>
+        public static string CHBLMB {
+            get {
+                return ResourceManager.GetString("CHBLMB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Minimize to system tray.
+        /// </summary>
+        public static string CHBminimize_to_tray {
+            get {
+                return ResourceManager.GetString("CHBminimize_to_tray", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to RMB click.
+        /// </summary>
+        public static string CHBRMB {
+            get {
+                return ResourceManager.GetString("CHBRMB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Run when computer starts.
+        /// </summary>
+        public static string CHBrun_at_startup {
+            get {
+                return ResourceManager.GetString("CHBrun_at_startup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Screen panning.
+        /// </summary>
+        public static string CHBscreen_panning {
+            get {
+                return ResourceManager.GetString("CHBscreen_panning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start minimized.
+        /// </summary>
+        public static string CHBstart_minimized {
+            get {
+                return ResourceManager.GetString("CHBstart_minimized", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Screen resolution: .
+        /// </summary>
+        public static string contentLscreen_resolution {
+            get {
+                return ResourceManager.GetString("contentLscreen_resolution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cursor idle time before squares appear cannot be lower than .
+        /// </summary>
+        public static string cursor_idle_time_error {
+            get {
+                return ResourceManager.GetString("cursor_idle_time_error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cursor time in square to register click cannot be lower than.
+        /// </summary>
+        public static string cursor_time_in_square_error {
+            get {
+                return ResourceManager.GetString("cursor_time_in_square_error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string error_title {
+            get {
+                return ResourceManager.GetString("error_title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Main Settings.
+        /// </summary>
+        public static string GBmain_settings {
+            get {
+                return ResourceManager.GetString("GBmain_settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Other Settings.
+        /// </summary>
+        public static string GBother_settings {
+            get {
+                return ResourceManager.GetString("GBother_settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recommended Square Size.
+        /// </summary>
+        public static string GBrecommended_square_size {
+            get {
+                return ResourceManager.GetString("GBrecommended_square_size", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Squares Settings.
+        /// </summary>
+        public static string GBsquare_settings {
+            get {
+                return ResourceManager.GetString("GBsquare_settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cursor idle time before squares appear [ms]:.
+        /// </summary>
+        public static string Lcursor_idle_before_squares_appear {
+            get {
+                return ResourceManager.GetString("Lcursor_idle_before_squares_appear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cursor time in square to register click [ms]:.
+        /// </summary>
+        public static string Lcursor_time_in_square {
+            get {
+                return ResourceManager.GetString("Lcursor_time_in_square", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Minimum size [%]:.
+        /// </summary>
+        public static string Lmin_square_size {
+            get {
+                return ResourceManager.GetString("Lmin_square_size", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  Settings loading error - values that weren&apos;t loaded will be restored to default and saved..
+        /// </summary>
+        public static string loading_error_msg {
+            get {
+                return ResourceManager.GetString("loading_error_msg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Diagonal screen size [in]:.
+        /// </summary>
+        public static string Lscreen_size {
+            get {
+                return ResourceManager.GetString("Lscreen_size", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Border width [px]:.
+        /// </summary>
+        public static string Lsquare_border {
+            get {
+                return ResourceManager.GetString("Lsquare_border", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Color 1:.
+        /// </summary>
+        public static string Lsquare_color1 {
+            get {
+                return ResourceManager.GetString("Lsquare_color1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Color 2:.
+        /// </summary>
+        public static string Lsquare_color2 {
+            get {
+                return ResourceManager.GetString("Lsquare_color2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Size [px]:.
+        /// </summary>
+        public static string Lsquare_size {
+            get {
+                return ResourceManager.GetString("Lsquare_size", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Time to start mouse movement after squares appear [ms]:.
+        /// </summary>
+        public static string Ltime_to_start_mouse {
+            get {
+                return ResourceManager.GetString("Ltime_to_start_mouse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to About.
+        /// </summary>
+        public static string MIabout {
+            get {
+                return ResourceManager.GetString("MIabout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Default Square Colors.
+        /// </summary>
+        public static string MIdefault_colors {
+            get {
+                return ResourceManager.GetString("MIdefault_colors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All Default Settings.
+        /// </summary>
+        public static string MIdefault_settings {
+            get {
+                return ResourceManager.GetString("MIdefault_settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to English.
+        /// </summary>
+        public static string MIenglish {
+            get {
+                return ResourceManager.GetString("MIenglish", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exit.
+        /// </summary>
+        public static string MIexit {
+            get {
+                return ResourceManager.GetString("MIexit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File.
+        /// </summary>
+        public static string MIfile {
+            get {
+                return ResourceManager.GetString("MIfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Help.
+        /// </summary>
+        public static string MIhelp {
+            get {
+                return ResourceManager.GetString("MIhelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Language.
+        /// </summary>
+        public static string MIlanguage {
+            get {
+                return ResourceManager.GetString("MIlanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User Guide.
+        /// </summary>
+        public static string MImanual {
+            get {
+                return ResourceManager.GetString("MImanual", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Minimum square size cannot be higher than .
+        /// </summary>
+        public static string min_square_size_too_high_error {
+            get {
+                return ResourceManager.GetString("min_square_size_too_high_error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Minimum square size cannot be lower than .
+        /// </summary>
+        public static string min_square_size_too_low_error {
+            get {
+                return ResourceManager.GetString("min_square_size_too_low_error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Polish.
+        /// </summary>
+        public static string MIpolish {
+            get {
+                return ResourceManager.GetString("MIpolish", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restore.
+        /// </summary>
+        public static string MIrestore {
+            get {
+                return ResourceManager.GetString("MIrestore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Diagonal screen size must be higher than 0.
+        /// </summary>
+        public static string screen_size_error1 {
+            get {
+                return ResourceManager.GetString("screen_size_error1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Diagonal screen size can&apos;t be empty.
+        /// </summary>
+        public static string screen_size_error2 {
+            get {
+                return ResourceManager.GetString("screen_size_error2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Square border width cannot be lower than .
+        /// </summary>
+        public static string square_border_error {
+            get {
+                return ResourceManager.GetString("square_border_error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Square size cannot be lower than .
+        /// </summary>
+        public static string square_size_error {
+            get {
+                return ResourceManager.GetString("square_size_error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Time to start mouse movement cannot be lower than .
+        /// </summary>
+        public static string time_to_start_mouse_movement_error {
+            get {
+                return ResourceManager.GetString("time_to_start_mouse_movement_error", resourceCulture);
             }
         }
     }

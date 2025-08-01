@@ -118,150 +118,150 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="MIfile" xml:space="preserve">
-    <value>File</value>
+    <value>Plik</value>
   </data>
   <data name="MIexit" xml:space="preserve">
-    <value>Exit</value>
+    <value>Zakończ</value>
   </data>
   <data name="MIrestore" xml:space="preserve">
-    <value>Restore</value>
+    <value>Przywróć</value>
   </data>
   <data name="MIdefault_colors" xml:space="preserve">
-    <value>Default Square Colors</value>
+    <value>Domyślne kolory kwadratu</value>
   </data>
   <data name="MIdefault_settings" xml:space="preserve">
-    <value>All Default Settings</value>
+    <value>Wszystkie ustawienia domyślne</value>
   </data>
   <data name="MIlanguage" xml:space="preserve">
-    <value>Language</value>
+    <value>Język</value>
   </data>
   <data name="MIenglish" xml:space="preserve">
-    <value>English</value>
+    <value>Angielski</value>
   </data>
   <data name="MIpolish" xml:space="preserve">
-    <value>Polish</value>
+    <value>Polski</value>
   </data>
   <data name="MIhelp" xml:space="preserve">
-    <value>Help</value>
+    <value>Pomoc</value>
   </data>
   <data name="MImanual" xml:space="preserve">
-    <value>User Guide</value>
+    <value>Instrukcja obsługi</value>
   </data>
   <data name="MIabout" xml:space="preserve">
-    <value>About</value>
+    <value>O programie</value>
   </data>
   <data name="GBmain_settings" xml:space="preserve">
-    <value>Main Settings</value>
+    <value>Ustawienia główne</value>
   </data>
   <data name="CHBLMB" xml:space="preserve">
-    <value>LMB click</value>
+    <value>Klik LPM</value>
   </data>
   <data name="CHBRMB" xml:space="preserve">
-    <value>RMB click</value>
+    <value>Klik PPM</value>
   </data>
   <data name="CHBdoubleLMB" xml:space="preserve">
-    <value>LMB double click</value>
+    <value>Dwuklik LPM</value>
   </data>
   <data name="CHBholdLMB" xml:space="preserve">
-    <value>LMB holding</value>
+    <value>Przytrzymanie LPM</value>
   </data>
   <data name="CHBholdRMB" xml:space="preserve">
-    <value>RMB holding</value>
+    <value>Przytrzymanie PPM</value>
   </data>
   <data name="CHBscreen_panning" xml:space="preserve">
-    <value>Screen panning</value>
+    <value>Przesuwanie ekranu</value>
   </data>
   <data name="Lcursor_idle_before_squares_appear" xml:space="preserve">
-    <value>Cursor idle time before squares appear [ms]:</value>
+    <value>Czas bezczynności kursora zanim pojawią się kwadraty [ms]:</value>
   </data>
   <data name="Ltime_to_start_mouse" xml:space="preserve">
-    <value>Time to start mouse movement after squares appear [ms]:</value>
+    <value>Czas na rozpoczęcie ruchu myszą po pojawieniu się kwadratów [ms]:</value>
   </data>
   <data name="Lcursor_time_in_square" xml:space="preserve">
-    <value>Cursor time in square to register click [ms]:</value>
+    <value>Czas kursora w kwadracie do zarejestrowania kliknięcia [ms]:</value>
   </data>
   <data name="GBother_settings" xml:space="preserve">
-    <value>Other Settings</value>
+    <value>Pozostałe ustawienia</value>
   </data>
   <data name="CHBrun_at_startup" xml:space="preserve">
-    <value>Run when computer starts</value>
+    <value>Uruchom przy starcie komputera</value>
   </data>
   <data name="CHBstart_minimized" xml:space="preserve">
-    <value>Start minimized</value>
+    <value>Uruchom zminimalizowany</value>
   </data>
   <data name="CHBminimize_to_tray" xml:space="preserve">
-    <value>Minimize to system tray</value>
+    <value>Minimalizuj do zasobnika systemowego</value>
   </data>
   <data name="CHBcheck_for_updates" xml:space="preserve">
-    <value>Check for updates automatically</value>
+    <value>Automatycznie sprawdzaj aktualizacje</value>
   </data>
   <data name="GBsquare_settings" xml:space="preserve">
-    <value>Squares Settings</value>
+    <value>Ustawienia kwadratów</value>
   </data>
   <data name="Lsquare_size" xml:space="preserve">
-    <value>Size [px]:</value>
+    <value>Rozmiar [px]:</value>
   </data>
   <data name="Lsquare_border" xml:space="preserve">
-    <value>Border width [px]:</value>
+    <value>Szerokość krawędzi [px]:</value>
   </data>
   <data name="Lsquare_color1" xml:space="preserve">
-    <value>Color 1:</value>
+    <value>Kolor 1:</value>
   </data>
   <data name="Lsquare_color2" xml:space="preserve">
-    <value>Color 2:</value>
+    <value>Kolor 2:</value>
   </data>
   <data name="Lmin_square_size" xml:space="preserve">
-    <value>Minimum size [%]:</value>
+    <value>Minimalny rozmiar [%]:</value>
   </data>
   <data name="GBrecommended_square_size" xml:space="preserve">
-    <value>Recommended Square Size</value>
+    <value>Zalecany rozmiar kwadratu</value>
   </data>
   <data name="Lscreen_size" xml:space="preserve">
-    <value>Diagonal screen size [in]:</value>
+    <value>Przekątna ekranu [cale]:</value>
   </data>
   <data name="contentLscreen_resolution" xml:space="preserve">
-    <value>Screen resolution: </value>
+    <value>Rozdzielczość ekranu: </value>
   </data>
   <data name="Bset_recommended_square" xml:space="preserve">
-    <value>Set recommended square size</value>
+    <value>Ustaw zalecaną wielkość kwadratu</value>
   </data>
   <data name="error_title" xml:space="preserve">
-    <value>Error</value>
+    <value>Błąd</value>
   </data>
   <data name="about_title" xml:space="preserve">
-    <value>About</value>
+    <value>O programie</value>
   </data>
   <data name="argb_error" xml:space="preserve">
-    <value>ARGB color value must be lower than 0</value>
+    <value>Wartość ARGB koloru musi być mniejsza od 0</value>
   </data>
   <data name="screen_size_error1" xml:space="preserve">
-    <value>Diagonal screen size must be higher than 0</value>
+    <value>Przekątna ekranu musi być większa od 0</value>
   </data>
   <data name="screen_size_error2" xml:space="preserve">
-    <value>Diagonal screen size can't be empty</value>
+    <value>Przekątna ekranu nie może być pusta</value>
   </data>
   <data name="cursor_idle_time_error" xml:space="preserve">
-    <value>Cursor idle time before squares appear cannot be lower than </value>
+    <value>Czas bezczynności kursora zanim pojawią się kwadraty nie może być niższy niż </value>
   </data>
   <data name="time_to_start_mouse_movement_error" xml:space="preserve">
-    <value>Time to start mouse movement cannot be lower than </value>
+    <value>Czas na rozpoczęcie ruchu myszą nie może być niższy niż </value>
   </data>
   <data name="cursor_time_in_square_error" xml:space="preserve">
-    <value>Cursor time in square to register click cannot be lower than</value>
+    <value>Czas kursora w kwadracie do zarejestrowania kliknięci nie może byc niższy niż </value>
   </data>
   <data name="square_size_error" xml:space="preserve">
-    <value>Square size cannot be lower than </value>
+    <value>Rozmiar kwadratu nie może być niższy niż </value>
   </data>
   <data name="square_border_error" xml:space="preserve">
-    <value>Square border width cannot be lower than </value>
+    <value>Rozmiar krawędzi kwadratu nie może być niższy niż </value>
   </data>
   <data name="min_square_size_too_low_error" xml:space="preserve">
-    <value>Minimum square size cannot be lower than </value>
+    <value>Minimalny rozmiar kwadratu nie może być niższy niż </value>
   </data>
   <data name="min_square_size_too_high_error" xml:space="preserve">
-    <value>Minimum square size cannot be higher than </value>
+    <value>Minimalny rozmiar kwadratu nie może być wyższy niż </value>
   </data>
   <data name="loading_error_msg" xml:space="preserve">
-    <value> Settings loading error - values that weren't loaded will be restored to default and saved.</value>
+    <value> Błąd odczytu ustawień - wartości, które nie zostały wczytane zostaną przywrócone do domyślnych i zapisane.</value>
   </data>
 </root>
