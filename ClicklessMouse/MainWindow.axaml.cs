@@ -549,7 +549,7 @@ namespace ClicklessMouse
 
                         calculate_squares_start_positions();
 
-                        int screen_width = Screen.PrimaryScreen.Bounds.Width;
+                        int screen_width = Screens.Primary.Bounds.Width;
 
                         //if SLH is visible when at minimum_size and 80% or more of SLH 
                         //is out of left screen edge
@@ -1931,10 +1931,10 @@ namespace ClicklessMouse
                     if (d < 1)
                         throw new Exception(screen_size_error1 + ".");
 
-                    int x = Screen.PrimaryScreen.Bounds.Width;
-                    int y = Screen.PrimaryScreen.Bounds.Height;
+                    int x = Screens.Primary.Bounds.Width;
+                    int y = Screens.Primary.Bounds.Height;
 
-                    Lscreen_resolution.Content = contentLscreen_resolution + x + "x" + y;
+                    TBscreen_resolution.Text = x + "x" + y;
 
                     double b = Math.Sqrt(Math.Pow(d, 2) / (Math.Pow(x, 2) / Math.Pow(y, 2) + 1));
                     double a = b * x / y;
