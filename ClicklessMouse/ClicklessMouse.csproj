@@ -22,9 +22,13 @@
       <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Avalonia.Themes.Simple" />
+    <PackageReference Include="AvaloniaUI.DiagnosticsSupport" />
     <PackageReference Include="BinToss.GroupBox.Avalonia" />
     <PackageReference Include="InputSimulatorCore" />
+    <PackageReference Include="Markdown.Avalonia" />
+    <PackageReference Include="MarkdownSharp" />
     <PackageReference Include="MessageBox.Avalonia" />
+    <PackageReference Include="Simplecto.Avalonia.RichTextBox" />
     <PackageReference Include="X11" />
   </ItemGroup>
 	<ItemGroup>
