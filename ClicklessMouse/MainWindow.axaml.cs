@@ -1395,7 +1395,8 @@ namespace ClicklessMouse
                 w.Lprogram_name.Content = prog_name;
                 w.Llatest_version.Content = "Latest version: " + latest_version;
                 w.Linstalled_version.Content = "Installed version: " + prog_version;
-                w.Lhomepage.Content = url_homepage;
+                w.HBhomepage.Content = url_homepage;
+                w.HBhomepage.NavigateUri = new Uri("http://"+url_homepage);
                 w.Lcopyright.Content = copyright_text;
 
                 w.Show();
