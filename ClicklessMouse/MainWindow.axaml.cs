@@ -248,7 +248,7 @@ namespace ClicklessMouse
 
         void restore_default_settings()
         {
-            CHBLMB.IsChecked = true;
+            CHBLMB.IsChecked = false;
             CHBRMB.IsChecked = false;
             CHBdoubleLMB.IsChecked = false;
             CHBholdLMB.IsChecked = false;
