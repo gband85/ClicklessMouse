@@ -33,8 +33,8 @@ namespace ClicklessMouse
             Xlib.XQueryPointer(display, w, ref window_return, ref child_return, ref root_x, ref root_y, ref win_x, ref win_y, ref mask_return);
             Xlib.XCloseDisplay(display);
             int[] coords = new int[2];
-            coords.Prepend(root_x);
-            coords.Append(root_y);
+            coords[0]=root_x;
+            coords[1]=root_y;
             return coords;
         }
         //XWarpPointer(display, src_w, dest_w, src_x, src_y, src_width, src_height, dest_x,
