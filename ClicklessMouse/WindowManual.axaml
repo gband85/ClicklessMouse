@@ -7,7 +7,7 @@
 		xmlns:avrtb="using:AvRichTextBox"
 		xmlns:md="using:Markdown.Avalonia"
         Title="User Guide" Height="703" Width="745" WindowStartupLocation="CenterScreen"
-        FontSize="12" Closing="Window_Closing" x:Name="Wmanual">
+        FontSize="12" x:Name="Wmanual">
     
 	<md:MarkdownScrollViewer x:Name="RTBinstructions" xml:space="preserve" SelectionEnabled="True"/>
 </Window>
