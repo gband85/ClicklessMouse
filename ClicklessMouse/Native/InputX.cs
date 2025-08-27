@@ -53,7 +53,7 @@ namespace ClicklessMouse.Native
         {
             IntPtr display = Xlib.XOpenDisplay(null);
             X11.Window w = Xlib.XDefaultRootWindow(display);
-            X11Input.XWarpPointer(display, X11.Window.None, w, 0, 0, 0, 0, x, y);
+            InputX11.XWarpPointer(display, X11.Window.None, w, 0, 0, 0, 0, x, y);
             Xlib.XCloseDisplay(display);
         }
 
@@ -61,7 +61,7 @@ namespace ClicklessMouse.Native
         {
                     IntPtr display = Xlib.XOpenDisplay(null);
                     // uint button = 1;
-                    X11Input.XTestFakeButtonEvent(display, 1, true, 0);
+                    InputX11.XTestFakeButtonEvent(display, 1, true, 0);
                     Xlib.XCloseDisplay(display);
         }
 
@@ -69,7 +69,7 @@ namespace ClicklessMouse.Native
         {
             IntPtr display = Xlib.XOpenDisplay(null);
             // uint button = 1;
-            X11Input.XTestFakeButtonEvent(display, 1, false, 0);
+            InputX11.XTestFakeButtonEvent(display, 1, false, 0);
             Xlib.XCloseDisplay(display);
         }
 
@@ -77,7 +77,7 @@ namespace ClicklessMouse.Native
         {
             IntPtr display = Xlib.XOpenDisplay(null);
             // uint button = 1;
-            X11Input.XTestFakeButtonEvent(display, 3, true, 0);
+            InputX11.XTestFakeButtonEvent(display, 3, true, 0);
             Xlib.XCloseDisplay(display);
         }
         
@@ -85,7 +85,7 @@ namespace ClicklessMouse.Native
         {
             IntPtr display = Xlib.XOpenDisplay(null);
             // uint button = 1;
-            X11Input.XTestFakeButtonEvent(display, 3, false, 0);
+            InputX11.XTestFakeButtonEvent(display, 3, false, 0);
             Xlib.XCloseDisplay(display);
         }
 
