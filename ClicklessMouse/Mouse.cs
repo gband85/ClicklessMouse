@@ -161,7 +161,7 @@ namespace ClicklessMouse
 #if _WINDOWS
             ClicklessMouse.Native.InputWin.SetCursorPos(x, y);
 #elif _LINUX
-ClicklessMouse.Native.InputX11.SetCursorPos(x,y)
+            ClicklessMouse.Native.InputX11.SetCursorPos(x, y);
 
 #endif
         }
