@@ -17,6 +17,6 @@
     <PackageVersion Include="MarkdownSharp" Version="2.0.5" />
     <PackageVersion Include="MessageBox.Avalonia" Version="3.2.0" />
     <PackageVersion Include="Simplecto.Avalonia.RichTextBox" Version="1.3.5" />
-    <PackageVersion Include="X11" Version="1.0.6" />
+    <PackageVersion Include="X11.Net" Version="1.0.7" />
   </ItemGroup>
 </Project>

@@ -36,8 +36,7 @@
     <PackageReference Include="MarkdownSharp" />
     <PackageReference Include="MessageBox.Avalonia" />
     <PackageReference Include="Simplecto.Avalonia.RichTextBox" />
-    <PackageReference Include="Tmds.DBus" />
-    <PackageReference Include="X11" />
+    <PackageReference Include="X11.Net" />
   </ItemGroup>
 	<ItemGroup>
 		<AvaloniaResource Include="Assets\**" />
