@@ -1,6 +1,6 @@
-using System.Windows.Documents;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Markup.Xaml;
 
 namespace ClicklessMouse
@@ -13,12 +13,6 @@ namespace ClicklessMouse
         public WindowManual()
         {
             InitializeComponent();
-        }
-
-        private void Hyperlink_PreviewMouseUp(object sender, MouseEventArgs e)
-        {
-            var hyperlink = (Hyperlink)sender;
-            System.Diagnostics.Process.Start(hyperlink.NavigateUri.ToString());
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
