@@ -1,4 +1,5 @@
 ﻿using Avalonia;
+using DocumentFormat.OpenXml.Drawing.Charts;
 using DynamicData.Tests;
 using System;
 using System.Collections.Generic;
@@ -14,23 +15,24 @@ namespace ClicklessMouse.Native
 #if _LINUX
     public partial class InputX11
     {
-        
-        [DllImport("libXtst.so.6")]
-        public static extern int XTestFakeButtonEvent(IntPtr display, uint button, bool is_press, ulong delay);
-        
+        [DllImport("libX11.so.6")]
+        public static extern int XWarpPointer(IntPtr display, Window src_w, Window dest_w, int src_x, int src_y, uint src_width, uint src_height, int dest_x, int dest_y);
+
         [DllImport("libXtst.so.6")]
         public static extern int XTestFakeKeyEvent(IntPtr display, uint keycode, bool is_press, ulong delay);
 
         [DllImport("libX11.so.6")]
-        public static extern int XWarpPointer(IntPtr display, Window src_w, Window dest_w, int src_x, int src_y, uint src_width, uint src_height, int dest_x, int dest_y);
+        public static extern int XGetWindowProperty(IntPtr display, Window w, Atom property, long long_offset, long long_length, bool delete, Atom req_type,
+                        ref Atom actual_type_return, ref int actual_format_return, ref ulong nitems_return, ref ulong bytes_after_return,
+                        ref string prop_return);
 
         public static int[] GetCursorPos()
         {
-            int number_of_screens;
+            //int number_of_screens;
             IntPtr display = Xlib.XOpenDisplay(null);
-            number_of_screens = Xlib.XScreenCount(display);
-            IntPtr root_windows;
-            root_windows = sizeof(Window) * number_of_screens;
+            //number_of_screens = Xlib.XScreenCount(display);
+            //IntPtr root_windows;
+            //root_windows = sizeof(Window) * number_of_screens;
             Window w = Xlib.XDefaultRootWindow(display);
 
             Window window_return = new();
@@ -53,39 +55,35 @@ namespace ClicklessMouse.Native
         {
             IntPtr display = Xlib.XOpenDisplay(null);
             X11.Window w = Xlib.XDefaultRootWindow(display);
-            InputX11.XWarpPointer(display, X11.Window.None, w, 0, 0, 0, 0, x, y);
+            XWarpPointer(display, X11.Window.None, w, 0, 0, 0, 0, x, y);
             Xlib.XCloseDisplay(display);
         }
 
         public static void LeftButtonDown()
         {
                     IntPtr display = Xlib.XOpenDisplay(null);
-                    // uint button = 1;
-                    InputX11.XTestFakeButtonEvent(display, 1, true, 0);
+                    XTest.XTestFakeButtonEvent(display, Button.LEFT, 1, 0);
                     Xlib.XCloseDisplay(display);
         }
 
         public static void LeftButtonUp()
         {
             IntPtr display = Xlib.XOpenDisplay(null);
-            // uint button = 1;
-            InputX11.XTestFakeButtonEvent(display, 1, false, 0);
+            XTest.XTestFakeButtonEvent(display, Button.LEFT, 0, 0);
             Xlib.XCloseDisplay(display);
         }
-
+        
         public static void RightButtonDown()
         {
             IntPtr display = Xlib.XOpenDisplay(null);
-            // uint button = 1;
-            InputX11.XTestFakeButtonEvent(display, 3, true, 0);
+            XTest.XTestFakeButtonEvent(display, Button.RIGHT, 1, 0);
             Xlib.XCloseDisplay(display);
         }
         
         public static void RightButtonUp()
         {
             IntPtr display = Xlib.XOpenDisplay(null);
-            // uint button = 1;
-            InputX11.XTestFakeButtonEvent(display, 3, false, 0);
+            XTest.XTestFakeButtonEvent(display, Button.RIGHT, 0, 0);
             Xlib.XCloseDisplay(display);
         }
 
