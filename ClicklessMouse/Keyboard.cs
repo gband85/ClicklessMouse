@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows;
 using WindowsInput;
@@ -31,22 +32,22 @@ namespace ClicklessMouse
 
         void key_down(VirtualKeyCode vkc)
         {
-            if (vkc == VirtualKeyCode.LBUTTON)
-                left_down();
-            else if (vkc == VirtualKeyCode.RBUTTON)
-                right_down();
-            else
-                sim.Keyboard.KeyDown(vkc);
+            #if _WINDOWS
+            sim.Keyboard.KeyDown(vkc);
+
+#elif _LINUX
+            Native.InputX11.KeyDown(vkc);
+#endif
         }
 
         void key_up(VirtualKeyCode vkc)
         {
-            if (vkc == VirtualKeyCode.LBUTTON)
-                left_up();
-            else if (vkc == VirtualKeyCode.RBUTTON)
-                right_up();
-            else
-                sim.Keyboard.KeyUp(vkc);
+#if _WINDOWS
+sim.Keyboard.KeyUp(vkc);
+
+#elif _LINUX
+                Native.InputX11.KeyUp(vkc);
+#endif
         }
 
         void release_buttons_and_keys()
