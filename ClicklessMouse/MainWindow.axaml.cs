@@ -1910,71 +1910,39 @@ MouseCoords= GetCursorPosition();
             }
         }
 
-        private async void save_settings()
+        private void save_settings()
         {
-            FileStream fs = null;
-            StreamWriter sw = null;
-            string file_path = System.IO.Path.Combine(app_folder_path, settings_filename);
 
-            try
+            foreach (ILogical control in Wmain.GetLogicalDescendants())
             {
-                fs = new FileStream(file_path, FileMode.Create, FileAccess.Write);
-                sw = new StreamWriter(fs);
+                if (control is CheckBox cb)
+                    AddUpdateAppSetting(cb.Name, cb.IsChecked.ToString());
 
-                sw.WriteLine(CHBLMB.IsChecked);
-                sw.WriteLine(CHBRMB.IsChecked);
-                sw.WriteLine(CHBdoubleLMB.IsChecked);
-                sw.WriteLine(CHBholdLMB.IsChecked);
-                sw.WriteLine(CHBholdRMB.IsChecked);
-                sw.WriteLine(CHBscreen_panning.IsChecked);
-                sw.WriteLine(TBcursor_idle_before_squares_appear.Text);
-                sw.WriteLine(TBtime_to_start_mouse.Text);
-                sw.WriteLine(TBcursor_time_in_square.Text);
-
-                sw.WriteLine(CHBrun_at_startup.IsChecked);
-                sw.WriteLine(CHBstart_minimized.IsChecked);
-                sw.WriteLine(CHBminimize_to_tray.IsChecked);
-
-                sw.WriteLine(TBsquare_size.Text);
-                sw.WriteLine(TBsquare_border.Text);
-                sw.WriteLine(square_color1_str);
-                sw.WriteLine(square_color2_str);
-                sw.WriteLine(TBmin_square_size.Text);
-
-                sw.WriteLine(TBscreen_size.Text);
-
-                sw.WriteLine(lang.ToString());
-
-                sw.WriteLine(CHBcheck_for_updates.IsChecked);
-
-                sw.Close();
-                fs.Close();
-            }
-            catch (Exception ex)
-            {
-                var box = MessageBoxManager.GetMessageBoxStandard(error_title, ex.Message, ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error);
-                var result = await box.ShowAsync();
-
-                try
+                else if (control is TextBox tb)
                 {
-                    if (sw != null)
-                        sw.Close();
-                    if (fs != null)
-                        fs.Close();
+
+                    if (tb.Name == TBscreen_size.Name && tb.Text == "")
+                        AddUpdateAppSetting(tb.Name, "0");
+                    else if (tb.Name == TBsquare_color1.Name)                    
+                        AddUpdateAppSetting("square_color1_str", square_color1_str);                    
+                    else if (tb.Name == TBsquare_color2.Name)
+                        AddUpdateAppSetting("square_color2_str", square_color2_str);
+                    else
+                        AddUpdateAppSetting(tb.Name, tb.Text);
                 }
-                catch (Exception ex2) { }
             }
+            AddUpdateAppSetting("lang", lang.ToString());
+            
+            Console.WriteLine("appsettings.json updated successfully.");
+   
         }
 
         private async void load_settings()
         {
-            FileStream fs = null;
-            StreamReader sr = null;
-            string file_path = System.IO.Path.Combine(app_folder_path, settings_filename);
 
             try
             {
-                if (File.Exists(file_path))
+                if (File.Exists(settings_file_path))
                 {
                     //Checkboxes Checked and Unchecked events work only after form is loaded
                     //so they have to be called manually in order to load save data properly
@@ -1986,29 +1954,23 @@ MouseCoords= GetCursorPosition();
                     CHBscreen_panning_CheckedChanged(null, null);
                     CHBcheck_for_updates_CheckedChanged(null, null);
 
-                    fs = new FileStream(file_path, FileMode.Open, FileAccess.Read);
-                    sr = new StreamReader(fs);
+                    foreach (ILogical control in Wmain.GetLogicalDescendants())
+                    {
+                        if (control is CheckBox cb)
+                            cb.IsChecked = bool.Parse(ReadAppSetting(cb.Name));
 
-                    CHBLMB.IsChecked = bool.Parse(sr.ReadLine());
-                    CHBRMB.IsChecked = bool.Parse(sr.ReadLine());
-                    CHBdoubleLMB.IsChecked = bool.Parse(sr.ReadLine());
-                    CHBholdLMB.IsChecked = bool.Parse(sr.ReadLine());
-                    CHBholdRMB.IsChecked = bool.Parse(sr.ReadLine());
-                    CHBscreen_panning.IsChecked = bool.Parse(sr.ReadLine());
-                    TBcursor_idle_before_squares_appear.Text = sr.ReadLine();
-                    TBtime_to_start_mouse.Text = sr.ReadLine();
-                    TBcursor_time_in_square.Text = sr.ReadLine();
+                        else if (control is TextBox tb)
+                        {
+                            if (tb.Name == "TBsquare_color1")
+                                square_color1_str = ReadAppSetting("square_color1_str");
+                            else if (tb.Name == "TBsquare_color2")
+                                square_color2_str = ReadAppSetting("square_color2_str");
+                            else
+                                tb.Text = ReadAppSetting(tb.Name);
+                        }
+                    }
 
-                    CHBrun_at_startup.IsChecked = bool.Parse(sr.ReadLine());
-                    CHBstart_minimized.IsChecked = bool.Parse(sr.ReadLine());
-                    CHBminimize_to_tray.IsChecked = bool.Parse(sr.ReadLine());
-
-                    TBsquare_size.Text = sr.ReadLine();
-                    TBsquare_border.Text = sr.ReadLine();
-                    square_color1_str = sr.ReadLine();
-                    square_color2_str = sr.ReadLine();
-
-                    int argb = Convert.ToInt32(square_color1_str);
+                    uint argb = Convert.ToUInt32(square_color1_str);
 
                     byte[] values = BitConverter.GetBytes(argb);
 
@@ -2020,7 +1982,7 @@ MouseCoords= GetCursorPosition();
                     TBsquare_color1.Background = new SolidColorBrush(Color.FromArgb(a, r, g, b));
                     color1 = Avalonia.Media.Color.FromArgb(a, r, g, b);
 
-                    argb = Convert.ToInt32(square_color2_str);
+                    argb = Convert.ToUInt32(square_color2_str);
 
                     values = BitConverter.GetBytes(argb);
 
@@ -2032,18 +1994,7 @@ MouseCoords= GetCursorPosition();
                     TBsquare_color2.Background = new SolidColorBrush(Color.FromArgb(a, r, g, b));
                     color2 = Avalonia.Media.Color.FromArgb(a, r, g, b);
 
-                    TBmin_square_size.Text = sr.ReadLine();
-                    TBscreen_size.Text = sr.ReadLine();
-
-                    Enum.TryParse(sr.ReadLine(), out lang);
-
-                    if (sr.EndOfStream == false) //support old settings file
-                    {
-                        CHBcheck_for_updates.IsChecked = bool.Parse(sr.ReadLine());
-                    }
-
-                    sr.Close();
-                    fs.Close();
+                    Enum.TryParse(ReadAppSetting("lang"), out lang);
                 }
             }
             catch (Exception ex)
@@ -2052,14 +2003,14 @@ MouseCoords= GetCursorPosition();
                 var box = MessageBoxManager.GetMessageBoxStandard(error_title, ex.Message + loading_error_msg, ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error);
                 var result = await box.ShowAsync();
 
-                try
-                {
-                    if (sr != null)
-                        sr.Close();
-                    if (fs != null)
-                        fs.Close();
-                }
-                catch (Exception ex2) { }
+                // try
+                // {
+                //     if (sr != null)
+                //         sr.Close();
+                //     if (fs != null)
+                //         fs.Close();
+                // }
+                // catch (Exception ex2) { }
             }
         }
 
@@ -2098,6 +2049,64 @@ MouseCoords= GetCursorPosition();
                 }
             }
         }
+
+        private void AddUpdateAppSetting(string key, string value)
+        {
+            try
+            {
+                settings_file_path = System.IO.Path.Combine(app_folder_path, settings_filename);
+
+                // Load the JSON file
+                string json = File.ReadAllText(settings_file_path);
+
+                // Parse JSON as JsonNode
+                JsonNode root = JsonNode.Parse(json);
+
+                if (root == null)
+                {
+                    Console.WriteLine("Failed to load JSON.");
+                    return;
+                }
+
+                root[key] = value;
+
+                var options = new JsonSerializerOptions { WriteIndented = true };
+                File.WriteAllText(settings_file_path, root.ToJsonString(options));
+            }
+            catch (IOException)
+            {
+                Console.WriteLine("Error writing app settings");
+            }
+        }
+        private string ReadAppSetting(string key)
+        {
+            try
+            {
+
+                settings_file_path = System.IO.Path.Combine(app_folder_path, settings_filename);
+
+                // Load the JSON file
+                string json = File.ReadAllText(settings_file_path);
+
+                // Parse JSON as JsonNode
+                JsonNode root = JsonNode.Parse(json);
+
+                if (root == null)
+                {
+                    Console.WriteLine("Failed to load JSON.");
+                    return "0";
+                }
+
+                return root[key].ToString();
+
+            }
+            catch (ConfigurationErrorsException)
+            {
+                Console.WriteLine("Error reading app settings");
+                return "[]";
+            }
+        }
+
 
         private class MyWebClient : WebClient
         {
