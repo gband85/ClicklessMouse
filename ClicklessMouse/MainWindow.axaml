@@ -1,163 +1,125 @@
-<Window x:Name="Wmain" xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="512" d:DesignHeight="641"
-		x:Class="ClicklessMouse.MainWindow"
-        Title="Clickless Mouse" Height="512" Width="641" FontSize="13"
-        xmlns:ctrl="using:GroupBox.Avalonia.Controls"
-        xmlns:p="clr-namespace:ClicklessMouse.Properties"
-        WindowStartupLocation="CenterScreen"
-        CanResize="True" >
+<Window x:Class="ClicklessMouse.MainWindow" xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ctrl="using:GroupBox.Avalonia.Controls" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:p="clr-namespace:ClicklessMouse.Properties" x:Name="Wmain" Title="Clickless Mouse" Width="689" Height="440" d:DesignHeight="641" d:DesignWidth="512" CanResize="True" FontSize="13" WindowStartupLocation="CenterScreen" mc:Ignorable="d">
 	<Window.Styles>
-		<Style Selector="TextBox">
-			<Setter Property="Padding" Value="-8,-6,0,0"/>
-			<Setter Property="MinHeight" Value="25"/>
-			<Setter Property="Margin" Value="0,0,0,10"/>
-		</Style>
-		<Style Selector="StackPanel.outer">
-			<Setter Property="Margin" Value="0,0,10,10"/>
-			</Style>
-		<Style Selector="ctrl|GroupBox">
-			<Setter Property="Margin" Value="0,0,0,10"/>
-			<Setter Property="Padding" Value="20"/>
+		<Style Selector="Label">
+			<Setter Property="Padding" Value="0" />
+			<Setter Property="VerticalContentAlignment" Value="Bottom" />
 		</Style>
 	</Window.Styles>
 	<Grid ShowGridLines="True">
-	<Grid.RowDefinitions>
-		<RowDefinition Height="23"/>
-		<RowDefinition Height="Auto"/>
-		<!--<RowDefinition Height="Auto"/>-->
-	</Grid.RowDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="23" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
 
-	<DockPanel Grid.Row="0">
-		<Menu DockPanel.Dock="Top" x:Name="Mmain" Background="#FFEAEAEA" VerticalAlignment="Center" Height="23">
-			<MenuItem x:Name="MIfile" Header="{x:Static p:Resources.MIfile}">
-				<MenuItem x:Name="MIexit" Header="{x:Static p:Resources.MIexit}" Click="MIexit_Click" Background="#FFEAEAEA" />
-			</MenuItem>
-			<MenuItem x:Name="MIrestore" Header="{x:Static p:Resources.MIrestore}">
-				<MenuItem x:Name="MIdefault_colors" Background="#FFEAEAEA" Header="{x:Static p:Resources.MIdefault_colors}" Click="MIdefault_colors_Click" />
-				<MenuItem x:Name="MIdefault_settings" Background="#FFEAEAEA" Header="{x:Static p:Resources.MIdefault_settings}" Click="MIdefault_settings_Click" />
-			</MenuItem>
-			<MenuItem x:Name="MIlanguage" Header="{x:Static p:Resources.MIlanguage}">
-				<MenuItem x:Name="MIenglish" Header="{x:Static p:Resources.MIenglish}" Background="#FFEAEAEA" Click="MIenglish_Click" />
-				<MenuItem x:Name="MIpolish" Header="{x:Static p:Resources.MIpolish}" Background="#FFEAEAEA" Click="MIpolish_Click" />
-			</MenuItem>
-			<MenuItem x:Name="MIhelp" Header="{x:Static p:Resources.MIhelp}">
-				<MenuItem x:Name="MImanual" Header="{x:Static p:Resources.MImanual}"  Background="#FFEAEAEA" Click="MImanual_Click"/>
-				<MenuItem x:Name="MIabout" Header="{x:Static p:Resources.MIabout}" Click="MIabout_Click"/>
-			</MenuItem>
-		</Menu>
-	</DockPanel>
-	
-		<!-- Menu -->
+		<DockPanel Grid.Row="0">
+			<Menu x:Name="Mmain" Height="23" VerticalAlignment="Center" Background="#FFEAEAEA" DockPanel.Dock="Top">
+				<MenuItem x:Name="MIfile" Header="{x:Static p:Resources.MIfile}">
+					<MenuItem x:Name="MIexit" Background="#FFEAEAEA" Click="MIexit_Click" Header="{x:Static p:Resources.MIexit}" />
+				</MenuItem>
+				<MenuItem x:Name="MIrestore" Header="{x:Static p:Resources.MIrestore}">
+					<MenuItem x:Name="MIdefault_colors" Background="#FFEAEAEA" Click="MIdefault_colors_Click" Header="{x:Static p:Resources.MIdefault_colors}" />
+					<MenuItem x:Name="MIdefault_settings" Background="#FFEAEAEA" Click="MIdefault_settings_Click" Header="{x:Static p:Resources.MIdefault_settings}" />
+				</MenuItem>
+				<MenuItem x:Name="MIlanguage" Header="{x:Static p:Resources.MIlanguage}">
+					<MenuItem x:Name="MIenglish" Background="#FFEAEAEA" Click="MIenglish_Click" Header="{x:Static p:Resources.MIenglish}" />
+					<MenuItem x:Name="MIpolish" Background="#FFEAEAEA" Click="MIpolish_Click" Header="{x:Static p:Resources.MIpolish}" />
+				</MenuItem>
+				<MenuItem x:Name="MIhelp" Header="{x:Static p:Resources.MIhelp}">
+					<MenuItem x:Name="MImanual" Background="#FFEAEAEA" Click="MImanual_Click" Header="{x:Static p:Resources.MImanual}" />
+					<MenuItem x:Name="MIabout" Click="MIabout_Click" Header="{x:Static p:Resources.MIabout}" />
+				</MenuItem>
+			</Menu>
+		</DockPanel>
 
-<Grid Grid.Row="1" Margin="10">
-	<Grid.ColumnDefinitions>
-		<ColumnDefinition Width="Auto"></ColumnDefinition>
-		<ColumnDefinition Width="Auto"></ColumnDefinition>
-	</Grid.ColumnDefinitions>
-	<StackPanel Grid.Column="0" Classes="outer">
-	<ctrl:GroupBox Grid.Row="1" x:Name="GBmain_settings" Header="{x:Static p:Resources.GBmain_settings}" Theme="{StaticResource GroupBoxClassic}" RenderOptions.EdgeMode="Antialias" HorizontalAlignment="Left" Width="308">
-		<StackPanel>
-<Grid>
-	<Grid.ColumnDefinitions>
-		<ColumnDefinition Width="Auto"></ColumnDefinition>
-		<ColumnDefinition Width="Auto"></ColumnDefinition>
-	</Grid.ColumnDefinitions>
-	<Grid.RowDefinitions>
-		<RowDefinition Height="Auto"/>
-		<RowDefinition Height="Auto"/>
-		<RowDefinition Height="Auto"/>
-	</Grid.RowDefinitions>
-					<CheckBox Grid.Row="0" Grid.Column="0" x:Name="CHBLMB" Content="{x:Static p:Resources.CHBLMB}" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="CHBLMB_CheckedChanged" Unchecked="CHBLMB_CheckedChanged" Margin="0,0,10,0"/>
-				<CheckBox Grid.Row="1" Grid.Column="0" x:Name="CHBRMB" Content="{x:Static p:Resources.CHBRMB}" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="CHBRMB_CheckedChanged" Unchecked="CHBRMB_CheckedChanged" Margin="0,0,10,0"/>
-				<CheckBox Grid.Row="2" Grid.Column="0" x:Name="CHBdoubleLMB" Content="{x:Static p:Resources.CHBdoubleLMB}" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="CHBdoubleLMB_CheckedChanged" Unchecked="CHBdoubleLMB_CheckedChanged" Margin="0,0,10,0"/>
-				<CheckBox Grid.Row="0" Grid.Column="1" x:Name="CHBholdLMB" Content="{x:Static p:Resources.CHBholdLMB}" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="CHBholdLMB_CheckedChanged" Unchecked="CHBholdLMB_CheckedChanged"/>
-				<CheckBox Grid.Row="1" Grid.Column="1" x:Name="CHBholdRMB" Content="{x:Static p:Resources.CHBholdRMB}" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="CHBholdRMB_CheckedChanged" Unchecked="CHBholdRMB_CheckedChanged"/>
-				<CheckBox Grid.Row="2" Grid.Column="1" x:Name="CHBscreen_panning" Content="{x:Static p:Resources.CHBscreen_panning}" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="CHBscreen_panning_CheckedChanged" Unchecked="CHBscreen_panning_CheckedChanged"/>
-</Grid>
-			
-			<Grid>
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="Auto"></ColumnDefinition>
-					<ColumnDefinition Width="Auto"></ColumnDefinition>
-				</Grid.ColumnDefinitions>
-				<Grid.RowDefinitions>
-					<RowDefinition Height="Auto"/>
-					<RowDefinition Height="Auto"/>
-					<RowDefinition Height="Auto"/>
-				</Grid.RowDefinitions>
-				<TextBlock Grid.Column="0" Grid.Row="0" x:Name="Lcursor_idle_before_squares_appear" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{x:Static p:Resources.Lcursor_idle_before_squares_appear}" VerticalAlignment="Top" Width="220" />
-				<TextBox Grid.Column="1" Grid.Row="0" x:Name="TBcursor_idle_before_squares_appear" HorizontalAlignment="Left" Height="25" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" TextChanged="TBcursor_idle_before_squares_appear_TextChanged" ScrollViewer.VerticalScrollBarVisibility="Hidden"/>
-				<TextBlock Grid.Column="0" Grid.Row="1" x:Name="Ltime_to_start_mouse" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{x:Static p:Resources.Ltime_to_start_mouse}" VerticalAlignment="Top" Width="220"/>
-				<TextBox Grid.Column="1" Grid.Row="1" x:Name="TBtime_to_start_mouse" HorizontalAlignment="Left" Height="25" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" TextChanged="TBtime_to_start_mouse_TextChanged" ScrollViewer.VerticalScrollBarVisibility="Hidden"/>
-				<TextBlock Grid.Column="0" Grid.Row="2" x:Name="Lcursor_time_in_square" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{x:Static p:Resources.Lcursor_time_in_square}" VerticalAlignment="Top" Width="220"/>
-				<TextBox Grid.Column="1" Grid.Row="2" x:Name="TBcursor_time_in_square" HorizontalAlignment="Left" Height="25" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" TextChanged="TBcursor_time_in_square_TextChanged" ScrollViewer.VerticalScrollBarVisibility="Hidden"/>
+		<Grid Grid.Row="1" Margin="10" ColumnSpacing="10" RowSpacing="10">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto" />
+				<ColumnDefinition Width="Auto" />
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+			</Grid.RowDefinitions>
+			<ctrl:GroupBox x:Name="GBmain_settings" Grid.Row="0" Grid.Column="0" Header="{x:Static p:Resources.GBmain_settings}" RenderOptions.EdgeMode="Antialias" Theme="{StaticResource GroupBoxClassic}">
+				<Grid ColumnSpacing="10" RowSpacing="10">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto" />
+						<ColumnDefinition Width="Auto" />
+					</Grid.ColumnDefinitions>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+					</Grid.RowDefinitions>
+					<CheckBox x:Name="CHBLMB" Grid.Row="0" Grid.Column="0" Margin="10,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="CHBLMB_CheckedChanged" Content="{x:Static p:Resources.CHBLMB}" Unchecked="CHBLMB_CheckedChanged" />
+					<CheckBox x:Name="CHBRMB" Grid.Row="1" Grid.Column="0" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="CHBRMB_CheckedChanged" Content="{x:Static p:Resources.CHBRMB}" Unchecked="CHBRMB_CheckedChanged" />
+					<CheckBox x:Name="CHBdoubleLMB" Grid.Row="2" Grid.Column="0" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="CHBdoubleLMB_CheckedChanged" Content="{x:Static p:Resources.CHBdoubleLMB}" Unchecked="CHBdoubleLMB_CheckedChanged" />
+					<CheckBox x:Name="CHBholdLMB" Grid.Row="0" Grid.Column="1" Margin="0,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="CHBholdLMB_CheckedChanged" Content="{x:Static p:Resources.CHBholdLMB}" Unchecked="CHBholdLMB_CheckedChanged" />
+					<CheckBox x:Name="CHBholdRMB" Grid.Row="1" Grid.Column="1" Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="CHBholdRMB_CheckedChanged" Content="{x:Static p:Resources.CHBholdRMB}" Unchecked="CHBholdRMB_CheckedChanged" />
+					<CheckBox x:Name="CHBscreen_panning" Grid.Row="2" Grid.Column="1" Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="CHBscreen_panning_CheckedChanged" Content="{x:Static p:Resources.CHBscreen_panning}" Unchecked="CHBscreen_panning_CheckedChanged" />
+					<TextBlock x:Name="Lcursor_idle_before_squares_appear" Grid.Row="3" Grid.Column="0" Width="220" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Text="{x:Static p:Resources.Lcursor_idle_before_squares_appear}" TextWrapping="Wrap" />
+					<TextBox x:Name="TBcursor_idle_before_squares_appear" Grid.Row="3" Grid.Column="1" Width="50" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Hidden" TextChanged="TBcursor_idle_before_squares_appear_TextChanged" TextWrapping="Wrap" />
+					<TextBlock x:Name="Ltime_to_start_mouse" Grid.Row="4" Grid.Column="0" Width="220" Margin="10,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Text="{x:Static p:Resources.Ltime_to_start_mouse}" TextWrapping="Wrap" />
+					<TextBox x:Name="TBtime_to_start_mouse" Grid.Row="4" Grid.Column="1" Width="50" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Hidden" TextChanged="TBtime_to_start_mouse_TextChanged" TextWrapping="Wrap" />
+					<TextBlock x:Name="Lcursor_time_in_square" Grid.Row="5" Grid.Column="0" Width="220" Margin="10,0,0,10" HorizontalAlignment="Left" VerticalAlignment="Top" Text="{x:Static p:Resources.Lcursor_time_in_square}" TextWrapping="Wrap" />
+					<TextBox x:Name="TBcursor_time_in_square" Grid.Row="5" Grid.Column="1" Width="50" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Hidden" TextChanged="TBcursor_time_in_square_TextChanged" TextWrapping="Wrap" />
 
-			</Grid>
-		</StackPanel>	
-		</ctrl:GroupBox>
-		<ctrl:GroupBox x:Name="GBother_settings" Grid.Row="2" Grid.Column="0" Header="{x:Static p:Resources.GBother_settings}" Theme="{StaticResource GroupBoxClassic}" RenderOptions.EdgeMode="Antialias" HorizontalAlignment="Left" Width="308">
-			<StackPanel>
-				<CheckBox x:Name="CHBrun_at_startup" Content="{x:Static p:Resources.CHBrun_at_startup}" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="CHBrun_at_startup_CheckedChanged" Unchecked="CHBrun_at_startup_CheckedChanged"/>
-				<CheckBox x:Name="CHBstart_minimized" Content="{x:Static p:Resources.CHBstart_minimized}" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="CHBstart_minimized_CheckedChanged" Unchecked="CHBstart_minimized_CheckedChanged"/>
-				<CheckBox x:Name="CHBminimize_to_tray" Content="{x:Static p:Resources.CHBminimize_to_tray}" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="CHBminimize_to_tray_CheckedChanged" Unchecked="CHBminimize_to_tray_CheckedChanged"/>
-				<CheckBox x:Name="CHBcheck_for_updates" Content="{x:Static p:Resources.CHBcheck_for_updates}"
-                          HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14"
-                          Checked="CHBcheck_for_updates_CheckedChanged" />
-			</StackPanel>
-		</ctrl:GroupBox>
-	</StackPanel>
-	<StackPanel Grid.Column="1" Classes="l1" >
-	<ctrl:GroupBox x:Name="GBsquare_settings" Grid.Row="1" Grid.Column="1" Header="{x:Static p:Resources.GBsquare_settings}" Theme="{StaticResource GroupBoxClassic}" RenderOptions.EdgeMode="Antialias" HorizontalAlignment="Left" Width="291">
-		<StackPanel>
-			<Grid>
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="*"></ColumnDefinition>
-					<ColumnDefinition Width="*"></ColumnDefinition>
-				</Grid.ColumnDefinitions>
-				<Grid.RowDefinitions>
-					<RowDefinition Height="25"></RowDefinition>
-					<RowDefinition Height="25"></RowDefinition>
-					<RowDefinition Height="25"></RowDefinition>
-					<RowDefinition Height="25"></RowDefinition>
-					<RowDefinition Height="25"></RowDefinition>
-				</Grid.RowDefinitions>
-				<Label Grid.Row="0" Grid.Column="0" x:Name="Lsquare_size" Content="{x:Static p:Resources.Lsquare_size}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-			<Label Grid.Row="1" Grid.Column="0" x:Name="Lsquare_border" Content="{x:Static p:Resources.Lsquare_border}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-			<Label Grid.Row="2" Grid.Column="0" x:Name="Lsquare_color1" Content="{x:Static p:Resources.Lsquare_color1}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-			<Label Grid.Row="3" Grid.Column="0" x:Name="Lsquare_color2" Content="{x:Static p:Resources.Lsquare_color2}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-			<Label Grid.Row="4" Grid.Column="0" x:Name="Lmin_square_size" Content="{x:Static p:Resources.Lmin_square_size}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-<TextBox Grid.Row="0" Grid.Column="1" x:Name="TBsquare_size" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" VerticalContentAlignment="Stretch" Width="45" TextChanged="TBsquare_size_TextChanged"  Height="25"/>
-			<TextBox Grid.Row="1" Grid.Column="1" x:Name="TBsquare_border"  HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Height="25" Width="60" TextChanged="TBsquare_border_TextChanged" ScrollViewer.VerticalScrollBarVisibility="Hidden"/>
-			<TextBox Grid.Row="2" Grid.Column="1" x:Name="TBsquare_color1" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="95" ScrollViewer.VerticalScrollBarVisibility="Hidden"/>
-			<TextBox Grid.Row="3" Grid.Column="1" x:Name="TBsquare_color2" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="95" ScrollViewer.VerticalScrollBarVisibility="Hidden"/>
-			<TextBox Grid.Row="4" Grid.Column="1" x:Name="TBmin_square_size" HorizontalAlignment="Left" Height="25" TextWrapping="Wrap" VerticalAlignment="Top" Width="45" TextChanged="TBmin_square_size_TextChanged" ScrollViewer.VerticalScrollBarVisibility="Hidden"/>
-			</Grid>
-		</StackPanel>
-	</ctrl:GroupBox>
-		<ctrl:GroupBox x:Name="GBrecommended_square_size" Grid.Row="2" Grid.Column="1" Header="{x:Static p:Resources.GBrecommended_square_size}" Theme="{StaticResource GroupBoxClassic}" RenderOptions.EdgeMode="Antialias" HorizontalAlignment="Left" Height="135" VerticalAlignment="Top" Width="291">
-			<StackPanel>
-			<Grid>
-				<Grid.RowDefinitions>
-					<RowDefinition Height="25"></RowDefinition>
-					<RowDefinition Height="25"></RowDefinition>
-					<RowDefinition Height="41"></RowDefinition>
-				</Grid.RowDefinitions>
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="180"></ColumnDefinition>
-					<ColumnDefinition Width="*"></ColumnDefinition>
-				</Grid.ColumnDefinitions>
-				<Label  Grid.Row="0" Grid.Column="0" x:Name="Lscreen_size" Content="{x:Static p:Resources.Lscreen_size}" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
-				<TextBox Grid.Row="0" Grid.Column="1" x:Name="TBscreen_size" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" ScrollViewer.VerticalScrollBarVisibility="Hidden" HorizontalAlignment="Left" Height="25"/>
-				<Label Grid.Row="1" Grid.Column="0" x:Name="Lscreen_resolution" Content="Screen resolution:" VerticalAlignment="Top"/>
-				<TextBlock Grid.Row="1" Grid.Column="1"  x:Name="TBscreen_resolution" TextWrapping="Wrap" VerticalAlignment="Center" Width="100" HorizontalAlignment="Left"/>
-				<Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" x:Name="Bset_recommended_square" Background="#FFEAEAEA" Content="{x:Static p:Resources.Bset_recommended_square}" Click="Click_Bset_recommended_square" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-			</Grid>
-			</StackPanel>
-		</ctrl:GroupBox>
-	</StackPanel>
-</Grid>
+				</Grid>
+			</ctrl:GroupBox>
+			<ctrl:GroupBox x:Name="GBother_settings" Grid.Row="1" Width="367" HorizontalAlignment="Left" Header="{x:Static p:Resources.GBother_settings}" RenderOptions.EdgeMode="Antialias" Theme="{StaticResource GroupBoxClassic}">
+				<StackPanel>
+					<CheckBox x:Name="CHBrun_at_startup" Margin="10,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="CHBrun_at_startup_CheckedChanged" Content="{x:Static p:Resources.CHBrun_at_startup}" Unchecked="CHBrun_at_startup_CheckedChanged" />
+					<CheckBox x:Name="CHBstart_minimized" Margin="10,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="CHBstart_minimized_CheckedChanged" Content="{x:Static p:Resources.CHBstart_minimized}" Unchecked="CHBstart_minimized_CheckedChanged" />
+					<CheckBox x:Name="CHBminimize_to_tray" Margin="10,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="CHBminimize_to_tray_CheckedChanged" Content="{x:Static p:Resources.CHBminimize_to_tray}" Unchecked="CHBminimize_to_tray_CheckedChanged" />
+					<CheckBox x:Name="CHBcheck_for_updates" Margin="10,10,0,10" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="CHBcheck_for_updates_CheckedChanged" Content="{x:Static p:Resources.CHBcheck_for_updates}" />
+				</StackPanel>
+			</ctrl:GroupBox>
+			<ctrl:GroupBox x:Name="GBsquare_settings" Grid.Row="0" Grid.Column="1" Width="291" HorizontalAlignment="Left" Header="{x:Static p:Resources.GBsquare_settings}" RenderOptions.EdgeMode="Antialias" Theme="{StaticResource GroupBoxClassic}">
+				<Grid RowSpacing="17">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*" />
+						<ColumnDefinition Width="*" />
+					</Grid.ColumnDefinitions>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+					</Grid.RowDefinitions>
+					<Label x:Name="Lsquare_size" Grid.Row="0" Grid.Column="0" Margin="10,10,0,0" HorizontalAlignment="Left" Content="{x:Static p:Resources.Lsquare_size}" />
+					<Label x:Name="Lsquare_border" Grid.Row="1" Grid.Column="0" Margin="10,0,0,0" HorizontalAlignment="Left" Content="{x:Static p:Resources.Lsquare_border}" />
+					<Label x:Name="Lsquare_color1" Grid.Row="2" Grid.Column="0" Margin="10,0,0,0" HorizontalAlignment="Left" Content="{x:Static p:Resources.Lsquare_color1}" />
+					<Label x:Name="Lsquare_color2" Grid.Row="3" Grid.Column="0" Margin="10,0,0,0" HorizontalAlignment="Left" Content="{x:Static p:Resources.Lsquare_color2}" />
+					<Label x:Name="Lmin_square_size" Grid.Row="4" Grid.Column="0" Margin="10,0,0,0" HorizontalAlignment="Left" Content="{x:Static p:Resources.Lmin_square_size}" />
+					<TextBox x:Name="TBsquare_size" Grid.Row="0" Grid.Column="1" Width="45" Height="25" Margin="0,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Hidden" TextChanged="TBsquare_size_TextChanged" TextWrapping="Wrap" />
+					<TextBox x:Name="TBsquare_border" Grid.Row="1" Grid.Column="1" Width="60" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Hidden" TextChanged="TBsquare_border_TextChanged" TextWrapping="Wrap" />
+					<TextBox x:Name="TBsquare_color1" Grid.Row="2" Grid.Column="1" Width="95" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Hidden" TextWrapping="Wrap" />
+					<TextBox x:Name="TBsquare_color2" Grid.Row="3" Grid.Column="1" Width="95" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Hidden" TextWrapping="Wrap" />
+					<TextBox x:Name="TBmin_square_size" Grid.Row="4" Grid.Column="1" Width="45" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Hidden" TextChanged="TBmin_square_size_TextChanged" TextWrapping="Wrap" />
+				</Grid>
+			</ctrl:GroupBox>
+			<ctrl:GroupBox x:Name="GBrecommended_square_size" Grid.Row="1" Grid.Column="1" Width="291" Height="144" HorizontalAlignment="Left" VerticalAlignment="Top" Header="{x:Static p:Resources.GBrecommended_square_size}" RenderOptions.EdgeMode="Antialias" Theme="{StaticResource GroupBoxClassic}">
+				<Grid RowSpacing="7">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="25" />
+						<RowDefinition Height="25" />
+						<RowDefinition Height="41" />
+					</Grid.RowDefinitions>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="180" />
+						<ColumnDefinition Width="*" />
+					</Grid.ColumnDefinitions>
+					<Label x:Name="Lscreen_size" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="10,10,0,0" HorizontalAlignment="" VerticalAlignment="Center" Content="{x:Static p:Resources.Lscreen_size}" />
+					<TextBox x:Name="TBscreen_size" Grid.Row="0" Grid.Column="1" Width="50" Height="25" Margin="0,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Hidden" TextWrapping="Wrap" />
+					<Label x:Name="Lscreen_resolution" Grid.Row="1" Grid.Column="0" Margin="10,0,0,0" VerticalAlignment="Center" Content="Screen resolution:" />
+					<TextBlock x:Name="TBscreen_resolution" Grid.Row="1" Grid.Column="1" Width="100" HorizontalAlignment="Left" VerticalAlignment="Center" TextWrapping="Wrap" />
+					<Button x:Name="Bset_recommended_square" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFEAEAEA" Click="Click_Bset_recommended_square" Content="{x:Static p:Resources.Bset_recommended_square}" />
+				</Grid>
+			</ctrl:GroupBox>
+		</Grid>
 	</Grid>
-</Window>	
+</Window>
