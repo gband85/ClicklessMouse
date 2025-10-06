@@ -80,12 +80,12 @@ namespace ClicklessMouse
                                                                          //----------------------------------
 
         const string prog_name = "Clickless Mouse";
-        const string prog_version = "2.2";
-        const string url_latest_version = "https://raw.githubusercontent.com/ProperCode/Clickless-Mouse/master/other/latest_version.txt";
-        const string url_homepage = "github.com/ProperCode/Clickless-Mouse";
+        const string prog_version = "3.0";
+        const string url_latest_version = "https://raw.githubusercontent.com/gband85/Clickless-Mouse/AvaloniaUI/other/latest_version.txt";
+        const string url_homepage = "github.com/gband85/Clickless-Mouse";
         string latest_version = "";
-        const string copyright_text = "Copyright © 2019 - 2024 Mikołaj Magowski. All rights reserved.";
-        string settings_filename = "settings.txt";
+        const string copyright_text = "Copyright © 2025 Garrett Anderson. All rights reserved.";
+        string settings_filename = "appsettings.json";
 
         Square SL, SR, SM, SLH, SRH;
         DateTime last_click_time;
