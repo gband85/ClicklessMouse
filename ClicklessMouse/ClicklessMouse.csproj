@@ -10,6 +10,7 @@
     <UseWPF>False</UseWPF>
 	  <IsWindows Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Windows)))' == 'true'">true</IsWindows>
 	  <IsLinux Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' == 'true'">true</IsLinux>
+	  <ApplicationIcon>Assets\clickless_mouse.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition="'$(IsWindows)'=='true'">
 	  <DefineConstants>_WINDOWS</DefineConstants>
