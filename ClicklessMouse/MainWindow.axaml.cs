@@ -120,7 +120,8 @@ namespace ClicklessMouse
             // Thread.CurrentThread.Priority = ThreadPriority.Highest;
 
             InitializeComponent();
-
+            Wmain.Closing += Window_Closing;
+            // TBsquare_color1
             //Stream iconStream = System.Windows.Application.GetResourceStream(
             //    new Uri("pack://application:,,,/ClicklessMouse;component/clickless_mouse.ico")).Stream;
             //ni.Icon = new System.Drawing.Icon(iconStream);
