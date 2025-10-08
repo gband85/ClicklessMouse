@@ -1817,8 +1817,6 @@ MouseCoords= GetCursorPosition();
         //        var box = MessageBoxManager.GetMessageBoxStandard(error_title, ex.Message, ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error);
         //        var result = await box.ShowAsync();
 
-        //    }
-        //}
         }
         }
 
