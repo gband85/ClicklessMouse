@@ -169,25 +169,12 @@ namespace ClicklessMouse
                 }
             }
 
-            CenterWindowOnScreen();
-
             TBsquare_color1.IsReadOnly = true;
             TBsquare_color2.IsReadOnly = true;
 
             THRmouse_monitor = new Thread(new ThreadStart(monitor_mouse));
             THRmouse_monitor.Priority = ThreadPriority.Highest;
             THRmouse_monitor.Start();
-        }
-
-        private void CenterWindowOnScreen()
-        {
-            double screenWidth = Screens.Primary.Bounds.Width;
-            double screenHeight = Screens.Primary.Bounds.Height;
-            double windowWidth = this.Width;
-            double windowHeight = this.Height;
-            int x = (int)((screenWidth / 2) - (windowWidth / 2));
-            int y = (int)((screenHeight / 2) - (windowHeight / 2));
-            this.Position = new Avalonia.PixelPoint(x, y);
         }
 
         async void is_program_already_running()
