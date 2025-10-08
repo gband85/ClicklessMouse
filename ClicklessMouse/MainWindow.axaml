@@ -4,6 +4,13 @@
 			<Setter Property="Padding" Value="0" />
 			<Setter Property="VerticalContentAlignment" Value="Bottom" />
 		</Style>
+		<Style Selector="MenuItem">
+			<Setter Property="Background" Value="#ffeaeaea"/>
+		</Style>
+		<!-- remove white border around menu items -->
+		<Style Selector="MenuItem:open /template/ Popup#PART_Popup > Border">
+			<Setter Property="Background" Value="#ffeaeaea"></Setter>
+		</Style>
 	</Window.Styles>
 	<Grid ShowGridLines="True">
 		<Grid.RowDefinitions>
