@@ -5,6 +5,9 @@ using System.Net;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System;
+using System.Configuration;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Media;
@@ -18,12 +21,11 @@ using System.Windows.Input;
 using WindowState = Avalonia.Controls.WindowState;
 using Avalonia.Input;
 using Avalonia;
+using Avalonia.LogicalTree;
 using MsBox.Avalonia;
 using MsBox.Avalonia.Enums;
 using WindowsInput;
 using WindowsInput.Native;
-using System.Diagnostics.Eventing.Reader;
-using System.Drawing;
 using Color = Avalonia.Media.Color;
 
 namespace ClicklessMouse
