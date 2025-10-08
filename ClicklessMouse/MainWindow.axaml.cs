@@ -169,9 +169,6 @@ namespace ClicklessMouse
                 }
             }
 
-            TBsquare_color1.IsReadOnly = true;
-            TBsquare_color2.IsReadOnly = true;
-
             THRmouse_monitor = new Thread(new ThreadStart(monitor_mouse));
             THRmouse_monitor.Priority = ThreadPriority.Highest;
             THRmouse_monitor.Start();
