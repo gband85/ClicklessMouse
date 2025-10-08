@@ -1263,7 +1263,7 @@ MouseCoords= GetCursorPosition();
             byte g = values[1];
             byte b = values[0];
 
-            TBsquare_color1.Background = new SolidColorBrush(Color.FromArgb(a, r, g, b));
+            Bsquare_color1.Background = new SolidColorBrush(Color.FromArgb(a, r, g, b));
             color1 = Avalonia.Media.Color.FromArgb(a, r, g, b);
 
             argb = Convert.ToUInt32(square_color2_str);
@@ -1275,7 +1275,7 @@ MouseCoords= GetCursorPosition();
             g = values[1];
             b = values[0];
 
-            TBsquare_color2.Background = new SolidColorBrush(Color.FromArgb(a, r, g, b));
+            Bsquare_color2.Background = new SolidColorBrush(Color.FromArgb(a, r, g, b));
             color2 = Avalonia.Media.Color.FromArgb(a, r, g, b);
 
             regenerate_squares();
