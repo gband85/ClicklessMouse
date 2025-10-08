@@ -294,7 +294,7 @@ namespace ClicklessMouse
             byte g = values[1];
             byte b = values[0];
 
-            TBsquare_color1.Background = new SolidColorBrush(Color.FromArgb(a, r, g, b));
+            Bsquare_color1.Background = new SolidColorBrush(Color.FromArgb(a, r, g, b));
             color1 = Avalonia.Media.Color.FromArgb(a, r, g, b);
 
             argb = Convert.ToUInt32(square_color2_str);
@@ -306,7 +306,7 @@ namespace ClicklessMouse
             g = values[1];
             b = values[0];
 
-            TBsquare_color2.Background = new SolidColorBrush(Color.FromArgb(a, r, g, b));
+            Bsquare_color2.Background = new SolidColorBrush(Color.FromArgb(a, r, g, b));
             color2 = Avalonia.Media.Color.FromArgb(a, r, g, b);
 
             TBmin_square_size.Text = default_min_square_size_percents.ToString();
@@ -1811,14 +1811,16 @@ MouseCoords= GetCursorPosition();
         //                save_settings();
         //            }
         //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
+        }
+        catch (Exception ex)
+        {
         //        var box = MessageBoxManager.GetMessageBoxStandard(error_title, ex.Message, ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error);
         //        var result = await box.ShowAsync();
 
         //    }
         //}
+        }
+        }
 
         private async void TBmin_square_size_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -1910,9 +1912,9 @@ MouseCoords= GetCursorPosition();
 
                     if (tb.Name == TBscreen_size.Name && tb.Text == "")
                         AddUpdateAppSetting(tb.Name, "0");
-                    else if (tb.Name == TBsquare_color1.Name)                    
+                    else if (tb.Name == Bsquare_color1.Name)                    
                         AddUpdateAppSetting("square_color1_str", square_color1_str);                    
-                    else if (tb.Name == TBsquare_color2.Name)
+                    else if (tb.Name == Bsquare_color2.Name)
                         AddUpdateAppSetting("square_color2_str", square_color2_str);
                     else
                         AddUpdateAppSetting(tb.Name, tb.Text);
@@ -1966,7 +1968,7 @@ MouseCoords= GetCursorPosition();
                     byte g = values[1];
                     byte b = values[0];
 
-                    TBsquare_color1.Background = new SolidColorBrush(Color.FromArgb(a, r, g, b));
+                    Bsquare_color1.Background = new SolidColorBrush(Color.FromArgb(a, r, g, b));
                     color1 = Avalonia.Media.Color.FromArgb(a, r, g, b);
 
                     argb = Convert.ToUInt32(square_color2_str);
@@ -1978,7 +1980,7 @@ MouseCoords= GetCursorPosition();
                     g = values[1];
                     b = values[0];
 
-                    TBsquare_color2.Background = new SolidColorBrush(Color.FromArgb(a, r, g, b));
+                    Bsquare_color2.Background = new SolidColorBrush(Color.FromArgb(a, r, g, b));
                     color2 = Avalonia.Media.Color.FromArgb(a, r, g, b);
 
                     Enum.TryParse(ReadAppSetting("lang"), out lang);
