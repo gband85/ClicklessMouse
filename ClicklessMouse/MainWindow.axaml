@@ -1,4 +1,14 @@
-<Window x:Class="ClicklessMouse.MainWindow" xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:ctrl="using:GroupBox.Avalonia.Controls" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:p="clr-namespace:ClicklessMouse.Properties" x:Name="Wmain" Title="Clickless Mouse" Width="689" Height="440" d:DesignHeight="641" d:DesignWidth="512" CanResize="True" FontSize="13" WindowStartupLocation="CenterScreen" mc:Ignorable="d">
+<Window x:Name="Wmain" x:Class="ClicklessMouse.MainWindow" 
+        xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ClicklessMouse"
+        xmlns:p="clr-namespace:ClicklessMouse.Properties"
+        xmlns:ctrl="using:GroupBox.Avalonia.Controls"
+        Title="Clickless Mouse" Width="689" Height="440" 
+        d:DesignHeight="641" d:DesignWidth="512" CanResize="False" CanMaximize="False" CanMinimize="True"
+        FontSize="13" WindowStartupLocation="CenterScreen" mc:Ignorable="d">
 	<Window.Styles>
 		<Style Selector="Label">
 			<Setter Property="Padding" Value="0" />
