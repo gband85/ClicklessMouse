@@ -114,8 +114,8 @@
 					<Label x:Name="Lmin_square_size" Grid.Row="4" Grid.Column="0" Margin="10,0,0,0" HorizontalAlignment="Left" Content="{x:Static p:Resources.Lmin_square_size}" />
 					<TextBox x:Name="TBsquare_size" Grid.Row="0" Grid.Column="1" Width="45" Height="25" Margin="0,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Hidden" TextChanged="TBsquare_size_TextChanged" TextWrapping="Wrap" />
 					<TextBox x:Name="TBsquare_border" Grid.Row="1" Grid.Column="1" Width="60" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Hidden" TextChanged="TBsquare_border_TextChanged" TextWrapping="Wrap" />
-					<Button x:Name="TBsquare_color1" Grid.Row="2" Grid.Column="1" Width="95" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-					<Button x:Name="TBsquare_color2" Grid.Row="3" Grid.Column="1" Width="95" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" />
+					<Button x:Name="Bsquare_color1" Grid.Row="2" Grid.Column="1" Width="95" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Bsquare_color1_Click"/>
+					<Button x:Name="Bsquare_color2" Grid.Row="3" Grid.Column="1" Width="95" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Bsquare_color2_Click"/>
 					<TextBox x:Name="TBmin_square_size" Grid.Row="4" Grid.Column="1" Width="45" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Hidden" TextChanged="TBmin_square_size_TextChanged" TextWrapping="Wrap" />
 				</Grid>
 			</ctrl:GroupBox>

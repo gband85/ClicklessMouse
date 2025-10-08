@@ -1747,45 +1747,45 @@ MouseCoords= GetCursorPosition();
             }
         }
 
-        //private async void TBsquare_color1_PreviewMouseUp(object sender, PointerReleasedEventArgs e)
-        //{
-        //    try
-        //    {
-        //        System.Windows.Forms.DialogResult dr = colorDialog1.ShowDialog();
-        //        if (dr == System.Windows.Forms.DialogResult.OK)
-        //        {
-        //            int argb = Convert.ToInt32(colorDialog1.Color.ToArgb().ToString());
+        private async void Bsquare_color1_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                // System.Windows.Forms.DialogResult dr = colorDialog1.ShowDialog();
+                // if (dr == System.Windows.Forms.DialogResult.OK)
+                // {
+                //     int argb = Convert.ToInt32(colorDialog1.Color.ToArgb().ToString());
+                //
+                //     byte[] values = BitConverter.GetBytes(argb);
+                //
+                //     byte a = values[3];
+                //     byte r = values[2];
+                //     byte g = values[1];
+                //     byte b = values[0];
+                //
+                //     TBsquare_color1.Background = new SolidColorBrush(Color.FromArgb(a, r, g, b));
+                //     color1 = Avalonia.Media.Color.FromArgb(a, r, g, b);
+                //
+                //     square_color1_str = argb.ToString();
+                //
+                //     if (saving_enabled)
+                //     {
+                //         regenerate_squares();
+                //         save_settings();
+                //     }
+                // }
+            }
+            catch (Exception ex)
+            {
+                // var box = MessageBoxManager.GetMessageBoxStandard(error_title, ex.Message, ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error);
+                // var result = await box.ShowAsync();
+            }
+        }
 
-        //            byte[] values = BitConverter.GetBytes(argb);
-
-        //            byte a = values[3];
-        //            byte r = values[2];
-        //            byte g = values[1];
-        //            byte b = values[0];
-
-        //            TBsquare_color1.Background = new SolidColorBrush(Color.FromArgb(a, r, g, b));
-        //            color1 = Avalonia.Media.Color.FromArgb(a, r, g, b);
-
-        //            square_color1_str = argb.ToString();
-
-        //            if (saving_enabled)
-        //            {
-        //                regenerate_squares();
-        //                save_settings();
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        var box = MessageBoxManager.GetMessageBoxStandard(error_title, ex.Message, ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error);
-        //        var result = await box.ShowAsync();
-        //    }
-        //}
-
-        //private async void TBsquare_color2_PreviewMouseUp(object sender, PointerReleasedEventArgs e)
-        //{
-        //    try
-        //    {
+        private async void Bsquare_color2_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
         //        System.Windows.Forms.DialogResult dr = colorDialog2.ShowDialog();
         //        if (dr == System.Windows.Forms.DialogResult.OK)
         //        {
