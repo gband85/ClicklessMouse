@@ -22,6 +22,7 @@ using WindowState = Avalonia.Controls.WindowState;
 using Avalonia.Input;
 using Avalonia;
 using Avalonia.LogicalTree;
+using Egorozh.ColorPicker.Dialog;
 using MsBox.Avalonia;
 using MsBox.Avalonia.Enums;
 using WindowsInput;
