@@ -20,7 +20,6 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Avalonia" />
-    <PackageReference Include="Avalonia.Controls.ColorPicker" />
     <PackageReference Include="Avalonia.Desktop" />
     <PackageReference Include="Avalonia.Themes.Fluent" />
     <PackageReference Include="Avalonia.Fonts.Inter" />
@@ -32,6 +31,7 @@
     <PackageReference Include="Avalonia.Themes.Simple" />
     <PackageReference Include="AvaloniaUI.DiagnosticsSupport" />
     <PackageReference Include="BinToss.GroupBox.Avalonia" />
+    <PackageReference Include="Egorozh.ColorPicker.Avalonia.Dialog" />
     <PackageReference Include="InputSimulatorCore" />
     <PackageReference Include="Markdown.Avalonia" />
     <PackageReference Include="MarkdownSharp" />
