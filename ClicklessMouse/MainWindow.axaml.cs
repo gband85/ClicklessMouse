@@ -107,23 +107,18 @@ namespace ClicklessMouse
 
         InputSimulator sim = new InputSimulator();
 
-        //ColorDialog colorDialog1 = new ColorDialog();
-
-        //ColorDialog colorDialog2 = new ColorDialog();
-
         WindowManual wm = new WindowManual();
-         
+
         public MainWindow()
         {
-                is_program_already_running();
+            is_program_already_running();
 
             // prc = Process.GetCurrentProcess();
             // prc.PriorityClass = ProcessPriorityClass.High;
             // Thread.CurrentThread.Priority = ThreadPriority.Highest;
 
             InitializeComponent();
-            Wmain.Closing += Window_Closing;
-            // TBsquare_color1
+
             //Stream iconStream = System.Windows.Application.GetResourceStream(
             //    new Uri("pack://application:,,,/ClicklessMouse;component/clickless_mouse.ico")).Stream;
             //ni.Icon = new System.Drawing.Icon(iconStream);
@@ -1753,34 +1748,32 @@ MouseCoords= GetCursorPosition();
         {
             try
             {
-                // System.Windows.Forms.DialogResult dr = colorDialog1.ShowDialog();
-                // if (dr == System.Windows.Forms.DialogResult.OK)
-                // {
-                //     int argb = Convert.ToInt32(colorDialog1.Color.ToArgb().ToString());
-                //
-                //     byte[] values = BitConverter.GetBytes(argb);
-                //
-                //     byte a = values[3];
-                //     byte r = values[2];
-                //     byte g = values[1];
-                //     byte b = values[0];
-                //
-                //     TBsquare_color1.Background = new SolidColorBrush(Color.FromArgb(a, r, g, b));
-                //     color1 = Avalonia.Media.Color.FromArgb(a, r, g, b);
-                //
-                //     square_color1_str = argb.ToString();
-                //
-                //     if (saving_enabled)
-                //     {
-                //         regenerate_squares();
-                //         save_settings();
-                //     }
-                // }
+                ColorPickerDialog colorDialog1 = new ColorPickerDialog() { Color = color1 };
+                
+                var dr = await colorDialog1.ShowDialog<bool>(this);
+
+                if (dr)
+                {
+                    if (colorDialog1.Color == null)
+                        throw new Exception("No color selected");
+                    
+                    Bsquare_color1.Background = new SolidColorBrush((colorDialog1.Color));
+                    color1 = colorDialog1.Color;
+
+                    square_color1_str = colorDialog1.Color.ToString();
+
+                    regenerate_squares();
+
+                    if (saving_enabled)
+                    {
+                        save_settings();
+                    }
+                }
             }
             catch (Exception ex)
             {
-                // var box = MessageBoxManager.GetMessageBoxStandard(error_title, ex.Message, ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error);
-                // var result = await box.ShowAsync();
+                var box = MessageBoxManager.GetMessageBoxStandard(error_title, ex.Message, ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error);
+                var result = await box.ShowAsync();
             }
         }
 
@@ -1788,36 +1781,33 @@ MouseCoords= GetCursorPosition();
         {
             try
             {
-        //        System.Windows.Forms.DialogResult dr = colorDialog2.ShowDialog();
-        //        if (dr == System.Windows.Forms.DialogResult.OK)
-        //        {
-        //            int argb = Convert.ToInt32(colorDialog2.Color.ToArgb().ToString());
+                ColorPickerDialog colorDialog2 = new ColorPickerDialog() { Color = color2 };
+                
+                var dr = await colorDialog2.ShowDialog<bool>(this);
+                
+                if (dr)
+                {
+                    if (colorDialog2.Color == null)
+                        throw new Exception("No color selected");
+                    
+                    Bsquare_color2.Background = new SolidColorBrush(colorDialog2.Color);
+                    color2 = colorDialog2.Color;
 
-        //            byte[] values = BitConverter.GetBytes(argb);
+                    square_color2_str = colorDialog2.Color.ToString();
 
-        //            byte a = values[3];
-        //            byte r = values[2];
-        //            byte g = values[1];
-        //            byte b = values[0];
-
-        //            TBsquare_color2.Background = new SolidColorBrush(Color.FromArgb(a, r, g, b));
-        //            color2 = Avalonia.Media.Color.FromArgb(a, r, g, b);
-
-        //            square_color2_str = argb.ToString();
-
-        //            if (saving_enabled)
-        //            {
-        //                regenerate_squares();
-        //                save_settings();
-        //            }
-        //        }
-        }
-        catch (Exception ex)
-        {
-        //        var box = MessageBoxManager.GetMessageBoxStandard(error_title, ex.Message, ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error);
-        //        var result = await box.ShowAsync();
-
-        }
+                    regenerate_squares();
+                    
+                    if (saving_enabled)
+                    {
+                        save_settings();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                var box = MessageBoxManager.GetMessageBoxStandard(error_title, ex.Message, ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error);
+                var result = await box.ShowAsync();
+            }
         }
 
         private async void TBmin_square_size_TextChanged(object sender, TextChangedEventArgs e)
