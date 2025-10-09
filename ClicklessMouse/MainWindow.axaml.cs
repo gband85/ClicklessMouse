@@ -1926,7 +1926,8 @@ MouseCoords= GetCursorPosition();
 
         private async void load_settings()
         {
-
+            string settings_file_path = System.IO.Path.Combine(app_folder_path, settings_filename);
+            
             try
             {
                 if (File.Exists(settings_file_path))
@@ -2041,7 +2042,7 @@ MouseCoords= GetCursorPosition();
         {
             try
             {
-                settings_file_path = System.IO.Path.Combine(app_folder_path, settings_filename);
+                string settings_file_path = System.IO.Path.Combine(app_folder_path, settings_filename);
 
                 // Load the JSON file
                 string json = File.ReadAllText(settings_file_path);
@@ -2070,7 +2071,7 @@ MouseCoords= GetCursorPosition();
             try
             {
 
-                settings_file_path = System.IO.Path.Combine(app_folder_path, settings_filename);
+                string settings_file_path = System.IO.Path.Combine(app_folder_path, settings_filename);
 
                 // Load the JSON file
                 string json = File.ReadAllText(settings_file_path);
