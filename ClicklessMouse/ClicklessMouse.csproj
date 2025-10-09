@@ -56,8 +56,4 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-	<ItemGroup>
-		<AvaloniaResource Include="Assets\1en.md" />
-		<AvaloniaResource Include="Assets\1pl.md" />
-	</ItemGroup>
 </Project>
