@@ -31,18 +31,18 @@
 		<DockPanel Grid.Row="0">
 			<Menu x:Name="Mmain" Height="23" VerticalAlignment="Center" Background="#FFEAEAEA" DockPanel.Dock="Top">
 				<MenuItem x:Name="MIfile" Header="{x:Static p:Resources.MIfile}">
-					<MenuItem x:Name="MIexit" Background="#FFEAEAEA" Click="MIexit_Click" Header="{x:Static p:Resources.MIexit}" />
+					<MenuItem x:Name="MIexit" Click="MIexit_Click" Header="{x:Static p:Resources.MIexit}" />
 				</MenuItem>
 				<MenuItem x:Name="MIrestore" Header="{x:Static p:Resources.MIrestore}">
-					<MenuItem x:Name="MIdefault_colors" Background="#FFEAEAEA" Click="MIdefault_colors_Click" Header="{x:Static p:Resources.MIdefault_colors}" />
-					<MenuItem x:Name="MIdefault_settings" Background="#FFEAEAEA" Click="MIdefault_settings_Click" Header="{x:Static p:Resources.MIdefault_settings}" />
+					<MenuItem x:Name="MIdefault_colors" Click="MIdefault_colors_Click" Header="{x:Static p:Resources.MIdefault_colors}" />
+					<MenuItem x:Name="MIdefault_settings" Click="MIdefault_settings_Click" Header="{x:Static p:Resources.MIdefault_settings}" />
 				</MenuItem>
 				<MenuItem x:Name="MIlanguage" Header="{x:Static p:Resources.MIlanguage}">
-					<MenuItem x:Name="MIenglish" Background="#FFEAEAEA" Click="MIenglish_Click" Header="{x:Static p:Resources.MIenglish}" />
-					<MenuItem x:Name="MIpolish" Background="#FFEAEAEA" Click="MIpolish_Click" Header="{x:Static p:Resources.MIpolish}" />
+					<MenuItem x:Name="MIenglish" Click="MIenglish_Click" Header="{x:Static p:Resources.MIenglish}" />
+					<MenuItem x:Name="MIpolish" Click="MIpolish_Click" Header="{x:Static p:Resources.MIpolish}" />
 				</MenuItem>
 				<MenuItem x:Name="MIhelp" Header="{x:Static p:Resources.MIhelp}">
-					<MenuItem x:Name="MImanual" Background="#FFEAEAEA" Click="MImanual_Click" Header="{x:Static p:Resources.MImanual}" />
+					<MenuItem x:Name="MImanual" Click="MImanual_Click" Header="{x:Static p:Resources.MImanual}" />
 					<MenuItem x:Name="MIabout" Click="MIabout_Click" Header="{x:Static p:Resources.MIabout}" />
 				</MenuItem>
 			</Menu>
