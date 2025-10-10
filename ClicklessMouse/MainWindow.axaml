@@ -8,7 +8,7 @@
         xmlns:ctrl="using:GroupBox.Avalonia.Controls"
         Title="Clickless Mouse" Width="689" Height="440" 
         d:DesignHeight="641" d:DesignWidth="512" CanResize="False" CanMaximize="False" CanMinimize="True"
-        FontSize="13" WindowStartupLocation="CenterScreen" mc:Ignorable="d">
+        FontSize="13" WindowStartupLocation="CenterScreen" mc:Ignorable="d" Closing="Window_Closing">
 	<Window.Styles>
 		<Style Selector="Label">
 			<Setter Property="Padding" Value="0" />
