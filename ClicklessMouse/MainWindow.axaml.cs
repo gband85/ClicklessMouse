@@ -1770,7 +1770,7 @@ MouseCoords= GetCursorPosition();
                     Bsquare_color2.Background = new SolidColorBrush(colorDialog2.Color);
                     color2 = colorDialog2.Color;
 
-                    square_color2_str = colorDialog2.Color.ToString();
+                    square_color2_uint = colorDialog2.Color.ToUInt32();
 
                     regenerate_squares();
                     
