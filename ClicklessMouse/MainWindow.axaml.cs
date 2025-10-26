@@ -133,16 +133,6 @@ namespace ClicklessMouse
             //iconStream.Close();
             //ni.MouseClick += new System.Windows.Forms.MouseEventHandler(ni_MouseClick);
 
-            CultureInfo ci = CultureInfo.InstalledUICulture;
-
-            if (ci.DisplayName.ToLower().Contains("polski") || ci.Name.ToLower().Contains("pl-pl"))
-            {
-                lang = language.pl;
-            }
-            else lang = language.en;
-
-            change_language(lang);
-
             Wmain.Title = prog_name + " " + prog_version;
 
             restore_default_settings();
