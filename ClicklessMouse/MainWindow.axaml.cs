@@ -110,6 +110,9 @@ namespace ClicklessMouse
 
         WindowManual wm = new WindowManual();
 
+        public L10nResourceMgr L10nResourceMgr 
+            => L10nResourceMgr.Instance;
+
         public MainWindow()
         {
             is_program_already_running();
@@ -188,6 +191,9 @@ namespace ClicklessMouse
 
             if (i > 1)
             {
+                var box = MessageBoxManager.GetMessageBoxStandard(L10nResourceMgr["error_title"].ToString(), prog_name + "is already running.",
+                    ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error);
+                var result = await box.ShowWindowAsync();
                 Process.GetCurrentProcess().Kill();
                 var box=MessageBoxManager.GetMessageBoxStandard("Error", prog_name + "is already running.", ButtonEnum.Ok,MsBox.Avalonia.Enums.Icon.Error);
                 var result = await box.ShowWindowAsync();
@@ -1343,7 +1349,8 @@ MouseCoords= GetCursorPosition();
             }
             catch (Exception ex)
             {
-                var box = MessageBoxManager.GetMessageBoxStandard(error_title, ex.Message, ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error);
+                var box = MessageBoxManager.GetMessageBoxStandard(L10nResourceMgr["error_title"].ToString(), ex.Message, ButtonEnum.Ok,
+                    MsBox.Avalonia.Enums.Icon.Error);
                 var result = await box.ShowAsync();
             }
         }
@@ -1527,7 +1534,8 @@ MouseCoords= GetCursorPosition();
             }
             catch (Exception ex)
             {
-                var box = MessageBoxManager.GetMessageBoxStandard(error_title, ex.Message, ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error);
+                var box = MessageBoxManager.GetMessageBoxStandard(L10nResourceMgr["error_title"].ToString(), ex.Message, ButtonEnum.Ok,
+                    MsBox.Avalonia.Enums.Icon.Error);
                 var result = await box.ShowAsync();
             }
         }
@@ -1564,7 +1572,8 @@ MouseCoords= GetCursorPosition();
             }
             catch (Exception ex)
             {
-                var box = MessageBoxManager.GetMessageBoxStandard(error_title, ex.Message,ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error);
+                var box = MessageBoxManager.GetMessageBoxStandard(L10nResourceMgr["error_title"].ToString(), ex.Message, ButtonEnum.Ok,
+                    MsBox.Avalonia.Enums.Icon.Error);
                 var result = await box.ShowAsync();
             }
         }
@@ -1595,7 +1604,8 @@ MouseCoords= GetCursorPosition();
             }
             catch (Exception ex)
             {
-                var box = MessageBoxManager.GetMessageBoxStandard(error_title, ex.Message, ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error);
+                var box = MessageBoxManager.GetMessageBoxStandard(L10nResourceMgr["error_title"].ToString(), ex.Message, ButtonEnum.Ok,
+                    MsBox.Avalonia.Enums.Icon.Error);
                 var result = await box.ShowAsync();
             }
         }
@@ -1655,7 +1665,8 @@ MouseCoords= GetCursorPosition();
             }
             catch (Exception ex)
             {
-                var box = MessageBoxManager.GetMessageBoxStandard(error_title, ex.Message, ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error);
+                var box = MessageBoxManager.GetMessageBoxStandard(L10nResourceMgr["error_title"].ToString(), ex.Message, ButtonEnum.Ok,
+                    MsBox.Avalonia.Enums.Icon.Error);
                 var result = await box.ShowAsync();
 
                 try
@@ -1711,7 +1722,8 @@ MouseCoords= GetCursorPosition();
             }
             catch (Exception ex)
             {
-                var box = MessageBoxManager.GetMessageBoxStandard(error_title, ex.Message, ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error);
+                var box = MessageBoxManager.GetMessageBoxStandard(L10nResourceMgr["error_title"].ToString(), ex.Message, ButtonEnum.Ok,
+                    MsBox.Avalonia.Enums.Icon.Error);
                 var result = await box.ShowAsync();
             }
         }
@@ -1740,7 +1752,8 @@ MouseCoords= GetCursorPosition();
             }
             catch (Exception ex)
             {
-                var box = MessageBoxManager.GetMessageBoxStandard(error_title, ex.Message, ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error);
+                var box = MessageBoxManager.GetMessageBoxStandard(L10nResourceMgr["error_title"].ToString(), ex.Message, ButtonEnum.Ok,
+                    MsBox.Avalonia.Enums.Icon.Error);
                 var result = await box.ShowAsync();
             }
         }
@@ -1773,7 +1786,8 @@ MouseCoords= GetCursorPosition();
             }
             catch (Exception ex)
             {
-                var box = MessageBoxManager.GetMessageBoxStandard(error_title, ex.Message, ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error);
+                var box = MessageBoxManager.GetMessageBoxStandard(L10nResourceMgr["error_title"].ToString(), ex.Message, ButtonEnum.Ok,
+                    MsBox.Avalonia.Enums.Icon.Error);
                 var result = await box.ShowAsync();
             }
         }
@@ -1806,7 +1820,8 @@ MouseCoords= GetCursorPosition();
             }
             catch (Exception ex)
             {
-                var box = MessageBoxManager.GetMessageBoxStandard(error_title, ex.Message, ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error);
+                var box = MessageBoxManager.GetMessageBoxStandard(L10nResourceMgr["error_title"].ToString(), ex.Message, ButtonEnum.Ok,
+                    MsBox.Avalonia.Enums.Icon.Error);
                 var result = await box.ShowAsync();
             }
         }
@@ -1844,7 +1859,8 @@ MouseCoords= GetCursorPosition();
             }
             catch (Exception ex)
             {
-                var box = MessageBoxManager.GetMessageBoxStandard(error_title, ex.Message, ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error);
+                var box = MessageBoxManager.GetMessageBoxStandard(L10nResourceMgr["error_title"].ToString(), ex.Message, ButtonEnum.Ok,
+                    MsBox.Avalonia.Enums.Icon.Error);
                 var result = await box.ShowAsync();
             }
         }
@@ -1883,7 +1899,8 @@ MouseCoords= GetCursorPosition();
             }
             catch (Exception ex)
             {
-                var box = MessageBoxManager.GetMessageBoxStandard(error_title, ex.Message, ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error);
+                var box = MessageBoxManager.GetMessageBoxStandard(L10nResourceMgr["error_title"].ToString(), ex.Message, ButtonEnum.Ok,
+                    MsBox.Avalonia.Enums.Icon.Error);
                 var result = await box.ShowAsync();
             }
         }
@@ -1979,7 +1996,8 @@ MouseCoords= GetCursorPosition();
             catch (Exception ex)
             {
                 loading_error = true;
-                var box = MessageBoxManager.GetMessageBoxStandard(error_title, ex.Message + loading_error_msg, ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error);
+                var box = MessageBoxManager.GetMessageBoxStandard(L10nResourceMgr["error_title"].ToString(), ex.Message + loading_error_msg,
+                    ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error);
                 var result = await box.ShowAsync();
 
                 // try
