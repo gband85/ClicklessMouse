@@ -1211,7 +1211,7 @@ MouseCoords= GetCursorPosition();
             SetForegroundWindow(Process.GetCurrentProcess().MainWindowHandle);
         }
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void Window_Closing(object sender, WindowClosingEventArgs e)
         {
             MIexit_Click(null, null);
         }
