@@ -125,6 +125,7 @@ namespace ClicklessMouse
             // Thread.CurrentThread.Priority = ThreadPriority.Highest;
 
             InitializeComponent();
+            DataContext = this;
 
             //Stream iconStream = System.Windows.Application.GetResourceStream(
             //    new Uri("pack://application:,,,/ClicklessMouse;component/clickless_mouse.ico")).Stream;
