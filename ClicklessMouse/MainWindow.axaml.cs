@@ -1800,7 +1800,7 @@ MouseCoords= GetCursorPosition();
                     int x = Screens.Primary.Bounds.Width;
                     int y = Screens.Primary.Bounds.Height;
 
-                    TBscreen_resolution.Text = x + "x" + y;
+                    TBLscreen_resolution.Text += x + "x" + y;
 
                     double b = Math.Sqrt(Math.Pow(d, 2) / (Math.Pow(x, 2) / Math.Pow(y, 2) + 1));
                     double a = b * x / y;
