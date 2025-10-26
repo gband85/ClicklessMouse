@@ -1260,15 +1260,19 @@ MouseCoords= GetCursorPosition();
 
         private void MIenglish_Click(object sender, RoutedEventArgs e)
         {
-            lang = language.en;
-            change_language(lang);
+            var switchToCulture = UILanguage.en;
+            change_language(switchToCulture);
+            MIenglish.IsChecked = true;
+            MIpolish.IsChecked = false;
             save_settings();
         }
 
         private void MIpolish_Click(object sender, RoutedEventArgs e)
         {
-            lang = language.pl;
-            change_language(lang);
+            var switchToCulture = UILanguage.pl;
+            change_language(switchToCulture);
+            MIenglish.IsChecked = false;
+            MIpolish.IsChecked = true;
             save_settings();
         }
 
