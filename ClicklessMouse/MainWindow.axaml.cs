@@ -1873,13 +1873,15 @@ MouseCoords= GetCursorPosition();
                             cb.IsChecked = bool.Parse(ReadAppSetting(cb.Name));
 
                         else if (control is TextBox tb)
+
+                            tb.Text = ReadAppSetting(tb.Name);
+
+                        else if (control is Button btn)
                         {
-                            if (tb.Name == "TBsquare_color1")
-                                square_color1_str = ReadAppSetting("square_color1_str");
-                            else if (tb.Name == "TBsquare_color2")
-                                square_color2_str = ReadAppSetting("square_color2_str");
-                            else
-                                tb.Text = ReadAppSetting(tb.Name);
+                            if (btn.Name == "Bsquare_color1")
+                                square_color1_uint = uint.Parse(ReadAppSetting("square_color1_uint"));
+                            else if (btn.Name == "Bsquare_color2")
+                                square_color2_uint = uint.Parse(ReadAppSetting("square_color2_uint"));
                         }
                     }
 
