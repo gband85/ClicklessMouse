@@ -1885,9 +1885,8 @@ MouseCoords= GetCursorPosition();
                 }
             }
             AddUpdateAppSetting("lang", lang.ToString());
-            
-            Console.WriteLine("appsettings.json updated successfully.");
-   
+
+            Console.WriteLine($"{settings_filename} updated successfully.");
         }
 
         private async void load_settings()
