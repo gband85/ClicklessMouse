@@ -100,8 +100,10 @@ namespace ClicklessMouse
         bool saving_enabled = false;
         //full path is necessary if run at startup is used (running at startup uses different current
         //directory
-        string app_folder_path = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-        language lang = language.en;
+        private string app_folder_path =
+            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), prog_name);
+
+        UILanguage lang = UILanguage.en;
         bool loading_error = false;
         Process prc;
 
