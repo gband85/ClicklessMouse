@@ -1597,50 +1597,6 @@ MouseCoords= GetCursorPosition();
             }
         }
 
-        async void  generate_bat_file()
-        {
-            FileStream fs = null;
-            StreamWriter sw = null;
-            string file_path = System.IO.Path.Combine(
-                System.Reflection.Assembly.GetExecutingAssembly().Location.
-                Replace(".exe", ".vbs"));
-
-            try
-            {
-                fs = new FileStream(file_path, FileMode.Create, FileAccess.Write);
-                sw = new StreamWriter(fs);
-
-                //cmd script (black window appearing for a moment is a problem)
-                //sw.WriteLine("cd \"" + app_folder_path + "\"");
-                //sw.WriteLine("start " 
-                //    + System.Diagnostics.Process.GetCurrentProcess().MainModule.ModuleName);
-
-                //vbs script (no window appearing during execution)
-                sw.WriteLine("Set objShell = CreateObject(\"Wscript.Shell\")");
-                sw.WriteLine("objShell.CurrentDirectory = \"" + app_folder_path + "\"");
-                sw.WriteLine("strApp = \"\"\""
-                    + System.Diagnostics.Process.GetCurrentProcess().MainModule.ModuleName + "\"\"\"");
-                sw.WriteLine("objShell.Run(strApp)");
-
-                sw.Close();
-                fs.Close();
-            }
-            catch (Exception ex)
-            {
-                var box = MessageBoxManager.GetMessageBoxStandard(L10nResourceMgr["error_title"].ToString(), ex.Message, ButtonEnum.Ok,
-                    MsBox.Avalonia.Enums.Icon.Error);
-                var result = await box.ShowAsync();
-
-                try
-                {
-                    if (sw != null)
-                        sw.Close();
-                    if (fs != null)
-                        fs.Close();
-                }
-                catch (Exception ex2) { }
-            }
-        }
         private void CHBstart_minimized_CheckedChanged(object sender, RoutedEventArgs e)
         {
             if (saving_enabled)
