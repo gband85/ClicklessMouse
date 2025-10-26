@@ -57,8 +57,8 @@ namespace ClicklessMouse
         const int lowest_size = 10;
         const int default_border_width = 2;
         const int lowest_border_width = 1;
-        const uint default_color1 = 4278190335;
-        const uint default_color2 = 4294967040;
+        const uint default_color1_uint = 4278190335;
+        const uint default_color2_uint = 4294967040;
         const int default_min_square_size_percents = 60;
         const int lowest_min_square_size_percents = 10;
         const int loop_time_ms = 10; //how often is cursor position checked (10ms recommended)
@@ -74,10 +74,11 @@ namespace ClicklessMouse
         int cursor_time_in_square_ms; //cursor hover time in square needed to perform a click
         int size;
         int border_width;
-        Avalonia.Media.Color color1 = Avalonia.Media.Color.FromUInt32(default_color1); //square color 1
-        Avalonia.Media.Color color2 = Avalonia.Media.Color.FromUInt32(default_color2); //square color 2
-        string square_color1_str;
-        string square_color2_str;
+        Avalonia.Media.Color color1 = Avalonia.Media.Color.FromUInt32(default_color1_uint); //square color 1
+        Avalonia.Media.Color color2 = Avalonia.Media.Color.FromUInt32(default_color2_uint); //square color 2
+        uint square_color1_uint;
+        uint square_color2_uint;
+
         int min_square_size_percents = default_min_square_size_percents; //how much square size can
                                                                          //be decreased if it would be covered by left or right screen edge
                                                                          //----------------------------------
@@ -284,32 +285,14 @@ namespace ClicklessMouse
             TBsquare_border.Text = default_border_width.ToString();
             border_width=default_border_width;
 
-            square_color1_str = default_color1.ToString();
-            square_color2_str = default_color2.ToString();
+            square_color1_uint = default_color1_uint;
+            square_color2_uint = default_color2_uint;
 
-            uint argb = Convert.ToUInt32(square_color1_str);
+            Bsquare_color1.Background = new SolidColorBrush(Color.FromUInt32(square_color1_uint));
+            color1 = Avalonia.Media.Color.FromUInt32(square_color1_uint);
 
-            byte[] values = BitConverter.GetBytes(argb);
-
-            byte a = values[3];
-            byte r = values[2];
-            byte g = values[1];
-            byte b = values[0];
-
-            Bsquare_color1.Background = new SolidColorBrush(Color.FromArgb(a, r, g, b));
-            color1 = Avalonia.Media.Color.FromArgb(a, r, g, b);
-
-            argb = Convert.ToUInt32(square_color2_str);
-
-            values = BitConverter.GetBytes(argb);
-
-            a = values[3];
-            r = values[2];
-            g = values[1];
-            b = values[0];
-
-            Bsquare_color2.Background = new SolidColorBrush(Color.FromArgb(a, r, g, b));
-            color2 = Avalonia.Media.Color.FromArgb(a, r, g, b);
+            Bsquare_color2.Background = new SolidColorBrush(Color.FromUInt32(square_color2_uint));
+            color2 = Avalonia.Media.Color.FromUInt32(square_color2_uint);
 
             TBmin_square_size.Text = default_min_square_size_percents.ToString();
 
@@ -1253,32 +1236,14 @@ MouseCoords= GetCursorPosition();
         {
             saving_enabled = false; //to avoid multiple saves
 
-            square_color1_str = default_color1.ToString();
-            square_color2_str = default_color2.ToString();
+            square_color1_uint = default_color1_uint;
+            square_color2_uint = default_color2_uint;
 
-            uint argb = Convert.ToUInt32(square_color1_str);
+            Bsquare_color1.Background = new SolidColorBrush(Color.FromUInt32(square_color1_uint));
+            color1 = Avalonia.Media.Color.FromUInt32(square_color1_uint);
 
-            byte[] values = BitConverter.GetBytes(argb);
-
-            byte a = values[3];
-            byte r = values[2];
-            byte g = values[1];
-            byte b = values[0];
-
-            Bsquare_color1.Background = new SolidColorBrush(Color.FromArgb(a, r, g, b));
-            color1 = Avalonia.Media.Color.FromArgb(a, r, g, b);
-
-            argb = Convert.ToUInt32(square_color2_str);
-
-            values = BitConverter.GetBytes(argb);
-
-            a = values[3];
-            r = values[2];
-            g = values[1];
-            b = values[0];
-
-            Bsquare_color2.Background = new SolidColorBrush(Color.FromArgb(a, r, g, b));
-            color2 = Avalonia.Media.Color.FromArgb(a, r, g, b);
+            Bsquare_color2.Background = new SolidColorBrush(Color.FromUInt32(square_color2_uint));
+            color2 = Avalonia.Media.Color.FromUInt32(square_color2_uint);
 
             regenerate_squares();
 
@@ -1966,29 +1931,11 @@ MouseCoords= GetCursorPosition();
                         }
                     }
 
-                    uint argb = Convert.ToUInt32(square_color1_str);
+                    Bsquare_color1.Background = new SolidColorBrush(Color.FromUInt32(square_color1_uint));
+                    color1 = Avalonia.Media.Color.FromUInt32(square_color1_uint);
 
-                    byte[] values = BitConverter.GetBytes(argb);
-
-                    byte a = values[3];
-                    byte r = values[2];
-                    byte g = values[1];
-                    byte b = values[0];
-
-                    Bsquare_color1.Background = new SolidColorBrush(Color.FromArgb(a, r, g, b));
-                    color1 = Avalonia.Media.Color.FromArgb(a, r, g, b);
-
-                    argb = Convert.ToUInt32(square_color2_str);
-
-                    values = BitConverter.GetBytes(argb);
-
-                    a = values[3];
-                    r = values[2];
-                    g = values[1];
-                    b = values[0];
-
-                    Bsquare_color2.Background = new SolidColorBrush(Color.FromArgb(a, r, g, b));
-                    color2 = Avalonia.Media.Color.FromArgb(a, r, g, b);
+                    Bsquare_color2.Background = new SolidColorBrush(Color.FromUInt32(square_color2_uint));
+                    color2 = Avalonia.Media.Color.FromUInt32(square_color2_uint);
 
                     Enum.TryParse(ReadAppSetting("lang"), out lang);
                 }
