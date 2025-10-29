@@ -29,7 +29,6 @@
       <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Avalonia.Themes.Simple" />
-    <PackageReference Include="AvaloniaUI.DiagnosticsSupport" />
     <PackageReference Include="BinToss.GroupBox.Avalonia" />
     <PackageReference Include="Egorozh.ColorPicker.Avalonia.Dialog" />
     <PackageReference Include="InputSimulatorCore" />
