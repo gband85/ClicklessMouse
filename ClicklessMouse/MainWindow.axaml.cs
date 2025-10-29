@@ -187,8 +187,6 @@ namespace ClicklessMouse
                     ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error);
                 var result = await box.ShowWindowAsync();
                 Process.GetCurrentProcess().Kill();
-                var box=MessageBoxManager.GetMessageBoxStandard("Error", prog_name + "is already running.", ButtonEnum.Ok,MsBox.Avalonia.Enums.Icon.Error);
-                var result = await box.ShowWindowAsync();
             }
         }
 
@@ -291,7 +289,7 @@ namespace ClicklessMouse
             int x = Screens.Primary.Bounds.Width;
             int y = Screens.Primary.Bounds.Height;
 
-            TBscreen_resolution.Text = x + "x" + y;
+            // TBscreen_resolution.Text = x + "x" + y;
         }
 
         void regenerate_squares()
@@ -592,7 +590,7 @@ MouseCoords= GetCursorPosition();
                         Dispatcher.UIThread.Invoke(
                             new Action(() => { is_this_focused = this.IsActive; }));
                         Dispatcher.UIThread.Invoke(
-                            new Action(() => { is_instructions_focused = wm.IsActive; }));
+                            new Action(() => { is_instructions_focused = Wmanual.IsActive; }));
 
                         if (SL_enabled)
                             show_SL(true);
@@ -631,7 +629,7 @@ MouseCoords= GetCursorPosition();
                         else if (is_instructions_focused)
                         {
                             Dispatcher.UIThread.Invoke(
-                                new Action(() => { wm.Focus(); }));
+                                new Action(() => { Wmanual.Focus(); }));
                         }
                         cts1 = new CancellationTokenSource();
                         THRsquares_monitor = new Thread(() => monitor_squares(cts1.Token));
@@ -1219,7 +1217,7 @@ MouseCoords= GetCursorPosition();
             //ni.Visible = false;
             //ni.Dispose();
 
-            release_buttons_and_keys();
+            // release_buttons_and_keys();
             Process.GetCurrentProcess().Kill();
         }
 
@@ -1278,7 +1276,8 @@ MouseCoords= GetCursorPosition();
         
         private void MImanual_Click(object sender, RoutedEventArgs e)
         {
-            wm.Show();
+           Wmanual.DataContext=this;
+            Wmanual.Show();
         }
 
         private async void MIabout_Click(object sender, RoutedEventArgs e)
@@ -1586,7 +1585,7 @@ MouseCoords= GetCursorPosition();
                         rkApp.SetValue(prog_name,
                             System.Reflection.Assembly.GetExecutingAssembly().Location.Replace(".exe", ".vbs"));
                     }
-                    generate_bat_file();
+
                 }
                 else if (rkApp.GetValue(prog_name) != null)
                 {
@@ -1897,7 +1896,7 @@ MouseCoords= GetCursorPosition();
             catch (Exception ex)
             {
                 loading_error = true;
-                var box = MessageBoxManager.GetMessageBoxStandard(L10nResourceMgr["error_title"].ToString(), ex.Message + loading_error_msg,
+                var box = MessageBoxManager.GetMessageBoxStandard(L10nResourceMgr["error_title"].ToString(), ex.Message + L10nResourceMgr["loading_error_msg"],
                     ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error);
                 var result = await box.ShowAsync();
 
