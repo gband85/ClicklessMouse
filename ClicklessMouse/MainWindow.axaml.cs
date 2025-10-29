@@ -1837,9 +1837,9 @@ MouseCoords= GetCursorPosition();
                     if (tb.Name == TBscreen_size.Name && tb.Text == "")
                         AddUpdateAppSetting(tb.Name, "0");
                     else if (tb.Name == Bsquare_color1.Name)                    
-                        AddUpdateAppSetting("square_color1_str", square_color1_str);                    
+                        AddUpdateAppSetting("square_color1_uint", square_color1_uint.ToString());                    
                     else if (tb.Name == Bsquare_color2.Name)
-                        AddUpdateAppSetting("square_color2_str", square_color2_str);
+                        AddUpdateAppSetting("square_color2_uint", square_color2_uint.ToString());
                     else
                         AddUpdateAppSetting(tb.Name, tb.Text);
                 }
