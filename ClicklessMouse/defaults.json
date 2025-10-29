@@ -1,0 +1,21 @@
+{
+"CHBLMB": false,
+"CHBRMB": false,
+"CHBdoubleLMB": false,
+"CHBholdLMB": false,
+"CHBholdRMB": false,
+"CHBscreen_panning": false,
+"TBcursor_idle_before_squares_appear": 200,
+"TBtime_to_start_mouse": 700,
+"TBcursor_time_in_square": 100,
+"CHBrun_at_startup": false,
+"CHBstart_minimized": false,
+"CHBminimize_to_tray": false,
+"CHBcheck_for_updates": false,
+"TBsquare_size": 50,
+"TBsquare_border": 2,
+"Bsquare_color1": "4278190335",
+"Bsquare_color2": "4294967040",
+"TBmin_square_size": 60,
+"TBscreen_size": ""
+}
