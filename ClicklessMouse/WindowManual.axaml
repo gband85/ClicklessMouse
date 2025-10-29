@@ -2,12 +2,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ClicklessMouse"
         mc:Ignorable="d" d:DesignWidth="745" d:DesignHeight="703"
         x:Class="ClicklessMouse.WindowManual"
 		xmlns:avrtb="using:AvRichTextBox"
+        x:DataType="local:MainWindow"
 		xmlns:md="using:Markdown.Avalonia"
-        Title="User Guide" Height="703" Width="745" WindowStartupLocation="CenterScreen"
-        FontSize="12" x:Name="Wmanual">
-    
-	<md:MarkdownScrollViewer x:Name="RTBinstructions" xml:space="preserve" SelectionEnabled="True"/>
+        Title="{Binding L10nResourceMgr[MImanual],Mode=OneWay}" Height="703" Width="745" WindowStartupLocation="CenterScreen"
+        FontSize="12" x:Name="Wmanual" Padding="0,0,5,10">
+    <Border BorderThickness="1" BorderBrush="LightBlue">
+	<md:MarkdownScrollViewer x:Name="RTBinstructions" xml:space="preserve" SelectionEnabled="True" Margin="10,0,0,0"/>
+    </Border>
 </Window>
