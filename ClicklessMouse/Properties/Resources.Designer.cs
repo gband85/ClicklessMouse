@@ -69,7 +69,7 @@ namespace ClicklessMouse.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ARGB color value must be lower than 0.
+        ///   Looks up a localized string similar to ARGB color value must be lower than 0..
         /// </summary>
         public static string argb_error {
             get {
@@ -177,7 +177,7 @@ namespace ClicklessMouse.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cursor idle time before squares appear cannot be lower than .
+        ///   Looks up a localized string similar to Cursor idle time before squares appear cannot be lower than.
         /// </summary>
         public static string cursor_idle_time_error {
             get {
@@ -429,7 +429,7 @@ namespace ClicklessMouse.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Minimum square size cannot be higher than .
+        ///   Looks up a localized string similar to Minimum square size cannot be higher than.
         /// </summary>
         public static string min_square_size_too_high_error {
             get {
@@ -438,7 +438,7 @@ namespace ClicklessMouse.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Minimum square size cannot be lower than .
+        ///   Looks up a localized string similar to Minimum square size cannot be lower than.
         /// </summary>
         public static string min_square_size_too_low_error {
             get {
@@ -465,7 +465,7 @@ namespace ClicklessMouse.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Diagonal screen size must be higher than 0.
+        ///   Looks up a localized string similar to Diagonal screen size must be higher than 0..
         /// </summary>
         public static string screen_size_error1 {
             get {
@@ -474,7 +474,7 @@ namespace ClicklessMouse.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Diagonal screen size can&apos;t be empty.
+        ///   Looks up a localized string similar to Diagonal screen size can&apos;t be empty..
         /// </summary>
         public static string screen_size_error2 {
             get {
@@ -483,7 +483,7 @@ namespace ClicklessMouse.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Square border width cannot be lower than .
+        ///   Looks up a localized string similar to Square border width cannot be lower than.
         /// </summary>
         public static string square_border_error {
             get {
@@ -492,7 +492,7 @@ namespace ClicklessMouse.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Square size cannot be lower than .
+        ///   Looks up a localized string similar to Square size cannot be lower than.
         /// </summary>
         public static string square_size_error {
             get {
@@ -501,7 +501,7 @@ namespace ClicklessMouse.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Time to start mouse movement cannot be lower than .
+        ///   Looks up a localized string similar to Time to start mouse movement cannot be lower than.
         /// </summary>
         public static string time_to_start_mouse_movement_error {
             get {

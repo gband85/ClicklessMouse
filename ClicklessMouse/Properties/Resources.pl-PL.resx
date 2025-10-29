@@ -219,7 +219,7 @@
   <data name="Lscreen_size" xml:space="preserve">
     <value>Przekątna ekranu [cale]:</value>
   </data>
-  <data name="contentLscreen_resolution" xml:space="preserve">
+  <data name="Lscreen_resolution" xml:space="preserve">
     <value>Rozdzielczość ekranu: </value>
   </data>
   <data name="Bset_recommended_square" xml:space="preserve">
@@ -232,34 +232,34 @@
     <value>O programie</value>
   </data>
   <data name="argb_error" xml:space="preserve">
-    <value>Wartość ARGB koloru musi być mniejsza od 0</value>
+    <value>Wartość ARGB koloru musi być mniejsza od 0.</value>
   </data>
   <data name="screen_size_error1" xml:space="preserve">
-    <value>Przekątna ekranu musi być większa od 0</value>
+    <value>Przekątna ekranu musi być większa od 0.</value>
   </data>
   <data name="screen_size_error2" xml:space="preserve">
-    <value>Przekątna ekranu nie może być pusta</value>
+    <value>Przekątna ekranu nie może być pusta.</value>
   </data>
   <data name="cursor_idle_time_error" xml:space="preserve">
-    <value>Czas bezczynności kursora zanim pojawią się kwadraty nie może być niższy niż </value>
+    <value>Czas bezczynności kursora zanim pojawią się kwadraty nie może być niższy niż</value>
   </data>
   <data name="time_to_start_mouse_movement_error" xml:space="preserve">
-    <value>Czas na rozpoczęcie ruchu myszą nie może być niższy niż </value>
+    <value>Czas na rozpoczęcie ruchu myszą nie może być niższy niż</value>
   </data>
   <data name="cursor_time_in_square_error" xml:space="preserve">
-    <value>Czas kursora w kwadracie do zarejestrowania kliknięci nie może byc niższy niż </value>
+    <value>Czas kursora w kwadracie do zarejestrowania kliknięci nie może byc niższy niż</value>
   </data>
   <data name="square_size_error" xml:space="preserve">
-    <value>Rozmiar kwadratu nie może być niższy niż </value>
+    <value>Rozmiar kwadratu nie może być niższy niż</value>
   </data>
   <data name="square_border_error" xml:space="preserve">
-    <value>Rozmiar krawędzi kwadratu nie może być niższy niż </value>
+    <value>Rozmiar krawędzi kwadratu nie może być niższy niż</value>
   </data>
   <data name="min_square_size_too_low_error" xml:space="preserve">
-    <value>Minimalny rozmiar kwadratu nie może być niższy niż </value>
+    <value>Minimalny rozmiar kwadratu nie może być niższy niż</value>
   </data>
   <data name="min_square_size_too_high_error" xml:space="preserve">
-    <value>Minimalny rozmiar kwadratu nie może być wyższy niż </value>
+    <value>Minimalny rozmiar kwadratu nie może być wyższy niż</value>
   </data>
   <data name="loading_error_msg" xml:space="preserve">
     <value> Błąd odczytu ustawień - wartości, które nie zostały wczytane zostaną przywrócone do domyślnych i zapisane.</value>

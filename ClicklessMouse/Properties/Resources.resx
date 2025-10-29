@@ -219,7 +219,7 @@
   <data name="Lscreen_size" xml:space="preserve">
     <value>Diagonal screen size [in]:</value>
   </data>
-  <data name="contentLscreen_resolution" xml:space="preserve">
+  <data name="Lscreen_resolution" xml:space="preserve">
     <value>Screen resolution: </value>
   </data>
   <data name="Bset_recommended_square" xml:space="preserve">
@@ -232,36 +232,39 @@
     <value>About</value>
   </data>
   <data name="argb_error" xml:space="preserve">
-    <value>ARGB color value must be lower than 0</value>
+    <value>ARGB color value must be lower than 0.</value>
   </data>
   <data name="screen_size_error1" xml:space="preserve">
-    <value>Diagonal screen size must be higher than 0</value>
+    <value>Diagonal screen size must be higher than 0.</value>
   </data>
   <data name="screen_size_error2" xml:space="preserve">
-    <value>Diagonal screen size can't be empty</value>
+    <value>Diagonal screen size can't be empty.</value>
   </data>
   <data name="cursor_idle_time_error" xml:space="preserve">
-    <value>Cursor idle time before squares appear cannot be lower than </value>
+    <value>Cursor idle time before squares appear cannot be lower than</value>
   </data>
   <data name="time_to_start_mouse_movement_error" xml:space="preserve">
-    <value>Time to start mouse movement cannot be lower than </value>
+    <value>Time to start mouse movement cannot be lower than</value>
   </data>
   <data name="cursor_time_in_square_error" xml:space="preserve">
     <value>Cursor time in square to register click cannot be lower than</value>
   </data>
   <data name="square_size_error" xml:space="preserve">
-    <value>Square size cannot be lower than </value>
+    <value>Square size cannot be lower than</value>
   </data>
   <data name="square_border_error" xml:space="preserve">
-    <value>Square border width cannot be lower than </value>
+    <value>Square border width cannot be lower than</value>
   </data>
   <data name="min_square_size_too_low_error" xml:space="preserve">
-    <value>Minimum square size cannot be lower than </value>
+    <value>Minimum square size cannot be lower than</value>
   </data>
   <data name="min_square_size_too_high_error" xml:space="preserve">
-    <value>Minimum square size cannot be higher than </value>
+    <value>Minimum square size cannot be higher than</value>
   </data>
   <data name="loading_error_msg" xml:space="preserve">
     <value> Settings loading error - values that weren't loaded will be restored to default and saved.</value>
+  </data>
+  <data name="manual_title" xml:space="preserve">
+    <value>User Guide</value>
   </data>
 </root>
