@@ -1474,7 +1474,7 @@ MouseCoords= GetCursorPosition();
                     if (x < 1)
                     {
                         TBcursor_idle_before_squares_appear.Text = "1";
-                        throw new Exception(cursor_idle_time_error + "1 ms");
+                        throw new Exception(L10nResourceMgr["cursor_idle_time_error"] + " 1 ms");
                     }
 
                     cursor_idle_time_ms = x;
@@ -1512,7 +1512,7 @@ MouseCoords= GetCursorPosition();
                     if (x < 1)
                     {
                         TBtime_to_start_mouse.Text = "1";
-                        throw new Exception(time_to_start_mouse_movement_error + "1 ms.");
+                        throw new Exception(L10nResourceMgr["time_to_start_mouse_movement_error"] + " 1 ms.");
                     }
 
                     time_to_start_mouse_movement_ms = x;
@@ -1550,7 +1550,7 @@ MouseCoords= GetCursorPosition();
                     if (x < 1)
                     {
                         TBcursor_time_in_square.Text = "1";
-                        throw new Exception(cursor_time_in_square_error + "1 ms.");
+                        throw new Exception(L10nResourceMgr["cursor_time_in_square_error"] + " 1 ms.");
                     }
 
                     cursor_time_in_square_ms = x;
@@ -1623,7 +1623,7 @@ MouseCoords= GetCursorPosition();
                     if (x < 1)
                     {
                         TBsquare_size.Text = "1";
-                        throw new Exception(square_size_error + "1 px.");
+                        throw new Exception(L10nResourceMgr["square_size_error"] + " 1 px.");
                     }
 
                     size = x;
@@ -1656,7 +1656,7 @@ MouseCoords= GetCursorPosition();
                     if (x < 1)
                     {
                         TBsquare_border.Text = "1";
-                        throw new Exception(square_border_error + "1 px.");
+                        throw new Exception(L10nResourceMgr["square_border_error"] + " 1 px.");
                     }
 
                     border_width = x;
@@ -1754,12 +1754,12 @@ MouseCoords= GetCursorPosition();
                     if (x < 1)
                     {
                         TBmin_square_size.Text = "1";
-                        throw new Exception(min_square_size_too_low_error + "1%.");
+                        throw new Exception(L10nResourceMgr["min_square_size_too_low_error"] + " 1%.");
                     }
                     else if (x > 100)
                     {
                         TBmin_square_size.Text = "100";
-                        throw new Exception(min_square_size_too_high_error + "100%.");
+                        throw new Exception(L10nResourceMgr["min_square_size_too_high_error"] + " 100%.");
                     }
 
                     min_square_size_percents = x;
@@ -1789,13 +1789,13 @@ MouseCoords= GetCursorPosition();
             {
                 if (TBscreen_size.Text.Length == 0)
                 {
-                    throw new Exception(screen_size_error2);
+                    throw new Exception(L10nResourceMgr["screen_size_error2"].ToString());
                 }
                 else
                 {
                     int d = int.Parse(TBscreen_size.Text);
                     if (d < 1)
-                        throw new Exception(screen_size_error1 + ".");
+                        throw new Exception(L10nResourceMgr["screen_size_error1"] + ".");
 
                     int x = Screens.Primary.Bounds.Width;
                     int y = Screens.Primary.Bounds.Height;
