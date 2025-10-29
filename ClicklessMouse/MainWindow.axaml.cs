@@ -109,9 +109,7 @@ namespace ClicklessMouse
 
         //NotifyIcon ni = new NotifyIcon();
 
-        InputSimulator sim = new InputSimulator();
-
-        WindowManual wm = new WindowManual();
+        InputSimulator sim;
 
         public L10nResourceMgr L10nResourceMgr 
             => L10nResourceMgr.Instance;
@@ -1276,6 +1274,8 @@ MouseCoords= GetCursorPosition();
             save_settings();
         }
 
+        WindowManual Wmanual = new WindowManual();
+        
         private void MImanual_Click(object sender, RoutedEventArgs e)
         {
             wm.Show();
