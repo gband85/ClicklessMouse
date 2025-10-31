@@ -103,7 +103,7 @@ namespace ClicklessMouse
             InitializeComponent();
 
             Stream iconStream = System.Windows.Application.GetResourceStream(
-                new Uri("pack://application:,,,/Clickless Mouse;component/clickless_mouse.ico")).Stream;
+                new Uri("pack://application:,,,/ClicklessMouse;component/clickless_mouse.ico")).Stream;
             ni.Icon = new System.Drawing.Icon(iconStream);
             iconStream.Close();
             ni.MouseClick += new System.Windows.Forms.MouseEventHandler(ni_MouseClick);
