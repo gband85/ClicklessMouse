@@ -109,7 +109,7 @@ namespace ClicklessMouse
 
         //NotifyIcon ni = new NotifyIcon();
 
-        InputSimulator sim;
+        InputSimulator sim = new InputSimulator();
 
         public L10nResourceMgr L10nResourceMgr 
             => L10nResourceMgr.Instance;
