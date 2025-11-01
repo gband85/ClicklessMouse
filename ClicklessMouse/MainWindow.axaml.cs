@@ -571,27 +571,6 @@ MouseCoords= GetCursorPosition();
                             SM_end_y = SM_start_y + size;
                         }
 
-                        bool mi_file_open = false;
-                        bool mi_restore_open = false;
-                        bool mi_language_open = false;
-                        bool mi_help_open = false;
-                        bool is_this_focused = false;
-                        bool is_instructions_focused = false;
-
-                        Dispatcher.UIThread.Invoke(
-                            new Action(() => { mi_file_open = MIfile.IsSubMenuOpen; }));
-                        Dispatcher.UIThread.Invoke(
-                            new Action(() => { mi_restore_open = MIrestore.IsSubMenuOpen; }));
-                        Dispatcher.UIThread.Invoke(
-                            new Action(() => { mi_language_open = MIlanguage.IsSubMenuOpen; }));
-                        Dispatcher.UIThread.Invoke(
-                            new Action(() => { mi_help_open = MIhelp.IsSubMenuOpen; }));
-
-                        Dispatcher.UIThread.Invoke(
-                            new Action(() => { is_this_focused = this.IsActive; }));
-                        Dispatcher.UIThread.Invoke(
-                            new Action(() => { is_instructions_focused = Wmanual.IsActive; }));
-
                         if (SL_enabled)
                             show_SL(true);
                         if (SR_enabled)
@@ -604,33 +583,7 @@ MouseCoords= GetCursorPosition();
                             show_SRH(true);
 
                         squares_visible = true;
-
-                        //reopen submenu that was closed because squares appeared
-                        if (mi_file_open)
-                            Dispatcher.UIThread.Invoke(
-                            new Action(() => { MIfile.IsSubMenuOpen = mi_file_open; }));
-                        if (mi_restore_open)
-                            Dispatcher.UIThread.Invoke(
-                            new Action(() => { MIrestore.IsSubMenuOpen = mi_restore_open; }));
-                        if (mi_language_open)
-                            Dispatcher.UIThread.Invoke(
-                            new Action(() => { MIlanguage.IsSubMenuOpen = mi_language_open; }));
-                        if (mi_help_open)
-                            Dispatcher.UIThread.Invoke(
-                            new Action(() => { MIhelp.IsSubMenuOpen = mi_help_open; }));
-
-                        //give back stolen focus (by squares) to a Window if it
-                        //was focused before they appeared
-                        if (is_this_focused)
-                        {
-                            Dispatcher.UIThread.Invoke(
-                                new Action(() => { this.Focus(); }));
-                        }
-                        else if (is_instructions_focused)
-                        {
-                            Dispatcher.UIThread.Invoke(
-                                new Action(() => { Wmanual.Focus(); }));
-                        }
+                        
                         cts1 = new CancellationTokenSource();
                         THRsquares_monitor = new Thread(() => monitor_squares(cts1.Token));
                         THRsquares_monitor.Priority = ThreadPriority.Highest;
