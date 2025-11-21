@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Schema;
 using WindowsInput.Native;
 using X11;
 
@@ -14,6 +15,8 @@ namespace ClicklessMouse.Native
 {
 #if _LINUX
     public partial class InputX11
+
+
     {
         [DllImport("libX11.so.6")]
         public static extern int XWarpPointer(IntPtr display, Window src_w, Window dest_w, int src_x, int src_y, uint src_width, uint src_height, int dest_x, int dest_y);
@@ -21,10 +24,39 @@ namespace ClicklessMouse.Native
         [DllImport("libXtst.so.6")]
         public static extern int XTestFakeKeyEvent(IntPtr display, uint keycode, bool is_press, ulong delay);
 
+        // [DllImport("libX11.so.6")]
+        // public static extern int XGetWindowProperty(IntPtr display, Window w, Atom property, long long_offset, long long_length, bool delete, Atom req_type,
+        //                 ref Atom actual_type_return, ref int actual_format_return, ref ulong nitems_return, ref ulong bytes_after_return,
+        //                 ref string prop_return);
+        
         [DllImport("libX11.so.6")]
-        public static extern int XGetWindowProperty(IntPtr display, Window w, Atom property, long long_offset, long long_length, bool delete, Atom req_type,
-                        ref Atom actual_type_return, ref int actual_format_return, ref ulong nitems_return, ref ulong bytes_after_return,
-                        ref string prop_return);
+        public static extern int XGetWindowProperty(IntPtr display, Window window, Atom property, long long_offset, long long_length, bool delete, Atom req_type,
+            ref Atom actual_type_return, ref int actual_format_return, ref ulong nitems_return, ref ulong bytes_after_return,
+            out IntPtr prop_return);
+
+//         private static int XGetWindowProperty(IntPtr display, Window window, Atom property, long long_offset, long long_length, bool delete, Atom req_type, ref Atom actual_type_return, ref int actual_format_return, ref ulong bytes_after_return,
+//             out List<string> prop_return)
+//         {
+//             prop_return = new List<string>();
+//             string name_return=new("");
+//             // Atom actual_type_return = new();
+//             ulong nitems_return = 0;
+//             // int actual_format_return;
+//             // ulong bytes_after_return;
+//             IntPtr prop_return2 = new();
+//             int result = XGetWindowProperty(display, window, property, long_offset, long_length, delete, req_type, ref actual_type_return, ref actual_format_return,
+//                 ref nitems_return, ref bytes_after_return, ref prop_return2);
+//             Console.WriteLine($"{(int)nitems_return}");
+// Console.WriteLine($"Property {property}: {Xlib.XGetAtomName(display,property)} contains {nitems_return} items of type {actual_type_return}:");
+//             for (int i = 0; i < (int)nitems_return; i++)
+//             {
+//                 IntPtr ptr = new IntPtr(prop_return2.ToInt64() + (long) (i * 8));
+//                 prop_return.Add(Marshal.ReadInt64(ptr).ToString());
+//                 
+//                 Console.WriteLine($"Id: {prop_return[i]}");
+//             }
+//             return result;
+//         }
 
         public static int[] GetCursorPos()
         {
@@ -51,6 +83,17 @@ namespace ClicklessMouse.Native
             return coords;
         }
 
+        public static void HideSquareTaskbarIcon()
+        {
+            IntPtr display = Xlib.XOpenDisplay(null);
+            X11.Window w = Xlib.XDefaultRootWindow(display);
+            Atom client_list = Xlib.XInternAtom(display, "_NET_CLIENT_LIST", false);
+            Atom atype = new Atom();
+            int aformat=new int();
+            // if (XGetWindowProperty(display,w,client_list,0,~0L,false,Xlib.XInternAtom(display,"XA_WINDOW",false),ref atype,
+            //         ref aformat,))
+        }
+        
         public static void SetCursorPos(int x, int y)
         {
             IntPtr display = Xlib.XOpenDisplay(null);
