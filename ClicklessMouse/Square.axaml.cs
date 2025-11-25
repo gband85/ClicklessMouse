@@ -90,7 +90,7 @@ Atom net_client_list = Xlib.XInternAtom(display, "_NET_CLIENT_LIST", true);
                // ulong windowId = (ulong)Marshal.ReadInt64(ptr);
                 // Window g = (Window)windowId;
                 // Console.WriteLine($"Id:");
-                prop_return_list.Add((Window)ptr);
+                prop_return_list.Add((Window)Marshal.ReadInt64(ptr));
                 InputX11.XGetWindowProperty(display, (Window)Marshal.ReadInt64(ptr), prop, long_offset, long_length,
                     false, req_type2, ref actual_type_return, ref actual_format_return, ref nitems_return,
                     ref bytes_after_return, out prop_return2);
