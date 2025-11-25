@@ -95,9 +95,10 @@ Atom net_client_list = Xlib.XInternAtom(display, "_NET_CLIENT_LIST", true);
                 InputX11.XGetWindowProperty(display, (Window)Marshal.ReadInt64(ptr), prop, long_offset, long_length,
                     false, req_type2, ref actual_type_return, ref actual_format_return, ref nitems_return2,
                     ref bytes_after_return, out prop_return2);
-                // var t = Marshal.ReadInt64(prop_return2, 8).ToString();
-                Xlib.XFetchName(display, (Window)Marshal.ReadInt64(prop_return2,(int)i*8), ref window_name);
-Console.WriteLine(window_name);
+                if (Marshal.PtrToStringAnsi(prop_return2).Equals("Square SL")) ;
+                {
+                    Console.WriteLine(Marshal.PtrToStringAnsi(prop_return2));
+                }
             }
             
 Console.WriteLine("");
