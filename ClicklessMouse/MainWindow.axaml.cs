@@ -594,15 +594,15 @@ MouseCoords= GetCursorPosition();
                             new Action(() => { is_instructions_focused = Wmanual.IsActive; }));
 
                         if (SL_enabled)
-                            // show_SL(true);
-                        // if (SR_enabled)
-                        //     show_SR(true);
-                        // if (SM_enabled)
-                        //     show_SM(true);
-                        // if (SLH_enabled)
-                        //     show_SLH(true);
-                        // if (SRH_enabled)
-                        //     show_SRH(true);
+                            show_SL(true);
+                        if (SR_enabled)
+                            show_SR(true);
+                        if (SM_enabled)
+                            show_SM(true);
+                        if (SLH_enabled)
+                            show_SLH(true);
+                        if (SRH_enabled)
+                            show_SRH(true);
 
                         squares_visible = true;
 
@@ -649,14 +649,14 @@ MouseCoords= GetCursorPosition();
                     squares_visible = false;
                     if (SL_enabled)
                         show_SL(false);
-                    // if (SR_enabled)
-                    //     show_SR(false);
-                    // if (SM_enabled)
-                    //     show_SM(false);
-                    // if (SLH_enabled)
-                    //     show_SLH(false);
-                    // if (SRH_enabled)
-                    //     show_SRH(false);
+                    if (SR_enabled)
+                        show_SR(false);
+                    if (SM_enabled)
+                        show_SM(false);
+                    if (SLH_enabled)
+                        show_SLH(false);
+                    if (SRH_enabled)
+                        show_SRH(false);
                     i = 0;
                     banned_x = x;
                     banned_y = y;
@@ -730,14 +730,14 @@ MouseCoords= GetCursorPosition();
                 LMBClick(x, y, 100);
                 if (SL_enabled)
                     show_SL(false);
-                // if (SR_enabled)
-                //     show_SR(false);
-                // if (SM_enabled)
-                //     show_SM(false);
-                // if (SLH_enabled)
-                //     show_SLH(false);
-                // if (SRH_enabled)
-                //     show_SRH(false);
+                if (SR_enabled)
+                    show_SR(false);
+                if (SM_enabled)
+                    show_SM(false);
+                if (SLH_enabled)
+                    show_SLH(false);
+                if (SRH_enabled)
+                    show_SRH(false);
                 last_click_time = DateTime.Now;
                 squares_visible = false;
             }
@@ -746,14 +746,14 @@ MouseCoords= GetCursorPosition();
                 RMBClick(x, y, 100);
                 if (SL_enabled)
                     show_SL(false);
-                // if (SR_enabled)
-                //     show_SR(false);
-                // if (SM_enabled)
-                //     show_SM(false);
-                // if (SLH_enabled)
-                //     show_SLH(false);
-                // if (SRH_enabled)
-                //     show_SRH(false);
+                if (SR_enabled)
+                    show_SR(false);
+                if (SM_enabled)
+                    show_SM(false);
+                if (SLH_enabled)
+                    show_SLH(false);
+                if (SRH_enabled)
+                    show_SRH(false);
                 last_click_time = DateTime.Now;
                 squares_visible = false;
             }
@@ -762,14 +762,14 @@ MouseCoords= GetCursorPosition();
                 DLMBClick(x, y, 100);
                 if (SL_enabled)
                     show_SL(false);
-                // if (SR_enabled)
-                //     show_SR(false);
-                // if (SM_enabled)
-                //     show_SM(false);
-                // if (SLH_enabled)
-                //     show_SLH(false);
-                // if (SRH_enabled)
-                //     show_SRH(false);
+                if (SR_enabled)
+                    show_SR(false);
+                if (SM_enabled)
+                    show_SM(false);
+                if (SLH_enabled)
+                    show_SLH(false);
+                if (SRH_enabled)
+                    show_SRH(false);
                 last_click_time = DateTime.Now;
                 squares_visible = false;
             }
@@ -778,14 +778,14 @@ MouseCoords= GetCursorPosition();
                 LMBHold(x, y, 100);
                 if (SL_enabled)
                     show_SL(false);
-                // if (SR_enabled)
-                //     show_SR(false);
-                // if (SM_enabled)
-                //     show_SM(false);
-                // if (SLH_enabled)
-                //     show_SLH(false);
-                // if (SRH_enabled)
-                //     show_SRH(false);
+                if (SR_enabled)
+                    show_SR(false);
+                if (SM_enabled)
+                    show_SM(false);
+                if (SLH_enabled)
+                    show_SLH(false);
+                if (SRH_enabled)
+                    show_SRH(false);
                 last_click_time = DateTime.Now;
                 squares_visible = false;
             }
@@ -794,14 +794,14 @@ MouseCoords= GetCursorPosition();
                 RMBHold(x, y, 100);
                 if (SL_enabled)
                     show_SL(false);
-                // if (SR_enabled)
-                //     show_SR(false);
-                // if (SM_enabled)
-                //     show_SM(false);
-                // if (SLH_enabled)
-                //     show_SLH(false);
-                // if (SRH_enabled)
-                //     show_SRH(false);
+                if (SR_enabled)
+                    show_SR(false);
+                if (SM_enabled)
+                    show_SM(false);
+                if (SLH_enabled)
+                    show_SLH(false);
+                if (SRH_enabled)
+                    show_SRH(false);
                 last_click_time = DateTime.Now;
                 squares_visible = false;
             }
@@ -823,14 +823,14 @@ MouseCoords= GetCursorPosition();
                 {
                     if (SL_enabled)
                         show_SL(false);
-                    // if (SR_enabled)
-                    //     show_SR(false);
-                    // if (SM_enabled)
-                    //     show_SM(false);
-                    // if (SLH_enabled)
-                    //     show_SLH(false);
-                    // if (SRH_enabled)
-                    //     show_SRH(false);
+                    if (SR_enabled)
+                        show_SR(false);
+                    if (SM_enabled)
+                        show_SM(false);
+                    if (SLH_enabled)
+                        show_SLH(false);
+                    if (SRH_enabled)
+                        show_SRH(false);
                     squares_visible = false;
                 }
             }
@@ -1386,10 +1386,10 @@ MouseCoords= GetCursorPosition();
             if (saving_enabled)
             {
                 show_SL(false);
-                // show_SR(false);
-                // show_SM(false);
-                // show_SLH(false);
-                // show_SRH(false);
+                show_SR(false);
+                show_SM(false);
+                show_SLH(false);
+                show_SRH(false);
             }
 
             if (CHBLMB.IsChecked == true)
@@ -1414,10 +1414,10 @@ MouseCoords= GetCursorPosition();
             if (saving_enabled)
             {
                 show_SL(false);
-                // show_SR(false);
-                // show_SM(false);
-                // show_SLH(false);
-                // show_SRH(false);
+                show_SR(false);
+                show_SM(false);
+                show_SLH(false);
+                show_SRH(false);
             }
 
             if (CHBRMB.IsChecked == true)
@@ -1436,10 +1436,10 @@ MouseCoords= GetCursorPosition();
             if (saving_enabled)
             {
                 show_SL(false);
-                // show_SR(false);
-                // show_SM(false);
-                // show_SLH(false);
-                // show_SRH(false);
+                show_SR(false);
+                show_SM(false);
+                show_SLH(false);
+                show_SRH(false);
             }
 
             if (CHBdoubleLMB.IsChecked == true)
@@ -1458,10 +1458,10 @@ MouseCoords= GetCursorPosition();
             if (saving_enabled)
             {
                 show_SL(false);
-                // show_SR(false);
-                // show_SM(false);
-                // show_SLH(false);
-                // show_SRH(false);
+                show_SR(false);
+                show_SM(false);
+                show_SLH(false);
+                show_SRH(false);
             }
 
             if (CHBholdLMB.IsChecked == true)
@@ -1480,10 +1480,10 @@ MouseCoords= GetCursorPosition();
             if (saving_enabled)
             {
                 show_SL(false);
-                // show_SR(false);
-                // show_SM(false);
-                // show_SLH(false);
-                // show_SRH(false);
+                show_SR(false);
+                show_SM(false);
+                show_SLH(false);
+                show_SRH(false);
             }
 
             if (CHBholdRMB.IsChecked == true)
