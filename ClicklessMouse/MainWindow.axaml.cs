@@ -1103,7 +1103,7 @@ MouseCoords= GetCursorPosition();
             }
         }
 
-        void regenerate_SR()
+        void create_SR()
         {
             if (SR != null && !SR.CheckAccess())
             {
@@ -1131,7 +1131,7 @@ MouseCoords= GetCursorPosition();
             }
         }
 
-        void regenerate_SM()
+        void create_SM()
         {
             if (SM != null && !SM.CheckAccess())
             {
@@ -1160,6 +1160,7 @@ MouseCoords= GetCursorPosition();
         }
 
         void regenerate_SLH()
+        void create_SLH()
         {
             if (SLH != null && !SLH.CheckAccess())
             {
@@ -1187,7 +1188,17 @@ MouseCoords= GetCursorPosition();
             }
         }
 
-        void regenerate_SRH()
+        void destroy_SLH()
+        {
+            if (SLH != null)
+            {
+                SLH.Close();
+            }
+
+            Console.WriteLine("");
+        }
+        
+        void create_SRH()
         {
             if (SRH != null && !SRH.CheckAccess())
             {
