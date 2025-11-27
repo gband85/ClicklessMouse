@@ -1069,38 +1069,11 @@ MouseCoords= GetCursorPosition();
         void destroy_SL()
         {
             if (SL != null)
+            {
                 SL.Close();
-        }
-        void regenerate_SL()
-        {
-            if (SL != null && !SL.CheckAccess())
-            {
-                try
-                {
-                    Dispatcher.UIThread.Invoke(new Action(() => regenerate_SL()));
-                }
-                catch (ObjectDisposedException ex)
-                {
-                    //
-                }
             }
-            else
-            {
-                // if (SL != null)
-                //     SL.Close();
 
-                    SL = new Square(size, border_width, color1, color2);
-                    
-                    SL.Title="Square SL";
-
-                    SL.Topmost = true;
-                    SL.Show();
-                    
-                    SL.Height = size;
-                    SL.Width = size;
-
-                    SL.Hide();
-            }
+            Console.WriteLine("");
         }
 
         void create_SR()
@@ -1131,6 +1104,16 @@ MouseCoords= GetCursorPosition();
             }
         }
 
+        void destroy_SR()
+        {
+            if (SR != null)
+            {
+                SR.Close();
+            }
+
+            Console.WriteLine("");
+        }
+
         void create_SM()
         {
             if (SM != null && !SM.CheckAccess())
@@ -1159,7 +1142,16 @@ MouseCoords= GetCursorPosition();
             }
         }
 
-        void regenerate_SLH()
+        void destroy_SM()
+        {
+            if (SM != null)
+            {
+                SM.Close();
+            }
+
+            Console.WriteLine("");
+        }
+        
         void create_SLH()
         {
             if (SLH != null && !SLH.CheckAccess())
@@ -1226,6 +1218,15 @@ MouseCoords= GetCursorPosition();
             }
         }
 
+        void destroy_SRH()
+        {
+            if (SRH != null)
+            {
+                SRH.Close();
+            }
+
+            Console.WriteLine("");
+        }
         //----------------------------------------------------------------------------------
 
         [DllImport("USER32.DLL")]
