@@ -1421,9 +1421,15 @@ MouseCoords= GetCursorPosition();
             }
 
             if (CHBRMB.IsChecked == true)
+            {
                 SR_enabled = true;
+                create_SR();
+            }
             else
+            {
                 SR_enabled = false;
+                destroy_SR();
+            }
 
             if (saving_enabled)
             {
@@ -1443,9 +1449,15 @@ MouseCoords= GetCursorPosition();
             }
 
             if (CHBdoubleLMB.IsChecked == true)
+            {
                 SM_enabled = true;
+                create_SM();
+            }
             else
+            {
                 SM_enabled = false;
+                destroy_SM();
+            }
 
             if (saving_enabled)
             {
@@ -1465,9 +1477,15 @@ MouseCoords= GetCursorPosition();
             }
 
             if (CHBholdLMB.IsChecked == true)
+            {
                 SLH_enabled = true;
+                create_SLH();
+            }
             else
+            {
                 SLH_enabled = false;
+                destroy_SLH();
+            }
 
             if (saving_enabled)
             {
@@ -1487,9 +1505,15 @@ MouseCoords= GetCursorPosition();
             }
 
             if (CHBholdRMB.IsChecked == true)
+            {
                 SRH_enabled = true;
+                create_SRH();
+            }
             else
+            {
                 SRH_enabled = false;
+                destroy_SRH();
+            }
 
             if (saving_enabled)
             {
