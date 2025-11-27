@@ -934,7 +934,8 @@ MouseCoords= GetCursorPosition();
             {
                 try
                 {
-                    Dispatcher.UIThread.Invoke(new Action(() => show_SL(show)));
+                    Callback1 d = new Callback1(show_SL);
+                    Dispatcher.UIThread.Invoke(new Action(() => d(show)));
                 }
                 catch (ObjectDisposedException ex)
                 {
@@ -958,7 +959,8 @@ MouseCoords= GetCursorPosition();
             {
                 try
                 {
-                    Dispatcher.UIThread.Invoke(new Action(() => show_SR(show)));
+                    Callback1 d = new Callback1(show_SR);
+                    Dispatcher.UIThread.Invoke(new Action(() => d(show)));
                 }
                 catch (ObjectDisposedException ex)
                 {
@@ -981,7 +983,8 @@ MouseCoords= GetCursorPosition();
             {
                 try
                 {
-                    Dispatcher.UIThread.Invoke(new Action(() => show_SM(show)));
+                    Callback1 d = new Callback1(show_SM);
+                    Dispatcher.UIThread.Invoke(new Action(() => d(show)));
                 }
                 catch (ObjectDisposedException ex)
                 {
@@ -1004,7 +1007,8 @@ MouseCoords= GetCursorPosition();
             {
                 try
                 {
-                    Dispatcher.UIThread.Invoke(new Action(() => show_SLH(show)));
+                    Callback1 d = new Callback1(show_SLH);
+                    Dispatcher.UIThread.Invoke(new Action(() => d(show)));
                 }
                 catch (ObjectDisposedException ex)
                 {
@@ -1027,7 +1031,8 @@ MouseCoords= GetCursorPosition();
             {
                 try
                 {
-                    Dispatcher.UIThread.Invoke(new Action(() => show_SRH(show)));
+                    Callback1 d = new Callback1(show_SRH);
+                    Dispatcher.UIThread.Invoke(new Action(() => d(show)));
                 }
                 catch (ObjectDisposedException ex)
                 {
@@ -1049,6 +1054,20 @@ MouseCoords= GetCursorPosition();
 
         void create_SL()
         {
+            if (SL!=null && !SL.CheckAccess())
+            {
+                try
+                {
+                    Callback2 d = new Callback2(create_SL);
+                    Dispatcher.UIThread.Invoke(new Action(()=>d()));
+                }
+                catch (ObjectDisposedException ex)
+                {
+                    //
+                }
+            }
+            else
+            {
             if (SL != null)
                 destroy_SL();
             
@@ -1082,7 +1101,8 @@ MouseCoords= GetCursorPosition();
             {
                 try
                 {
-                    Dispatcher.UIThread.Invoke(new Action(() => regenerate_SR()));
+                    Callback2 d = new Callback2(create_SR);
+                    Dispatcher.UIThread.Invoke(new Action(() => d()));
                 }
                 catch (ObjectDisposedException ex)
                 {
@@ -1120,7 +1140,8 @@ MouseCoords= GetCursorPosition();
             {
                 try
                 {
-                    Dispatcher.UIThread.Invoke(new Action(() => regenerate_SM()));
+                    Callback2 d = new Callback2(create_SM);
+                    Dispatcher.UIThread.Invoke(new Action(() => d()));
                 }
                 catch (ObjectDisposedException ex)
                 {
@@ -1158,7 +1179,8 @@ MouseCoords= GetCursorPosition();
             {
                 try
                 {
-                    Dispatcher.UIThread.Invoke(new Action(() => regenerate_SLH()));
+                    Callback2 d = new Callback2(create_SLH);
+                    Dispatcher.UIThread.Invoke(new Action(() => d()));
                 }
                 catch (ObjectDisposedException ex)
                 {
@@ -1196,7 +1218,8 @@ MouseCoords= GetCursorPosition();
             {
                 try
                 {
-                    Dispatcher.UIThread.Invoke(new Action(() => regenerate_SRH()));
+                    Callback2 d = new Callback2(create_SRH);
+                    Dispatcher.UIThread.Invoke(new Action(() => d()));
                 }
                 catch (ObjectDisposedException ex)
                 {
