@@ -110,7 +110,7 @@ namespace ClicklessMouse
 
         //NotifyIcon ni = new NotifyIcon();
 
-        InputSimulator sim;
+        InputSimulator sim = new InputSimulator();
 
         public L10nResourceMgr L10nResourceMgr 
             => L10nResourceMgr.Instance;
@@ -948,11 +948,12 @@ MouseCoords= GetCursorPosition();
                 {
                         SL.Position = new PixelPoint(SL_start_x, SL_start_y);
                         SL.Show();
-                        InputX11.HideSquareTaskbarIcon();
+                        // InputX11.HideSquareTaskbarIcon();
                 }
                 else SL.Hide();
+}
             }
-        }
+        
         void show_SR(bool show)
         {
             if (!SR.CheckAccess())
@@ -1069,8 +1070,8 @@ MouseCoords= GetCursorPosition();
             else
             {
             if (SL != null)
-                destroy_SL();
-            
+                SL.Close();
+
             SL = new Square(size, border_width, color1, color2);
                     
             SL.Title="Square SL";
@@ -1082,7 +1083,7 @@ MouseCoords= GetCursorPosition();
             SL.Width = size;
 
             SL.Hide();
-            show_SL(true);
+            }
         }
 
         void destroy_SL()
