@@ -58,13 +58,10 @@ namespace ClicklessMouse.Native
 //             return result;
 //         }
 
-        public static int[] GetCursorPos()
+        public static (Window window_return,Window child_return,int root_x,int root_y,int win_x,int win_y,uint mask_return) GetCursorPos()
         {
             //int number_of_screens;
             IntPtr display = Xlib.XOpenDisplay(null);
-            //number_of_screens = Xlib.XScreenCount(display);
-            //IntPtr root_windows;
-            //root_windows = sizeof(Window) * number_of_screens;
             Window w = Xlib.XDefaultRootWindow(display);
 
             Window window_return = new();
@@ -77,10 +74,8 @@ namespace ClicklessMouse.Native
             uint mask_return = new uint();
             Xlib.XQueryPointer(display, w, ref window_return, ref child_return, ref root_x, ref root_y, ref win_x, ref win_y, ref mask_return);
             Xlib.XCloseDisplay(display);
-            int[] coords = new int[2];
-            coords[0] = root_x;
-            coords[1] = root_y;
-            return coords;
+
+            return (window_return,child_return,root_x,root_y,win_x,win_y,mask_return);
         }
 
         public static void HideSquareTaskbarIcon()
