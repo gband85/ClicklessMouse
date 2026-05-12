@@ -38,72 +38,10 @@ namespace ClicklessMouse
             this.PointToClient(new PixelPoint(0, 0));
             this.Position = new PixelPoint(side * -1, side * -1);
 #if _LINUX 
-HideSquareTaskbarIcon();
-Console.Write("");
+Avalonia.Controls.X11Properties.SetNetWmWindowType(this,Avalonia.Controls.Platform.X11NetWmWindowType.Utility);
 #endif
         }
-     #if _LINUX
-        [DllImport("libX11.so.6")]
-        public static extern IntPtr XOpenDisplay(IntPtr display);
-
-        [DllImport("libX11.so.6")]
-        public static extern ulong XDefaultRootWindow(IntPtr display);
-
-        [DllImport("libX11.so.6")]
-        public static extern ulong XInternAtom(IntPtr display, string atomName, bool onlyIfExists);
-     public void HideSquareTaskbarIcon()
-        {
-                            
-//             IntPtr display;
-// X11.Window w;
-//             Atom net_client_list;
-             long long_offset = 0L;
-             long long_length = 256L;
-             bool delete=false;
-//             Atom req_type; 
-//             
-//
-            IntPtr prop_return;
-             Atom actual_type_return=new Atom();
-             int actual_format_return=0;
-             ulong nitems_return = 0UL;
-                 ulong nitems_return2 = 0UL;
-                 ulong bytes_after_return=0UL;
-             List<Window> prop_return_list= [];
-
-
-           IntPtr display = Xlib.XOpenDisplay(null);
-Window w = Xlib.XDefaultRootWindow(display);
-IntPtr prop_return2;
-Atom net_client_list = Xlib.XInternAtom(display, "_NET_CLIENT_LIST", true);
-         Atom  prop = Xlib.XInternAtom(display, "_NET_WM_NAME", true);
-         Atom req_type2 = 0UL;
-         string window_name="";
-           // Atom.
-           
-           int result = InputX11.XGetWindowProperty(display, w, net_client_list, long_offset, long_length, delete, req_type2, ref actual_type_return, ref actual_format_return,
-               ref nitems_return, ref bytes_after_return, out prop_return);
-            //if (result && actual_type_return == XA_WINDOW) ;
-            ulong count = nitems_return - 1UL;
-            for (ulong i = 0; i <= count; i++)
-            {
-                IntPtr ptr = new IntPtr(prop_return.ToInt64() +  (int)i * 8);
-               // ulong windowId = (ulong)Marshal.ReadInt64(ptr);
-                // Window g = (Window)windowId;
-                // Console.WriteLine($"Id:");
-                prop_return_list.Add((Window)Marshal.ReadInt64(ptr));
-                InputX11.XGetWindowProperty(display, (Window)Marshal.ReadInt64(ptr), prop, long_offset, long_length,
-                    false, req_type2, ref actual_type_return, ref actual_format_return, ref nitems_return2,
-                    ref bytes_after_return, out prop_return2);
-                if (Marshal.PtrToStringAnsi(prop_return2).Equals("Square SL")) ;
-                {
-                    Console.WriteLine(Marshal.PtrToStringAnsi(prop_return2));
-                }
-            }
-            
-Console.WriteLine("");
-        }
-#endif
+     
         public sealed override void Render(DrawingContext context)
         {
             if (Background != null)
