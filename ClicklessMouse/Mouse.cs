@@ -19,7 +19,7 @@ namespace ClicklessMouse
         void left_down()
         {
 #if _LINUX
-                ClicklessMouse.Native.InputX11.LeftButtonDown();
+            ClicklessMouse.Native.InputX11.LeftButtonDown();
 #elif _WINDOWS
             sim.Mouse.LeftButtonDown();
 #endif
@@ -28,7 +28,7 @@ namespace ClicklessMouse
         void left_up()
         {
 #if _LINUX
-                ClicklessMouse.Native.InputX11.LeftButtonUp();
+            ClicklessMouse.Native.InputX11.LeftButtonUp();
 #elif _WINDOWS
             sim.Mouse.LeftButtonUp();
 #endif
@@ -37,7 +37,7 @@ namespace ClicklessMouse
         void right_down()
         {
 #if _LINUX
-                ClicklessMouse.Native.InputX11.RightButtonDown();
+            ClicklessMouse.Native.InputX11.RightButtonDown();
 #elif _WINDOWS
             sim.Mouse.RightButtonDown();
 #endif
@@ -58,7 +58,7 @@ namespace ClicklessMouse
             do
             {
 #if _LINUX
-                    ClicklessMouse.Native.InputX11.SetCursorPos(X,Y);
+                ClicklessMouse.Native.InputX11.SetCursorPos(X, Y);
 #elif _WINDOWS
                 ClicklessMouse.Native.InputWin.SetCursorPos(X, Y);
 #endif
@@ -71,10 +71,18 @@ namespace ClicklessMouse
         {
             ///user may forget that right button is pressed or press it by mistake without noticing
             //(holding RMB prevents LMB clicking)
-            // if (sim.InputDeviceState.IsKeyDown(VirtualKeyCode.RBUTTON))
-            // {
-            //     right_up();
-            // }
+            #if _LINUX
+            if (ClicklessMouse.Native.InputX11.GetCursorPos().mask_return == 1024)
+            {
+                right_up();
+            }
+#elif WINDOWS
+
+            if (sim.InputDeviceState.IsKeyDown(VirtualKeyCode.RBUTTON))
+            {
+                right_up();
+            }
+#endif
             freeze_mouse(X, Y, 50);
             left_down();
             freeze_mouse(X, Y, time);
@@ -95,10 +103,18 @@ namespace ClicklessMouse
         {
             //user may forget that right button is pressed or press it by mistake without noticing
             //(holding RMB prevents LMB clicking)
+#if _LINUX
+            if (ClicklessMouse.Native.InputX11.GetCursorPos().mask_return == 1024)
+            {
+                right_up();
+            }
+#elif WINDOWS
+
             if (sim.InputDeviceState.IsKeyDown(VirtualKeyCode.RBUTTON))
             {
                 right_up();
             }
+#endif
             LMBClick(X, Y, 100);
             LMBClick(X, Y, 100);
         }
@@ -106,6 +122,16 @@ namespace ClicklessMouse
         public void LMBHold(int X, int Y, int time)
         {
             freeze_mouse(X, Y, 50);
+#if _LINUX
+            if (ClicklessMouse.Native.InputX11.GetCursorPos().mask_return != 256 || ClicklessMouse.Native.InputX11.GetCursorPos().mask_return != 1280)
+            {
+                left_down();
+            }
+            else
+            {
+                left_up();
+            }
+#elif _WINDOWS
             if (sim.InputDeviceState.IsKeyDown(VirtualKeyCode.LBUTTON) == false)
             {
                 left_down();
@@ -114,12 +140,25 @@ namespace ClicklessMouse
             {
                 left_up();
             }
+#endif
             freeze_mouse(X, Y, time);
         }
 
         public void RMBHold(int X, int Y, int time)
         {
             freeze_mouse(X, Y, 50);
+#if _LINUX
+
+            if (InputX11.GetCursorPos().mask_return != 1024 || InputX11.GetCursorPos().mask_return != 1280)
+            {
+                right_down();
+            }
+            else
+            {
+                right_up();
+            }
+
+#elif _WINDOWS
             if (sim.InputDeviceState.IsKeyDown(VirtualKeyCode.RBUTTON) == false)
             {
                 right_down();
@@ -128,6 +167,8 @@ namespace ClicklessMouse
             {
                 right_up();
             }
+#endif
+
             freeze_mouse(X, Y, time);
         }
         public int[] GetCursorPosition()
@@ -145,16 +186,15 @@ namespace ClicklessMouse
 
 #elif _LINUX
             {
-            int[] MouseCoords;
-                MouseCoords = ClicklessMouse.Native.InputX11.GetCursorPos();
-                
-                x = MouseCoords[0];
-                y = MouseCoords[1];
+                var CursorPos = ClicklessMouse.Native.InputX11.GetCursorPos();
+
+                x = CursorPos.root_x;
+                y = CursorPos.root_y;
             }
 
 #endif
 
-            return [x,y];
+            return [x, y];
         }
         public void SetCursorPosition(int x, int y)
         {
