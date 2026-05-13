@@ -135,6 +135,8 @@ namespace ClicklessMouse
             default_settings_path = Path.Combine("/usr/share", prog_name.Replace(" ", String.Empty), default_settings_filename);
 
 #endif
+
+            settings_path = Path.Combine(app_folder_path, settings_filename);
             //Stream iconStream = System.Windows.Application.GetResourceStream(
             //    new Uri("pack://application:,,,/ClicklessMouse;component/clickless_mouse.ico")).Stream;
             //ni.Icon = new System.Drawing.Icon(iconStream);
