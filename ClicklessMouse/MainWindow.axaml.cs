@@ -98,11 +98,13 @@ namespace ClicklessMouse
         Thread THRmouse_monitor, THRsquares_monitor, THRmouse_monitor2;
         int displacement = 0;
 
-        bool saving_enabled = false;
+        bool saving_enabled = true;
         //full path is necessary if run at startup is used (running at startup uses different current
         //directory
-        private string app_folder_path =
-            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), prog_name);
+        string app_folder_path = "";
+
+        string settings_path = "";
+        string default_settings_path = "";
 
         UILanguage lang = UILanguage.en;
         bool loading_error = false;
@@ -112,7 +114,7 @@ namespace ClicklessMouse
 
         InputSimulator sim = new InputSimulator();
 
-        public L10nResourceMgr L10nResourceMgr 
+        public L10nResourceMgr L10nResourceMgr
             => L10nResourceMgr.Instance;
 
         public MainWindow()
@@ -128,7 +130,7 @@ namespace ClicklessMouse
 
 #if _WINDOWS
            app_folder_path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), prog_name); 
-            default_settings_path=Path.Combine(AppContext.BaseDirectory,default_settings_filename);
+           default_settings_path=Path.Combine(AppContext.BaseDirectory,default_settings_filename);
 
 #elif _LINUX
             app_folder_path = Path.Combine(Environment.GetEnvironmentVariable("HOME"), ".config", prog_name.Replace(" ", String.Empty));
@@ -358,7 +360,7 @@ namespace ClicklessMouse
                 max_x = Screens.Primary.Bounds.Width - 1;
                 max_y = Screens.Primary.Bounds.Height - 1;
                 MouseCoords = GetCursorPosition();
-                    x1 = MouseCoords[0];
+                x1 = MouseCoords[0];
                 y1 = MouseCoords[1];
 
                 if (x1 == 0) //if (x1 == 0 && pressed_left == false) would be a mistake (we need
@@ -452,14 +454,14 @@ namespace ClicklessMouse
 
             while (true)
             {
-              MouseCoords = GetCursorPosition();
-                    x1 = MouseCoords[0];
-                y1 = MouseCoords[1];
-                    Thread.Sleep(loop_time_ms);
                 MouseCoords = GetCursorPosition();
-                    x2 = MouseCoords[0];
-                    y2 = MouseCoords[1];
-             
+                x1 = MouseCoords[0];
+                y1 = MouseCoords[1];
+                Thread.Sleep(loop_time_ms);
+                MouseCoords = GetCursorPosition();
+                x2 = MouseCoords[0];
+                y2 = MouseCoords[1];
+
 
                 //max_x and max_y are updated in monitor_mouse2 by THRmouse_monitor2 which works
                 //only when screen_panning == true
@@ -691,8 +693,8 @@ namespace ClicklessMouse
 
                 MouseCoords = GetCursorPosition();
                 pos_x = MouseCoords[0];
-                    pos_y = MouseCoords[1];
-                
+                pos_y = MouseCoords[1];
+
                 if (SL_enabled)
                 {
                     if (is_cursor_in_SL(pos_x, pos_y))
@@ -958,14 +960,14 @@ namespace ClicklessMouse
             {
                 if (show)
                 {
-                        SL.Position = new PixelPoint(SL_start_x, SL_start_y);
-                        SL.Show();
-                        // InputX11.HideSquareTaskbarIcon();
+                    SL.Position = new PixelPoint(SL_start_x, SL_start_y);
+                    SL.Show();
+                    // InputX11.HideSquareTaskbarIcon();
                 }
                 else SL.Hide();
-}
             }
-        
+        }
+
         void show_SR(bool show)
         {
             if (SR == null)
@@ -1089,20 +1091,20 @@ namespace ClicklessMouse
             }
             else
             {
-            if (SL != null)
-                SL.Close();
+                if (SL != null)
+                    SL.Close();
 
-            SL = new Square(size, border_width, color1, color2);
-                    
+                SL = new Square(size, border_width, color1, color2);
+
                 SL.Title = "Square SL";
 
-            SL.Topmost = true;
-            SL.Show();
-                    
-            SL.Height = size;
-            SL.Width = size;
+                SL.Topmost = true;
+                SL.Show();
 
-            SL.Hide();
+                SL.Height = size;
+                SL.Width = size;
+
+                SL.Hide();
             }
         }
 
@@ -1193,7 +1195,7 @@ namespace ClicklessMouse
 
             Console.WriteLine("");
         }
-        
+
         void create_SLH()
         {
             if (SLH != null && !SLH.CheckAccess())
@@ -1232,7 +1234,7 @@ namespace ClicklessMouse
 
             Console.WriteLine("");
         }
-        
+
         void create_SRH()
         {
             if (SRH != null && !SRH.CheckAccess())
@@ -1359,7 +1361,7 @@ namespace ClicklessMouse
         }
 
         WindowManual Wmanual = new WindowManual();
-        
+
         private void MImanual_Click(object sender, RoutedEventArgs e)
         {
             Wmanual.DataContext = this;
@@ -1796,14 +1798,14 @@ namespace ClicklessMouse
             try
             {
                 ColorPickerDialog colorDialog1 = new ColorPickerDialog() { Color = color1 };
-                
+
                 var dr = await colorDialog1.ShowDialog<bool>(this);
 
                 if (dr)
                 {
                     if (colorDialog1.Color == null)
                         throw new Exception("No color selected");
-                    
+
                     Bsquare_color1.Background = new SolidColorBrush((colorDialog1.Color));
                     color1 = colorDialog1.Color;
 
@@ -1830,21 +1832,21 @@ namespace ClicklessMouse
             try
             {
                 ColorPickerDialog colorDialog2 = new ColorPickerDialog() { Color = color2 };
-                
+
                 var dr = await colorDialog2.ShowDialog<bool>(this);
-                
+
                 if (dr)
                 {
                     if (colorDialog2.Color == null)
                         throw new Exception("No color selected");
-                    
+
                     Bsquare_color2.Background = new SolidColorBrush(colorDialog2.Color);
                     color2 = colorDialog2.Color;
 
                     square_color2_uint = colorDialog2.Color.ToUInt32();
 
                     regenerate_squares();
-                    
+
                     if (saving_enabled)
                     {
                         save_settings();
@@ -1968,7 +1970,7 @@ namespace ClicklessMouse
                 {
                     if (tb.Name == TBscreen_size.Name && tb.Text == "")
                         root[tb.Name] = "0";
-                    else if (tb.Name == Bsquare_color1.Name)                    
+                    else if (tb.Name == Bsquare_color1.Name)
                         root["square_color1_uint"] = square_color1_uint.ToString();
                     else if (tb.Name == Bsquare_color2.Name)
                         root["square_color2_uint"] = square_color2_uint.ToString();
@@ -2001,8 +2003,8 @@ namespace ClicklessMouse
 
                 // Parse JSON as JsonNode
                 JsonNode root = JsonNode.Parse(json);
-                    //Checkboxes Checked and Unchecked events work only after form is loaded
-                    //so they have to be called manually in order to load save data properly
+                //Checkboxes Checked and Unchecked events work only after form is loaded
+                //so they have to be called manually in order to load save data properly
                     CHBLMB_CheckedChanged(null, null);
                     CHBRMB_CheckedChanged(null, null);
                     CHBdoubleLMB_CheckedChanged(null, null);
@@ -2011,27 +2013,27 @@ namespace ClicklessMouse
                     CHBscreen_panning_CheckedChanged(null, null);
                     CHBcheck_for_updates_CheckedChanged(null, null);
 
-                    foreach (ILogical control in Wmain.GetLogicalDescendants())
-                    {
-                        if (control is CheckBox cb)
+                foreach (ILogical control in Wmain.GetLogicalDescendants())
+                {
+                    if (control is CheckBox cb)
                         // cb.IsChecked = bool.Parse(ReadAppSetting(root,cb.Name));
                         cb.IsChecked = bool.Parse(root[cb.Name].ToString());
-                        else if (control is TextBox tb)
+                    else if (control is TextBox tb)
                         tb.Text = root[tb.Name].ToString();
-                        else if (control is Button btn)
-                        {
-                            if (btn.Name == "Bsquare_color1")
+                    else if (control is Button btn)
+                    {
+                        if (btn.Name == "Bsquare_color1")
                             square_color1_uint = uint.Parse(root["Bsquare_color1"].ToString());
-                            else if (btn.Name == "Bsquare_color2")
+                        else if (btn.Name == "Bsquare_color2")
                             square_color2_uint = uint.Parse(root["Bsquare_color2"].ToString());
-                        }
                     }
+                }
 
-                    Bsquare_color1.Background = new SolidColorBrush(Color.FromUInt32(square_color1_uint));
-                    color1 = Avalonia.Media.Color.FromUInt32(square_color1_uint);
+                Bsquare_color1.Background = new SolidColorBrush(Color.FromUInt32(square_color1_uint));
+                color1 = Avalonia.Media.Color.FromUInt32(square_color1_uint);
 
-                    Bsquare_color2.Background = new SolidColorBrush(Color.FromUInt32(square_color2_uint));
-                    color2 = Avalonia.Media.Color.FromUInt32(square_color2_uint);
+                Bsquare_color2.Background = new SolidColorBrush(Color.FromUInt32(square_color2_uint));
+                color2 = Avalonia.Media.Color.FromUInt32(square_color2_uint);
 
                 Enum.TryParse(root["lang"].ToString(), out lang);
 
@@ -2090,7 +2092,7 @@ namespace ClicklessMouse
             }
         }
 
-
+        
 
         private class MyWebClient : WebClient
         {
@@ -2108,7 +2110,7 @@ namespace ClicklessMouse
         {
             File.Copy(Path.Combine(app_folder_path, "defaults.json"), settings_path);
 
-    }
+        }
     }
 
 
