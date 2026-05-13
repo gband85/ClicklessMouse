@@ -930,6 +930,8 @@ MouseCoords= GetCursorPosition();
 
         void show_SL(bool show)
         {
+            if (SL == null)
+                return;
             if (!SL.CheckAccess())
             {
                 try
@@ -956,6 +958,8 @@ MouseCoords= GetCursorPosition();
         
         void show_SR(bool show)
         {
+            if (SR == null)
+                return;
             if (!SR.CheckAccess())
             {
                 try
@@ -980,6 +984,8 @@ MouseCoords= GetCursorPosition();
         }
         void show_SM(bool show)
         {
+            if (SM == null)
+                return;
             if (!SM.CheckAccess())
             {
                 try
@@ -1004,6 +1010,8 @@ MouseCoords= GetCursorPosition();
         }
         void show_SLH(bool show)
         {
+            if (SLH == null)
+                return;
             if (!SLH.CheckAccess())
             {
                 try
@@ -1028,6 +1036,8 @@ MouseCoords= GetCursorPosition();
         }
         void show_SRH(bool show)
         {
+            if (SRH == null)
+                return;
             if (!SRH.CheckAccess())
             {
                 try
