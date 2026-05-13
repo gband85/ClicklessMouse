@@ -91,7 +91,7 @@ namespace ClicklessMouse
         string latest_version = "";
         const string copyright_text = "Copyright © 2025 Garrett Anderson. All rights reserved.";
         string settings_filename = "appsettings.json";
-
+        string default_settings_filename = "defaults.json";
         Square SL, SR, SM, SLH, SRH;
         DateTime last_click_time;
         CancellationTokenSource cts1, cts2;
