@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+﻿﻿using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Net;
@@ -22,6 +22,7 @@ using WindowState = Avalonia.Controls.WindowState;
 using Avalonia.Input;
 using Avalonia;
 using Avalonia.LogicalTree;
+using ClicklessMouse.Native;
 using Egorozh.ColorPicker.Dialog;
 using MsBox.Avalonia;
 using MsBox.Avalonia.Enums;
@@ -90,18 +91,20 @@ namespace ClicklessMouse
         string latest_version = "";
         const string copyright_text = "Copyright © 2025 Garrett Anderson. All rights reserved.";
         string settings_filename = "appsettings.json";
-
+        string default_settings_filename = "defaults.json";
         Square SL, SR, SM, SLH, SRH;
         DateTime last_click_time;
         CancellationTokenSource cts1, cts2;
         Thread THRmouse_monitor, THRsquares_monitor, THRmouse_monitor2;
         int displacement = 0;
 
-        bool saving_enabled = false;
+        bool saving_enabled = true;
         //full path is necessary if run at startup is used (running at startup uses different current
         //directory
-        private string app_folder_path =
-            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), prog_name);
+        string app_folder_path = "";
+
+        string settings_path = "";
+        string default_settings_path = "";
 
         UILanguage lang = UILanguage.en;
         bool loading_error = false;
@@ -111,7 +114,7 @@ namespace ClicklessMouse
 
         InputSimulator sim = new InputSimulator();
 
-        public L10nResourceMgr L10nResourceMgr 
+        public L10nResourceMgr L10nResourceMgr
             => L10nResourceMgr.Instance;
 
         public MainWindow()
@@ -125,6 +128,18 @@ namespace ClicklessMouse
             InitializeComponent();
             DataContext = this;
 
+#if _WINDOWS
+           app_folder_path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), prog_name); 
+           default_settings_path=Path.Combine(AppContext.BaseDirectory,default_settings_filename);
+
+#elif _LINUX
+            app_folder_path = Path.Combine(Environment.GetEnvironmentVariable("HOME"), ".config", prog_name.Replace(" ", String.Empty));
+            default_settings_path = Path.Combine("/usr/share", prog_name.Replace(" ", String.Empty), default_settings_filename);
+
+#endif
+
+            settings_path = Path.Combine(app_folder_path, settings_filename);
+
             //Stream iconStream = System.Windows.Application.GetResourceStream(
             //    new Uri("pack://application:,,,/ClicklessMouse;component/clickless_mouse.ico")).Stream;
             //ni.Icon = new System.Drawing.Icon(iconStream);
@@ -135,13 +150,11 @@ namespace ClicklessMouse
 
             restore_default_settings();
 
-            //load_settings();
+            load_settings();
 
             fix_wrong_values();
 
-            // saving_enabled = true;
-
-            regenerate_squares();
+            // regenerate_squares();
 
             if (loading_error)
             {
@@ -272,7 +285,7 @@ namespace ClicklessMouse
             size = default_size;
 
             TBsquare_border.Text = default_border_width.ToString();
-            border_width=default_border_width;
+            border_width = default_border_width;
 
             square_color1_uint = default_color1_uint;
             square_color2_uint = default_color2_uint;
@@ -294,11 +307,11 @@ namespace ClicklessMouse
 
         void regenerate_squares()
         {
-            regenerate_SL();
-            regenerate_SR();
-            regenerate_SM();
-            regenerate_SLH();
-            regenerate_SRH();
+            // regenerate_SL();
+            // regenerate_SR();
+            // regenerate_SM();
+            // regenerate_SLH();
+            // regenerate_SRH();
         }
 
         public int x = 0, y = 0;
@@ -346,8 +359,8 @@ namespace ClicklessMouse
                 //user may change screen resolution so max_x and max_y should be updated
                 max_x = Screens.Primary.Bounds.Width - 1;
                 max_y = Screens.Primary.Bounds.Height - 1;
-MouseCoords= GetCursorPosition();
-                    x1 = MouseCoords[0];
+                MouseCoords = GetCursorPosition();
+                x1 = MouseCoords[0];
                 y1 = MouseCoords[1];
 
                 if (x1 == 0) //if (x1 == 0 && pressed_left == false) would be a mistake (we need
@@ -441,14 +454,14 @@ MouseCoords= GetCursorPosition();
 
             while (true)
             {
-              MouseCoords = GetCursorPosition();
-                    x1 = MouseCoords[0];
-                y1 = MouseCoords[1];
-                    Thread.Sleep(loop_time_ms);
                 MouseCoords = GetCursorPosition();
-                    x2 = MouseCoords[0];
-                    y2 = MouseCoords[1];
-             
+                x1 = MouseCoords[0];
+                y1 = MouseCoords[1];
+                Thread.Sleep(loop_time_ms);
+                MouseCoords = GetCursorPosition();
+                x2 = MouseCoords[0];
+                y2 = MouseCoords[1];
+
 
                 //max_x and max_y are updated in monitor_mouse2 by THRmouse_monitor2 which works
                 //only when screen_panning == true
@@ -550,11 +563,11 @@ MouseCoords= GetCursorPosition();
                         if (original_size != size)
                         {
                             calculate_squares_start_positions();
-                            regenerate_squares();
+                            // regenerate_squares();
                         }
                         else if (previous_size != size)
                         {
-                            regenerate_squares();
+                            // regenerate_squares();
                         }
 
                         //if top screen edge would cover squares show them below mouse cursor instead
@@ -571,6 +584,27 @@ MouseCoords= GetCursorPosition();
                             SM_end_y = SM_start_y + size;
                         }
 
+                        bool mi_file_open = false;
+                        bool mi_restore_open = false;
+                        bool mi_language_open = false;
+                        bool mi_help_open = false;
+                        bool is_this_focused = false;
+                        bool is_instructions_focused = false;
+
+                        Dispatcher.UIThread.Invoke(
+                            new Action(() => { mi_file_open = MIfile.IsSubMenuOpen; }));
+                        Dispatcher.UIThread.Invoke(
+                            new Action(() => { mi_restore_open = MIrestore.IsSubMenuOpen; }));
+                        Dispatcher.UIThread.Invoke(
+                            new Action(() => { mi_language_open = MIlanguage.IsSubMenuOpen; }));
+                        Dispatcher.UIThread.Invoke(
+                            new Action(() => { mi_help_open = MIhelp.IsSubMenuOpen; }));
+
+                        Dispatcher.UIThread.Invoke(
+                            new Action(() => { is_this_focused = this.IsActive; }));
+                        Dispatcher.UIThread.Invoke(
+                            new Action(() => { is_instructions_focused = Wmanual.IsActive; }));
+
                         if (SL_enabled)
                             show_SL(true);
                         if (SR_enabled)
@@ -583,7 +617,33 @@ MouseCoords= GetCursorPosition();
                             show_SRH(true);
 
                         squares_visible = true;
-                        
+
+                        //reopen submenu that was closed because squares appeared
+                        if (mi_file_open)
+                            Dispatcher.UIThread.Invoke(
+                            new Action(() => { MIfile.IsSubMenuOpen = mi_file_open; }));
+                        if (mi_restore_open)
+                            Dispatcher.UIThread.Invoke(
+                            new Action(() => { MIrestore.IsSubMenuOpen = mi_restore_open; }));
+                        if (mi_language_open)
+                            Dispatcher.UIThread.Invoke(
+                            new Action(() => { MIlanguage.IsSubMenuOpen = mi_language_open; }));
+                        if (mi_help_open)
+                            Dispatcher.UIThread.Invoke(
+                            new Action(() => { MIhelp.IsSubMenuOpen = mi_help_open; }));
+
+                        //give back stolen focus (by squares) to a Window if it
+                        //was focused before they appeared
+                        if (is_this_focused)
+                        {
+                            Dispatcher.UIThread.Invoke(
+                                new Action(() => { this.Focus(); }));
+                        }
+                        else if (is_instructions_focused)
+                        {
+                            Dispatcher.UIThread.Invoke(
+                                new Action(() => { Wmanual.Focus(); }));
+                        }
                         cts1 = new CancellationTokenSource();
                         THRsquares_monitor = new Thread(() => monitor_squares(cts1.Token));
                         THRsquares_monitor.Priority = ThreadPriority.Highest;
@@ -633,8 +693,8 @@ MouseCoords= GetCursorPosition();
 
                 MouseCoords = GetCursorPosition();
                 pos_x = MouseCoords[0];
-                    pos_y = MouseCoords[1];
-                
+                pos_y = MouseCoords[1];
+
                 if (SL_enabled)
                 {
                     if (is_cursor_in_SL(pos_x, pos_y))
@@ -882,11 +942,14 @@ MouseCoords= GetCursorPosition();
 
         void show_SL(bool show)
         {
+            if (SL == null)
+                return;
             if (!SL.CheckAccess())
             {
                 try
                 {
-                    Dispatcher.UIThread.Invoke(new Action(() => show_SL(show)));
+                    Callback1 d = new Callback1(show_SL);
+                    Dispatcher.UIThread.Invoke(new Action(() => d(show)));
                 }
                 catch (ObjectDisposedException ex)
                 {
@@ -897,19 +960,24 @@ MouseCoords= GetCursorPosition();
             {
                 if (show)
                 {
-                        SL.Position = new PixelPoint(SL_start_x, SL_start_y);
-                        SL.Show();
+                    SL.Position = new PixelPoint(SL_start_x, SL_start_y);
+                    SL.Show();
+                    // InputX11.HideSquareTaskbarIcon();
                 }
                 else SL.Hide();
             }
         }
+
         void show_SR(bool show)
         {
+            if (SR == null)
+                return;
             if (!SR.CheckAccess())
             {
                 try
                 {
-                    Dispatcher.UIThread.Invoke(new Action(() => show_SR(show)));
+                    Callback1 d = new Callback1(show_SR);
+                    Dispatcher.UIThread.Invoke(new Action(() => d(show)));
                 }
                 catch (ObjectDisposedException ex)
                 {
@@ -928,11 +996,14 @@ MouseCoords= GetCursorPosition();
         }
         void show_SM(bool show)
         {
+            if (SM == null)
+                return;
             if (!SM.CheckAccess())
             {
                 try
                 {
-                    Dispatcher.UIThread.Invoke(new Action(() => show_SM(show)));
+                    Callback1 d = new Callback1(show_SM);
+                    Dispatcher.UIThread.Invoke(new Action(() => d(show)));
                 }
                 catch (ObjectDisposedException ex)
                 {
@@ -951,11 +1022,14 @@ MouseCoords= GetCursorPosition();
         }
         void show_SLH(bool show)
         {
+            if (SLH == null)
+                return;
             if (!SLH.CheckAccess())
             {
                 try
                 {
-                    Dispatcher.UIThread.Invoke(new Action(() => show_SLH(show)));
+                    Callback1 d = new Callback1(show_SLH);
+                    Dispatcher.UIThread.Invoke(new Action(() => d(show)));
                 }
                 catch (ObjectDisposedException ex)
                 {
@@ -974,11 +1048,14 @@ MouseCoords= GetCursorPosition();
         }
         void show_SRH(bool show)
         {
+            if (SRH == null)
+                return;
             if (!SRH.CheckAccess())
             {
                 try
                 {
-                    Dispatcher.UIThread.Invoke(new Action(() => show_SRH(show)));
+                    Callback1 d = new Callback1(show_SRH);
+                    Dispatcher.UIThread.Invoke(new Action(() => d(show)));
                 }
                 catch (ObjectDisposedException ex)
                 {
@@ -998,13 +1075,14 @@ MouseCoords= GetCursorPosition();
 
         delegate void Callback2();
 
-        void regenerate_SL()
+        void create_SL()
         {
             if (SL != null && !SL.CheckAccess())
             {
                 try
                 {
-                    Dispatcher.UIThread.Invoke(new Action(() => regenerate_SL()));
+                    Callback2 d = new Callback2(create_SL);
+                    Dispatcher.UIThread.Invoke(new Action(() => d()));
                 }
                 catch (ObjectDisposedException ex)
                 {
@@ -1016,23 +1094,38 @@ MouseCoords= GetCursorPosition();
                 if (SL != null)
                     SL.Close();
 
-                    SL = new Square(size, border_width, color1, color2);
-                    SL.Topmost = true;
-                    SL.Show();
-                    SL.Height = size;
-                    SL.Width = size;
+                SL = new Square(size, border_width, color1, color2);
 
-                    SL.Hide();
+                SL.Title = "Square SL";
+
+                SL.Topmost = true;
+                SL.Show();
+
+                SL.Height = size;
+                SL.Width = size;
+
+                SL.Hide();
             }
         }
 
-        void regenerate_SR()
+        void destroy_SL()
+        {
+            if (SL != null)
+            {
+                SL.Close();
+            }
+
+            Console.WriteLine("");
+        }
+
+        void create_SR()
         {
             if (SR != null && !SR.CheckAccess())
             {
                 try
                 {
-                    Dispatcher.UIThread.Invoke(new Action(() => regenerate_SR()));
+                    Callback2 d = new Callback2(create_SR);
+                    Dispatcher.UIThread.Invoke(new Action(() => d()));
                 }
                 catch (ObjectDisposedException ex)
                 {
@@ -1054,13 +1147,24 @@ MouseCoords= GetCursorPosition();
             }
         }
 
-        void regenerate_SM()
+        void destroy_SR()
+        {
+            if (SR != null)
+            {
+                SR.Close();
+            }
+
+            Console.WriteLine("");
+        }
+
+        void create_SM()
         {
             if (SM != null && !SM.CheckAccess())
             {
                 try
                 {
-                    Dispatcher.UIThread.Invoke(new Action(() => regenerate_SM()));
+                    Callback2 d = new Callback2(create_SM);
+                    Dispatcher.UIThread.Invoke(new Action(() => d()));
                 }
                 catch (ObjectDisposedException ex)
                 {
@@ -1082,13 +1186,24 @@ MouseCoords= GetCursorPosition();
             }
         }
 
-        void regenerate_SLH()
+        void destroy_SM()
+        {
+            if (SM != null)
+            {
+                SM.Close();
+            }
+
+            Console.WriteLine("");
+        }
+
+        void create_SLH()
         {
             if (SLH != null && !SLH.CheckAccess())
             {
                 try
                 {
-                    Dispatcher.UIThread.Invoke(new Action(() => regenerate_SLH()));
+                    Callback2 d = new Callback2(create_SLH);
+                    Dispatcher.UIThread.Invoke(new Action(() => d()));
                 }
                 catch (ObjectDisposedException ex)
                 {
@@ -1110,13 +1225,24 @@ MouseCoords= GetCursorPosition();
             }
         }
 
-        void regenerate_SRH()
+        void destroy_SLH()
+        {
+            if (SLH != null)
+            {
+                SLH.Close();
+            }
+
+            Console.WriteLine("");
+        }
+
+        void create_SRH()
         {
             if (SRH != null && !SRH.CheckAccess())
             {
                 try
                 {
-                    Dispatcher.UIThread.Invoke(new Action(() => regenerate_SRH()));
+                    Callback2 d = new Callback2(create_SRH);
+                    Dispatcher.UIThread.Invoke(new Action(() => d()));
                 }
                 catch (ObjectDisposedException ex)
                 {
@@ -1138,6 +1264,15 @@ MouseCoords= GetCursorPosition();
             }
         }
 
+        void destroy_SRH()
+        {
+            if (SRH != null)
+            {
+                SRH.Close();
+            }
+
+            Console.WriteLine("");
+        }
         //----------------------------------------------------------------------------------
 
         [DllImport("USER32.DLL")]
@@ -1152,7 +1287,7 @@ MouseCoords= GetCursorPosition();
             }
         }
 
-        void ni_MouseClick(object sender,PointerEventArgs e)
+        void ni_MouseClick(object sender, PointerEventArgs e)
         {
             //ni.Visible = false;
             Show();
@@ -1226,10 +1361,10 @@ MouseCoords= GetCursorPosition();
         }
 
         WindowManual Wmanual = new WindowManual();
-        
+
         private void MImanual_Click(object sender, RoutedEventArgs e)
         {
-           Wmanual.DataContext=this;
+            Wmanual.DataContext = this;
             Wmanual.Show();
         }
 
@@ -1256,7 +1391,7 @@ MouseCoords= GetCursorPosition();
                 w.Llatest_version.Content = "Latest version: " + latest_version;
                 w.Linstalled_version.Content = "Installed version: " + prog_version;
                 w.HBhomepage.Content = url_homepage;
-                w.HBhomepage.NavigateUri = new Uri("http://"+url_homepage);
+                w.HBhomepage.NavigateUri = new Uri("http://" + url_homepage);
                 w.Lcopyright.Content = copyright_text;
 
                 w.Show();
@@ -1281,9 +1416,15 @@ MouseCoords= GetCursorPosition();
             }
 
             if (CHBLMB.IsChecked == true)
+            {
                 SL_enabled = true;
+                create_SL();
+            }
             else
+            {
                 SL_enabled = false;
+                destroy_SL();
+            }
 
             if (saving_enabled)
             {
@@ -1303,9 +1444,15 @@ MouseCoords= GetCursorPosition();
             }
 
             if (CHBRMB.IsChecked == true)
+            {
                 SR_enabled = true;
+                create_SR();
+            }
             else
+            {
                 SR_enabled = false;
+                destroy_SR();
+            }
 
             if (saving_enabled)
             {
@@ -1325,9 +1472,15 @@ MouseCoords= GetCursorPosition();
             }
 
             if (CHBdoubleLMB.IsChecked == true)
+            {
                 SM_enabled = true;
+                create_SM();
+            }
             else
+            {
                 SM_enabled = false;
+                destroy_SM();
+            }
 
             if (saving_enabled)
             {
@@ -1347,9 +1500,15 @@ MouseCoords= GetCursorPosition();
             }
 
             if (CHBholdLMB.IsChecked == true)
+            {
                 SLH_enabled = true;
+                create_SLH();
+            }
             else
+            {
                 SLH_enabled = false;
+                destroy_SLH();
+            }
 
             if (saving_enabled)
             {
@@ -1369,9 +1528,15 @@ MouseCoords= GetCursorPosition();
             }
 
             if (CHBholdRMB.IsChecked == true)
+            {
                 SRH_enabled = true;
+                create_SRH();
+            }
             else
+            {
                 SRH_enabled = false;
+                destroy_SRH();
+            }
 
             if (saving_enabled)
             {
@@ -1633,14 +1798,14 @@ MouseCoords= GetCursorPosition();
             try
             {
                 ColorPickerDialog colorDialog1 = new ColorPickerDialog() { Color = color1 };
-                
+
                 var dr = await colorDialog1.ShowDialog<bool>(this);
 
                 if (dr)
                 {
                     if (colorDialog1.Color == null)
                         throw new Exception("No color selected");
-                    
+
                     Bsquare_color1.Background = new SolidColorBrush((colorDialog1.Color));
                     color1 = colorDialog1.Color;
 
@@ -1667,21 +1832,21 @@ MouseCoords= GetCursorPosition();
             try
             {
                 ColorPickerDialog colorDialog2 = new ColorPickerDialog() { Color = color2 };
-                
+
                 var dr = await colorDialog2.ShowDialog<bool>(this);
-                
+
                 if (dr)
                 {
                     if (colorDialog2.Color == null)
                         throw new Exception("No color selected");
-                    
+
                     Bsquare_color2.Background = new SolidColorBrush(colorDialog2.Color);
                     color2 = colorDialog2.Color;
 
                     square_color2_uint = colorDialog2.Color.ToUInt32();
 
                     regenerate_squares();
-                    
+
                     if (saving_enabled)
                     {
                         save_settings();
@@ -1777,40 +1942,69 @@ MouseCoords= GetCursorPosition();
 
         private void save_settings()
         {
+            if (!File.Exists(settings_path))
+            {
+                if (!Directory.Exists(app_folder_path))
+                    Directory.CreateDirectory(app_folder_path);
 
+                File.Copy(default_settings_path, settings_path);
+
+            }
+            // Load the JSON file
+            string json = File.ReadAllText(settings_path);
+
+            // Parse JSON as JsonNode
+            JsonNode root = JsonNode.Parse(json);
+
+            if (root == null)
+            {
+                Console.WriteLine("Failed to load JSON.");
+                // throw Exception h;
+            }
             foreach (ILogical control in Wmain.GetLogicalDescendants())
             {
                 if (control is CheckBox cb)
-                    AddUpdateAppSetting(cb.Name, cb.IsChecked.ToString());
+                    root[cb.Name] = cb.IsChecked.ToString();
 
                 else if (control is TextBox tb)
                 {
-
                     if (tb.Name == TBscreen_size.Name && tb.Text == "")
-                        AddUpdateAppSetting(tb.Name, "0");
-                    else if (tb.Name == Bsquare_color1.Name)                    
-                        AddUpdateAppSetting("square_color1_uint", square_color1_uint.ToString());                    
+                        root[tb.Name] = "0";
+                    else if (tb.Name == Bsquare_color1.Name)
+                        root["square_color1_uint"] = square_color1_uint.ToString();
                     else if (tb.Name == Bsquare_color2.Name)
-                        AddUpdateAppSetting("square_color2_uint", square_color2_uint.ToString());
+                        root["square_color2_uint"] = square_color2_uint.ToString();
                     else
-                        AddUpdateAppSetting(tb.Name, tb.Text);
+                        root[tb.Name] = tb.Text;
                 }
             }
-            AddUpdateAppSetting("lang", lang.ToString());
+            root["lang"] = lang.ToString();
 
-            Console.WriteLine($"{settings_filename} updated successfully.");
+            var options = new JsonSerializerOptions { WriteIndented = true };
+            File.WriteAllText(settings_path, root.ToJsonString(options));
+
         }
 
         private async void load_settings()
         {
-            string settings_file_path = System.IO.Path.Combine(app_folder_path, settings_filename);
-            
+
             try
             {
-                if (File.Exists(settings_file_path))
+                if (!File.Exists(settings_path))
                 {
-                    //Checkboxes Checked and Unchecked events work only after form is loaded
-                    //so they have to be called manually in order to load save data properly
+                    if (!Directory.Exists(app_folder_path))
+                        Directory.CreateDirectory(app_folder_path);
+
+                    File.Copy(default_settings_path, settings_path);
+                }
+
+                // Load the JSON file
+                string json = File.ReadAllText(settings_path);
+
+                // Parse JSON as JsonNode
+                JsonNode root = JsonNode.Parse(json);
+                //Checkboxes Checked and Unchecked events work only after form is loaded
+                //so they have to be called manually in order to load save data properly
                     CHBLMB_CheckedChanged(null, null);
                     CHBRMB_CheckedChanged(null, null);
                     CHBdoubleLMB_CheckedChanged(null, null);
@@ -1819,32 +2013,30 @@ MouseCoords= GetCursorPosition();
                     CHBscreen_panning_CheckedChanged(null, null);
                     CHBcheck_for_updates_CheckedChanged(null, null);
 
-                    foreach (ILogical control in Wmain.GetLogicalDescendants())
+                foreach (ILogical control in Wmain.GetLogicalDescendants())
+                {
+                    if (control is CheckBox cb)
+                        // cb.IsChecked = bool.Parse(ReadAppSetting(root,cb.Name));
+                        cb.IsChecked = bool.Parse(root[cb.Name].ToString());
+                    else if (control is TextBox tb)
+                        tb.Text = root[tb.Name].ToString();
+                    else if (control is Button btn)
                     {
-                        if (control is CheckBox cb)
-                            cb.IsChecked = bool.Parse(ReadAppSetting(cb.Name));
-
-                        else if (control is TextBox tb)
-
-                            tb.Text = ReadAppSetting(tb.Name);
-
-                        else if (control is Button btn)
-                        {
-                            if (btn.Name == "Bsquare_color1")
-                                square_color1_uint = uint.Parse(ReadAppSetting("square_color1_uint"));
-                            else if (btn.Name == "Bsquare_color2")
-                                square_color2_uint = uint.Parse(ReadAppSetting("square_color2_uint"));
-                        }
+                        if (btn.Name == "Bsquare_color1")
+                            square_color1_uint = uint.Parse(root["Bsquare_color1"].ToString());
+                        else if (btn.Name == "Bsquare_color2")
+                            square_color2_uint = uint.Parse(root["Bsquare_color2"].ToString());
                     }
-
-                    Bsquare_color1.Background = new SolidColorBrush(Color.FromUInt32(square_color1_uint));
-                    color1 = Avalonia.Media.Color.FromUInt32(square_color1_uint);
-
-                    Bsquare_color2.Background = new SolidColorBrush(Color.FromUInt32(square_color2_uint));
-                    color2 = Avalonia.Media.Color.FromUInt32(square_color2_uint);
-
-                    Enum.TryParse(ReadAppSetting("lang"), out lang);
                 }
+
+                Bsquare_color1.Background = new SolidColorBrush(Color.FromUInt32(square_color1_uint));
+                color1 = Avalonia.Media.Color.FromUInt32(square_color1_uint);
+
+                Bsquare_color2.Background = new SolidColorBrush(Color.FromUInt32(square_color2_uint));
+                color2 = Avalonia.Media.Color.FromUInt32(square_color2_uint);
+
+                Enum.TryParse(root["lang"].ToString(), out lang);
+
             }
             catch (Exception ex)
             {
@@ -1900,63 +2092,7 @@ MouseCoords= GetCursorPosition();
             }
         }
 
-        private void AddUpdateAppSetting(string key, string value)
-        {
-            try
-            {
-                string settings_file_path = System.IO.Path.Combine(app_folder_path, settings_filename);
-
-                // Load the JSON file
-                string json = File.ReadAllText(settings_file_path);
-
-                // Parse JSON as JsonNode
-                JsonNode root = JsonNode.Parse(json);
-
-                if (root == null)
-                {
-                    Console.WriteLine("Failed to load JSON.");
-                    return;
-                }
-
-                root[key] = value;
-
-                var options = new JsonSerializerOptions { WriteIndented = true };
-                File.WriteAllText(settings_file_path, root.ToJsonString(options));
-            }
-            catch (IOException)
-            {
-                Console.WriteLine("Error writing app settings");
-            }
-        }
-        private string ReadAppSetting(string key)
-        {
-            try
-            {
-
-                string settings_file_path = System.IO.Path.Combine(app_folder_path, settings_filename);
-
-                // Load the JSON file
-                string json = File.ReadAllText(settings_file_path);
-
-                // Parse JSON as JsonNode
-                JsonNode root = JsonNode.Parse(json);
-
-                if (root == null)
-                {
-                    Console.WriteLine("Failed to load JSON.");
-                    return "0";
-                }
-
-                return root[key].ToString();
-
-            }
-            catch (ConfigurationErrorsException)
-            {
-                Console.WriteLine("Error reading app settings");
-                return "[]";
-            }
-        }
-
+        
 
         private class MyWebClient : WebClient
         {
@@ -1970,5 +2106,12 @@ MouseCoords= GetCursorPosition();
                 return w;
             }
         }
+        void CreateSettingsFile()
+        {
+            File.Copy(Path.Combine(app_folder_path, "defaults.json"), settings_path);
+
+        }
     }
+
+
 }

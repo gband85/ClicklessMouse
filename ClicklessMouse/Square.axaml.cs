@@ -6,8 +6,11 @@ using Avalonia.Threading;
 using ClicklessMouse.Native;
 using DocumentFormat.OpenXml.Drawing.Charts;
 using System;
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using X11;
 using Color = Avalonia.Media.Color;
+using Window = X11.Window;
 
 namespace ClicklessMouse
 {
@@ -35,40 +38,10 @@ namespace ClicklessMouse
             this.PointToClient(new PixelPoint(0, 0));
             this.Position = new PixelPoint(side * -1, side * -1);
 #if _LINUX 
-HideSquare();
+Avalonia.Controls.X11Properties.SetNetWmWindowType(this,Avalonia.Controls.Platform.X11NetWmWindowType.Utility);
 #endif
         }
-     #if _LINUX
-     public void HideSquare()
-        {
-                            
-            nint display;
-X11.Window w;
-            Atom net_client_list;
-            long long_offset = 0;
-            long long_length = ~0L;
-            bool delete=false;
-            Atom req_type; 
-            
-
-            Atom actual_type_return=new Atom();
-            int actual_format_return=new int();
-            ulong nitems_return =new ulong();
-                ulong bytes_after_return=new ulong();
-            string prop_return=new("");
-
-
-            display = Xlib.XOpenDisplay(null);
- w = Xlib.XDefaultRootWindow(display);
-net_client_list = Xlib.XInternAtom(display, "_NET_CLIENT_LIST", false);
-           req_type = Xlib.XInternAtom(display, "AnyPropertyType", false);
-           
-           
-            int result = InputX11.XGetWindowProperty(display,w,net_client_list, long_offset,long_length, delete,req_type, ref actual_type_return,ref actual_format_return,ref nitems_return, ref bytes_after_return,ref prop_return );
-            //if (result && actual_type_return == XA_WINDOW) ;
-
-        }
-#endif
+     
         public sealed override void Render(DrawingContext context)
         {
             if (Background != null)

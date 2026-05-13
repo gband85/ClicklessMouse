@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Schema;
 using WindowsInput.Native;
 using X11;
 
@@ -14,6 +15,8 @@ namespace ClicklessMouse.Native
 {
 #if _LINUX
     public partial class InputX11
+
+
     {
         [DllImport("libX11.so.6")]
         public static extern int XWarpPointer(IntPtr display, Window src_w, Window dest_w, int src_x, int src_y, uint src_width, uint src_height, int dest_x, int dest_y);
@@ -21,18 +24,10 @@ namespace ClicklessMouse.Native
         [DllImport("libXtst.so.6")]
         public static extern int XTestFakeKeyEvent(IntPtr display, uint keycode, bool is_press, ulong delay);
 
-        [DllImport("libX11.so.6")]
-        public static extern int XGetWindowProperty(IntPtr display, Window w, Atom property, long long_offset, long long_length, bool delete, Atom req_type,
-                        ref Atom actual_type_return, ref int actual_format_return, ref ulong nitems_return, ref ulong bytes_after_return,
-                        ref string prop_return);
-
-        public static int[] GetCursorPos()
+        public static (Window window_return,Window child_return,int root_x,int root_y,int win_x,int win_y,uint mask_return) GetCursorPos()
         {
             //int number_of_screens;
             IntPtr display = Xlib.XOpenDisplay(null);
-            //number_of_screens = Xlib.XScreenCount(display);
-            //IntPtr root_windows;
-            //root_windows = sizeof(Window) * number_of_screens;
             Window w = Xlib.XDefaultRootWindow(display);
 
             Window window_return = new();
@@ -45,12 +40,10 @@ namespace ClicklessMouse.Native
             uint mask_return = new uint();
             Xlib.XQueryPointer(display, w, ref window_return, ref child_return, ref root_x, ref root_y, ref win_x, ref win_y, ref mask_return);
             Xlib.XCloseDisplay(display);
-            int[] coords = new int[2];
-            coords[0] = root_x;
-            coords[1] = root_y;
-            return coords;
-        }
 
+            return (window_return,child_return,root_x,root_y,win_x,win_y,mask_return);
+        }
+     
         public static void SetCursorPos(int x, int y)
         {
             IntPtr display = Xlib.XOpenDisplay(null);
