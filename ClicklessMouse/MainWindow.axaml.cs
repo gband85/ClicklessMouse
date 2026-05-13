@@ -137,6 +137,7 @@ namespace ClicklessMouse
 #endif
 
             settings_path = Path.Combine(app_folder_path, settings_filename);
+
             //Stream iconStream = System.Windows.Application.GetResourceStream(
             //    new Uri("pack://application:,,,/ClicklessMouse;component/clickless_mouse.ico")).Stream;
             //ni.Icon = new System.Drawing.Icon(iconStream);
@@ -147,11 +148,9 @@ namespace ClicklessMouse
 
             restore_default_settings();
 
-            //load_settings();
+            load_settings();
 
             fix_wrong_values();
-
-            saving_enabled = false;
 
             // regenerate_squares();
 
@@ -284,7 +283,7 @@ namespace ClicklessMouse
             size = default_size;
 
             TBsquare_border.Text = default_border_width.ToString();
-            border_width=default_border_width;
+            border_width = default_border_width;
 
             square_color1_uint = default_color1_uint;
             square_color2_uint = default_color2_uint;
@@ -358,7 +357,7 @@ namespace ClicklessMouse
                 //user may change screen resolution so max_x and max_y should be updated
                 max_x = Screens.Primary.Bounds.Width - 1;
                 max_y = Screens.Primary.Bounds.Height - 1;
-MouseCoords= GetCursorPosition();
+                MouseCoords = GetCursorPosition();
                     x1 = MouseCoords[0];
                 y1 = MouseCoords[1];
 
@@ -1076,12 +1075,12 @@ MouseCoords= GetCursorPosition();
 
         void create_SL()
         {
-            if (SL!=null && !SL.CheckAccess())
+            if (SL != null && !SL.CheckAccess())
             {
                 try
                 {
                     Callback2 d = new Callback2(create_SL);
-                    Dispatcher.UIThread.Invoke(new Action(()=>d()));
+                    Dispatcher.UIThread.Invoke(new Action(() => d()));
                 }
                 catch (ObjectDisposedException ex)
                 {
@@ -1095,7 +1094,7 @@ MouseCoords= GetCursorPosition();
 
             SL = new Square(size, border_width, color1, color2);
                     
-            SL.Title="Square SL";
+                SL.Title = "Square SL";
 
             SL.Topmost = true;
             SL.Show();
@@ -1286,7 +1285,7 @@ MouseCoords= GetCursorPosition();
             }
         }
 
-        void ni_MouseClick(object sender,PointerEventArgs e)
+        void ni_MouseClick(object sender, PointerEventArgs e)
         {
             //ni.Visible = false;
             Show();
@@ -1363,7 +1362,7 @@ MouseCoords= GetCursorPosition();
         
         private void MImanual_Click(object sender, RoutedEventArgs e)
         {
-           Wmanual.DataContext=this;
+            Wmanual.DataContext = this;
             Wmanual.Show();
         }
 
@@ -1390,7 +1389,7 @@ MouseCoords= GetCursorPosition();
                 w.Llatest_version.Content = "Latest version: " + latest_version;
                 w.Linstalled_version.Content = "Installed version: " + prog_version;
                 w.HBhomepage.Content = url_homepage;
-                w.HBhomepage.NavigateUri = new Uri("http://"+url_homepage);
+                w.HBhomepage.NavigateUri = new Uri("http://" + url_homepage);
                 w.Lcopyright.Content = copyright_text;
 
                 w.Show();
@@ -1949,28 +1948,39 @@ MouseCoords= GetCursorPosition();
                 File.Copy(default_settings_path, settings_path);
 
             }
+            // Load the JSON file
+            string json = File.ReadAllText(settings_path);
+
+            // Parse JSON as JsonNode
+            JsonNode root = JsonNode.Parse(json);
+
+            if (root == null)
+            {
+                Console.WriteLine("Failed to load JSON.");
+                // throw Exception h;
             }
             foreach (ILogical control in Wmain.GetLogicalDescendants())
             {
                 if (control is CheckBox cb)
-                    AddUpdateAppSetting(cb.Name, cb.IsChecked.ToString());
+                    root[cb.Name] = cb.IsChecked.ToString();
 
                 else if (control is TextBox tb)
                 {
-
                     if (tb.Name == TBscreen_size.Name && tb.Text == "")
-                        AddUpdateAppSetting(tb.Name, "0");
+                        root[tb.Name] = "0";
                     else if (tb.Name == Bsquare_color1.Name)                    
-                        AddUpdateAppSetting("square_color1_uint", square_color1_uint.ToString());                    
+                        root["square_color1_uint"] = square_color1_uint.ToString();
                     else if (tb.Name == Bsquare_color2.Name)
-                        AddUpdateAppSetting("square_color2_uint", square_color2_uint.ToString());
+                        root["square_color2_uint"] = square_color2_uint.ToString();
                     else
-                        AddUpdateAppSetting(tb.Name, tb.Text);
+                        root[tb.Name] = tb.Text;
                 }
             }
-            AddUpdateAppSetting("lang", lang.ToString());
+            root["lang"] = lang.ToString();
 
-            Console.WriteLine($"{settings_filename} updated successfully.");
+            var options = new JsonSerializerOptions { WriteIndented = true };
+            File.WriteAllText(settings_path, root.ToJsonString(options));
+
         }
 
         private async void load_settings()
@@ -1986,6 +1996,11 @@ MouseCoords= GetCursorPosition();
                     File.Copy(default_settings_path, settings_path);
                 }
 
+                // Load the JSON file
+                string json = File.ReadAllText(settings_path);
+
+                // Parse JSON as JsonNode
+                JsonNode root = JsonNode.Parse(json);
                     //Checkboxes Checked and Unchecked events work only after form is loaded
                     //so they have to be called manually in order to load save data properly
                     CHBLMB_CheckedChanged(null, null);
@@ -1999,18 +2014,16 @@ MouseCoords= GetCursorPosition();
                     foreach (ILogical control in Wmain.GetLogicalDescendants())
                     {
                         if (control is CheckBox cb)
-                            cb.IsChecked = bool.Parse(ReadAppSetting(cb.Name));
-
+                        // cb.IsChecked = bool.Parse(ReadAppSetting(root,cb.Name));
+                        cb.IsChecked = bool.Parse(root[cb.Name].ToString());
                         else if (control is TextBox tb)
-
-                            tb.Text = ReadAppSetting(tb.Name);
-
+                        tb.Text = root[tb.Name].ToString();
                         else if (control is Button btn)
                         {
                             if (btn.Name == "Bsquare_color1")
-                                square_color1_uint = uint.Parse(ReadAppSetting("square_color1_uint"));
+                            square_color1_uint = uint.Parse(root["Bsquare_color1"].ToString());
                             else if (btn.Name == "Bsquare_color2")
-                                square_color2_uint = uint.Parse(ReadAppSetting("square_color2_uint"));
+                            square_color2_uint = uint.Parse(root["Bsquare_color2"].ToString());
                         }
                     }
 
@@ -2020,8 +2033,8 @@ MouseCoords= GetCursorPosition();
                     Bsquare_color2.Background = new SolidColorBrush(Color.FromUInt32(square_color2_uint));
                     color2 = Avalonia.Media.Color.FromUInt32(square_color2_uint);
 
-                    Enum.TryParse(ReadAppSetting("lang"), out lang);
-                }
+                Enum.TryParse(root["lang"].ToString(), out lang);
+
             }
             catch (Exception ex)
             {
@@ -2077,62 +2090,6 @@ MouseCoords= GetCursorPosition();
             }
         }
 
-        private void AddUpdateAppSetting(string key, string value)
-        {
-            try
-            {
-                string settings_file_path = System.IO.Path.Combine(app_folder_path, settings_filename);
-
-                // Load the JSON file
-                string json = File.ReadAllText(settings_file_path);
-
-                // Parse JSON as JsonNode
-                JsonNode root = JsonNode.Parse(json);
-
-                if (root == null)
-                {
-                    Console.WriteLine("Failed to load JSON.");
-                    return;
-                }
-
-                root[key] = value;
-
-                var options = new JsonSerializerOptions { WriteIndented = true };
-                File.WriteAllText(settings_file_path, root.ToJsonString(options));
-            }
-            catch (IOException)
-            {
-                Console.WriteLine("Error writing app settings");
-            }
-        }
-        private string ReadAppSetting(string key)
-        {
-            try
-            {
-
-                string settings_file_path = System.IO.Path.Combine(app_folder_path, settings_filename);
-
-                // Load the JSON file
-                string json = File.ReadAllText(settings_file_path);
-
-                // Parse JSON as JsonNode
-                JsonNode root = JsonNode.Parse(json);
-
-                if (root == null)
-                {
-                    Console.WriteLine("Failed to load JSON.");
-                    return "0";
-                }
-
-                return root[key].ToString();
-
-            }
-            catch (ConfigurationErrorsException)
-            {
-                Console.WriteLine("Error reading app settings");
-                return "[]";
-            }
-        }
 
 
         private class MyWebClient : WebClient
@@ -2147,5 +2104,12 @@ MouseCoords= GetCursorPosition();
                 return w;
             }
         }
+        void CreateSettingsFile()
+        {
+            File.Copy(Path.Combine(app_folder_path, "defaults.json"), settings_path);
+
     }
+    }
+
+
 }
