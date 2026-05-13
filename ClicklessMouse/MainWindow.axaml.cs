@@ -257,15 +257,6 @@ namespace ClicklessMouse
             CHBholdRMB.IsChecked = false;
             CHBscreen_panning.IsChecked = false;
 
-            //Checkboxes Checked and Unchecked events work only after form is loaded
-            //so they have to be called manually in order to restore settings before form is loaded
-            CHBLMB_CheckedChanged(null, null);
-            CHBRMB_CheckedChanged(null, null);
-            CHBdoubleLMB_CheckedChanged(null, null);
-            CHBholdLMB_CheckedChanged(null, null);
-            CHBholdRMB_CheckedChanged(null, null);
-            CHBscreen_panning_CheckedChanged(null, null);
-            CHBcheck_for_updates_CheckedChanged(null, null);
 
             TBcursor_idle_before_squares_appear.Text = default_cursor_idle_time_ms.ToString();
             cursor_idle_time_ms = default_cursor_idle_time_ms;
@@ -2003,15 +1994,6 @@ namespace ClicklessMouse
 
                 // Parse JSON as JsonNode
                 JsonNode root = JsonNode.Parse(json);
-                //Checkboxes Checked and Unchecked events work only after form is loaded
-                //so they have to be called manually in order to load save data properly
-                    CHBLMB_CheckedChanged(null, null);
-                    CHBRMB_CheckedChanged(null, null);
-                    CHBdoubleLMB_CheckedChanged(null, null);
-                    CHBholdLMB_CheckedChanged(null, null);
-                    CHBholdRMB_CheckedChanged(null, null);
-                    CHBscreen_panning_CheckedChanged(null, null);
-                    CHBcheck_for_updates_CheckedChanged(null, null);
 
                 foreach (ILogical control in Wmain.GetLogicalDescendants())
                 {
