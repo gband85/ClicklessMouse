@@ -1941,7 +1941,15 @@ MouseCoords= GetCursorPosition();
 
         private void save_settings()
         {
+            if (!File.Exists(settings_path))
+            {
+                if (!Directory.Exists(app_folder_path))
+                    Directory.CreateDirectory(app_folder_path);
 
+                File.Copy(default_settings_path, settings_path);
+
+            }
+            }
             foreach (ILogical control in Wmain.GetLogicalDescendants())
             {
                 if (control is CheckBox cb)
@@ -1967,12 +1975,17 @@ MouseCoords= GetCursorPosition();
 
         private async void load_settings()
         {
-            string settings_file_path = System.IO.Path.Combine(app_folder_path, settings_filename);
-            
+
             try
             {
-                if (File.Exists(settings_file_path))
+                if (!File.Exists(settings_path))
                 {
+                    if (!Directory.Exists(app_folder_path))
+                        Directory.CreateDirectory(app_folder_path);
+
+                    File.Copy(default_settings_path, settings_path);
+                }
+
                     //Checkboxes Checked and Unchecked events work only after form is loaded
                     //so they have to be called manually in order to load save data properly
                     CHBLMB_CheckedChanged(null, null);
