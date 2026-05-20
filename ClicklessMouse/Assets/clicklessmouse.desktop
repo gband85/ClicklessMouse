@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=3.0
+Type=Application
+Name=Clickless Mouse
+Comment=An application which allows using the mouse without clicking
+TryExec=clicklessmouse
+Exec=clicklessmouse
+Icon=clicklessmouse
+MimeType=image/png;
