@@ -8,7 +8,7 @@ namespace ClicklessMouse
 {
     public partial class MainWindow : Window
     {
-       public enum UILanguage
+        public enum UILanguage
         {
             en,
             pl
@@ -16,28 +16,20 @@ namespace ClicklessMouse
 
         void change_language(UILanguage lang)
         {
-            Uri asset_uri;
-            Stream stream;
-            StreamReader reader;
             if (lang == UILanguage.en)
             {
                 L10nResourceMgr.Instance.Culture = new CultureInfo("en-US");
-                asset_uri=new Uri("avares://ClicklessMouse/Assets/1en.md");
-                stream =AssetLoader.Open(asset_uri);
-                reader = new StreamReader(stream);
-                Wmanual.RTBinstructions.Markdown=reader.ReadToEnd();
+                MIenglish.IsChecked = true;
+                MIpolish.IsChecked = false;
             }
-
 
             else if (lang == UILanguage.pl)
             {
                 L10nResourceMgr.Instance.Culture = new CultureInfo("pl-PL");
-                asset_uri = new Uri("avares://ClicklessMouse/Assets/1pl.md");
-                stream = AssetLoader.Open(asset_uri);
-                reader = new StreamReader(stream);
-Wmanual.RTBinstructions.Markdown = reader.ReadToEnd();
+                MIenglish.IsChecked = false;
+                MIpolish.IsChecked = true;
             }
-            
+
         }
     }
 }

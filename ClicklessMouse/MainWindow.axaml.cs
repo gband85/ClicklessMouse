@@ -1,4 +1,4 @@
-﻿﻿using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Net;
@@ -1351,10 +1351,29 @@ namespace ClicklessMouse
             save_settings();
         }
 
-        WindowManual Wmanual = new WindowManual();
-
         private void MImanual_Click(object sender, RoutedEventArgs e)
         {
+        WindowManual Wmanual = new WindowManual();
+            Uri asset_uri;
+            Stream stream;
+            StreamReader reader;
+
+            if (lang == UILanguage.en)
+            {
+                asset_uri = new Uri("avares://ClicklessMouse/Assets/1en.md");
+                stream = AssetLoader.Open(asset_uri);
+                reader = new StreamReader(stream);
+                Wmanual.RTBinstructions.Markdown = reader.ReadToEnd();
+            }
+
+            else if (lang == UILanguage.pl)
+            {
+                asset_uri = new Uri("avares://ClicklessMouse/Assets/1pl.md");
+                stream = AssetLoader.Open(asset_uri);
+                reader = new StreamReader(stream);
+                Wmanual.RTBinstructions.Markdown = reader.ReadToEnd();
+            }
+
             Wmanual.DataContext = this;
             Wmanual.Show();
         }
