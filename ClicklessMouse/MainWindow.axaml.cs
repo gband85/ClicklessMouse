@@ -1335,8 +1335,8 @@ namespace ClicklessMouse
 
         private void MIenglish_Click(object sender, RoutedEventArgs e)
         {
-            var switchToCulture = UILanguage.en;
-            change_language(switchToCulture);
+            lang = UILanguage.en;
+            change_language(lang);
             MIenglish.IsChecked = true;
             MIpolish.IsChecked = false;
             save_settings();
@@ -1344,8 +1344,8 @@ namespace ClicklessMouse
 
         private void MIpolish_Click(object sender, RoutedEventArgs e)
         {
-            var switchToCulture = UILanguage.pl;
-            change_language(switchToCulture);
+            lang = UILanguage.pl;
+            change_language(lang);
             MIenglish.IsChecked = false;
             MIpolish.IsChecked = true;
             save_settings();
