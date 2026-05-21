@@ -8,22 +8,24 @@
     <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
     <UseWindowsForms>False</UseWindowsForms>
     <UseWPF>False</UseWPF>
-	  <IsWindows Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Windows)))' == 'true'">true</IsWindows>
-	  <IsLinux Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' == 'true'">true</IsLinux>
-	  <ApplicationIcon>Assets\clickless_mouse.ico</ApplicationIcon>
+    <IsWindows Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Windows)))' == 'true'">true</IsWindows>
+    <IsLinux Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' == 'true'">true</IsLinux>
+    <ApplicationIcon>Assets\icons\clicklessmouse.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition="'$(IsWindows)'=='true'">
-	  <DefineConstants>_WINDOWS</DefineConstants>
+    <DefineConstants>_WINDOWS</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(IsLinux)'=='true'">
-	  <DefineConstants>_LINUX</DefineConstants>
+    <DefineConstants>_LINUX</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Avalonia" />
     <PackageReference Include="Avalonia.Desktop" />
     <PackageReference Include="Avalonia.Themes.Fluent" />
     <PackageReference Include="Avalonia.Fonts.Inter" />
-    <!--Condition below is needed to remove AvaloniaUI.DiagnosticsSupport package from build output in Release configuration.-->
+    <!--Condition
+    below is needed to remove AvaloniaUI.DiagnosticsSupport package from build output in Release
+    configuration.-->
     <PackageReference Include="AvaloniaUI.DiagnosticsSupport">
       <IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
       <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
@@ -38,9 +40,22 @@
     <PackageReference Include="Simplecto.Avalonia.RichTextBox" />
     <PackageReference Include="X11.Net" />
   </ItemGroup>
-	<ItemGroup>
-		<AvaloniaResource Include="Assets\**" />
-	</ItemGroup>
+  <ItemGroup>
+    <AvaloniaResource Include="Assets\1en.md" CopyToOutputDirectory="Always" />
+    <AvaloniaResource Include="Assets\1pl.md" CopyToOutputDirectory="Always" />
+    <AvaloniaResource Include="Assets\1en.jpg" CopyToOutputDirectory="Always" />
+    <AvaloniaResource Include="Assets\1pl.jpg" CopyToOutputDirectory="Always" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\defaults.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <TargetPath>defaults.json</TargetPath>
+    </None>
+    <None Include="Assets\clicklessmouse.desktop">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <TargetPath>clicklessmouse.desktop</TargetPath>
+    </None>
+  </ItemGroup>
   <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
