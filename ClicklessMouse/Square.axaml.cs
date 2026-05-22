@@ -26,13 +26,14 @@ namespace ClicklessMouse
             InitializeComponent();
 
             Background = new SolidColorBrush(Colors.Transparent);
-            SystemDecorations = SystemDecorations.None;
+            SystemDecorations = SystemDecorations.BorderOnly;
             ShowInTaskbar = false;
             side = Side;
             line_width = Line_width;
             c1 = color1;
             c2 = color2;
             ShowActivated = false;
+            CanResize=false;
 
             //this solves blinking problem that sometimes happens when squares are regenerated
             this.PointToClient(new PixelPoint(0, 0));
