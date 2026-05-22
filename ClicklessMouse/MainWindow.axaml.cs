@@ -138,8 +138,6 @@ namespace ClicklessMouse
 
 #endif
 
-            settings_path = Path.Combine(app_folder_path, settings_filename);
-
             //Stream iconStream = System.Windows.Application.GetResourceStream(
             //    new Uri("pack://application:,,,/ClicklessMouse;component/clickless_mouse.ico")).Stream;
             //ni.Icon = new System.Drawing.Icon(iconStream);
@@ -1704,22 +1702,36 @@ namespace ClicklessMouse
             if (saving_enabled)
             {
                 //need a .bat file to start an .exe file for some reasons
+#if _WINDOWS
                 Microsoft.Win32.RegistryKey rkApp = Microsoft.Win32.Registry.CurrentUser
                     .OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+#endif
                 if (CHBrun_at_startup.IsChecked == true)
                 {
+#if _WINDOWS
                     if (rkApp.GetValue(prog_name) == null)
                     {
                         rkApp.SetValue(prog_name,
                             System.Reflection.Assembly.GetExecutingAssembly().Location.Replace(".exe", ".vbs"));
                     }
-
+#elif _LINUX
+                    if (!File.Exists(Path.Combine(app_folder_path, "clicklessmouse.desktop")))
+                    {
+                        File.Copy(Path.Combine("/usr/share", prog_name.Replace(" ", String.Empty), "clicklessmouse.desktop"), Path.Combine(Environment.GetEnvironmentVariable("HOME"), ".config/autostart", "clicklessmouse.desktop"));
                 }
+#endif
+                }
+#if _WINDOWS
                 else if (rkApp.GetValue(prog_name) != null)
                 {
                     rkApp.DeleteValue(prog_name, false);
                 }
-
+#elif _LINUX
+                else if (File.Exists(Path.Combine(Environment.GetEnvironmentVariable("HOME"), ".config/autostart", "clicklessmouse.desktop")))
+                {
+                    File.Delete(Path.Combine(Environment.GetEnvironmentVariable("HOME"), ".config/autostart", "clicklessmouse.desktop"));
+                }
+#endif
                 save_settings();
             }
         }
