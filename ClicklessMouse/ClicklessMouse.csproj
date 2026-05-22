@@ -11,6 +11,18 @@
     <IsWindows Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Windows)))' == 'true'">true</IsWindows>
     <IsLinux Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' == 'true'">true</IsLinux>
     <ApplicationIcon>Assets\icons\clicklessmouse.ico</ApplicationIcon>
+    <Description>Clickless Mouse is a Windows/Linux program which allows using the mouse without clicking. Forked from https://github.com/ProperCode/Clickless-Mouse</Description>
+    <Copyright>Garrett Anderson</Copyright>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <Authors>Garrett Anderson</Authors>
+    <PackageTags>mouse;accessibility;rsi;carpal-tunnel</PackageTags>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
+    <PackageReleaseNotes>https://github.com/gband85/$(AssemblyName)/blob/rebuild/changelog.md</PackageReleaseNotes>
+    <PackageIcon>Assets\icons\clicklessmouse.png</PackageIcon>
+    <PackageProjectUrl>https://github.com/gband85/$(AssemblyName)</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <Version>3.0</Version>
   </PropertyGroup>
   <PropertyGroup Condition="'$(IsWindows)'=='true'">
     <DefineConstants>_WINDOWS</DefineConstants>
