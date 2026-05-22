@@ -1,0 +1,42 @@
+# configuration file for dotnet-releaser
+[msbuild]
+project = "ClicklessMouse.csproj"
+[msbuild.properties]
+PublishSingleFile = true
+SelfContained = false
+PublishTrimmed = false
+PublishReadyToRun = false # Disable PublishReadyToRun
+CopyOutputSymbolsToPublishDirectory = false
+SkipCopyingSymbolsToOutputDirectory = true 
+# [github]
+# user = "gband85"
+# repo = "ClicklessMouse"
+[nuget]
+publish = false
+[[pack]]
+rid = ["win-x64"]
+kinds = ["zip"]
+publish=false
+[[pack]]
+rid = ["win-arm64"]
+kinds = []
+publish=false
+# Default targets for Linux/Ubuntu Debian compatible distro with debian and tar packages
+[[pack]]
+rid = ["linux-x64"]
+kinds = ["deb","rpm"]
+[[pack]]
+rid = ["linux-arm64"]
+kinds = []
+publish=false
+# Default targets for Linux/Redhat compatible distro with rpm and tar packages
+# [[pack]]
+# rid = ["rhel-x64"]
+# kinds = ["rpm"]
+# # Default targets for macOS, only tar files for this platform
+[[pack]]
+rid = ["osx-x64", "osx-arm64"]
+kinds = []
+publish=false
+[coverage]
+enable=false
