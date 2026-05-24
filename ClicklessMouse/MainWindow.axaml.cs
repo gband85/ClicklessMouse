@@ -155,11 +155,11 @@ namespace ClicklessMouse
 
             // regenerate_squares();
 
-            if (loading_error)
-            {
-                save_settings(); //save settings so loading error won't happen again (default values
-                                 //will take place of unread values)
-            }
+            // if (loading_error)
+            // {
+            //     save_settings(); //save settings so loading error won't happen again (default values
+            //                      //will take place of unread values)
+            // }
 
             change_language(lang);
 
@@ -297,11 +297,11 @@ namespace ClicklessMouse
 
         void regenerate_squares()
         {
-            // regenerate_SL();
-            // regenerate_SR();
-            // regenerate_SM();
-            // regenerate_SLH();
-            // regenerate_SRH();
+        //     regenerate_SL();
+        //     regenerate_SR();
+        //     regenerate_SM();
+        //     regenerate_SLH();
+        //     regenerate_SRH();
         }
 
         public int x = 0, y = 0;
@@ -1265,7 +1265,7 @@ namespace ClicklessMouse
             Bsquare_color2.Background = new SolidColorBrush(Color.FromUInt32(square_color2_uint));
             color2 = Avalonia.Media.Color.FromUInt32(square_color2_uint);
 
-            regenerate_squares();
+            // regenerate_squares();
 
             saving_enabled = true;
 
