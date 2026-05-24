@@ -130,7 +130,7 @@ namespace ClicklessMouse
 
 #if _WINDOWS
            app_folder_path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), prog_name); 
-           default_settings_path=Path.Combine(AppContext.BaseDirectory,"Assets",default_settings_filename);
+           default_settings_path=Path.Combine(AppContext.BaseDirectory,default_settings_filename);
 
 #elif _LINUX
             app_folder_path = Path.Combine(Environment.GetEnvironmentVariable("HOME"), ".config", prog_name.Replace(" ", String.Empty));
