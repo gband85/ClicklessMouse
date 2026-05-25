@@ -16,7 +16,7 @@ namespace ClicklessMouse
 {
     public partial class MainWindow : Window
     {
-        void left_down()
+        private void left_down()
         {
 #if _LINUX
             ClicklessMouse.Native.InputX11.LeftButtonDown();
@@ -25,7 +25,7 @@ namespace ClicklessMouse
 #endif
         }
 
-        void left_up()
+        private void left_up()
         {
 #if _LINUX
             ClicklessMouse.Native.InputX11.LeftButtonUp();
@@ -34,7 +34,7 @@ namespace ClicklessMouse
 #endif
         }
 
-        void right_down()
+        private void right_down()
         {
 #if _LINUX
             ClicklessMouse.Native.InputX11.RightButtonDown();
@@ -43,7 +43,7 @@ namespace ClicklessMouse
 #endif
         }
 
-        void right_up()
+        private void right_up()
         {
 #if _LINUX
             ClicklessMouse.Native.InputX11.RightButtonUp();
@@ -52,7 +52,7 @@ namespace ClicklessMouse
 #endif
         }
 
-        void freeze_mouse(int x, int y, int time)
+        private void freeze_mouse(int x, int y, int time)
         {
             Stopwatch stopwatch = Stopwatch.StartNew();
             do

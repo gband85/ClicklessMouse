@@ -38,81 +38,84 @@ namespace ClicklessMouse
     public partial class MainWindow : Window
     {
         //Main config
-        bool _slEnabled;
-        bool _srEnabled;
-        bool _smEnabled;
-        bool _slhEnabled;
-        bool _srhEnabled;
-        bool _screenPanning;
+        private bool _slEnabled;
+        private bool _srEnabled;
+        private bool _smEnabled;
+        private bool _slhEnabled;
+        private bool _srhEnabled;
+        private bool _screenPanning;
 
         //Square config
-        const int default_cursor_idle_time_ms = 200;
-        const int lowest_cursor_idle_time_ms = 100;
-        const int additional_cursor_idle_time = 300; //after click is performed it gives user more
+        private const int default_cursor_idle_time_ms = 200;
+        private const int lowest_cursor_idle_time_ms = 100;
+
+        private const int additional_cursor_idle_time = 300; //after click is performed it gives user more
                                                      //time to start moving mouse without squares blocking top movement path
-        const int default_cursor_time_in_square_ms = 100;
-        const int lowest_cursor_time_in_square_ms = 10;
-        const int default_time_to_start_mouse_movement_ms = 700;
-        const int lowest_time_to_start_mouse_movement_ms = 300;
-        const int default_size = 50;
-        const int lowest_size = 10;
-        const int default_border_width = 2;
-        const int lowest_border_width = 1;
-        const uint default_color1_uint = 4278190335;
-        const uint default_color2_uint = 4294967040;
-        const int default_min_square_size_percents = 60;
-        const int lowest_min_square_size_percents = 10;
-        const int loop_time_ms = 10; //how often is cursor position checked (10ms recommended)
+                                                     private const int default_cursor_time_in_square_ms = 100;
+                                                     private const int lowest_cursor_time_in_square_ms = 10;
+                                                     private const int default_time_to_start_mouse_movement_ms = 700;
+                                                     private const int lowest_time_to_start_mouse_movement_ms = 300;
+                                                     private const int default_size = 50;
+                                                     private const int lowest_size = 10;
+                                                     private const int default_border_width = 2;
+                                                     private const int lowest_border_width = 1;
+                                                     private const uint default_color1_uint = 4278190335;
+                                                     private const uint default_color2_uint = 4294967040;
+                                                     private const int default_min_square_size_percents = 60;
+                                                     private const int lowest_min_square_size_percents = 10;
+
+                                                     private const int loop_time_ms = 10; //how often is cursor position checked (10ms recommended)
                                      //changing this requires changing default and lowest:
                                      //cursor_idle_time_ms, time_to_start_mouse_movement_ms
                                      //and cursor_time_in_square_ms
 
-        int _cursorIdleTimeMs; //idle time before squares appear
-        int _loopsToShowSquaresAfterCursorIdle;
-        int _timeToStartMouseMovementMs; //time to start mouse movement after squares appear, 
-                                             //before they disappear (700 default, lowest reasonable 500)
-        int _loopsToStartMouseMovement;
-        int _cursorTimeInSquareMs; //cursor hover time in square needed to perform a click
-        int _size;
-        int _borderWidth;
-        Avalonia.Media.Color _color1 = Avalonia.Media.Color.FromUInt32(default_color1_uint); //square color 1
-        Avalonia.Media.Color _color2 = Avalonia.Media.Color.FromUInt32(default_color2_uint); //square color 2
-        uint _squareColor1Uint;
-        uint _squareColor2Uint;
+                                     private int _cursorIdleTimeMs; //idle time before squares appear
+                                     private int _loopsToShowSquaresAfterCursorIdle;
 
-        int _minSquareSizePercents = default_min_square_size_percents; //how much square size can
+                                     private int _timeToStartMouseMovementMs; //time to start mouse movement after squares appear, 
+                                             //before they disappear (700 default, lowest reasonable 500)
+                                             private int _loopsToStartMouseMovement;
+                                             private int _cursorTimeInSquareMs; //cursor hover time in square needed to perform a click
+                                             private int _size;
+                                             private int _borderWidth;
+                                             private Avalonia.Media.Color _color1 = Avalonia.Media.Color.FromUInt32(default_color1_uint); //square color 1
+                                             private Avalonia.Media.Color _color2 = Avalonia.Media.Color.FromUInt32(default_color2_uint); //square color 2
+                                             private uint _squareColor1Uint;
+                                             private uint _squareColor2Uint;
+
+                                             private int _minSquareSizePercents = default_min_square_size_percents; //how much square size can
                                                                          //be decreased if it would be covered by left or right screen edge
                                                                          //----------------------------------
 
-        const string prog_name = "Clickless Mouse";
-        const string prog_version = "3.0";
-        const string url_latest_version = "https://raw.githubusercontent.com/gband85/Clickless-Mouse/AvaloniaUI/other/latest_version.txt";
-        const string url_homepage = "github.com/gband85/Clickless-Mouse";
-        string _latestVersion = "";
-        const string copyright_text = "Copyright © 2025 Garrett Anderson. All rights reserved.";
-        string _settingsFilename = "appsettings.json";
-        string _defaultSettingsFilename = "defaults.json";
-        Square _sl, _sr, _sm, _slh, _srh;
-        DateTime _lastClickTime;
-        CancellationTokenSource _cts1, _cts2;
-        Thread _thRmouseMonitor, _thRsquaresMonitor, _thRmouseMonitor2;
-        int _displacement = 0;
+                                                                         private const string prog_name = "Clickless Mouse";
+                                                                         private const string prog_version = "3.0";
+                                                                         private const string url_latest_version = "https://raw.githubusercontent.com/gband85/Clickless-Mouse/AvaloniaUI/other/latest_version.txt";
+                                                                         private const string url_homepage = "github.com/gband85/Clickless-Mouse";
+                                                                         private string _latestVersion = "";
+                                                                         private const string copyright_text = "Copyright © 2025 Garrett Anderson. All rights reserved.";
+                                                                         private string _settingsFilename = "appsettings.json";
+                                                                         private string _defaultSettingsFilename = "defaults.json";
+                                                                         private Square _sl, _sr, _sm, _slh, _srh;
+                                                                         private DateTime _lastClickTime;
+                                                                         private CancellationTokenSource _cts1, _cts2;
+                                                                         private Thread _thRmouseMonitor, _thRsquaresMonitor, _thRmouseMonitor2;
+                                                                         private int _displacement = 0;
 
-        bool _savingEnabled = true;
+                                                                         private bool _savingEnabled = true;
         //full path is necessary if run at startup is used (running at startup uses different current
         //directory
-        string _appFolderPath = "";
+        private string _appFolderPath = "";
 
-        string _settingsPath = "";
-        string _defaultSettingsPath = "";
+        private string _settingsPath = "";
+        private string _defaultSettingsPath = "";
 
-        UiLanguage _lang = UiLanguage.En;
-        bool _loadingError = false;
-        Process _prc;
+        private UiLanguage _lang = UiLanguage.En;
+        private bool _loadingError = false;
+        private Process _prc;
 
         //NotifyIcon ni = new NotifyIcon();
 
-        InputSimulator _sim = new InputSimulator();
+        private InputSimulator _sim = new InputSimulator();
 
         public L10NResourceMgr L10NResourceMgr
             => L10NResourceMgr.Instance;
@@ -179,7 +182,7 @@ namespace ClicklessMouse
             _thRmouseMonitor.Start();
         }
 
-        async void is_program_already_running()
+        private async void is_program_already_running()
         {
             Process[] arr = Process.GetProcesses();
             string[] a;
@@ -202,7 +205,7 @@ namespace ClicklessMouse
             }
         }
 
-        void fix_wrong_values()
+        private void fix_wrong_values()
         {
             if (_cursorIdleTimeMs < lowest_cursor_idle_time_ms)
             {
@@ -247,7 +250,7 @@ namespace ClicklessMouse
             }
         }
 
-        void restore_default_settings()
+        private void restore_default_settings()
         {
             CHBLMB.IsChecked = false;
             CHBRMB.IsChecked = false;
@@ -295,7 +298,7 @@ namespace ClicklessMouse
             // TBscreen_resolution.Text = x + "x" + y;
         }
 
-        void regenerate_squares()
+        private void regenerate_squares()
         {
         //     regenerate_SL();
         //     regenerate_SR();
@@ -305,32 +308,32 @@ namespace ClicklessMouse
         }
 
         public int X = 0, Y = 0;
-        int _maxX;
-        int _maxY;
+        private int _maxX;
+        private int _maxY;
         public bool SquaresVisible = false;
-        int _showZone;
-        int _slStartX;
-        int _slStartY;
-        int _slEndX;
-        int _slEndY;
-        int _srStartX;
-        int _srStartY;
-        int _srEndX;
-        int _srEndY;
-        int _smStartX;
-        int _smStartY;
-        int _smEndX;
-        int _smEndY;
-        int _slhStartX;
-        int _slhStartY;
-        int _slhEndX;
-        int _slhEndY;
-        int _srhStartX;
-        int _srhStartY;
-        int _srhEndX;
-        int _srhEndY;
+        private int _showZone;
+        private int _slStartX;
+        private int _slStartY;
+        private int _slEndX;
+        private int _slEndY;
+        private int _srStartX;
+        private int _srStartY;
+        private int _srEndX;
+        private int _srEndY;
+        private int _smStartX;
+        private int _smStartY;
+        private int _smEndX;
+        private int _smEndY;
+        private int _slhStartX;
+        private int _slhStartY;
+        private int _slhEndX;
+        private int _slhEndY;
+        private int _srhStartX;
+        private int _srhStartY;
+        private int _srhEndX;
+        private int _srhEndY;
 
-        void monitor_mouse2(CancellationToken token)
+        private void monitor_mouse2(CancellationToken token)
         {
             //Thread.Sleep(5000); //debug only
 
@@ -402,7 +405,7 @@ namespace ClicklessMouse
             }
         }
 
-        void calculate_squares_start_positions()
+        private void calculate_squares_start_positions()
         {
             _displacement = (int)(_size / 2);
             _showZone = _size + _displacement;
@@ -433,10 +436,11 @@ namespace ClicklessMouse
             _srhEndY = _srhStartY + _size;
         }
 
-        int _bannedX = -1;
-        int _bannedY = -1;
-        int _previousSize = 0;
-        void monitor_mouse()
+        private int _bannedX = -1;
+        private int _bannedY = -1;
+        private int _previousSize = 0;
+
+        private void monitor_mouse()
         {
             int i = 0;
             int x1 = 0, x2 = 0, y1 = 0, y2 = 0;
@@ -619,7 +623,7 @@ namespace ClicklessMouse
             }
         }
 
-        void monitor_squares(CancellationToken token)
+        private void monitor_squares(CancellationToken token)
         {
             int iSl = 0, iSr = 0, iSm = 0, iSlh = 0, iSrh = 0;
             int iMax = _cursorTimeInSquareMs / loop_time_ms;
@@ -791,7 +795,7 @@ namespace ClicklessMouse
             }
         }
 
-        bool is_cursor_in_SL(int x1, int y1)
+        private bool is_cursor_in_SL(int x1, int y1)
         {
             if (x1 >= _slStartX && x1 <= _slEndX
                 && y1 >= _slStartY && y1 <= _slEndY)
@@ -801,7 +805,7 @@ namespace ClicklessMouse
             else return false;
         }
 
-        bool is_cursor_in_SR(int x1, int y1)
+        private bool is_cursor_in_SR(int x1, int y1)
         {
             if (x1 >= _srStartX && x1 <= _srEndX
                 && y1 >= _srStartY && y1 <= _srEndY)
@@ -811,7 +815,7 @@ namespace ClicklessMouse
             else return false;
         }
 
-        bool is_cursor_in_SM(int x1, int y1)
+        private bool is_cursor_in_SM(int x1, int y1)
         {
             if (x1 >= _smStartX && x1 <= _smEndX
                 && y1 >= _smStartY && y1 <= _smEndY)
@@ -821,7 +825,7 @@ namespace ClicklessMouse
             else return false;
         }
 
-        bool is_cursor_in_SLH(int x1, int y1)
+        private bool is_cursor_in_SLH(int x1, int y1)
         {
             if (x1 >= _slhStartX && x1 <= _slhEndX
                 && y1 >= _slhStartY && y1 <= _slhEndY)
@@ -831,7 +835,7 @@ namespace ClicklessMouse
             else return false;
         }
 
-        bool is_cursor_in_SRH(int x1, int y1)
+        private bool is_cursor_in_SRH(int x1, int y1)
         {
             if (x1 >= _srhStartX && x1 <= _srhEndX
                 && y1 >= _srhStartY && y1 <= _srhEndY)
@@ -841,7 +845,7 @@ namespace ClicklessMouse
             else return false;
         }
 
-        bool is_cursor_outside_zone(int x1, int y1)
+        private bool is_cursor_outside_zone(int x1, int y1)
         {
             //if (SM_enabled == false)
             //{
@@ -869,7 +873,7 @@ namespace ClicklessMouse
             else return false;
         }
 
-        void real_sleep(int time)
+        private void real_sleep(int time)
         {
             Stopwatch stopwatch = Stopwatch.StartNew();
 
@@ -881,9 +885,9 @@ namespace ClicklessMouse
             stopwatch.Stop();
         }
 
-        delegate void Callback1(bool show);
+        private delegate void Callback1(bool show);
 
-        void show_SL(bool show)
+        private void show_SL(bool show)
         {
             if (_sl == null)
                 return;
@@ -911,7 +915,7 @@ namespace ClicklessMouse
             }
         }
 
-        void show_SR(bool show)
+        private void show_SR(bool show)
         {
             if (_sr == null)
                 return;
@@ -937,7 +941,8 @@ namespace ClicklessMouse
                 else _sr.Hide();
             }
         }
-        void show_SM(bool show)
+
+        private void show_SM(bool show)
         {
             if (_sm == null)
                 return;
@@ -963,7 +968,8 @@ namespace ClicklessMouse
                 else _sm.Hide();
             }
         }
-        void show_SLH(bool show)
+
+        private void show_SLH(bool show)
         {
             if (_slh == null)
                 return;
@@ -989,7 +995,8 @@ namespace ClicklessMouse
                 else _slh.Hide();
             }
         }
-        void show_SRH(bool show)
+
+        private void show_SRH(bool show)
         {
             if (_srh == null)
                 return;
@@ -1016,9 +1023,9 @@ namespace ClicklessMouse
             }
         }
 
-        delegate void Callback2();
+        private delegate void Callback2();
 
-        void create_SL()
+        private void create_SL()
         {
             if (_sl != null && !_sl.CheckAccess())
             {
@@ -1051,7 +1058,7 @@ namespace ClicklessMouse
             }
         }
 
-        void destroy_SL()
+        private void destroy_SL()
         {
             if (_sl != null)
             {
@@ -1061,7 +1068,7 @@ namespace ClicklessMouse
             Console.WriteLine("");
         }
 
-        void create_SR()
+        private void create_SR()
         {
             if (_sr != null && !_sr.CheckAccess())
             {
@@ -1090,7 +1097,7 @@ namespace ClicklessMouse
             }
         }
 
-        void destroy_SR()
+        private void destroy_SR()
         {
             if (_sr != null)
             {
@@ -1100,7 +1107,7 @@ namespace ClicklessMouse
             Console.WriteLine("");
         }
 
-        void create_SM()
+        private void create_SM()
         {
             if (_sm != null && !_sm.CheckAccess())
             {
@@ -1129,7 +1136,7 @@ namespace ClicklessMouse
             }
         }
 
-        void destroy_SM()
+        private void destroy_SM()
         {
             if (_sm != null)
             {
@@ -1139,7 +1146,7 @@ namespace ClicklessMouse
             Console.WriteLine("");
         }
 
-        void create_SLH()
+        private void create_SLH()
         {
             if (_slh != null && !_slh.CheckAccess())
             {
@@ -1168,7 +1175,7 @@ namespace ClicklessMouse
             }
         }
 
-        void destroy_SLH()
+        private void destroy_SLH()
         {
             if (_slh != null)
             {
@@ -1178,7 +1185,7 @@ namespace ClicklessMouse
             Console.WriteLine("");
         }
 
-        void create_SRH()
+        private void create_SRH()
         {
             if (_srh != null && !_srh.CheckAccess())
             {
@@ -1207,7 +1214,7 @@ namespace ClicklessMouse
             }
         }
 
-        void destroy_SRH()
+        private void destroy_SRH()
         {
             if (_srh != null)
             {
@@ -1230,7 +1237,7 @@ namespace ClicklessMouse
             }
         }
 
-        void ni_MouseClick(object sender, PointerEventArgs e)
+        private void ni_MouseClick(object sender, PointerEventArgs e)
         {
             //ni.Visible = false;
             Show();
@@ -2023,7 +2030,7 @@ namespace ClicklessMouse
             }
         }
 
-        async void update_app_if_necessary()
+        private async void update_app_if_necessary()
         {
             try
             {
@@ -2073,7 +2080,8 @@ namespace ClicklessMouse
                 return w;
             }
         }
-        void CreateSettingsFile()
+
+        private void CreateSettingsFile()
         {
             File.Copy(Path.Combine(_appFolderPath, "defaults.json"), _settingsPath);
 

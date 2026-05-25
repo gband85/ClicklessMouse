@@ -14,7 +14,7 @@ namespace ClicklessMouse
             Pl
         }
 
-        void change_language(UiLanguage lang)
+        private void change_language(UiLanguage lang)
         {
             if (lang == UiLanguage.En)
             {

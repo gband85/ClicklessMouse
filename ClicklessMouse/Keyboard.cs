@@ -10,9 +10,9 @@ namespace ClicklessMouse
 {
     public partial class MainWindow : Window
     {
-        Thread _thRkeymaster;
+        private Thread _thRkeymaster;
 
-        void key_press(VirtualKeyCode vkc, bool async, int downMs = 75)
+        private void key_press(VirtualKeyCode vkc, bool async, int downMs = 75)
         {
             if (async)
             {
@@ -23,14 +23,14 @@ namespace ClicklessMouse
                 key_press(vkc, downMs);
         }
 
-        void key_press(VirtualKeyCode vkc, int downMs = 75)
+        private void key_press(VirtualKeyCode vkc, int downMs = 75)
         {
             _sim.Keyboard.KeyDown(vkc);
             Thread.Sleep(downMs);
             _sim.Keyboard.KeyUp(vkc);
         }
 
-        void key_down(VirtualKeyCode vkc)
+        private void key_down(VirtualKeyCode vkc)
         {
             #if _WINDOWS
             _sim.Keyboard.KeyDown(vkc);
@@ -40,7 +40,7 @@ namespace ClicklessMouse
 #endif
         }
 
-        void key_up(VirtualKeyCode vkc)
+        private void key_up(VirtualKeyCode vkc)
         {
 #if _WINDOWS
 _sim.Keyboard.KeyUp(vkc);
@@ -50,7 +50,7 @@ _sim.Keyboard.KeyUp(vkc);
 #endif
         }
 
-        void release_buttons_and_keys()
+        private void release_buttons_and_keys()
         {
             if (_sim.InputDeviceState.IsKeyDown(VirtualKeyCode.LBUTTON))
             {
@@ -69,7 +69,7 @@ _sim.Keyboard.KeyUp(vkc);
             }
         }
 
-        void release_buttons()
+        private void release_buttons()
         {
             if (_sim.InputDeviceState.IsKeyDown(VirtualKeyCode.LBUTTON))
             {

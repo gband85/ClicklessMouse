@@ -16,10 +16,10 @@ namespace ClicklessMouse
 {
     public partial class Square : Avalonia.Controls.Window
     {
-        int _side = 1;
-        int _lineWidth = 1;
-        Color _c1;
-        Color _c2;
+        private int _side = 1;
+        private int _lineWidth = 1;
+        private Color _c1;
+        private Color _c2;
 
         public Square(int side, int lineWidth, Color color1, Color color2)
         {
