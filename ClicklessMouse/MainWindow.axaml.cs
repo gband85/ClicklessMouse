@@ -1655,7 +1655,6 @@ namespace ClicklessMouse
         {
             if (_savingEnabled)
             {
-                //need a .bat file to start an .exe file for some reasons
 #if _WINDOWS
                 Microsoft.Win32.RegistryKey rkApp = Microsoft.Win32.Registry.CurrentUser
                     .OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
