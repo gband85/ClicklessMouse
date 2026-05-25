@@ -349,8 +349,8 @@ namespace ClicklessMouse
                 x1 = mouseCoords[0];
                 y1 = mouseCoords[1];
 
-                if (x1 == 0) //if (x1 == 0 && pressed_left == false) would be a mistake (we need
-                             //continous pressing as well as holding)
+                if (x1 == 0) //if (x1 == 0 && pressed_left == false) would be a mistake - we need
+                             //continuous pressing as well as holding
                 {
                     key_down(VirtualKeyCode.LEFT);
                     pressedLeft = true;
