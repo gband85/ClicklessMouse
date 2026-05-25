@@ -6,7 +6,7 @@ using Color = Avalonia.Media.Color;
 
 namespace ClicklessMouse
 {
-    public partial class Square : Avalonia.Controls.Window
+    public partial class Square : Window
     {
         private int _side = 1;
         private int _lineWidth = 1;
@@ -29,9 +29,9 @@ namespace ClicklessMouse
 
             //this solves blinking problem that sometimes happens when squares are regenerated
             this.PointToClient(new PixelPoint(0, 0));
-            this.Position = new PixelPoint(_side * -1, _side * -1);
+            Position = new PixelPoint(_side * -1, _side * -1);
 #if _LINUX 
-Avalonia.Controls.X11Properties.SetNetWmWindowType(this,Avalonia.Controls.Platform.X11NetWmWindowType.Utility);
+X11Properties.SetNetWmWindowType(this,X11NetWmWindowType.Utility);
 #endif
         }
      
@@ -42,12 +42,12 @@ Avalonia.Controls.X11Properties.SetNetWmWindowType(this,Avalonia.Controls.Platfo
                 Dispatcher.UIThread.Post(() =>
                 {
                     var rectangle1 = new Rect((int)(_lineWidth / 2), (int)(_lineWidth / 2), _side - _lineWidth, _side - _lineWidth);
-                    Avalonia.Media.Pen p = new Avalonia.Media.Pen(new SolidColorBrush(_c1), _lineWidth);
+                    Pen p = new Pen(new SolidColorBrush(_c1), _lineWidth);
                     context.DrawRectangle(null, p, rectangle1);
 
                     var rectangle2 = new Rect((int)(_lineWidth / 2) + _lineWidth, (int)(_lineWidth / 2) + _lineWidth,
                         _side - 3 * _lineWidth, _side - 3 * _lineWidth);
-                    p = new Avalonia.Media.Pen(new SolidColorBrush(_c2), _lineWidth);
+                    p = new Pen(new SolidColorBrush(_c2), _lineWidth);
                     context.DrawRectangle(null, p, rectangle2);
                 }
                     );

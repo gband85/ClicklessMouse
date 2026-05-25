@@ -39,8 +39,8 @@ namespace ClicklessMouse.Native
         public static void SetCursorPos(int x, int y)
         {
             IntPtr display = Xlib.XOpenDisplay(null);
-            X11.Window w = Xlib.XDefaultRootWindow(display);
-            XWarpPointer(display, X11.Window.None, w, 0, 0, 0, 0, x, y);
+            Window w = Xlib.XDefaultRootWindow(display);
+            XWarpPointer(display, Window.None, w, 0, 0, 0, 0, x, y);
             Xlib.XCloseDisplay(display);
         }
 

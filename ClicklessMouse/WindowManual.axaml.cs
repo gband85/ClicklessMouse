@@ -15,7 +15,7 @@ namespace ClicklessMouse
         private void Window_Closing(object sender, WindowClosingEventArgs e)
         {
             e.Cancel = true;
-            this.Hide();
+            Hide();
         }
     }
 }

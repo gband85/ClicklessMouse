@@ -71,8 +71,8 @@ namespace ClicklessMouse
                                              private int _cursorTimeInSquareMs; //cursor hover time in square needed to perform a click
                                              private int _size;
                                              private int _borderWidth;
-                                             private Avalonia.Media.Color _color1 = Avalonia.Media.Color.FromUInt32(default_color1_uint); //square color 1
-                                             private Avalonia.Media.Color _color2 = Avalonia.Media.Color.FromUInt32(default_color2_uint); //square color 2
+                                             private Color _color1 = Color.FromUInt32(default_color1_uint); //square color 1
+                                             private Color _color2 = Color.FromUInt32(default_color2_uint); //square color 2
                                              private uint _squareColor1Uint;
                                              private uint _squareColor2Uint;
 
@@ -161,11 +161,11 @@ namespace ClicklessMouse
 
             if (CHBstart_minimized.IsChecked == true)
             {
-                this.WindowState = WindowState.Minimized;
+                WindowState = WindowState.Minimized;
 
                 if (CHBminimize_to_tray.IsChecked == true)
                 {
-                    this.Hide();
+                    Hide();
                     //ni.Visible = true;
                 }
             }
@@ -277,10 +277,10 @@ namespace ClicklessMouse
             _squareColor2Uint = default_color2_uint;
 
             Bsquare_color1.Background = new SolidColorBrush(Color.FromUInt32(_squareColor1Uint));
-            _color1 = Avalonia.Media.Color.FromUInt32(_squareColor1Uint);
+            _color1 = Color.FromUInt32(_squareColor1Uint);
 
             Bsquare_color2.Background = new SolidColorBrush(Color.FromUInt32(_squareColor2Uint));
-            _color2 = Avalonia.Media.Color.FromUInt32(_squareColor2Uint);
+            _color2 = Color.FromUInt32(_squareColor2Uint);
 
             TBmin_square_size.Text = default_min_square_size_percents.ToString();
 
@@ -1223,9 +1223,9 @@ namespace ClicklessMouse
 
         private void Wmain_StateChanged(object sender, EventArgs e)
         {
-            if (this.WindowState == WindowState.Minimized && CHBminimize_to_tray.IsChecked == true)
+            if (WindowState == WindowState.Minimized && CHBminimize_to_tray.IsChecked == true)
             {
-                this.Hide();
+                Hide();
                 //ni.Visible = true;
             }
         }
@@ -1234,7 +1234,7 @@ namespace ClicklessMouse
         {
             //ni.Visible = false;
             Show();
-            this.WindowState = WindowState.Normal;
+            WindowState = WindowState.Normal;
             SetForegroundWindow(Process.GetCurrentProcess().MainWindowHandle);
         }
 
@@ -1260,10 +1260,10 @@ namespace ClicklessMouse
             _squareColor2Uint = default_color2_uint;
 
             Bsquare_color1.Background = new SolidColorBrush(Color.FromUInt32(_squareColor1Uint));
-            _color1 = Avalonia.Media.Color.FromUInt32(_squareColor1Uint);
+            _color1 = Color.FromUInt32(_squareColor1Uint);
 
             Bsquare_color2.Background = new SolidColorBrush(Color.FromUInt32(_squareColor2Uint));
-            _color2 = Avalonia.Media.Color.FromUInt32(_squareColor2Uint);
+            _color2 = Color.FromUInt32(_squareColor2Uint);
 
             // regenerate_squares();
 
@@ -1997,10 +1997,10 @@ namespace ClicklessMouse
                 }
 
                 Bsquare_color1.Background = new SolidColorBrush(Color.FromUInt32(_squareColor1Uint));
-                _color1 = Avalonia.Media.Color.FromUInt32(_squareColor1Uint);
+                _color1 = Color.FromUInt32(_squareColor1Uint);
 
                 Bsquare_color2.Background = new SolidColorBrush(Color.FromUInt32(_squareColor2Uint));
-                _color2 = Avalonia.Media.Color.FromUInt32(_squareColor2Uint);
+                _color2 = Color.FromUInt32(_squareColor2Uint);
 
                 Enum.TryParse(root["lang"].ToString(), out _lang);
 

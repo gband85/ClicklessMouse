@@ -10,7 +10,7 @@ namespace ClicklessMouse
         private void left_down()
         {
 #if _LINUX
-            ClicklessMouse.Native.InputX11.LeftButtonDown();
+            InputX11.LeftButtonDown();
 #elif _WINDOWS
             _sim.Mouse.LeftButtonDown();
 #endif
@@ -19,7 +19,7 @@ namespace ClicklessMouse
         private void left_up()
         {
 #if _LINUX
-            ClicklessMouse.Native.InputX11.LeftButtonUp();
+            InputX11.LeftButtonUp();
 #elif _WINDOWS
             _sim.Mouse.LeftButtonUp();
 #endif
@@ -28,7 +28,7 @@ namespace ClicklessMouse
         private void right_down()
         {
 #if _LINUX
-            ClicklessMouse.Native.InputX11.RightButtonDown();
+            InputX11.RightButtonDown();
 #elif _WINDOWS
             _sim.Mouse.RightButtonDown();
 #endif
@@ -37,7 +37,7 @@ namespace ClicklessMouse
         private void right_up()
         {
 #if _LINUX
-            ClicklessMouse.Native.InputX11.RightButtonUp();
+            InputX11.RightButtonUp();
 #elif _WINDOWS
             _sim.Mouse.RightButtonUp();
 #endif
@@ -49,7 +49,7 @@ namespace ClicklessMouse
             do
             {
 #if _LINUX
-                ClicklessMouse.Native.InputX11.SetCursorPos(X, Y);
+                InputX11.SetCursorPos(X, Y);
 #elif _WINDOWS
                 ClicklessMouse.Native.InputWin.SetCursorPos(x, y);
 #endif
@@ -63,7 +63,7 @@ namespace ClicklessMouse
             ///user may forget that right button is pressed or press it by mistake without noticing
             //(holding RMB prevents LMB clicking)
             #if _LINUX
-            if (ClicklessMouse.Native.InputX11.GetCursorPos().mask_return == 1024)
+            if (InputX11.GetCursorPos().mask_return == 1024)
             {
                 right_up();
             }
@@ -95,7 +95,7 @@ namespace ClicklessMouse
             //user may forget that right button is pressed or press it by mistake without noticing
             //(holding RMB prevents LMB clicking)
 #if _LINUX
-            if (ClicklessMouse.Native.InputX11.GetCursorPos().mask_return == 1024)
+            if (InputX11.GetCursorPos().mask_return == 1024)
             {
                 right_up();
             }
@@ -114,7 +114,7 @@ namespace ClicklessMouse
         {
             freeze_mouse(x, y, 50);
 #if _LINUX
-            if (ClicklessMouse.Native.InputX11.GetCursorPos().mask_return != 256 || ClicklessMouse.Native.InputX11.GetCursorPos().mask_return != 1280)
+            if (InputX11.GetCursorPos().mask_return != 256 || InputX11.GetCursorPos().mask_return != 1280)
             {
                 left_down();
             }
@@ -177,7 +177,7 @@ namespace ClicklessMouse
 
 #elif _LINUX
             {
-                var CursorPos = ClicklessMouse.Native.InputX11.GetCursorPos();
+                var CursorPos = InputX11.GetCursorPos();
 
                 x = CursorPos.root_x;
                 y = CursorPos.root_y;
@@ -192,7 +192,7 @@ namespace ClicklessMouse
 #if _WINDOWS
             ClicklessMouse.Native.InputWin.SetCursorPos(x, y);
 #elif _LINUX
-            ClicklessMouse.Native.InputX11.SetCursorPos(x, y);
+            InputX11.SetCursorPos(x, y);
 
 #endif
         }
