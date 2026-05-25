@@ -1,5 +1,6 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Platform;
 using Avalonia.Media;
 using Avalonia.Threading;
 using Color = Avalonia.Media.Color;
