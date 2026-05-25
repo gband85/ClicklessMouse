@@ -478,7 +478,7 @@ namespace ClicklessMouse
                     X = x2;
                     Y = y2;
 
-                    TimeSpan timeElapsedSinceLastClick = new TimeSpan();
+                    TimeSpan timeElapsedSinceLastClick = TimeSpan.Zero;
                     if (_lastClickTime != null)
                     {
                         timeElapsedSinceLastClick = DateTime.Now - _lastClickTime;
