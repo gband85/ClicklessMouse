@@ -136,8 +136,8 @@ namespace ClicklessMouse
            _defaultSettingsPath=Path.Combine(AppContext.BaseDirectory,_defaultSettingsFilename);
 
 #elif _LINUX
-            app_folder_path = Path.Combine(Environment.GetEnvironmentVariable("HOME"), ".config", prog_name.Replace(" ", String.Empty));
-            default_settings_path = Path.Combine("/usr/share", prog_name.Replace(" ", String.Empty), default_settings_filename);
+            _appFolderPath = Path.Combine(Environment.GetEnvironmentVariable("HOME"), ".config", prog_name.Replace(" ", String.Empty));
+            _defaultSettingsPath = Path.Combine("/usr/share", prog_name.Replace(" ", String.Empty), _defaultSettingsFilename);
 
 #endif
 
@@ -1676,7 +1676,7 @@ namespace ClicklessMouse
                             System.Reflection.Assembly.GetExecutingAssembly().Location.Replace(".exe", ".vbs"));
                     }
 #elif _LINUX
-                    if (!File.Exists(Path.Combine(app_folder_path, "clicklessmouse.desktop")))
+                    if (!File.Exists(Path.Combine(_appFolderPath, "clicklessmouse.desktop")))
                     {
                         File.Copy(Path.Combine("/usr/share", prog_name.Replace(" ", String.Empty), "clicklessmouse.desktop"), Path.Combine(Environment.GetEnvironmentVariable("HOME"), ".config/autostart", "clicklessmouse.desktop"));
                 }
