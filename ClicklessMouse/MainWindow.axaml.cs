@@ -400,7 +400,7 @@ namespace ClicklessMouse
 
         private void calculate_squares_start_positions()
         {
-            _displacement = (int)(_size / 2);
+            _displacement = _size / 2;
             _showZone = _size + _displacement;
 
             _slStartX = X - _showZone;
