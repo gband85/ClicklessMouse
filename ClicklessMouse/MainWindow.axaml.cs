@@ -92,18 +92,21 @@ namespace ClicklessMouse
                                                                          private DateTime _lastClickTime;
                                                                          private CancellationTokenSource _cts1, _cts2;
                                                                          private Thread _thRmouseMonitor, _thRsquaresMonitor, _thRmouseMonitor2;
-                                                                         private int _displacement = 0;
+                                                                         private int _displacement;
 
                                                                          private bool _savingEnabled = true;
         //full path is necessary if run at startup is used (running at startup uses different current
         //directory
-        private string _appFolderPath = "";
+        // ReSharper disable once FieldCanBeMadeReadOnly.Local
+        private string _appFolderPath;
 
-        private string _settingsPath = "";
-        private string _defaultSettingsPath = "";
+        // ReSharper disable once FieldCanBeMadeReadOnly.Local
+        private string _settingsPath;
+        // ReSharper disable once FieldCanBeMadeReadOnly.Local
+        private string _defaultSettingsPath;
 
         private UiLanguage _lang = UiLanguage.En;
-        private bool _loadingError = false;
+        private bool _loadingError;
         private Process _prc;
 
         //NotifyIcon ni = new NotifyIcon();
@@ -300,10 +303,10 @@ namespace ClicklessMouse
         //     regenerate_SRH();
         }
 
-        public int X = 0, Y = 0;
+        public int X , Y;
         private int _maxX;
         private int _maxY;
-        public bool SquaresVisible = false;
+        public bool SquaresVisible;
         private int _showZone;
         private int _slStartX;
         private int _slStartY;
@@ -355,7 +358,7 @@ namespace ClicklessMouse
                     key_down(VirtualKeyCode.LEFT);
                     pressedLeft = true;
                 }
-                else if (x1 != 0 && pressedLeft == true)
+                else if (x1 != 0 && pressedLeft)
                 {
                     key_up(VirtualKeyCode.LEFT);
                     pressedLeft = false;
@@ -366,7 +369,7 @@ namespace ClicklessMouse
                     key_down(VirtualKeyCode.RIGHT);
                     pressedRight = true;
                 }
-                else if (x1 != _maxX && pressedRight == true)
+                else if (x1 != _maxX && pressedRight)
                 {
                     key_up(VirtualKeyCode.RIGHT);
                     pressedRight = false;
@@ -377,7 +380,7 @@ namespace ClicklessMouse
                     key_down(VirtualKeyCode.UP);
                     pressedUp = true;
                 }
-                else if (y1 != 0 && pressedUp == true)
+                else if (y1 != 0 && pressedUp)
                 {
                     key_up(VirtualKeyCode.UP);
                     pressedUp = false;
@@ -388,7 +391,7 @@ namespace ClicklessMouse
                     key_down(VirtualKeyCode.DOWN);
                     pressedDown = true;
                 }
-                else if (y1 != _maxY && pressedDown == true)
+                else if (y1 != _maxY && pressedDown)
                 {
                     key_down(VirtualKeyCode.DOWN);
                     pressedDown = false;
@@ -431,7 +434,7 @@ namespace ClicklessMouse
 
         private int _bannedX = -1;
         private int _bannedY = -1;
-        private int _previousSize = 0;
+        private int _previousSize;
 
         private void monitor_mouse()
         {
