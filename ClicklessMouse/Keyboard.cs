@@ -10,30 +10,30 @@ namespace ClicklessMouse
 {
     public partial class MainWindow : Window
     {
-        Thread THRkeymaster;
+        Thread _thRkeymaster;
 
-        void key_press(VirtualKeyCode vkc, bool async, int down_ms = 75)
+        void key_press(VirtualKeyCode vkc, bool async, int downMs = 75)
         {
             if (async)
             {
-                THRkeymaster = new Thread(() => key_press(vkc, down_ms));
-                THRkeymaster.Start();
+                _thRkeymaster = new Thread(() => key_press(vkc, downMs));
+                _thRkeymaster.Start();
             }
             else
-                key_press(vkc, down_ms);
+                key_press(vkc, downMs);
         }
 
-        void key_press(VirtualKeyCode vkc, int down_ms = 75)
+        void key_press(VirtualKeyCode vkc, int downMs = 75)
         {
-            sim.Keyboard.KeyDown(vkc);
-            Thread.Sleep(down_ms);
-            sim.Keyboard.KeyUp(vkc);
+            _sim.Keyboard.KeyDown(vkc);
+            Thread.Sleep(downMs);
+            _sim.Keyboard.KeyUp(vkc);
         }
 
         void key_down(VirtualKeyCode vkc)
         {
             #if _WINDOWS
-            sim.Keyboard.KeyDown(vkc);
+            _sim.Keyboard.KeyDown(vkc);
 
 #elif _LINUX
             Native.InputX11.KeyDown(vkc);
@@ -43,7 +43,7 @@ namespace ClicklessMouse
         void key_up(VirtualKeyCode vkc)
         {
 #if _WINDOWS
-sim.Keyboard.KeyUp(vkc);
+_sim.Keyboard.KeyUp(vkc);
 
 #elif _LINUX
                 Native.InputX11.KeyUp(vkc);
@@ -52,31 +52,31 @@ sim.Keyboard.KeyUp(vkc);
 
         void release_buttons_and_keys()
         {
-            if (sim.InputDeviceState.IsKeyDown(VirtualKeyCode.LBUTTON))
+            if (_sim.InputDeviceState.IsKeyDown(VirtualKeyCode.LBUTTON))
             {
                 left_up();
             }
 
-            if (sim.InputDeviceState.IsKeyDown(VirtualKeyCode.RBUTTON))
+            if (_sim.InputDeviceState.IsKeyDown(VirtualKeyCode.RBUTTON))
             {
                 right_up();
             }
 
             foreach (VirtualKeyCode vkc in (VirtualKeyCode[])Enum.GetValues(typeof(VirtualKeyCode)))
             {
-                if (sim.InputDeviceState.IsKeyDown(vkc))
+                if (_sim.InputDeviceState.IsKeyDown(vkc))
                     key_up(vkc);
             }
         }
 
         void release_buttons()
         {
-            if (sim.InputDeviceState.IsKeyDown(VirtualKeyCode.LBUTTON))
+            if (_sim.InputDeviceState.IsKeyDown(VirtualKeyCode.LBUTTON))
             {
                 left_up();
             }
 
-            if (sim.InputDeviceState.IsKeyDown(VirtualKeyCode.RBUTTON))
+            if (_sim.InputDeviceState.IsKeyDown(VirtualKeyCode.RBUTTON))
             {
                 right_up();
             }

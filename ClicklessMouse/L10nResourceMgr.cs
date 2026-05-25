@@ -4,8 +4,8 @@ using System.ComponentModel;
 using System.Globalization;
 
 namespace ClicklessMouse {
-    public class L10nResourceMgr : INotifyPropertyChanged {
-        private L10nResourceMgr() {
+    public class L10NResourceMgr : INotifyPropertyChanged {
+        private L10NResourceMgr() {
             Culture = CultureInfo.CurrentCulture;
         }
 
@@ -19,7 +19,7 @@ namespace ClicklessMouse {
             }
         }
 
-        public static L10nResourceMgr Instance { get; } = new();
+        public static L10NResourceMgr Instance { get; } = new();
 
         public object this[string resourceKey]
             => Resources.ResourceManager.GetObject(resourceKey, Culture) ?? Array.Empty<byte>();

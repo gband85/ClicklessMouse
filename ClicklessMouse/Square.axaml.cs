@@ -16,28 +16,28 @@ namespace ClicklessMouse
 {
     public partial class Square : Avalonia.Controls.Window
     {
-        int side = 1;
-        int line_width = 1;
-        Color c1;
-        Color c2;
+        int _side = 1;
+        int _lineWidth = 1;
+        Color _c1;
+        Color _c2;
 
-        public Square(int Side, int Line_width, Color color1, Color color2)
+        public Square(int side, int lineWidth, Color color1, Color color2)
         {
             InitializeComponent();
 
             Background = new SolidColorBrush(Colors.Transparent);
             SystemDecorations = SystemDecorations.BorderOnly;
             ShowInTaskbar = false;
-            side = Side;
-            line_width = Line_width;
-            c1 = color1;
-            c2 = color2;
+            _side = side;
+            _lineWidth = lineWidth;
+            _c1 = color1;
+            _c2 = color2;
             ShowActivated = false;
             CanResize=false;
 
             //this solves blinking problem that sometimes happens when squares are regenerated
             this.PointToClient(new PixelPoint(0, 0));
-            this.Position = new PixelPoint(side * -1, side * -1);
+            this.Position = new PixelPoint(_side * -1, _side * -1);
 #if _LINUX 
 Avalonia.Controls.X11Properties.SetNetWmWindowType(this,Avalonia.Controls.Platform.X11NetWmWindowType.Utility);
 #endif
@@ -49,14 +49,14 @@ Avalonia.Controls.X11Properties.SetNetWmWindowType(this,Avalonia.Controls.Platfo
             {
                 Dispatcher.UIThread.Post(() =>
                 {
-                    var Rectangle1 = new Rect((int)(line_width / 2), (int)(line_width / 2), side - line_width, side - line_width);
-                    Avalonia.Media.Pen p = new Avalonia.Media.Pen(new SolidColorBrush(c1), line_width);
-                    context.DrawRectangle(null, p, Rectangle1);
+                    var rectangle1 = new Rect((int)(_lineWidth / 2), (int)(_lineWidth / 2), _side - _lineWidth, _side - _lineWidth);
+                    Avalonia.Media.Pen p = new Avalonia.Media.Pen(new SolidColorBrush(_c1), _lineWidth);
+                    context.DrawRectangle(null, p, rectangle1);
 
-                    var Rectangle2 = new Rect((int)(line_width / 2) + line_width, (int)(line_width / 2) + line_width,
-                        side - 3 * line_width, side - 3 * line_width);
-                    p = new Avalonia.Media.Pen(new SolidColorBrush(c2), line_width);
-                    context.DrawRectangle(null, p, Rectangle2);
+                    var rectangle2 = new Rect((int)(_lineWidth / 2) + _lineWidth, (int)(_lineWidth / 2) + _lineWidth,
+                        _side - 3 * _lineWidth, _side - 3 * _lineWidth);
+                    p = new Avalonia.Media.Pen(new SolidColorBrush(_c2), _lineWidth);
+                    context.DrawRectangle(null, p, rectangle2);
                 }
                     );
             }

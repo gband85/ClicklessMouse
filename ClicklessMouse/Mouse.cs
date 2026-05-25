@@ -21,7 +21,7 @@ namespace ClicklessMouse
 #if _LINUX
             ClicklessMouse.Native.InputX11.LeftButtonDown();
 #elif _WINDOWS
-            sim.Mouse.LeftButtonDown();
+            _sim.Mouse.LeftButtonDown();
 #endif
         }
 
@@ -30,7 +30,7 @@ namespace ClicklessMouse
 #if _LINUX
             ClicklessMouse.Native.InputX11.LeftButtonUp();
 #elif _WINDOWS
-            sim.Mouse.LeftButtonUp();
+            _sim.Mouse.LeftButtonUp();
 #endif
         }
 
@@ -39,7 +39,7 @@ namespace ClicklessMouse
 #if _LINUX
             ClicklessMouse.Native.InputX11.RightButtonDown();
 #elif _WINDOWS
-            sim.Mouse.RightButtonDown();
+            _sim.Mouse.RightButtonDown();
 #endif
         }
 
@@ -48,11 +48,11 @@ namespace ClicklessMouse
 #if _LINUX
             ClicklessMouse.Native.InputX11.RightButtonUp();
 #elif _WINDOWS
-            sim.Mouse.RightButtonUp();
+            _sim.Mouse.RightButtonUp();
 #endif
         }
 
-        void freeze_mouse(int X, int Y, int time)
+        void freeze_mouse(int x, int y, int time)
         {
             Stopwatch stopwatch = Stopwatch.StartNew();
             do
@@ -60,14 +60,14 @@ namespace ClicklessMouse
 #if _LINUX
                 ClicklessMouse.Native.InputX11.SetCursorPos(X, Y);
 #elif _WINDOWS
-                ClicklessMouse.Native.InputWin.SetCursorPos(X, Y);
+                ClicklessMouse.Native.InputWin.SetCursorPos(x, y);
 #endif
                 Thread.Sleep(1);
             }
             while (stopwatch.ElapsedMilliseconds < time);
         }
 
-        public void LMBClick(int X, int Y, int time)
+        public void LmbClick(int x, int y, int time)
         {
             ///user may forget that right button is pressed or press it by mistake without noticing
             //(holding RMB prevents LMB clicking)
@@ -83,23 +83,23 @@ namespace ClicklessMouse
                 right_up();
             }
 #endif
-            freeze_mouse(X, Y, 50);
+            freeze_mouse(x, y, 50);
             left_down();
-            freeze_mouse(X, Y, time);
+            freeze_mouse(x, y, time);
             left_up();
-            freeze_mouse(X, Y, 10);
+            freeze_mouse(x, y, 10);
         }
 
-        public void RMBClick(int X, int Y, int time)
+        public void RmbClick(int x, int y, int time)
         {
-            freeze_mouse(X, Y, 50);
+            freeze_mouse(x, y, 50);
             right_down();
-            freeze_mouse(X, Y, time);
+            freeze_mouse(x, y, time);
             right_up();
-            freeze_mouse(X, Y, 10);
+            freeze_mouse(x, y, 10);
         }
 
-        public void DLMBClick(int X, int Y, int time)
+        public void DlmbClick(int x, int y, int time)
         {
             //user may forget that right button is pressed or press it by mistake without noticing
             //(holding RMB prevents LMB clicking)
@@ -115,13 +115,13 @@ namespace ClicklessMouse
                 right_up();
             }
 #endif
-            LMBClick(X, Y, 100);
-            LMBClick(X, Y, 100);
+            LmbClick(x, y, 100);
+            LmbClick(x, y, 100);
         }
 
-        public void LMBHold(int X, int Y, int time)
+        public void LmbHold(int x, int y, int time)
         {
-            freeze_mouse(X, Y, 50);
+            freeze_mouse(x, y, 50);
 #if _LINUX
             if (ClicklessMouse.Native.InputX11.GetCursorPos().mask_return != 256 || ClicklessMouse.Native.InputX11.GetCursorPos().mask_return != 1280)
             {
@@ -132,7 +132,7 @@ namespace ClicklessMouse
                 left_up();
             }
 #elif _WINDOWS
-            if (sim.InputDeviceState.IsKeyDown(VirtualKeyCode.LBUTTON) == false)
+            if (_sim.InputDeviceState.IsKeyDown(VirtualKeyCode.LBUTTON) == false)
             {
                 left_down();
             }
@@ -141,12 +141,12 @@ namespace ClicklessMouse
                 left_up();
             }
 #endif
-            freeze_mouse(X, Y, time);
+            freeze_mouse(x, y, time);
         }
 
-        public void RMBHold(int X, int Y, int time)
+        public void RmbHold(int x, int y, int time)
         {
-            freeze_mouse(X, Y, 50);
+            freeze_mouse(x, y, 50);
 #if _LINUX
 
             if (InputX11.GetCursorPos().mask_return != 1024 || InputX11.GetCursorPos().mask_return != 1280)
@@ -159,7 +159,7 @@ namespace ClicklessMouse
             }
 
 #elif _WINDOWS
-            if (sim.InputDeviceState.IsKeyDown(VirtualKeyCode.RBUTTON) == false)
+            if (_sim.InputDeviceState.IsKeyDown(VirtualKeyCode.RBUTTON) == false)
             {
                 right_down();
             }
@@ -169,7 +169,7 @@ namespace ClicklessMouse
             }
 #endif
 
-            freeze_mouse(X, Y, time);
+            freeze_mouse(x, y, time);
         }
         public int[] GetCursorPosition()
         {
@@ -178,10 +178,10 @@ namespace ClicklessMouse
 
 #if _WINDOWS
             {
-                Point MousePoint;
-                ClicklessMouse.Native.InputWin.GetCursorPos(out MousePoint);
-                x = MousePoint.X;
-                y = MousePoint.Y;
+                Point mousePoint;
+                ClicklessMouse.Native.InputWin.GetCursorPos(out mousePoint);
+                x = mousePoint.X;
+                y = mousePoint.Y;
             }
 
 #elif _LINUX

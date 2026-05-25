@@ -37,7 +37,7 @@ var box = MessageBoxManager.GetMessageBoxStandard("Error WC001", ex.Message, But
         }
         private void Beula_Click(object sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
-            WindowEULA w = new WindowEULA();
+            WindowEula w = new WindowEula();
             w.Show();
         }
 

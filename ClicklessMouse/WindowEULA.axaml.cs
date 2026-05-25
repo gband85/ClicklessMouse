@@ -12,9 +12,9 @@ namespace ClicklessMouse
     /// <summary>
     /// Interaction logic for WindowEULA.xaml
     /// </summary>
-    public partial class WindowEULA : Window
+    public partial class WindowEula : Window
     {
-        public WindowEULA()
+        public WindowEula()
         {
             try
             {
