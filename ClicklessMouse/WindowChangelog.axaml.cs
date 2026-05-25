@@ -1,8 +1,4 @@
-using System.Windows;
 using System;
-using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
 using Window = Avalonia.Controls.Window;
 using MsBox.Avalonia;
 

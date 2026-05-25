@@ -1,15 +1,6 @@
-﻿using Avalonia.Automation.Peers;
-using Avalonia.Controls;
-using ClicklessMouse.Native;
-using System;
+﻿using ClicklessMouse.Native;
 using System.Diagnostics;
-using System.Drawing;
-using System.Runtime.InteropServices;
 using System.Threading;
-using System.Windows;
-using WindowsInput;
-using WindowsInput.Native;
-using X11;
 using Window = Avalonia.Controls.Window;
 
 namespace ClicklessMouse

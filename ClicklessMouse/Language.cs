@@ -1,8 +1,5 @@
-﻿using System;
-using Avalonia.Controls;
+﻿using Avalonia.Controls;
 using System.Globalization;
-using System.IO;
-using Avalonia.Platform;
 
 namespace ClicklessMouse
 {

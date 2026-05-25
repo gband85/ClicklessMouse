@@ -1,11 +1,6 @@
-﻿using System.Windows;
-using System;
-using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
+﻿using System;
 using Window = Avalonia.Controls.Window;
 using MsBox.Avalonia;
-using MsBox.Avalonia.Enums;
 
 namespace ClicklessMouse
 {

@@ -1,16 +1,8 @@
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using Avalonia.Threading;
-using ClicklessMouse.Native;
-using DocumentFormat.OpenXml.Drawing.Charts;
-using System;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using X11;
 using Color = Avalonia.Media.Color;
-using Window = X11.Window;
 
 namespace ClicklessMouse
 {
