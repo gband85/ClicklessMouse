@@ -1581,7 +1581,7 @@ namespace ClicklessMouse
         {
             try
             {
-                if (TBcursor_idle_before_squares_appear.Text.Length > 0)
+                if (TBcursor_idle_before_squares_appear.Text is { Length: > 0 })
                 {
                     int x = int.Parse(TBcursor_idle_before_squares_appear.Text);
                     if (x < 1)
@@ -1619,7 +1619,7 @@ namespace ClicklessMouse
         {
             try
             {
-                if (TBtime_to_start_mouse.Text.Length > 0)
+                if (TBtime_to_start_mouse.Text is { Length: > 0 })
                 {
                     int x = int.Parse(TBtime_to_start_mouse.Text);
                     if (x < 1)
@@ -1657,7 +1657,7 @@ namespace ClicklessMouse
         {
             try
             {
-                if (TBcursor_time_in_square.Text.Length > 0)
+                if (TBcursor_time_in_square.Text is { Length: > 0 })
                 {
                     int x = int.Parse(TBcursor_time_in_square.Text);
                     if (x < 1)
@@ -1743,7 +1743,7 @@ namespace ClicklessMouse
         {
             try
             {
-                if (TBsquare_size.Text.Length > 0)
+                if (TBsquare_size.Text is { Length: > 0 })
                 {
                     int x = int.Parse(TBsquare_size.Text);
                     if (x < 1)
@@ -1776,7 +1776,7 @@ namespace ClicklessMouse
         {
             try
             {
-                if (TBsquare_border.Text.Length > 0)
+                if (TBsquare_border.Text is { Length: > 0 })
                 {
                     int x = int.Parse(TBsquare_border.Text);
                     if (x < 1)
@@ -1874,7 +1874,7 @@ namespace ClicklessMouse
         {
             try
             {
-                if (TBmin_square_size.Text.Length > 0)
+                if (TBmin_square_size.Text is { Length: > 0 })
                 {
                     int x = int.Parse(TBmin_square_size.Text);
                     if (x < 1)
@@ -1913,7 +1913,7 @@ namespace ClicklessMouse
         {
             try
             {
-                if (TBscreen_size.Text.Length == 0)
+                if (TBscreen_size.Text is { Length: 0 })
                 {
                     throw new Exception(L10NResourceMgr["screen_size_error2"].ToString());
                 }
