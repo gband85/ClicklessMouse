@@ -30,7 +30,7 @@ namespace ClicklessMouse
     /// </summary>
     public partial class MainWindow : Window
     {
-        //Main config
+        //square toggles
         private bool _slEnabled;
         private bool _srEnabled;
         private bool _smEnabled;
@@ -38,70 +38,77 @@ namespace ClicklessMouse
         private bool _srhEnabled;
         private bool _screenPanning;
 
-        //Square config
+        //default values
         private const int default_cursor_idle_time_ms = 200;
+        private const int default_cursor_time_in_square_ms = 100;
+        private const int default_time_to_start_mouse_movement_ms = 700;
+        private const int default_size = 50;
+        private const int default_border_width = 2;
+        private const uint default_color1_uint = 4278190335;
+        private const uint default_color2_uint = 4294967040;
+        private const int default_min_square_size_percents = 60;
+        
+        //minimum acceptable values
         private const int lowest_cursor_idle_time_ms = 100;
+        private const int lowest_cursor_time_in_square_ms = 10;
+        private const int lowest_time_to_start_mouse_movement_ms = 300;
+        private const int lowest_size = 10;
+        private const int lowest_border_width = 1;
+        private const int lowest_min_square_size_percents = 10;
+                                                     
+        //after click is performed it gives user more time to start moving mouse without squares blocking top movement path
+        private const int additional_cursor_idle_time = 300;
+        
+        //how often is cursor position checked (10ms recommended). Changing this requires changing default and lowest: cursor_idle_time_ms, time_to_start_mouse_movement_ms, and cursor_time_in_square_ms
+        private const int loop_time_ms = 10; 
 
-        private const int additional_cursor_idle_time = 300; //after click is performed it gives user more
-                                                     //time to start moving mouse without squares blocking top movement path
-                                                     private const int default_cursor_time_in_square_ms = 100;
-                                                     private const int lowest_cursor_time_in_square_ms = 10;
-                                                     private const int default_time_to_start_mouse_movement_ms = 700;
-                                                     private const int lowest_time_to_start_mouse_movement_ms = 300;
-                                                     private const int default_size = 50;
-                                                     private const int lowest_size = 10;
-                                                     private const int default_border_width = 2;
-                                                     private const int lowest_border_width = 1;
-                                                     private const uint default_color1_uint = 4278190335;
-                                                     private const uint default_color2_uint = 4294967040;
-                                                     private const int default_min_square_size_percents = 60;
-                                                     private const int lowest_min_square_size_percents = 10;
+        //idle time before squares appear                
+        private int _cursorIdleTimeMs;
+        
+        private int _loopsToShowSquaresAfterCursorIdle;
+                                     
+        //time to start mouse movement after squares appear, before they disappear (700 default, lowest reasonable 500)
+        private int _timeToStartMouseMovementMs; 
+                                     
+        private int _loopsToStartMouseMovement;
+                                             
+        //cursor hover time in square needed to perform a click
+        private int _cursorTimeInSquareMs; 
+                                             
+        private int _size;
+        private int _borderWidth;
+        private Color _color1 = Color.FromUInt32(default_color1_uint); //square color 1
+        private Color _color2 = Color.FromUInt32(default_color2_uint); //square color 2
+        private uint _squareColor1Uint;
+        private uint _squareColor2Uint;
 
-                                                     private const int loop_time_ms = 10; //how often is cursor position checked (10ms recommended)
-                                     //changing this requires changing default and lowest:
-                                     //cursor_idle_time_ms, time_to_start_mouse_movement_ms
-                                     //and cursor_time_in_square_ms
+        //how much square size can be decreased if it would be covered by left or right screen edge                               
+        private int _minSquareSizePercents = default_min_square_size_percents; 
+                                                                         
+        //----------------------------------
 
-                                     private int _cursorIdleTimeMs; //idle time before squares appear
-                                     private int _loopsToShowSquaresAfterCursorIdle;
+        private const string prog_name = "Clickless Mouse";
+        private const string prog_version = "3.0";
+        private const string url_latest_version = "https://raw.githubusercontent.com/gband85/Clickless-Mouse/AvaloniaUI/other/latest_version.txt";
+        private const string url_homepage = "github.com/gband85/Clickless-Mouse";
+        private string _latestVersion = "";
+        private const string copyright_text = "Copyright © 2025 Garrett Anderson. All rights reserved.";
+        private string _settingsFilename = "appsettings.json";
+        private string _defaultSettingsFilename = "defaults.json";
+        private Square _sl, _sr, _sm, _slh, _srh;
+        private DateTime _lastClickTime;
+        private CancellationTokenSource _cts1, _cts2;
+        private Thread _thRmouseMonitor, _thRsquaresMonitor, _thRmouseMonitor2;
+        private int _displacement;
 
-                                     private int _timeToStartMouseMovementMs; //time to start mouse movement after squares appear, 
-                                             //before they disappear (700 default, lowest reasonable 500)
-                                             private int _loopsToStartMouseMovement;
-                                             private int _cursorTimeInSquareMs; //cursor hover time in square needed to perform a click
-                                             private int _size;
-                                             private int _borderWidth;
-                                             private Color _color1 = Color.FromUInt32(default_color1_uint); //square color 1
-                                             private Color _color2 = Color.FromUInt32(default_color2_uint); //square color 2
-                                             private uint _squareColor1Uint;
-                                             private uint _squareColor2Uint;
-
-                                             private int _minSquareSizePercents = default_min_square_size_percents; //how much square size can
-                                                                         //be decreased if it would be covered by left or right screen edge
-                                                                         //----------------------------------
-
-                                                                         private const string prog_name = "Clickless Mouse";
-                                                                         private const string prog_version = "3.0";
-                                                                         private const string url_latest_version = "https://raw.githubusercontent.com/gband85/Clickless-Mouse/AvaloniaUI/other/latest_version.txt";
-                                                                         private const string url_homepage = "github.com/gband85/Clickless-Mouse";
-                                                                         private string _latestVersion = "";
-                                                                         private const string copyright_text = "Copyright © 2025 Garrett Anderson. All rights reserved.";
-                                                                         private string _settingsFilename = "appsettings.json";
-                                                                         private string _defaultSettingsFilename = "defaults.json";
-                                                                         private Square _sl, _sr, _sm, _slh, _srh;
-                                                                         private DateTime _lastClickTime;
-                                                                         private CancellationTokenSource _cts1, _cts2;
-                                                                         private Thread _thRmouseMonitor, _thRsquaresMonitor, _thRmouseMonitor2;
-                                                                         private int _displacement;
-
-                                                                         private bool _savingEnabled = true;
-        //full path is necessary if run at startup is used (running at startup uses different current
-        //directory
+        private bool _savingEnabled = true;
+        
         // ReSharper disable once FieldCanBeMadeReadOnly.Local
         private string _appFolderPath;
 
         // ReSharper disable once FieldCanBeMadeReadOnly.Local
         private string _settingsPath;
+        
         // ReSharper disable once FieldCanBeMadeReadOnly.Local
         private string _defaultSettingsPath;
 
