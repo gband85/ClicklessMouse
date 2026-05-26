@@ -4,6 +4,7 @@ using System.Net;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using Avalonia.Controls;
@@ -11,7 +12,6 @@ using Avalonia.Media;
 using Avalonia.Platform;
 using Avalonia.Threading;
 using RoutedEventArgs = Avalonia.Interactivity.RoutedEventArgs;
-using Window = Avalonia.Controls.Window;
 using WindowState = Avalonia.Controls.WindowState;
 using Avalonia.Input;
 using Avalonia;
@@ -898,8 +898,8 @@ namespace ClicklessMouse
             {
                 try
                 {
-                    Callback1 d = new Callback1(show_SL);
-                    Dispatcher.UIThread.Invoke(new Action(() => d(show)));
+                    Callback1 d = show_SL;
+                    Dispatcher.UIThread.Invoke(() => d(show));
                 }
                 catch (ObjectDisposedException ex)
                 {
@@ -926,8 +926,8 @@ namespace ClicklessMouse
             {
                 try
                 {
-                    Callback1 d = new Callback1(show_SR);
-                    Dispatcher.UIThread.Invoke(new Action(() => d(show)));
+                    Callback1 d = show_SR;
+                    Dispatcher.UIThread.Invoke(() => d(show));
                 }
                 catch (ObjectDisposedException ex)
                 {
@@ -953,8 +953,8 @@ namespace ClicklessMouse
             {
                 try
                 {
-                    Callback1 d = new Callback1(show_SM);
-                    Dispatcher.UIThread.Invoke(new Action(() => d(show)));
+                    Callback1 d = show_SM;
+                    Dispatcher.UIThread.Invoke(() => d(show));
                 }
                 catch (ObjectDisposedException ex)
                 {
@@ -980,8 +980,8 @@ namespace ClicklessMouse
             {
                 try
                 {
-                    Callback1 d = new Callback1(show_SLH);
-                    Dispatcher.UIThread.Invoke(new Action(() => d(show)));
+                    Callback1 d = show_SLH;
+                    Dispatcher.UIThread.Invoke(() => d(show));
                 }
                 catch (ObjectDisposedException ex)
                 {
@@ -1007,8 +1007,8 @@ namespace ClicklessMouse
             {
                 try
                 {
-                    Callback1 d = new Callback1(show_SRH);
-                    Dispatcher.UIThread.Invoke(new Action(() => d(show)));
+                    Callback1 d = show_SRH;
+                    Dispatcher.UIThread.Invoke(() => d(show));
                 }
                 catch (ObjectDisposedException ex)
                 {
@@ -1034,8 +1034,8 @@ namespace ClicklessMouse
             {
                 try
                 {
-                    Callback2 d = new Callback2(create_SL);
-                    Dispatcher.UIThread.Invoke(new Action(() => d()));
+                    Callback2 d = create_SL;
+                    Dispatcher.UIThread.Invoke(() => d());
                 }
                 catch (ObjectDisposedException ex)
                 {
@@ -1075,8 +1075,8 @@ namespace ClicklessMouse
             {
                 try
                 {
-                    Callback2 d = new Callback2(create_SR);
-                    Dispatcher.UIThread.Invoke(new Action(() => d()));
+                    Callback2 d = create_SR;
+                    Dispatcher.UIThread.Invoke(() => d());
                 }
                 catch (ObjectDisposedException ex)
                 {
@@ -1115,8 +1115,8 @@ namespace ClicklessMouse
             {
                 try
                 {
-                    Callback2 d = new Callback2(create_SM);
-                    Dispatcher.UIThread.Invoke(new Action(() => d()));
+                    Callback2 d = create_SM;
+                    Dispatcher.UIThread.Invoke(() => d());
                 }
                 catch (ObjectDisposedException ex)
                 {
@@ -1155,8 +1155,8 @@ namespace ClicklessMouse
             {
                 try
                 {
-                    Callback2 d = new Callback2(create_SLH);
-                    Dispatcher.UIThread.Invoke(new Action(() => d()));
+                    Callback2 d = create_SLH;
+                    Dispatcher.UIThread.Invoke(() => d());
                 }
                 catch (ObjectDisposedException ex)
                 {
@@ -1195,8 +1195,8 @@ namespace ClicklessMouse
             {
                 try
                 {
-                    Callback2 d = new Callback2(create_SRH);
-                    Dispatcher.UIThread.Invoke(new Action(() => d()));
+                    Callback2 d = create_SRH;
+                    Dispatcher.UIThread.Invoke(() => d());
                 }
                 catch (ObjectDisposedException ex)
                 {
