@@ -1040,16 +1040,14 @@ namespace ClicklessMouse
                 if (_sl != null)
                     _sl.Close();
 
-                _sl = new Square(_size, _borderWidth, _color1, _color2);
+                _sl = new Square(_size, _borderWidth, _color1, _color2)
+                {
+                    Topmost = true,
+                    Height = _size,
+                    Width = _size
+                };
 
-                _sl.Title = "Square SL";
-
-                _sl.Topmost = true;
                 _sl.Show();
-
-                _sl.Height = _size;
-                _sl.Width = _size;
-
                 _sl.Hide();
             }
         }
@@ -1083,12 +1081,13 @@ namespace ClicklessMouse
                 if (_sr != null)
                     _sr.Close();
 
-                _sr = new Square(_size, _borderWidth, _color1, _color2);
-                _sr.Topmost = true;
+                _sr = new Square(_size, _borderWidth, _color1, _color2)
+                {
+                    Topmost = true,
+                    Height = _size,
+                    Width = _size
+                };
                 _sr.Show();
-                _sr.Height = _size;
-                _sr.Width = _size;
-
                 _sr.Hide();
             }
         }
@@ -1122,12 +1121,13 @@ namespace ClicklessMouse
                 if (_sm != null)
                     _sm.Close();
 
-                _sm = new Square(_size, _borderWidth, _color1, _color2);
-                _sm.Topmost = true;
+                _sm = new Square(_size, _borderWidth, _color1, _color2)
+                {
+                    Topmost = true,
+                    Height = _size,
+                    Width = _size
+                };
                 _sm.Show();
-                _sm.Height = _size;
-                _sm.Width = _size;
-
                 _sm.Hide();
             }
         }
@@ -1161,12 +1161,13 @@ namespace ClicklessMouse
                 if (_slh != null)
                     _slh.Close();
 
-                _slh = new Square(_size, _borderWidth, _color1, _color2);
-                _slh.Topmost = true;
+                _slh = new Square(_size, _borderWidth, _color1, _color2)
+                {
+                    Topmost = true,
+                    Height = _size,
+                    Width = _size
+                };
                 _slh.Show();
-                _slh.Height = _size;
-                _slh.Width = _size;
-
                 _slh.Hide();
             }
         }
@@ -1200,12 +1201,13 @@ namespace ClicklessMouse
                 if (_srh != null)
                     _srh.Close();
 
-                _srh = new Square(_size, _borderWidth, _color1, _color2);
-                _srh.Topmost = true;
+                _srh = new Square(_size, _borderWidth, _color1, _color2)
+                {
+                    Topmost = true,
+                    Height = _size,
+                    Width = _size
+                };
                 _srh.Show();
-                _srh.Height = _size;
-                _srh.Width = _size;
-
                 _srh.Hide();
             }
         }
@@ -1350,14 +1352,30 @@ namespace ClicklessMouse
 
             try
             {
-                WindowAbout w = new WindowAbout();
-
-                w.Lprogram_name.Content = prog_name;
-                w.Llatest_version.Content = "Latest version: " + _latestVersion;
-                w.Linstalled_version.Content = "Installed version: " + prog_version;
-                w.HBhomepage.Content = url_homepage;
-                w.HBhomepage.NavigateUri = new Uri("http://" + url_homepage);
-                w.Lcopyright.Content = copyright_text;
+                WindowAbout w = new WindowAbout
+                {
+                    Lprogram_name =
+                    {
+                        Content = prog_name
+                    },
+                    Llatest_version =
+                    {
+                        Content = "Latest version: " + _latestVersion
+                    },
+                    Linstalled_version =
+                    {
+                        Content = "Installed version: " + prog_version
+                    },
+                    HBhomepage =
+                    {
+                        Content = url_homepage,
+                        NavigateUri = new Uri("http://" + url_homepage)
+                    },
+                    Lcopyright =
+                    {
+                        Content = copyright_text
+                    }
+                };
 
                 w.Show();
             }
@@ -1514,8 +1532,10 @@ namespace ClicklessMouse
             if (CHBscreen_panning.IsChecked == true && _thRmouseMonitor2 == null)
             {
                 _cts2 = new CancellationTokenSource();
-                _thRmouseMonitor2 = new Thread(() => monitor_mouse2(_cts2.Token));
-                _thRmouseMonitor2.Priority = ThreadPriority.Highest;
+                _thRmouseMonitor2 = new Thread(() => monitor_mouse2(_cts2.Token))
+                {
+                    Priority = ThreadPriority.Highest
+                };
                 _thRmouseMonitor2.Start();
                 _screenPanning = true;
             }
