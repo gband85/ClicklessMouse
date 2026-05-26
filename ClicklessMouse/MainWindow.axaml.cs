@@ -180,8 +180,10 @@ namespace ClicklessMouse
                 }
             }
 
-            _thRmouseMonitor = new Thread(new ThreadStart(monitor_mouse));
-            _thRmouseMonitor.Priority = ThreadPriority.Highest;
+            _thRmouseMonitor = new Thread(monitor_mouse)
+            {
+                Priority = ThreadPriority.Highest
+            };
             _thRmouseMonitor.Start();
         }
 
@@ -595,8 +597,10 @@ namespace ClicklessMouse
                         SquaresVisible = true;
 
                         _cts1 = new CancellationTokenSource();
-                        _thRsquaresMonitor = new Thread(() => monitor_squares(_cts1.Token));
-                        _thRsquaresMonitor.Priority = ThreadPriority.Highest;
+                        _thRsquaresMonitor = new Thread(() => monitor_squares(_cts1.Token))
+                        {
+                            Priority = ThreadPriority.Highest
+                        };
                         _thRsquaresMonitor.Start();
                         i = 0;
 
