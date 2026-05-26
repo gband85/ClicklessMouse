@@ -1948,12 +1948,15 @@ namespace ClicklessMouse
                 {
                     if (tb.Name == TBscreen_size.Name && tb.Text == "")
                         root[tb.Name] = "0";
-                    else if (tb.Name == Bsquare_color1.Name)
-                        root["square_color1_uint"] = _squareColor1Uint.ToString();
-                    else if (tb.Name == Bsquare_color2.Name)
-                        root["square_color2_uint"] = _squareColor2Uint.ToString();
                     else
                         root[tb.Name] = tb.Text;
+                }
+                else if (control is Button btn)
+                {
+                    if (btn.Name == Bsquare_color1.Name)
+                        root["square_color1_uint"] = _squareColor1Uint.ToString();
+                    else if (btn.Name == Bsquare_color2.Name)
+                        root["square_color2_uint"] = _squareColor2Uint.ToString();
                 }
             }
             root["lang"] = _lang.ToString();
