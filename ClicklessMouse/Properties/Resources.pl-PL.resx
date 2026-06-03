@@ -264,4 +264,7 @@
   <data name="loading_error_msg" xml:space="preserve">
     <value> Błąd odczytu ustawień - wartości, które nie zostały wczytane zostaną przywrócone do domyślnych i zapisane.</value>
   </data>
+  <data name="manual_title" xml:space="preserve">
+    <value>Instrukcja obsługi</value>
+  </data>
 </root>
