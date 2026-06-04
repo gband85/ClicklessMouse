@@ -4,7 +4,6 @@ using System.Net;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using Avalonia.Controls;
@@ -28,7 +27,7 @@ namespace ClicklessMouse
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
         //square toggles
         private bool _slEnabled;
@@ -140,7 +139,7 @@ namespace ClicklessMouse
 
 #elif _LINUX
             _appFolderPath = Path.Combine(Environment.GetEnvironmentVariable("HOME"), ".config", prog_name.Replace(" ", String.Empty));
-            _defaultSettingsPath = Path.Combine("/usr/share", prog_name.Replace(" ", String.Empty), _defaultSettingsFilename);
+            _defaultSettingsPath = Path.Combine(AppContext.BaseDirectory, _defaultSettingsFilename);
 
 #endif
 
@@ -190,7 +189,6 @@ namespace ClicklessMouse
         private async void is_program_already_running()
         {
             Process[] arr = Process.GetProcesses();
-            string[] a;
             int i = 0;
 
             foreach (Process p in arr)
@@ -447,8 +445,6 @@ namespace ClicklessMouse
         private void monitor_mouse()
         {
             int i = 0;
-            int x1 = 0, x2 = 0, y1 = 0, y2 = 0;
-            int[] mouseCoords;
 
             while (true)
             {
@@ -582,6 +578,26 @@ namespace ClicklessMouse
                             _smEndY = _smStartY + _size;
                         }
 
+                        bool mi_file_open = false;
+                        bool mi_restore_open = false;
+                        bool mi_language_open = false;
+                        bool mi_help_open = false;
+                        bool is_this_focused = false;
+                        bool is_instructions_focused = false;
+
+                        Dispatcher.UIThread.Invoke(() => { mi_file_open = MIfile.IsSubMenuOpen; });
+                        Dispatcher.UIThread.Invoke(
+                            new Action(() => { mi_restore_open = MIrestore.IsSubMenuOpen; }));
+                        Dispatcher.UIThread.Invoke(
+                            new Action(() => { mi_language_open = MIlanguage.IsSubMenuOpen; }));
+                        Dispatcher.UIThread.Invoke(
+                            new Action(() => { mi_help_open = MIhelp.IsSubMenuOpen; }));
+
+                        Dispatcher.UIThread.Invoke(
+                            new Action(() => { is_this_focused = this.IsFocused; }));
+                        // Dispatcher.UIThread.Invoke(
+                        //     new Action(() => { is_instructions_focused = Wmanual.IsActive; }));
+
                         if (_slEnabled)
                             show_SL(true);
                         if (_srEnabled)
@@ -594,6 +610,33 @@ namespace ClicklessMouse
                             show_SRH(true);
 
                         SquaresVisible = true;
+
+//reopen submenu that was closed because squares appeared
+                        if (mi_file_open)
+                            Dispatcher.UIThread.Invoke(
+                                new Action(() => { MIfile.Open(); }));
+                        if (mi_restore_open)
+                            Dispatcher.UIThread.Invoke(
+                                new Action(() => { MIrestore.IsSubMenuOpen = mi_restore_open; }));
+                        if (mi_language_open)
+                            Dispatcher.UIThread.Invoke(
+                                new Action(() => { MIlanguage.IsSubMenuOpen = mi_language_open; }));
+                        if (mi_help_open)
+                            Dispatcher.UIThread.Invoke(
+                                new Action(() => { MIhelp.IsSubMenuOpen = mi_help_open; }));
+
+                        //give back stolen focus (by squares) to a Window if it
+                        //was focused before they appeared
+                        if (is_this_focused)
+                        {
+                            Dispatcher.UIThread.Invoke(
+                                new Action(() => { this.Focus(); }));
+                        }
+                        // else if (is_instructions_focused)
+                        // {
+                        //     Dispatcher.UIThread.Invoke(
+                        //         new Action(() => { Wmanual.Focus(); }));
+                        // }
 
                         _cts1 = new CancellationTokenSource();
                         _thRsquaresMonitor = new Thread(() => monitor_squares(_cts1.Token))
@@ -2058,7 +2101,6 @@ namespace ClicklessMouse
         {
             try
             {
-                string content;
                 MyWebClient wc = new MyWebClient();
                 string content = wc.DownloadString(url_latest_version);
 
@@ -2111,6 +2153,4 @@ namespace ClicklessMouse
 
         }
     }
-
-
 }
