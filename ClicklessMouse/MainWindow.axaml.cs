@@ -453,13 +453,13 @@ namespace ClicklessMouse
 
             while (true)
             {
-                mouseCoords = GetCursorPosition();
-                x1 = mouseCoords[0];
-                y1 = mouseCoords[1];
+                int[] mouseCoords = GetCursorPosition();
+                int x1 = mouseCoords[0];
+                int y1 = mouseCoords[1];
                 Thread.Sleep(loop_time_ms);
                 mouseCoords = GetCursorPosition();
-                x2 = mouseCoords[0];
-                y2 = mouseCoords[1];
+                int x2 = mouseCoords[0];
+                int y2 = mouseCoords[1];
 
 
                 //max_x and max_y are updated in monitor_mouse2 by THRmouse_monitor2 which works
@@ -778,12 +778,9 @@ namespace ClicklessMouse
         {
             if (SquaresVisible)
             {
-                int x1, y1;
-                int[] mouseCoords;
-
-                mouseCoords = GetCursorPosition();
-                x1 = mouseCoords[0];
-                y1 = mouseCoords[1];
+                int[] mouseCoords = GetCursorPosition();
+                int x1 = mouseCoords[0];
+                int y1 = mouseCoords[1];
 
                 if (is_cursor_outside_zone(x1, y1))
                 {
@@ -2065,7 +2062,7 @@ namespace ClicklessMouse
             {
                 string content;
                 MyWebClient wc = new MyWebClient();
-                content = wc.DownloadString(url_latest_version);
+                string content = wc.DownloadString(url_latest_version);
 
                 _latestVersion = content.Replace("\r\n", "").Trim();
             }
