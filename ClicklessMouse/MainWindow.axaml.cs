@@ -205,7 +205,7 @@ namespace ClicklessMouse
             {
                 var box = MessageBoxManager.GetMessageBoxStandard(L10NResourceMgr["error_title"].ToString(), prog_name + "is already running.",
                     ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error);
-                var result = await box.ShowWindowAsync();
+                await box.ShowWindowAsync();
                 Process.GetCurrentProcess().Kill();
             }
         }
@@ -345,7 +345,6 @@ namespace ClicklessMouse
             int x1, y1;
             bool pressedUp, pressedLeft, pressedDown, pressedRight;
             pressedUp = pressedLeft = pressedDown = pressedRight = false;
-            System.Drawing.Point one;
             int[] mouseCoords;
 
             while (true)
@@ -1347,9 +1346,8 @@ namespace ClicklessMouse
         {
             try
             {
-                string content;
                 MyWebClient wc = new MyWebClient();
-                content = wc.DownloadString(url_latest_version);
+                string content = wc.DownloadString(url_latest_version);
 
                 _latestVersion = content.Replace("\r\n", "").Trim();
             }
@@ -1391,7 +1389,7 @@ namespace ClicklessMouse
             {
                 var box = MessageBoxManager.GetMessageBoxStandard(L10NResourceMgr["error_title"].ToString(), ex.Message, ButtonEnum.Ok,
                     MsBox.Avalonia.Enums.Icon.Error);
-                var result = await box.ShowAsync();
+                await box.ShowAsync();
             }
         }
 
@@ -1608,7 +1606,7 @@ namespace ClicklessMouse
             {
                 var box = MessageBoxManager.GetMessageBoxStandard(L10NResourceMgr["error_title"].ToString(), ex.Message, ButtonEnum.Ok,
                     MsBox.Avalonia.Enums.Icon.Error);
-                var result = await box.ShowAsync();
+                await box.ShowAsync();
             }
         }
 
@@ -1646,7 +1644,7 @@ namespace ClicklessMouse
             {
                 var box = MessageBoxManager.GetMessageBoxStandard(L10NResourceMgr["error_title"].ToString(), ex.Message, ButtonEnum.Ok,
                     MsBox.Avalonia.Enums.Icon.Error);
-                var result = await box.ShowAsync();
+                await box.ShowAsync();
             }
         }
 
@@ -1678,7 +1676,7 @@ namespace ClicklessMouse
             {
                 var box = MessageBoxManager.GetMessageBoxStandard(L10NResourceMgr["error_title"].ToString(), ex.Message, ButtonEnum.Ok,
                     MsBox.Avalonia.Enums.Icon.Error);
-                var result = await box.ShowAsync();
+                await box.ShowAsync();
             }
         }
 
@@ -1765,7 +1763,7 @@ namespace ClicklessMouse
             {
                 var box = MessageBoxManager.GetMessageBoxStandard(L10NResourceMgr["error_title"].ToString(), ex.Message, ButtonEnum.Ok,
                     MsBox.Avalonia.Enums.Icon.Error);
-                var result = await box.ShowAsync();
+                await box.ShowAsync();
             }
         }
 
@@ -1795,7 +1793,7 @@ namespace ClicklessMouse
             {
                 var box = MessageBoxManager.GetMessageBoxStandard(L10NResourceMgr["error_title"].ToString(), ex.Message, ButtonEnum.Ok,
                     MsBox.Avalonia.Enums.Icon.Error);
-                var result = await box.ShowAsync();
+                await box.ShowAsync();
             }
         }
 
@@ -1829,7 +1827,7 @@ namespace ClicklessMouse
             {
                 var box = MessageBoxManager.GetMessageBoxStandard(L10NResourceMgr["error_title"].ToString(), ex.Message, ButtonEnum.Ok,
                     MsBox.Avalonia.Enums.Icon.Error);
-                var result = await box.ShowAsync();
+                await box.ShowAsync();
             }
         }
 
@@ -1863,7 +1861,7 @@ namespace ClicklessMouse
             {
                 var box = MessageBoxManager.GetMessageBoxStandard(L10NResourceMgr["error_title"].ToString(), ex.Message, ButtonEnum.Ok,
                     MsBox.Avalonia.Enums.Icon.Error);
-                var result = await box.ShowAsync();
+                await box.ShowAsync();
             }
         }
 
@@ -1902,7 +1900,7 @@ namespace ClicklessMouse
             {
                 var box = MessageBoxManager.GetMessageBoxStandard(L10NResourceMgr["error_title"].ToString(), ex.Message, ButtonEnum.Ok,
                     MsBox.Avalonia.Enums.Icon.Error);
-                var result = await box.ShowAsync();
+                await box.ShowAsync();
             }
         }
 
@@ -1942,7 +1940,7 @@ namespace ClicklessMouse
             {
                 var box = MessageBoxManager.GetMessageBoxStandard(L10NResourceMgr["error_title"].ToString(), ex.Message, ButtonEnum.Ok,
                     MsBox.Avalonia.Enums.Icon.Error);
-                var result = await box.ShowAsync();
+                await box.ShowAsync();
             }
         }
 
@@ -2043,7 +2041,7 @@ namespace ClicklessMouse
                 _loadingError = true;
                 var box = MessageBoxManager.GetMessageBoxStandard(L10NResourceMgr["error_title"].ToString(), ex.Message + L10NResourceMgr["loading_error_msg"],
                     ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error);
-                var result = await box.ShowAsync();
+                await box.ShowAsync();
 
                 // try
                 // {
