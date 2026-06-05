@@ -138,7 +138,7 @@ namespace ClicklessMouse
            _defaultSettingsPath=Path.Combine(AppContext.BaseDirectory,_defaultSettingsFilename);
 
 #elif _LINUX
-            _appFolderPath = Path.Combine(Environment.GetEnvironmentVariable("HOME"), ".config", prog_name.Replace(" ", String.Empty));
+            _appFolderPath = Path.Combine("/home", Environment.UserName, ".config", prog_name.Replace(" ", String.Empty));
             _defaultSettingsPath = Path.Combine(AppContext.BaseDirectory, _defaultSettingsFilename);
 
 #endif
@@ -201,7 +201,7 @@ namespace ClicklessMouse
 
             if (i > 1)
             {
-                var box = MessageBoxManager.GetMessageBoxStandard(L10NResourceMgr["error_title"].ToString(), prog_name + "is already running.",
+                var box = MessageBoxManager.GetMessageBoxStandard(L10NResourceMgr["error_title"].ToString() ?? "!!!!", prog_name + "is already running.",
                     ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error);
                 await box.ShowWindowAsync();
                 Process.GetCurrentProcess().Kill();
@@ -295,10 +295,12 @@ namespace ClicklessMouse
             TBmin_square_size.Text = default_min_square_size_percents.ToString();
 
             TBscreen_size.Text = "";
-            int x = Screens.Primary.Bounds.Width;
-            int y = Screens.Primary.Bounds.Height;
-
-            // TBscreen_resolution.Text = x + "x" + y;
+            if (Screens.Primary != null)
+            {
+                int x = Screens.Primary.Bounds.Width;
+                int y = Screens.Primary.Bounds.Height;
+                TBLscreen_resolution.Text = x + "x" + y;
+            }
         }
 
         private void regenerate_squares()
@@ -352,8 +354,12 @@ namespace ClicklessMouse
                     break;
                 }
                 //user may change screen resolution so max_x and max_y should be updated
-                _maxX = Screens.Primary.Bounds.Width - 1;
-                _maxY = Screens.Primary.Bounds.Height - 1;
+                if (Screens.Primary != null)
+                {
+                    _maxX = Screens.Primary.Bounds.Width - 1;
+                    _maxY = Screens.Primary.Bounds.Height - 1;
+                }
+
                 mouseCoords = GetCursorPosition();
                 x1 = mouseCoords[0];
                 y1 = mouseCoords[1];
@@ -501,56 +507,59 @@ namespace ClicklessMouse
 
                         calculate_squares_start_positions();
 
-                        int screenWidth = Screens.Primary.Bounds.Width;
-
-                        //if SLH is visible when at minimum_size and 80% or more of SLH 
-                        //is out of left screen edge
-                        if (_slhEnabled && X > minimumSize && _slhStartX <= -1 * _size * 0.8)
+                        if (Screens.Primary != null)
                         {
-                            //decrease square size so at least 25% is visible, but square size >= minimum_size
-                            _size = (int)(X / 1.25);
+                            int screenWidth = Screens.Primary.Bounds.Width;
 
-                            if (_size < minimumSize)
+                            //if SLH is visible when at minimum_size and 80% or more of SLH 
+                            //is out of left screen edge
+                            if (_slhEnabled && X > minimumSize && _slhStartX <= -1 * _size * 0.8)
                             {
-                                _size = minimumSize;
+                                //decrease square size so at least 25% is visible, but square size >= minimum_size
+                                _size = (int)(X / 1.25);
+
+                                if (_size < minimumSize)
+                                {
+                                    _size = minimumSize;
+                                }
                             }
-                        }
-                        //if SL is visible when at minimum_size and 80% or more of SL 
-                        //is out of left screen edge
-                        else if (_slEnabled && X > minimumSize / 2 && _slStartX <= -1 * _size * 0.8)
-                        {
-                            //decrease square size so at least 25% is visible, but square size >= minimum_size
-                            _size = (int)(X / 0.75);
-
-                            if (_size < minimumSize)
+                            //if SL is visible when at minimum_size and 80% or more of SL 
+                            //is out of left screen edge
+                            else if (_slEnabled && X > minimumSize / 2 && _slStartX <= -1 * _size * 0.8)
                             {
-                                _size = minimumSize;
+                                //decrease square size so at least 25% is visible, but square size >= minimum_size
+                                _size = (int)(X / 0.75);
+
+                                if (_size < minimumSize)
+                                {
+                                    _size = minimumSize;
+                                }
                             }
-                        }
-                        //if SRH is visible when at minimum_size and 80% or more of SRH 
-                        //is out of left screen edge
-                        else if (_srhEnabled && X < (screenWidth - 1) - minimumSize
-                            && _srhStartX >= (screenWidth - 1) - _size * 0.2)
-                        {
-                            //decrease square size so at least 25% is visible, but square size >= minimum_size
-                            _size = (int)(((screenWidth - 1) - X) / 1.25);
-
-                            if (_size < minimumSize)
+                            //if SRH is visible when at minimum_size and 80% or more of SRH 
+                            //is out of left screen edge
+                            else if (_srhEnabled && X < (screenWidth - 1) - minimumSize
+                                                 && _srhStartX >= (screenWidth - 1) - _size * 0.2)
                             {
-                                _size = minimumSize;
+                                //decrease square size so at least 25% is visible, but square size >= minimum_size
+                                _size = (int)(((screenWidth - 1) - X) / 1.25);
+
+                                if (_size < minimumSize)
+                                {
+                                    _size = minimumSize;
+                                }
                             }
-                        }
-                        //if SR is visible when at minimum_size and 80% or more of SR
-                        //is out of left screen edge
-                        else if (_srEnabled && X < (screenWidth - 1) - 0.5 * minimumSize
-                            && _srStartX >= (screenWidth - 1) - _size * 0.2)
-                        {
-                            //decrease square size so at least 25% is visible, but square size >= minimum_size
-                            _size = (int)(((screenWidth - 1) - X) / 0.75);
-
-                            if (_size < minimumSize)
+                            //if SR is visible when at minimum_size and 80% or more of SR
+                            //is out of left screen edge
+                            else if (_srEnabled && X < (screenWidth - 1) - 0.5 * minimumSize
+                                                && _srStartX >= (screenWidth - 1) - _size * 0.2)
                             {
-                                _size = minimumSize;
+                                //decrease square size so at least 25% is visible, but square size >= minimum_size
+                                _size = (int)(((screenWidth - 1) - X) / 0.75);
+
+                                if (_size < minimumSize)
+                                {
+                                    _size = minimumSize;
+                                }
                             }
                         }
 
@@ -1430,7 +1439,7 @@ namespace ClicklessMouse
             }
             catch (Exception ex)
             {
-                var box = MessageBoxManager.GetMessageBoxStandard(L10NResourceMgr["error_title"].ToString(), ex.Message, ButtonEnum.Ok,
+                var box = MessageBoxManager.GetMessageBoxStandard(L10NResourceMgr["error_title"].ToString() ?? "!!!!", ex.Message, ButtonEnum.Ok,
                     MsBox.Avalonia.Enums.Icon.Error);
                 await box.ShowAsync();
             }
@@ -1647,7 +1656,7 @@ namespace ClicklessMouse
             }
             catch (Exception ex)
             {
-                var box = MessageBoxManager.GetMessageBoxStandard(L10NResourceMgr["error_title"].ToString(), ex.Message, ButtonEnum.Ok,
+                var box = MessageBoxManager.GetMessageBoxStandard(L10NResourceMgr["error_title"].ToString() ?? "!!!!", ex.Message, ButtonEnum.Ok,
                     MsBox.Avalonia.Enums.Icon.Error);
                 await box.ShowAsync();
             }
@@ -1685,7 +1694,7 @@ namespace ClicklessMouse
             }
             catch (Exception ex)
             {
-                var box = MessageBoxManager.GetMessageBoxStandard(L10NResourceMgr["error_title"].ToString(), ex.Message, ButtonEnum.Ok,
+                var box = MessageBoxManager.GetMessageBoxStandard(L10NResourceMgr["error_title"].ToString() ?? "!!!!", ex.Message, ButtonEnum.Ok,
                     MsBox.Avalonia.Enums.Icon.Error);
                 await box.ShowAsync();
             }
@@ -1717,7 +1726,7 @@ namespace ClicklessMouse
             }
             catch (Exception ex)
             {
-                var box = MessageBoxManager.GetMessageBoxStandard(L10NResourceMgr["error_title"].ToString(), ex.Message, ButtonEnum.Ok,
+                var box = MessageBoxManager.GetMessageBoxStandard(L10NResourceMgr["error_title"].ToString() ?? "!!!!", ex.Message, ButtonEnum.Ok,
                     MsBox.Avalonia.Enums.Icon.Error);
                 await box.ShowAsync();
             }
@@ -1742,7 +1751,7 @@ namespace ClicklessMouse
 #elif _LINUX
                     if (!File.Exists(Path.Combine(_appFolderPath, "clicklessmouse.desktop")))
                     {
-                        File.Copy(Path.Combine("/usr/share", prog_name.Replace(" ", String.Empty), "clicklessmouse.desktop"), Path.Combine(Environment.GetEnvironmentVariable("HOME"), ".config/autostart", "clicklessmouse.desktop"));
+                        File.Copy(Path.Combine("/usr/share", prog_name.Replace(" ", String.Empty), "clicklessmouse.desktop"), Path.Combine("/home", Environment.UserName, ".config/autostart", "clicklessmouse.desktop"));
                 }
 #endif
                 }
@@ -1752,9 +1761,9 @@ namespace ClicklessMouse
                     rkApp.DeleteValue(prog_name, false);
                 }
 #elif _LINUX
-                else if (File.Exists(Path.Combine(Environment.GetEnvironmentVariable("HOME"), ".config/autostart", "clicklessmouse.desktop")))
+                else if (File.Exists(Path.Combine("/home", Environment.UserName, ".config/autostart", "clicklessmouse.desktop")))
                 {
-                    File.Delete(Path.Combine(Environment.GetEnvironmentVariable("HOME"), ".config/autostart", "clicklessmouse.desktop"));
+                    File.Delete(Path.Combine("/home", Environment.UserName, ".config/autostart", "clicklessmouse.desktop"));
                 }
 #endif
                 save_settings();
@@ -1804,7 +1813,7 @@ namespace ClicklessMouse
             }
             catch (Exception ex)
             {
-                var box = MessageBoxManager.GetMessageBoxStandard(L10NResourceMgr["error_title"].ToString(), ex.Message, ButtonEnum.Ok,
+                var box = MessageBoxManager.GetMessageBoxStandard(L10NResourceMgr["error_title"].ToString() ?? "!!!!", ex.Message, ButtonEnum.Ok,
                     MsBox.Avalonia.Enums.Icon.Error);
                 await box.ShowAsync();
             }
@@ -1834,7 +1843,7 @@ namespace ClicklessMouse
             }
             catch (Exception ex)
             {
-                var box = MessageBoxManager.GetMessageBoxStandard(L10NResourceMgr["error_title"].ToString(), ex.Message, ButtonEnum.Ok,
+                var box = MessageBoxManager.GetMessageBoxStandard(L10NResourceMgr["error_title"].ToString() ?? "!!!!", ex.Message, ButtonEnum.Ok,
                     MsBox.Avalonia.Enums.Icon.Error);
                 await box.ShowAsync();
             }
@@ -1868,7 +1877,7 @@ namespace ClicklessMouse
             }
             catch (Exception ex)
             {
-                var box = MessageBoxManager.GetMessageBoxStandard(L10NResourceMgr["error_title"].ToString(), ex.Message, ButtonEnum.Ok,
+                var box = MessageBoxManager.GetMessageBoxStandard(L10NResourceMgr["error_title"].ToString() ?? "!!!!", ex.Message, ButtonEnum.Ok,
                     MsBox.Avalonia.Enums.Icon.Error);
                 await box.ShowAsync();
             }
@@ -1902,7 +1911,7 @@ namespace ClicklessMouse
             }
             catch (Exception ex)
             {
-                var box = MessageBoxManager.GetMessageBoxStandard(L10NResourceMgr["error_title"].ToString(), ex.Message, ButtonEnum.Ok,
+                var box = MessageBoxManager.GetMessageBoxStandard(L10NResourceMgr["error_title"].ToString() ?? "!!!!", ex.Message, ButtonEnum.Ok,
                     MsBox.Avalonia.Enums.Icon.Error);
                 await box.ShowAsync();
             }
@@ -1941,7 +1950,7 @@ namespace ClicklessMouse
             }
             catch (Exception ex)
             {
-                var box = MessageBoxManager.GetMessageBoxStandard(L10NResourceMgr["error_title"].ToString(), ex.Message, ButtonEnum.Ok,
+                var box = MessageBoxManager.GetMessageBoxStandard(L10NResourceMgr["error_title"].ToString() ?? "!!!!", ex.Message, ButtonEnum.Ok,
                     MsBox.Avalonia.Enums.Icon.Error);
                 await box.ShowAsync();
             }
@@ -1957,23 +1966,26 @@ namespace ClicklessMouse
                 }
                 else
                 {
-                    int d = int.Parse(TBscreen_size.Text);
+                    int d = int.Parse(TBscreen_size.Text ?? "15");
                     if (d < 1)
                         throw new Exception(L10NResourceMgr["screen_size_error1"] + ".");
 
-                    int x = Screens.Primary.Bounds.Width;
-                    int y = Screens.Primary.Bounds.Height;
+                    if (Screens.Primary != null)
+                    {
+                        int x = Screens.Primary.Bounds.Width;
+                        int y = Screens.Primary.Bounds.Height;
 
-                    TBLscreen_resolution.Text += x + "x" + y;
+                        TBLscreen_resolution.Text += x + "x" + y;
 
-                    double b = Math.Sqrt(Math.Pow(d, 2) / (Math.Pow(x, 2) / Math.Pow(y, 2) + 1));
-                    double a = b * x / y;
+                        double b = Math.Sqrt(Math.Pow(d, 2) / (Math.Pow(x, 2) / Math.Pow(y, 2) + 1));
+                        double a = b * x / y;
 
-                    double area = a * b;
-                    double pixelSizeMm = area / (x * y) * Math.Pow(25.4, 2);
+                        double area = a * b;
+                        double pixelSizeMm = area / (x * y) * Math.Pow(25.4, 2);
 
-                    TBsquare_size.Text = Math.Round(50 * 0.0771 / pixelSizeMm).ToString();
-                    TBsquare_border.Text = Math.Round(2 * 0.06939 / pixelSizeMm).ToString();
+                        TBsquare_size.Text = Math.Round(50 * 0.0771 / pixelSizeMm).ToString();
+                        TBsquare_border.Text = Math.Round(2 * 0.06939 / pixelSizeMm).ToString();
+                    }
 
                     regenerate_squares();
                     save_settings();
@@ -1981,7 +1993,7 @@ namespace ClicklessMouse
             }
             catch (Exception ex)
             {
-                var box = MessageBoxManager.GetMessageBoxStandard(L10NResourceMgr["error_title"].ToString(), ex.Message, ButtonEnum.Ok,
+                var box = MessageBoxManager.GetMessageBoxStandard(L10NResourceMgr["error_title"].ToString() ?? "!!!!", ex.Message, ButtonEnum.Ok,
                     MsBox.Avalonia.Enums.Icon.Error);
                 await box.ShowAsync();
             }
@@ -2011,27 +2023,36 @@ namespace ClicklessMouse
             foreach (ILogical control in Wmain.GetLogicalDescendants())
             {
                 if (control is CheckBox cb)
-                    root[cb.Name] = cb.IsChecked.ToString();
+                {
+                    Debug.Assert(cb.Name != null, "cb.Name != null");
+                    root?[cb.Name] = cb.IsChecked.ToString();
+                }
 
                 else if (control is TextBox tb)
                 {
                     if (tb.Name == TBscreen_size.Name && tb.Text == "")
-                        root[tb.Name] = "0";
+                    {
+                        Debug.Assert(tb.Name != null, "tb.Name != null");
+                        root?[tb.Name] = "15";
+                    }
                     else
-                        root[tb.Name] = tb.Text;
+                    {
+                        Debug.Assert(tb.Name != null, "tb.Name != null");
+                        root?[tb.Name] = tb.Text;
+                    }
                 }
                 else if (control is Button btn)
                 {
                     if (btn.Name == Bsquare_color1.Name)
-                        root["square_color1_uint"] = _squareColor1Uint.ToString();
+                        root?["square_color1_uint"] = _squareColor1Uint.ToString();
                     else if (btn.Name == Bsquare_color2.Name)
-                        root["square_color2_uint"] = _squareColor2Uint.ToString();
+                        root?["square_color2_uint"] = _squareColor2Uint.ToString();
                 }
             }
-            root["lang"] = _lang.ToString();
+            root?["lang"] = _lang.ToString();
 
             var options = new JsonSerializerOptions { WriteIndented = true };
-            File.WriteAllText(_settingsPath, root.ToJsonString(options));
+            File.WriteAllText(_settingsPath, root?.ToJsonString(options));
 
         }
 
@@ -2058,15 +2079,21 @@ namespace ClicklessMouse
                 {
                     if (control is CheckBox cb)
                         // cb.IsChecked = bool.Parse(ReadAppSetting(root,cb.Name));
-                        cb.IsChecked = bool.Parse(root[cb.Name].ToString());
+                    {
+                        Debug.Assert(cb.Name != null, "cb.Name != null");
+                        cb.IsChecked = bool.Parse(root?[cb.Name]?.ToString() ?? "false");
+                    }
                     else if (control is TextBox tb)
-                        tb.Text = root[tb.Name].ToString();
+                    {
+                        Debug.Assert(tb.Name != null, "tb.Name != null");
+                        tb.Text = root?[tb.Name]?.ToString();
+                    }
                     else if (control is Button btn)
                     {
                         if (btn.Name == "Bsquare_color1")
-                            _squareColor1Uint = uint.Parse(root["Bsquare_color1"].ToString());
+                            _squareColor1Uint = uint.Parse(root?["Bsquare_color1"]?.ToString() ?? default_color1_uint.ToString());
                         else if (btn.Name == "Bsquare_color2")
-                            _squareColor2Uint = uint.Parse(root["Bsquare_color2"].ToString());
+                            _squareColor2Uint = uint.Parse(root?["Bsquare_color2"]?.ToString() ?? default_color2_uint.ToString());
                     }
                 }
 
@@ -2076,13 +2103,13 @@ namespace ClicklessMouse
                 Bsquare_color2.Background = new SolidColorBrush(Color.FromUInt32(_squareColor2Uint));
                 _color2 = Color.FromUInt32(_squareColor2Uint);
 
-                Enum.TryParse(root["lang"].ToString(), out _lang);
+                Enum.TryParse(root?["lang"]?.ToString(), out _lang);
 
             }
             catch (Exception ex)
             {
                 _loadingError = true;
-                var box = MessageBoxManager.GetMessageBoxStandard(L10NResourceMgr["error_title"].ToString(), ex.Message + L10NResourceMgr["loading_error_msg"],
+                var box = MessageBoxManager.GetMessageBoxStandard(L10NResourceMgr["error_title"].ToString() ?? "!!!!", ex.Message + L10NResourceMgr["loading_error_msg"],
                     ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error);
                 await box.ShowAsync();
 
