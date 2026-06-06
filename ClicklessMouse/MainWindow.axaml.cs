@@ -370,7 +370,7 @@ namespace ClicklessMouse
                     key_down(VirtualKeyCode.LEFT);
                     pressedLeft = true;
                 }
-                else if (x1 != 0 && pressedLeft)
+                else if (pressedLeft)
                 {
                     key_up(VirtualKeyCode.LEFT);
                     pressedLeft = false;
@@ -392,7 +392,7 @@ namespace ClicklessMouse
                     key_down(VirtualKeyCode.UP);
                     pressedUp = true;
                 }
-                else if (y1 != 0 && pressedUp)
+                else if (pressedUp)
                 {
                     key_up(VirtualKeyCode.UP);
                     pressedUp = false;
@@ -491,14 +491,9 @@ namespace ClicklessMouse
                     X = x2;
                     Y = y2;
 
-                    TimeSpan timeElapsedSinceLastClick = TimeSpan.Zero;
-                    if (_lastClickTime != null)
-                    {
-                        timeElapsedSinceLastClick = DateTime.Now - _lastClickTime;
-                    }
+                    TimeSpan timeElapsedSinceLastClick = DateTime.Now - _lastClickTime;
 
-                    if (_lastClickTime != null
-                        && timeElapsedSinceLastClick.TotalMilliseconds >
+                    if (timeElapsedSinceLastClick.TotalMilliseconds >
                         _cursorIdleTimeMs + additional_cursor_idle_time)
                     {
                         int originalSize = _size;
@@ -596,14 +591,14 @@ namespace ClicklessMouse
 
                         Dispatcher.UIThread.Invoke(() => { mi_file_open = MIfile.IsSubMenuOpen; });
                         Dispatcher.UIThread.Invoke(
-                            new Action(() => { mi_restore_open = MIrestore.IsSubMenuOpen; }));
+                            () => { mi_restore_open = MIrestore.IsSubMenuOpen; });
                         Dispatcher.UIThread.Invoke(
-                            new Action(() => { mi_language_open = MIlanguage.IsSubMenuOpen; }));
+                            () => { mi_language_open = MIlanguage.IsSubMenuOpen; });
                         Dispatcher.UIThread.Invoke(
-                            new Action(() => { mi_help_open = MIhelp.IsSubMenuOpen; }));
+                            () => { mi_help_open = MIhelp.IsSubMenuOpen; });
 
                         Dispatcher.UIThread.Invoke(
-                            new Action(() => { is_this_focused = this.IsFocused; }));
+                            () => { is_this_focused = this.IsFocused; });
                         // Dispatcher.UIThread.Invoke(
                         //     new Action(() => { is_instructions_focused = Wmanual.IsActive; }));
 
@@ -623,23 +618,23 @@ namespace ClicklessMouse
 //reopen submenu that was closed because squares appeared
                         if (mi_file_open)
                             Dispatcher.UIThread.Invoke(
-                                new Action(() => { MIfile.Open(); }));
+                                () => { MIfile.Open(); });
                         if (mi_restore_open)
                             Dispatcher.UIThread.Invoke(
-                                new Action(() => { MIrestore.IsSubMenuOpen = mi_restore_open; }));
+                                () => { MIrestore.IsSubMenuOpen = mi_restore_open; });
                         if (mi_language_open)
                             Dispatcher.UIThread.Invoke(
-                                new Action(() => { MIlanguage.IsSubMenuOpen = mi_language_open; }));
+                                () => { MIlanguage.IsSubMenuOpen = mi_language_open; });
                         if (mi_help_open)
                             Dispatcher.UIThread.Invoke(
-                                new Action(() => { MIhelp.IsSubMenuOpen = mi_help_open; }));
+                                () => { MIhelp.IsSubMenuOpen = mi_help_open; });
 
                         //give back stolen focus (by squares) to a Window if it
                         //was focused before they appeared
                         if (is_this_focused)
                         {
                             Dispatcher.UIThread.Invoke(
-                                new Action(() => { this.Focus(); }));
+                                () => { this.Focus(); });
                         }
                         // else if (is_instructions_focused)
                         // {
@@ -2024,7 +2019,7 @@ namespace ClicklessMouse
             {
                 if (control is CheckBox cb)
                 {
-                    Debug.Assert(cb.Name != null, "cb.Name != null");
+                    Debug.Assert(cb.Name != null);
                     root?[cb.Name] = cb.IsChecked.ToString();
                 }
 
@@ -2032,12 +2027,12 @@ namespace ClicklessMouse
                 {
                     if (tb.Name == TBscreen_size.Name && tb.Text == "")
                     {
-                        Debug.Assert(tb.Name != null, "tb.Name != null");
+                        Debug.Assert(tb.Name != null);
                         root?[tb.Name] = "15";
                     }
                     else
                     {
-                        Debug.Assert(tb.Name != null, "tb.Name != null");
+                        Debug.Assert(tb.Name != null);
                         root?[tb.Name] = tb.Text;
                     }
                 }
@@ -2080,12 +2075,12 @@ namespace ClicklessMouse
                     if (control is CheckBox cb)
                         // cb.IsChecked = bool.Parse(ReadAppSetting(root,cb.Name));
                     {
-                        Debug.Assert(cb.Name != null, "cb.Name != null");
+                        Debug.Assert(cb.Name != null);
                         cb.IsChecked = bool.Parse(root?[cb.Name]?.ToString() ?? "false");
                     }
                     else if (control is TextBox tb)
                     {
-                        Debug.Assert(tb.Name != null, "tb.Name != null");
+                        Debug.Assert(tb.Name != null);
                         tb.Text = root?[tb.Name]?.ToString();
                     }
                     else if (control is Button btn)
@@ -2172,12 +2167,6 @@ namespace ClicklessMouse
                 w.Timeout = 3000;
                 return w;
             }
-        }
-
-        private void CreateSettingsFile()
-        {
-            File.Copy(Path.Combine(_appFolderPath, "defaults.json"), _settingsPath);
-
         }
     }
 }
