@@ -405,7 +405,7 @@ namespace ClicklessMouse
                 }
                 else if (y1 != _maxY && pressedDown)
                 {
-                    key_down(VirtualKeyCode.DOWN);
+                    key_up(VirtualKeyCode.DOWN);
                     pressedDown = false;
                 }
 
