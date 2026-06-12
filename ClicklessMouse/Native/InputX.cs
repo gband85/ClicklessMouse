@@ -7,15 +7,7 @@ namespace ClicklessMouse.Native
 {
 #if _LINUX
     public partial class InputX11
-
-
     {
-        [DllImport("libX11.so.6")]
-        public static extern int XWarpPointer(IntPtr display, Window src_w, Window dest_w, int src_x, int src_y, uint src_width, uint src_height, int dest_x, int dest_y);
-
-        [DllImport("libXtst.so.6")]
-        public static extern int XTestFakeKeyEvent(IntPtr display, uint keycode, bool is_press, ulong delay);
-
         public static (Window window_return,Window child_return,int root_x,int root_y,int win_x,int win_y,uint mask_return) GetCursorPos()
         {
             //int number_of_screens;
@@ -40,15 +32,15 @@ namespace ClicklessMouse.Native
         {
             IntPtr display = Xlib.XOpenDisplay(null);
             Window w = Xlib.XDefaultRootWindow(display);
-            XWarpPointer(display, Window.None, w, 0, 0, 0, 0, x, y);
+            Xlib.XWarpPointer(display, Window.None, w, 0, 0, 0, 0, x, y);
             Xlib.XCloseDisplay(display);
         }
 
         public static void LeftButtonDown()
         {
-                    IntPtr display = Xlib.XOpenDisplay(null);
-                    XTest.XTestFakeButtonEvent(display, Button.LEFT, 1, 0);
-                    Xlib.XCloseDisplay(display);
+            IntPtr display = Xlib.XOpenDisplay(null);
+            XTest.XTestFakeButtonEvent(display, Button.LEFT, 1, 0);
+            Xlib.XCloseDisplay(display);
         }
 
         public static void LeftButtonUp()
@@ -76,13 +68,13 @@ namespace ClicklessMouse.Native
         {
             IntPtr display = Xlib.XOpenDisplay(null);
             if (code == VirtualKeyCode.LEFT)
-                XTestFakeKeyEvent(display, 113, true, 0);
+                XTest.XTestFakeKeyEvent(display, Xlib.XKeysymToKeycode(display, KeySym.XK_Left), true, 0);
             else if (code == VirtualKeyCode.RIGHT)
-                XTestFakeKeyEvent(display, 114, true, 0);
+                XTest.XTestFakeKeyEvent(display, Xlib.XKeysymToKeycode(display, KeySym.XK_Right), true, 0);
             else if (code == VirtualKeyCode.UP)
-                XTestFakeKeyEvent(display, 111, true, 0);
+                XTest.XTestFakeKeyEvent(display, Xlib.XKeysymToKeycode(display, KeySym.XK_Up), true, 0);
             else if (code == VirtualKeyCode.DOWN)
-                XTestFakeKeyEvent(display, 116, true, 0);
+                XTest.XTestFakeKeyEvent(display, Xlib.XKeysymToKeycode(display, KeySym.XK_Down), true, 0);
             Xlib.XCloseDisplay(display);
         }
 
@@ -90,13 +82,13 @@ namespace ClicklessMouse.Native
         {
             IntPtr display = Xlib.XOpenDisplay(null);
             if (code == VirtualKeyCode.LEFT)
-                XTestFakeKeyEvent(display, 113, false, 0);
+                XTest.XTestFakeKeyEvent(display, Xlib.XKeysymToKeycode(display, KeySym.XK_Left), false, 0);
             else if (code == VirtualKeyCode.RIGHT)
-                XTestFakeKeyEvent(display, 114, false, 0);
+                XTest.XTestFakeKeyEvent(display, Xlib.XKeysymToKeycode(display, KeySym.XK_Right), false, 0);
             else if (code == VirtualKeyCode.UP)
-                XTestFakeKeyEvent(display, 111, false, 0);
+                XTest.XTestFakeKeyEvent(display, Xlib.XKeysymToKeycode(display, KeySym.XK_Up), false, 0);
             else if (code == VirtualKeyCode.DOWN)
-                XTestFakeKeyEvent(display, 116, false, 0);
+                XTest.XTestFakeKeyEvent(display, Xlib.XKeysymToKeycode(display, KeySym.XK_Down), false, 0);
             Xlib.XCloseDisplay(display);
         }
     }

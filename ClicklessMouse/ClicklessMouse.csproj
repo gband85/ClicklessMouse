@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net10.0</TargetFramework>
@@ -50,7 +50,7 @@
     <PackageReference Include="MarkdownSharp" />
     <PackageReference Include="MessageBox.Avalonia" />
     <PackageReference Include="Simplecto.Avalonia.RichTextBox" />
-    <PackageReference Include="X11.Net" />
+    <PackageReference Include="X11.Interop" />
   </ItemGroup>
   <ItemGroup>
     <AvaloniaResource Include="Assets\1en.md" CopyToOutputDirectory="Always" />
