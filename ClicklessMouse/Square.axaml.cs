@@ -19,7 +19,7 @@ namespace ClicklessMouse
             InitializeComponent();
 
             Background = new SolidColorBrush(Colors.Transparent);
-            SystemDecorations = SystemDecorations.BorderOnly;
+            SystemDecorations = SystemDecorations.None;
             ShowInTaskbar = false;
             _side = side;
             _lineWidth = lineWidth;
@@ -32,7 +32,7 @@ namespace ClicklessMouse
             this.PointToClient(new PixelPoint(0, 0));
             Position = new PixelPoint(_side * -1, _side * -1);
 #if _LINUX 
-X11Properties.SetNetWmWindowType(this,X11NetWmWindowType.Utility);
+X11Properties.SetNetWmWindowType(this,X11NetWmWindowType.Dock);
 #endif
         }
      
