@@ -33,7 +33,6 @@
   <ItemGroup>
     <PackageReference Include="Avalonia" />
     <PackageReference Include="Avalonia.Desktop" />
-    <PackageReference Include="Avalonia.Themes.Fluent" />
     <PackageReference Include="Avalonia.Fonts.Inter" />
     <PackageReference Include="Avalonia.ReactiveUI" />
     <!--Condition
@@ -48,9 +47,7 @@
     <PackageReference Include="Egorozh.ColorPicker.Avalonia.Dialog" />
     <PackageReference Include="InputSimulatorCore" />
     <PackageReference Include="Markdown.Avalonia" />
-    <PackageReference Include="MarkdownSharp" />
     <PackageReference Include="MessageBox.Avalonia" />
-    <PackageReference Include="Simplecto.Avalonia.RichTextBox" />
     <PackageReference Include="X11.Interop" />
   </ItemGroup>
   <ItemGroup>
