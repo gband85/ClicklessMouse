@@ -2,7 +2,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:dialog="clr-namespace:Egorozh.ColorPicker.Dialog;assembly=Egorozh.ColorPicker.Avalonia.Dialog"
              x:Class="ClicklessMouse.App"
-             RequestedThemeVariant="Light">
+             RequestedThemeVariant="Light"
+             xmlns:local="clr-namespace:ClicklessMouse"
+             x:DataType="local:MainWindow">
     <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
 
     <Application.Styles>
@@ -16,4 +18,13 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
+    <TrayIcon.Icons>
+        <TrayIcons>
+            <TrayIcon Icon="/Assets/icons/clicklessmouse.ico"
+                      Command="{Binding ni_MouseClickCommand}"
+                      ToolTipText="Clickless Mouse"
+                      IsVisible="False">
+            </TrayIcon>
+        </TrayIcons>
+    </TrayIcon.Icons>
 </Application>

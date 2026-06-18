@@ -4,6 +4,9 @@ using System.Net;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System;
+using System.ComponentModel;
+using System.Linq;
+using System.Reactive;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using Avalonia.Controls;
@@ -18,6 +21,7 @@ using Avalonia.LogicalTree;
 using Egorozh.ColorPicker.Dialog;
 using MsBox.Avalonia;
 using MsBox.Avalonia.Enums;
+using ReactiveUI;
 using WindowsInput;
 using WindowsInput.Native;
 using Color = Avalonia.Media.Color;
@@ -121,6 +125,18 @@ namespace ClicklessMouse
 
         public L10NResourceMgr L10NResourceMgr
             => L10NResourceMgr.Instance;
+        
+        public static TrayIcon? GetPrimaryTrayIcon()
+        {
+            var app = Application.Current;
+            
+            if (app is null)
+                return null;
+
+            return TrayIcon.GetIcons(app)?.FirstOrDefault();
+        }
+
+        public ReactiveCommand<Unit, Unit> ni_MouseClickCommand { get; }
 
         public MainWindow()
         {
@@ -132,7 +148,8 @@ namespace ClicklessMouse
 
             InitializeComponent();
             DataContext = this;
-
+            Wmain.PropertyChanged+=Wmain_StateChanged;
+        
 #if _WINDOWS
            _appFolderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), prog_name); 
            _defaultSettingsPath=Path.Combine(AppContext.BaseDirectory,_defaultSettingsFilename);
@@ -144,12 +161,10 @@ namespace ClicklessMouse
 #endif
 
             _settingsPath = Path.Combine(_appFolderPath, _settingsFilename);
-            //Stream iconStream = System.Windows.Application.GetResourceStream(
-            //    new Uri("pack://application:,,,/ClicklessMouse;component/clickless_mouse.ico")).Stream;
-            //ni.Icon = new System.Drawing.Icon(iconStream);
-            //iconStream.Close();
-            //ni.MouseClick += new System.Windows.Forms.MouseEventHandler(ni_MouseClick);
 
+            ni_MouseClickCommand = ReactiveCommand.Create(ni_MouseClick);
+            GetPrimaryTrayIcon().Command = ni_MouseClickCommand;
+            
             Wmain.Title = prog_name + " " + prog_version;
 
             restore_default_settings();
@@ -170,12 +185,12 @@ namespace ClicklessMouse
 
             if (CHBstart_minimized.IsChecked == true)
             {
-                WindowState = WindowState.Minimized;
+                Wmain.WindowState = WindowState.Minimized;
 
                 if (CHBminimize_to_tray.IsChecked == true)
                 {
-                    Hide();
-                    //ni.Visible = true;
+                    Wmain.Hide();
+                    GetPrimaryTrayIcon().IsVisible = true;
                 }
             }
 
@@ -1280,21 +1295,23 @@ namespace ClicklessMouse
         [DllImport("USER32.DLL")]
         public static extern bool SetForegroundWindow(IntPtr hWnd);
 
-        private void Wmain_StateChanged(object sender, EventArgs e)
+     private void Wmain_StateChanged(object? sender, AvaloniaPropertyChangedEventArgs e)
         {
-            if (WindowState == WindowState.Minimized && CHBminimize_to_tray.IsChecked == true)
+            if (e.Property.ToString() == "WindowState" && Wmain.WindowState == WindowState.Minimized)
             {
-                Hide();
-                //ni.Visible = true;
+                if (CHBminimize_to_tray.IsChecked == true)
+                {
+                    GetPrimaryTrayIcon().IsVisible = true;
+                    Wmain.Hide();
+                }
             }
         }
 
-        private void ni_MouseClick(object sender, PointerEventArgs e)
+        private void ni_MouseClick()
         {
-            //ni.Visible = false;
-            Show();
-            WindowState = WindowState.Normal;
-            SetForegroundWindow(Process.GetCurrentProcess().MainWindowHandle);
+            GetPrimaryTrayIcon().IsVisible=false;
+            Wmain.Show();
+            Wmain.WindowState = WindowState.Normal;
         }
 
         private void Window_Closing(object sender, WindowClosingEventArgs e)
