@@ -4,7 +4,6 @@ using System.Net;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System;
-using System.ComponentModel;
 using System.Linq;
 using System.Reactive;
 using System.Text.Json;
@@ -15,7 +14,6 @@ using Avalonia.Platform;
 using Avalonia.Threading;
 using RoutedEventArgs = Avalonia.Interactivity.RoutedEventArgs;
 using WindowState = Avalonia.Controls.WindowState;
-using Avalonia.Input;
 using Avalonia;
 using Avalonia.LogicalTree;
 using Egorozh.ColorPicker.Dialog;
@@ -118,8 +116,6 @@ namespace ClicklessMouse
         private UiLanguage _lang = UiLanguage.En;
         private bool _loadingError;
         private Process _prc;
-
-        //NotifyIcon ni = new NotifyIcon();
 
         private InputSimulator _sim = new InputSimulator();
 
@@ -318,14 +314,14 @@ namespace ClicklessMouse
             }
         }
 
-        private void regenerate_squares()
-        {
+        // private void regenerate_squares()
+        // {
         //     regenerate_SL();
         //     regenerate_SR();
         //     regenerate_SM();
         //     regenerate_SLH();
         //     regenerate_SRH();
-        }
+        // }
 
         public int X , Y;
         private int _maxX;
@@ -974,7 +970,6 @@ namespace ClicklessMouse
                 {
                     _sl.Position = new PixelPoint(_slStartX, _slStartY);
                     _sl.Show();
-                    // InputX11.HideSquareTaskbarIcon();
                 }
                 else _sl.Hide();
             }
@@ -1354,7 +1349,7 @@ namespace ClicklessMouse
 
             restore_default_settings();
 
-            regenerate_squares();
+            // regenerate_squares();
 
             _savingEnabled = true;
             save_settings();
@@ -1624,7 +1619,7 @@ namespace ClicklessMouse
 
         private void CHBcheck_for_updates_CheckedChanged(object sender, RoutedEventArgs e)
         {
-            if ((bool)CHBcheck_for_updates.IsChecked)
+            if (CHBcheck_for_updates.IsChecked==true)
             {
                 update_app_if_necessary();
             }
@@ -1817,7 +1812,7 @@ namespace ClicklessMouse
 
                     if (_savingEnabled)
                     {
-                        regenerate_squares();
+                        // regenerate_squares();
                         save_settings();
                     }
                 }
@@ -1847,7 +1842,7 @@ namespace ClicklessMouse
 
                     if (_savingEnabled)
                     {
-                        regenerate_squares();
+                        // regenerate_squares();
                         save_settings();
                     }
                 }
@@ -1870,15 +1865,12 @@ namespace ClicklessMouse
 
                 if (dr)
                 {
-                    if (colorDialog1.Color == null)
-                        throw new Exception("No color selected");
-
                     Bsquare_color1.Background = new SolidColorBrush((colorDialog1.Color));
                     _color1 = colorDialog1.Color;
 
                     _squareColor1Uint = colorDialog1.Color.ToUInt32();
 
-                    regenerate_squares();
+                    // regenerate_squares();
 
                     if (_savingEnabled)
                     {
@@ -1910,7 +1902,7 @@ namespace ClicklessMouse
 
                     _squareColor2Uint = colorDialog2.Color.ToUInt32();
 
-                    regenerate_squares();
+                    // regenerate_squares();
 
                     if (_savingEnabled)
                     {
@@ -1996,7 +1988,7 @@ namespace ClicklessMouse
                         TBsquare_border.Text = Math.Round(2 * 0.06939 / pixelSizeMm).ToString();
                     }
 
-                    regenerate_squares();
+                    // regenerate_squares();
                     save_settings();
                 }
             }
@@ -2087,7 +2079,6 @@ namespace ClicklessMouse
                 foreach (ILogical control in Wmain.GetLogicalDescendants())
                 {
                     if (control is CheckBox cb)
-                        // cb.IsChecked = bool.Parse(ReadAppSetting(root,cb.Name));
                     {
                         Debug.Assert(cb.Name != null);
                         cb.IsChecked = bool.Parse(root?[cb.Name]?.ToString() ?? "false");
@@ -2121,15 +2112,6 @@ namespace ClicklessMouse
                 var box = MessageBoxManager.GetMessageBoxStandard(L10NResourceMgr["error_title"].ToString() ?? "!!!!", ex.Message + L10NResourceMgr["loading_error_msg"],
                     ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error);
                 await box.ShowAsync();
-
-                // try
-                // {
-                //     if (sr != null)
-                //         sr.Close();
-                //     if (fs != null)
-                //         fs.Close();
-                // }
-                // catch (Exception ex2) { }
             }
         }
 
@@ -2155,7 +2137,7 @@ namespace ClicklessMouse
                 updateAvailable = true;
             }
 
-            if ((bool)CHBcheck_for_updates.IsChecked && updateAvailable)
+            if (CHBcheck_for_updates.IsChecked==true && updateAvailable)
             {
                 var box = MessageBoxManager.GetMessageBoxStandard("New Version Available", "A new program version" +
                     " is available. Do you want to download it now?", ButtonEnum.YesNo, MsBox.Avalonia.Enums.Icon.Question);
