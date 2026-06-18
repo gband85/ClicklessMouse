@@ -1582,7 +1582,7 @@ namespace ClicklessMouse
 
         private void CHBscreen_panning_CheckedChanged(object sender, RoutedEventArgs e)
         {
-            if (CHBscreen_panning.IsChecked == true && _thRmouseMonitor2 == null)
+            if (CHBscreen_panning.IsChecked == true)
             {
                 _cts2 = new CancellationTokenSource();
                 _thRmouseMonitor2 = new Thread(() => monitor_mouse2(_cts2.Token))
@@ -1592,12 +1592,11 @@ namespace ClicklessMouse
                 _thRmouseMonitor2.Start();
                 _screenPanning = true;
             }
-            else if (CHBscreen_panning.IsChecked == false && _thRmouseMonitor2 != null)
+            else if (CHBscreen_panning.IsChecked == false)
             {
                 _screenPanning = false;
                 _cts2.Cancel();
                 _cts2.Dispose();
-                _thRmouseMonitor2 = null;
             }
 
             if (_savingEnabled)
@@ -1888,8 +1887,6 @@ namespace ClicklessMouse
 
                 if (dr)
                 {
-                    if (colorDialog2.Color == null)
-                        throw new Exception("No color selected");
 
                     Bsquare_color2.Background = new SolidColorBrush(colorDialog2.Color);
                     _color2 = colorDialog2.Color;
