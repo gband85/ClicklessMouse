@@ -255,7 +255,7 @@
                          Margin="0,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"
                          ScrollViewer.VerticalScrollBarVisibility="Hidden" TextWrapping="Wrap" />
                 <Label x:Name="Lscreen_resolution" Grid.Row="1" Grid.Column="0" Margin="10,0,0,0"
-                       VerticalAlignment="Center" Content="{Binding L10NResourceMgr[TBLscreen_resolution],Mode=OneWay}" />
+                       VerticalAlignment="Center" Content="{Binding L10NResourceMgr[Lscreen_resolution],Mode=OneWay}" />
                 <TextBlock x:Name="TBLscreen_resolution" Grid.Row="1" Grid.Column="1" Width="100"
                            Grid.ColumnSpan="2"
                            HorizontalAlignment="Left" VerticalAlignment="Center" TextWrapping="Wrap"
