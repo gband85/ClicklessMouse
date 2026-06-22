@@ -5,7 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ClicklessMouse"
         xmlns:p="clr-namespace:ClicklessMouse.Properties"
-        xmlns:ctrl="using:GroupBox.Avalonia.Controls"
         x:DataType="local:MainWindow"
         Title="Clickless Mouse" Width="627" Height="453"
         d:DesignHeight="462" d:DesignWidth="632" CanMaximize="False" CanMinimize="True" CanResize="False"
@@ -68,7 +67,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <ctrl:GroupBox x:Name="GBmain_settings" Grid.Row="0" Grid.Column="0" Height="257" Width="308"
+            <GroupBox x:Name="GBmain_settings" Grid.Row="0" Grid.Column="0" Height="257" Width="308"
                            Header="{Binding L10NResourceMgr[GBmain_settings],Mode=OneWay}"
                            RenderOptions.EdgeMode="Antialias"
                            Theme="{StaticResource GroupBoxClassic}" HorizontalAlignment="Left" Margin="10,3,0,0">
@@ -89,31 +88,26 @@
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
                         <CheckBox x:Name="CHBLMB" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left"
-                                  VerticalAlignment="Top" Checked="CHBLMB_CheckedChanged"
-                                  Unchecked="CHBLMB_CheckedChanged"
+                                  VerticalAlignment="Top" IsCheckedChanged="CHBLMB_CheckedChanged"
                                   Content="{Binding L10NResourceMgr[CHBLMB],Mode=OneWay}"
                                   />
                         <CheckBox x:Name="CHBRMB" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left"
-                                  VerticalAlignment="Top" Checked="CHBRMB_CheckedChanged"
-                                  Unchecked="CHBRMB_CheckedChanged"
+                                  VerticalAlignment="Top" IsCheckedChanged="CHBRMB_CheckedChanged"
                                   Content="{Binding L10NResourceMgr[CHBRMB],Mode=OneWay}"  />
                         <CheckBox x:Name="CHBdoubleLMB" Grid.Row="2" Grid.Column="0"
                                   HorizontalAlignment="Left" VerticalAlignment="Top"
-                                  Checked="CHBdoubleLMB_CheckedChanged" Unchecked="CHBdoubleLMB_CheckedChanged"
+                                  IsCheckedChanged="CHBdoubleLMB_CheckedChanged"
                                   Content="{Binding L10NResourceMgr[CHBdoubleLMB],Mode=OneWay}"
                                   />
                         <CheckBox x:Name="CHBholdLMB" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left"
-                                  VerticalAlignment="Top" Checked="CHBholdLMB_CheckedChanged"
-                                  Unchecked="CHBholdLMB_CheckedChanged"
+                                  VerticalAlignment="Top" IsCheckedChanged="CHBholdLMB_CheckedChanged"
                                   Content="{Binding L10NResourceMgr[CHBholdLMB],Mode=OneWay}"
                                   />
                         <CheckBox x:Name="CHBholdRMB" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left"
-                                  VerticalAlignment="Top" Checked="CHBholdRMB_CheckedChanged"
-                                  Unchecked="CHBholdRMB_CheckedChanged"
+                                  VerticalAlignment="Top" IsCheckedChanged="CHBholdRMB_CheckedChanged"
                                   Content="{Binding L10NResourceMgr[CHBholdRMB],Mode=OneWay}" />
                         <CheckBox x:Name="CHBscreen_panning" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left"
-                                  VerticalAlignment="Top" Checked="CHBscreen_panning_CheckedChanged"
-                                  Unchecked="CHBscreen_panning_CheckedChanged"
+                                  VerticalAlignment="Top" IsCheckedChanged="CHBscreen_panning_CheckedChanged"
                                   Content="{Binding L10NResourceMgr[CHBscreen_panning],Mode=OneWay}" />
                     </Grid>
                     <Grid Grid.Row="1" RowSpacing="15" Margin="0,0,0,0" ColumnSpacing="5">
@@ -162,8 +156,8 @@
 
         
 
-        </ctrl:GroupBox>
-        <ctrl:GroupBox x:Name="GBother_settings" Grid.Row="1" HorizontalAlignment="Left"
+        </GroupBox>
+        <GroupBox x:Name="GBother_settings" Grid.Row="1" HorizontalAlignment="Left"
                        Header="{Binding L10NResourceMgr[GBother_settings],Mode=OneWay}"
                        RenderOptions.EdgeMode="Antialias"
                        Theme="{StaticResource GroupBoxClassic}" Width="308" Height="140" Margin="10,0,0,0">
@@ -172,19 +166,19 @@
                           VerticalAlignment="Top" IsCheckedChanged="CHBrun_at_startup_CheckedChanged"
                           Content="{Binding L10NResourceMgr[CHBrun_at_startup],Mode=OneWay}" />
                 <CheckBox x:Name="CHBstart_minimized" Margin="0,10,0,0" HorizontalAlignment="Left"
-                          VerticalAlignment="Top" Checked="CHBstart_minimized_CheckedChanged"
+                          VerticalAlignment="Top" IsCheckedChanged="CHBstart_minimized_CheckedChanged"
                           Content="{Binding L10NResourceMgr[CHBstart_minimized],Mode=OneWay}"
-                          Unchecked="CHBstart_minimized_CheckedChanged" />
+                          />
                 <CheckBox x:Name="CHBminimize_to_tray" Margin="0,10,0,0" HorizontalAlignment="Left"
-                          VerticalAlignment="Top" Checked="CHBminimize_to_tray_CheckedChanged"
+                          VerticalAlignment="Top" IsCheckedChanged="CHBminimize_to_tray_CheckedChanged"
                           Content="{Binding L10NResourceMgr[CHBminimize_to_tray],Mode=OneWay}"
-                          Unchecked="CHBminimize_to_tray_CheckedChanged" />
+                          />
                 <CheckBox x:Name="CHBcheck_for_updates" Margin="0,10,0,0" HorizontalAlignment="Left"
-                          VerticalAlignment="Top" Checked="CHBcheck_for_updates_CheckedChanged"
+                          VerticalAlignment="Top" IsCheckedChanged="CHBcheck_for_updates_CheckedChanged"
                           Content="{Binding L10NResourceMgr[CHBcheck_for_updates],Mode=OneWay}" />
             </StackPanel>
-        </ctrl:GroupBox>
-        <ctrl:GroupBox x:Name="GBsquare_settings" Grid.Row="0" Grid.Column="1" Width="291" Height="257"
+        </GroupBox>
+        <GroupBox x:Name="GBsquare_settings" Grid.Row="0" Grid.Column="1" Width="291" Height="257"
                        HorizontalAlignment="Left"
                        Header="{Binding L10NResourceMgr[GBsquare_settings],Mode=OneWay}"
                        RenderOptions.EdgeMode="Antialias" Theme="{StaticResource GroupBoxClassic}" Margin="0,2,0,0">
@@ -232,8 +226,8 @@
                          ScrollViewer.VerticalScrollBarVisibility="Hidden"
                          TextChanged="TBmin_square_size_TextChanged" TextWrapping="Wrap" />
             </Grid>
-        </ctrl:GroupBox>
-        <ctrl:GroupBox x:Name="GBrecommended_square_size" Grid.Row="1" Grid.Column="1" Width="291" Height="140"
+        </GroupBox>
+        <GroupBox x:Name="GBrecommended_square_size" Grid.Row="1" Grid.Column="1" Width="291" Height="140"
                        HorizontalAlignment="Left" VerticalAlignment="Top"
                        Header="{Binding L10NResourceMgr[GBrecommended_square_size],Mode=OneWay}"
                        RenderOptions.EdgeMode="Antialias"
@@ -265,7 +259,7 @@
                         Click="Click_Bset_recommended_square"
                         Content="{Binding L10NResourceMgr[Bset_recommended_square],Mode=OneWay}" />
             </Grid>
-        </ctrl:GroupBox>
+        </GroupBox>
     </Grid>
     </Grid>
 </Window>

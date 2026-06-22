@@ -17,6 +17,7 @@ namespace ClicklessMouse
             => AppBuilder.Configure<App>()
                 .UsePlatformDetect()
                 .WithInterFont()
+                .WithDeveloperTools()
                 .LogToTrace();
     }
 }

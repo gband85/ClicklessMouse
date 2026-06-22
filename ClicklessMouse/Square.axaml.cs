@@ -19,7 +19,7 @@ namespace ClicklessMouse
             InitializeComponent();
 
             Background = new SolidColorBrush(Colors.Transparent);
-            SystemDecorations = SystemDecorations.None;
+            WindowDecorations = WindowDecorations.None;
             ShowInTaskbar = false;
             _side = side;
             _lineWidth = lineWidth;
