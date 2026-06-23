@@ -73,11 +73,18 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
   </ItemGroup>
-
   <ItemGroup>
     <EmbeddedResource Update="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+  <Reference Include="Egorozh.ColorPicker">
+    <HintPath>Lib\Egorozh.ColorPicker.Avalonia.dll</HintPath>
+  </Reference>
+    <Reference Include="Egorozh.ColorPicker.Dialog">
+      <HintPath>Lib\Egorozh.ColorPicker.Avalonia.Dialog.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>
