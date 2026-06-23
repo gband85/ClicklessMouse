@@ -179,16 +179,7 @@ namespace ClicklessMouse
 
             change_language(_lang);
 
-            if (CHBstart_minimized.IsChecked == true)
-            {
-                Wmain.WindowState = WindowState.Minimized;
-
-                if (CHBminimize_to_tray.IsChecked == true)
-                {
-                    Wmain.Hide();
-                    GetPrimaryTrayIcon().IsVisible = true;
-                }
-            }
+            
 
             _thRmouseMonitor = new Thread(monitor_mouse)
             {
@@ -1301,7 +1292,20 @@ namespace ClicklessMouse
                 }
             }
         }
-
+        private void Wmain_Loaded(object? sender, RoutedEventArgs e)
+        {
+            if (CHBstart_minimized.IsChecked == true)
+            {
+                
+                Wmain.WindowState = WindowState.Minimized;
+                
+                if (CHBminimize_to_tray.IsChecked == true)
+                {
+                    Wmain.Hide();
+                    GetPrimaryTrayIcon().IsVisible = true;
+                };
+            }
+        }
         private void ni_MouseClick()
         {
             GetPrimaryTrayIcon().IsVisible=false;
