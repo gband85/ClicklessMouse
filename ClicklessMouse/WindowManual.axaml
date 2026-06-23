@@ -5,7 +5,6 @@
         xmlns:local="clr-namespace:ClicklessMouse"
         mc:Ignorable="d" d:DesignWidth="745" d:DesignHeight="703"
         x:Class="ClicklessMouse.WindowManual"
-		xmlns:avrtb="using:AvRichTextBox"
         x:DataType="local:MainWindow"
 		xmlns:md="using:Markdown.Avalonia"
         Title="{Binding L10NResourceMgr[MImanual],Mode=OneWay}" Height="703" Width="745" WindowStartupLocation="CenterScreen"
