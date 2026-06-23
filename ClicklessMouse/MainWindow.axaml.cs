@@ -1287,8 +1287,9 @@ namespace ClicklessMouse
             {
                 if (CHBminimize_to_tray.IsChecked == true)
                 {
-                    GetPrimaryTrayIcon().IsVisible = true;
                     Wmain.Hide();
+                    Wmain.ShowInTaskbar = false;
+                    GetPrimaryTrayIcon().IsVisible = true;
                 }
             }
         }
@@ -1306,12 +1307,12 @@ namespace ClicklessMouse
                 };
             }
         }
-        private void ni_MouseClick()
+        private void ti_MouseClick()
         {
-            GetPrimaryTrayIcon().IsVisible=false;
             Wmain.Show();
-            Wmain.WindowState = WindowState.Normal;
-        }
+            Wmain.ShowInTaskbar = true;
+            GetPrimaryTrayIcon().IsVisible=false;
+           }
 
         private void Window_Closing(object sender, WindowClosingEventArgs e)
         {
