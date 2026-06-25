@@ -92,7 +92,7 @@ namespace ClicklessMouse
         private const string prog_version = "3.0";
 
         private const string url_latest_version =
-            "https://raw.githubusercontent.com/gband85/Clickless-Mouse/AvaloniaUI/other/latest_version.txt";
+            "https://raw.githubusercontent.com/gband85/ClicklessMouse/rebuild/other/latest_version.txt";
 
         private const string url_homepage = "github.com/gband85/Clickless-Mouse";
         private string _latestVersion = "";
