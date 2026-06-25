@@ -48,7 +48,7 @@ namespace ClicklessMouse
         private const uint default_color1_uint = 4278190335;
         private const uint default_color2_uint = 4294967040;
         private const int default_min_square_size_percents = 60;
-        
+
         //minimum acceptable values
         private const int lowest_cursor_idle_time_ms = 100;
         private const int lowest_cursor_time_in_square_ms = 10;
@@ -56,26 +56,26 @@ namespace ClicklessMouse
         private const int lowest_size = 10;
         private const int lowest_border_width = 1;
         private const int lowest_min_square_size_percents = 10;
-                                                     
+
         //after click is performed it gives user more time to start moving mouse without squares blocking top movement path
         private const int additional_cursor_idle_time = 300;
-        
+
         //how often is cursor position checked (10ms recommended). Changing this requires changing default and lowest: cursor_idle_time_ms, time_to_start_mouse_movement_ms, and cursor_time_in_square_ms
-        private const int loop_time_ms = 10; 
+        private const int loop_time_ms = 10;
 
         //idle time before squares appear                
         private int _cursorIdleTimeMs;
-        
+
         private int _loopsToShowSquaresAfterCursorIdle;
-                                     
+
         //time to start mouse movement after squares appear, before they disappear (700 default, lowest reasonable 500)
-        private int _timeToStartMouseMovementMs; 
-                                     
+        private int _timeToStartMouseMovementMs;
+
         private int _loopsToStartMouseMovement;
-                                             
+
         //cursor hover time in square needed to perform a click
-        private int _cursorTimeInSquareMs; 
-                                             
+        private int _cursorTimeInSquareMs;
+
         private int _size;
         private int _borderWidth;
         private Color _color1 = Color.FromUInt32(default_color1_uint); //square color 1
@@ -84,13 +84,16 @@ namespace ClicklessMouse
         private uint _squareColor2Uint;
 
         //how much square size can be decreased if it would be covered by left or right screen edge                               
-        private int _minSquareSizePercents = default_min_square_size_percents; 
-                                                                         
+        private int _minSquareSizePercents = default_min_square_size_percents;
+
         //----------------------------------
 
         private const string prog_name = "Clickless Mouse";
         private const string prog_version = "3.0";
-        private const string url_latest_version = "https://raw.githubusercontent.com/gband85/Clickless-Mouse/AvaloniaUI/other/latest_version.txt";
+
+        private const string url_latest_version =
+            "https://raw.githubusercontent.com/gband85/Clickless-Mouse/AvaloniaUI/other/latest_version.txt";
+
         private const string url_homepage = "github.com/gband85/Clickless-Mouse";
         private string _latestVersion = "";
         private const string copyright_text = "Copyright © 2025 Garrett Anderson. All rights reserved.";
@@ -103,13 +106,13 @@ namespace ClicklessMouse
         private int _displacement;
 
         private bool _savingEnabled = true;
-        
+
         // ReSharper disable once FieldCanBeMadeReadOnly.Local
         private string _appFolderPath;
 
         // ReSharper disable once FieldCanBeMadeReadOnly.Local
         private string _settingsPath;
-        
+
         // ReSharper disable once FieldCanBeMadeReadOnly.Local
         private string _defaultSettingsPath;
 
@@ -121,11 +124,11 @@ namespace ClicklessMouse
 
         public L10NResourceMgr L10NResourceMgr
             => L10NResourceMgr.Instance;
-        
+
         public static TrayIcon? GetPrimaryTrayIcon()
         {
             var app = Application.Current;
-            
+
             if (app is null)
                 return null;
 
@@ -144,14 +147,16 @@ namespace ClicklessMouse
 
             InitializeComponent();
             DataContext = this;
-            Wmain.PropertyChanged+=Wmain_StateChanged;
-        
+            Wmain.PropertyChanged += Wmain_StateChanged;
+
 #if _WINDOWS
-           _appFolderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), prog_name); 
-           _defaultSettingsPath=Path.Combine(AppContext.BaseDirectory,_defaultSettingsFilename);
+           _appFolderPath =
+ Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), prog_name); 
+           _defaultSettingsPath = Path.Combine(AppContext.BaseDirectory,_defaultSettingsFilename);
 
 #elif _LINUX
-            _appFolderPath = Path.Combine("/home", Environment.UserName, ".config", prog_name.Replace(" ", String.Empty));
+            _appFolderPath = Path.Combine("/home", Environment.UserName, ".config",
+                prog_name.Replace(" ", String.Empty));
             _defaultSettingsPath = Path.Combine(AppContext.BaseDirectory, _defaultSettingsFilename);
 
 #endif
@@ -160,7 +165,7 @@ namespace ClicklessMouse
 
             ti_MouseClickCommand = ReactiveCommand.Create(ti_MouseClick);
             GetPrimaryTrayIcon().Command = ti_MouseClickCommand;
-            
+
             Wmain.Title = prog_name + " " + prog_version;
 
             restore_default_settings();
@@ -179,7 +184,6 @@ namespace ClicklessMouse
 
             change_language(_lang);
 
-            
 
             _thRmouseMonitor = new Thread(monitor_mouse)
             {
@@ -203,7 +207,8 @@ namespace ClicklessMouse
 
             if (i > 1)
             {
-                var box = MessageBoxManager.GetMessageBoxStandard(L10NResourceMgr["error_title"].ToString() ?? "!!!!", prog_name + "is already running.",
+                var box = MessageBoxManager.GetMessageBoxStandard(L10NResourceMgr["error_title"].ToString() ?? "!!!!",
+                    prog_name + "is already running.",
                     ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error);
                 await box.ShowWindowAsync();
                 Process.GetCurrentProcess().Kill();
@@ -229,6 +234,7 @@ namespace ClicklessMouse
                 TBcursor_time_in_square.Text = lowest_cursor_time_in_square_ms.ToString();
                 _cursorTimeInSquareMs = lowest_cursor_time_in_square_ms;
             }
+
             if (_size < lowest_size)
             {
                 TBsquare_size.Text = lowest_size.ToString();
@@ -249,7 +255,6 @@ namespace ClicklessMouse
 
             else if (_minSquareSizePercents > 100)
             {
-
                 TBmin_square_size.Text = "100";
                 _minSquareSizePercents = 100;
             }
@@ -305,16 +310,16 @@ namespace ClicklessMouse
             }
         }
 
-        // private void regenerate_squares()
-        // {
-        //     regenerate_SL();
-        //     regenerate_SR();
-        //     regenerate_SM();
-        //     regenerate_SLH();
-        //     regenerate_SRH();
-        // }
+        private void regenerate_squares()
+        {
+            regenerate_SL();
+            regenerate_SR();
+            regenerate_SM();
+            regenerate_SLH();
+            regenerate_SRH();
+        }
 
-        public int X , Y;
+        public int X, Y;
         private int _maxX;
         private int _maxY;
         public bool SquaresVisible;
@@ -355,6 +360,7 @@ namespace ClicklessMouse
                 {
                     break;
                 }
+
                 //user may change screen resolution so max_x and max_y should be updated
                 if (Screens.Primary != null)
                 {
@@ -367,7 +373,7 @@ namespace ClicklessMouse
                 y1 = mouseCoords[1];
 
                 if (x1 == 0) //if (x1 == 0 && pressed_left == false) would be a mistake - we need
-                             //continuous pressing as well as holding
+                    //continuous pressing as well as holding
                 {
                     key_down(VirtualKeyCode.LEFT);
                     pressedLeft = true;
@@ -488,6 +494,7 @@ namespace ClicklessMouse
                     i = 0;
                     mouse_move_detected();
                 }
+
                 if (i > _loopsToShowSquaresAfterCursorIdle && SquaresVisible == false)
                 {
                     X = x2;
@@ -572,7 +579,8 @@ namespace ClicklessMouse
 
                         //if top screen edge would cover squares show them below mouse cursor instead
                         if (_smEnabled && _smStartY < -1 * _size * 0.75 || (_smEnabled == false
-                            && (_slEnabled || _srEnabled) && _slStartY < -1 * _size * 0.75))
+                                                                            && (_slEnabled || _srEnabled) &&
+                                                                            _slStartY < -1 * _size * 0.75))
                         {
                             _slStartY = Y + _displacement;
                             _slEndY = _slStartY + _size;
@@ -592,15 +600,11 @@ namespace ClicklessMouse
                         bool is_instructions_focused = false;
 
                         Dispatcher.UIThread.Invoke(() => { mi_file_open = MIfile.IsSubMenuOpen; });
-                        Dispatcher.UIThread.Invoke(
-                            () => { mi_restore_open = MIrestore.IsSubMenuOpen; });
-                        Dispatcher.UIThread.Invoke(
-                            () => { mi_language_open = MIlanguage.IsSubMenuOpen; });
-                        Dispatcher.UIThread.Invoke(
-                            () => { mi_help_open = MIhelp.IsSubMenuOpen; });
+                        Dispatcher.UIThread.Invoke(() => { mi_restore_open = MIrestore.IsSubMenuOpen; });
+                        Dispatcher.UIThread.Invoke(() => { mi_language_open = MIlanguage.IsSubMenuOpen; });
+                        Dispatcher.UIThread.Invoke(() => { mi_help_open = MIhelp.IsSubMenuOpen; });
 
-                        Dispatcher.UIThread.Invoke(
-                            () => { is_this_focused = this.IsFocused; });
+                        Dispatcher.UIThread.Invoke(() => { is_this_focused = this.IsFocused; });
                         // Dispatcher.UIThread.Invoke(
                         //     new Action(() => { is_instructions_focused = Wmanual.IsActive; }));
 
@@ -619,24 +623,19 @@ namespace ClicklessMouse
 
 //reopen submenu that was closed because squares appeared
                         if (mi_file_open)
-                            Dispatcher.UIThread.Invoke(
-                                () => { MIfile.Open(); });
+                            Dispatcher.UIThread.Invoke(() => { MIfile.Open(); });
                         if (mi_restore_open)
-                            Dispatcher.UIThread.Invoke(
-                                () => { MIrestore.IsSubMenuOpen = mi_restore_open; });
+                            Dispatcher.UIThread.Invoke(() => { MIrestore.IsSubMenuOpen = mi_restore_open; });
                         if (mi_language_open)
-                            Dispatcher.UIThread.Invoke(
-                                () => { MIlanguage.IsSubMenuOpen = mi_language_open; });
+                            Dispatcher.UIThread.Invoke(() => { MIlanguage.IsSubMenuOpen = mi_language_open; });
                         if (mi_help_open)
-                            Dispatcher.UIThread.Invoke(
-                                () => { MIhelp.IsSubMenuOpen = mi_help_open; });
+                            Dispatcher.UIThread.Invoke(() => { MIhelp.IsSubMenuOpen = mi_help_open; });
 
                         //give back stolen focus (by squares) to a Window if it
                         //was focused before they appeared
                         if (is_this_focused)
                         {
-                            Dispatcher.UIThread.Invoke(
-                                () => { this.Focus(); });
+                            Dispatcher.UIThread.Invoke(() => { this.Focus(); });
                         }
                         // else if (is_instructions_focused)
                         // {
@@ -686,7 +685,7 @@ namespace ClicklessMouse
             int[] mouseCoords;
 
             while (iSl < iMax && iSr < iMax && iSm < iMax
-                && iSlh < iMax && iSrh < iMax && SquaresVisible)
+                   && iSlh < iMax && iSrh < iMax && SquaresVisible)
             {
                 if (token.IsCancellationRequested)
                 {
@@ -705,6 +704,7 @@ namespace ClicklessMouse
                     }
                     else iSl = 0;
                 }
+
                 if (_srEnabled)
                 {
                     if (is_cursor_in_SR(posX, posY))
@@ -713,6 +713,7 @@ namespace ClicklessMouse
                     }
                     else iSr = 0;
                 }
+
                 if (_smEnabled)
                 {
                     if (is_cursor_in_SM(posX, posY))
@@ -721,6 +722,7 @@ namespace ClicklessMouse
                     }
                     else iSm = 0;
                 }
+
                 if (_slhEnabled)
                 {
                     if (is_cursor_in_SLH(posX, posY))
@@ -729,6 +731,7 @@ namespace ClicklessMouse
                     }
                     else iSlh = 0;
                 }
+
                 if (_srhEnabled)
                 {
                     if (is_cursor_in_SRH(posX, posY))
@@ -737,8 +740,10 @@ namespace ClicklessMouse
                     }
                     else iSrh = 0;
                 }
+
                 Thread.Sleep(loop_time_ms);
             }
+
             if (iSl >= iMax)
             {
                 LmbClick(X, Y, 100);
@@ -787,6 +792,7 @@ namespace ClicklessMouse
                 _lastClickTime = DateTime.Now;
                 SquaresVisible = false;
             }
+
             if (iSlh >= iMax)
             {
                 LmbHold(X, Y, 100);
@@ -850,7 +856,7 @@ namespace ClicklessMouse
         private bool is_cursor_in_SL(int x1, int y1)
         {
             if (x1 >= _slStartX && x1 <= _slEndX
-                && y1 >= _slStartY && y1 <= _slEndY)
+                                && y1 >= _slStartY && y1 <= _slEndY)
             {
                 return true;
             }
@@ -860,7 +866,7 @@ namespace ClicklessMouse
         private bool is_cursor_in_SR(int x1, int y1)
         {
             if (x1 >= _srStartX && x1 <= _srEndX
-                && y1 >= _srStartY && y1 <= _srEndY)
+                                && y1 >= _srStartY && y1 <= _srEndY)
             {
                 return true;
             }
@@ -870,7 +876,7 @@ namespace ClicklessMouse
         private bool is_cursor_in_SM(int x1, int y1)
         {
             if (x1 >= _smStartX && x1 <= _smEndX
-                && y1 >= _smStartY && y1 <= _smEndY)
+                                && y1 >= _smStartY && y1 <= _smEndY)
             {
                 return true;
             }
@@ -880,7 +886,7 @@ namespace ClicklessMouse
         private bool is_cursor_in_SLH(int x1, int y1)
         {
             if (x1 >= _slhStartX && x1 <= _slhEndX
-                && y1 >= _slhStartY && y1 <= _slhEndY)
+                                 && y1 >= _slhStartY && y1 <= _slhEndY)
             {
                 return true;
             }
@@ -890,7 +896,7 @@ namespace ClicklessMouse
         private bool is_cursor_in_SRH(int x1, int y1)
         {
             if (x1 >= _srhStartX && x1 <= _srhEndX
-                && y1 >= _srhStartY && y1 <= _srhEndY)
+                                 && y1 >= _srhStartY && y1 <= _srhEndY)
             {
                 return true;
             }
@@ -918,7 +924,7 @@ namespace ClicklessMouse
 
             //temp solution
             if (x1 > X + _showZone + _displacement || x1 < X - _showZone - _displacement
-                || y1 > Y + _showZone || y1 < Y - _showZone - _displacement)
+                                                   || y1 > Y + _showZone || y1 < Y - _showZone - _displacement)
             {
                 return true;
             }
@@ -932,8 +938,8 @@ namespace ClicklessMouse
             do
             {
                 Thread.Sleep(10);
-            }
-            while (stopwatch.ElapsedMilliseconds < time);
+            } while (stopwatch.ElapsedMilliseconds < time);
+
             stopwatch.Stop();
         }
 
@@ -1076,204 +1082,209 @@ namespace ClicklessMouse
 
         private delegate void Callback2();
 
-        private void create_SL()
+        private void regenerate_SL()
         {
-            if (_sl != null && !_sl.CheckAccess())
+            if (_slEnabled)
             {
-                try
+                if (_sl != null && !_sl.CheckAccess())
                 {
-                    Callback2 d = create_SL;
-                    Dispatcher.UIThread.Invoke(() => d());
+                    try
+                    {
+                        Callback2 d = regenerate_SL;
+                        Dispatcher.UIThread.Invoke(() => d());
+                    }
+                    catch (ObjectDisposedException ex)
+                    {
+                        //
+                    }
                 }
-                catch (ObjectDisposedException ex)
+                else
                 {
-                    //
+                    if (_sl != null)
+                        _sl.Close();
+
+                    _sl = new Square(_size, _borderWidth, _color1, _color2)
+                    {
+                        Topmost = true,
+                        Height = _size,
+                        Width = _size
+                    };
+
+                    _sl.Show();
+                    _sl.Hide();
                 }
             }
             else
             {
                 if (_sl != null)
+                {
                     _sl.Close();
-
-                _sl = new Square(_size, _borderWidth, _color1, _color2)
-                {
-                    Topmost = true,
-                    Height = _size,
-                    Width = _size
-                };
-
-                _sl.Show();
-                _sl.Hide();
-            }
-        }
-
-        private void destroy_SL()
-        {
-            if (_sl != null)
-            {
-                _sl.Close();
-            }
-
-            Console.WriteLine("");
-        }
-
-        private void create_SR()
-        {
-            if (_sr != null && !_sr.CheckAccess())
-            {
-                try
-                {
-                    Callback2 d = create_SR;
-                    Dispatcher.UIThread.Invoke(() => d());
                 }
-                catch (ObjectDisposedException ex)
+            }
+        }
+
+        private void regenerate_SR()
+        {
+            if (_srEnabled)
+            {
+                if (_sr != null && !_sr.CheckAccess())
                 {
-                    //
+                    try
+                    {
+                        Callback2 d = regenerate_SR;
+                        Dispatcher.UIThread.Invoke(() => d());
+                    }
+                    catch (ObjectDisposedException ex)
+                    {
+                        //
+                    }
+                }
+                else
+                {
+                    if (_sr != null)
+                        _sr.Close();
+
+                    _sr = new Square(_size, _borderWidth, _color1, _color2)
+                    {
+                        Topmost = true,
+                        Height = _size,
+                        Width = _size
+                    };
+                    _sr.Show();
+                    _sr.Hide();
                 }
             }
             else
             {
                 if (_sr != null)
+                {
                     _sr.Close();
-
-                _sr = new Square(_size, _borderWidth, _color1, _color2)
-                {
-                    Topmost = true,
-                    Height = _size,
-                    Width = _size
-                };
-                _sr.Show();
-                _sr.Hide();
-            }
-        }
-
-        private void destroy_SR()
-        {
-            if (_sr != null)
-            {
-                _sr.Close();
-            }
-
-            Console.WriteLine("");
-        }
-
-        private void create_SM()
-        {
-            if (_sm != null && !_sm.CheckAccess())
-            {
-                try
-                {
-                    Callback2 d = create_SM;
-                    Dispatcher.UIThread.Invoke(() => d());
                 }
-                catch (ObjectDisposedException ex)
+            }
+        }
+
+        private void regenerate_SM()
+        {
+            if (_smEnabled)
+            {
+                if (_sm != null && !_sm.CheckAccess())
                 {
-                    //
+                    try
+                    {
+                        Callback2 d = regenerate_SM;
+                        Dispatcher.UIThread.Invoke(() => d());
+                    }
+                    catch (ObjectDisposedException ex)
+                    {
+                        //
+                    }
+                }
+                else
+                {
+                    if (_sm != null)
+                        _sm.Close();
+
+                    _sm = new Square(_size, _borderWidth, _color1, _color2)
+                    {
+                        Topmost = true,
+                        Height = _size,
+                        Width = _size
+                    };
+                    _sm.Show();
+                    _sm.Hide();
                 }
             }
             else
             {
                 if (_sm != null)
+                {
                     _sm.Close();
-
-                _sm = new Square(_size, _borderWidth, _color1, _color2)
-                {
-                    Topmost = true,
-                    Height = _size,
-                    Width = _size
-                };
-                _sm.Show();
-                _sm.Hide();
-            }
-        }
-
-        private void destroy_SM()
-        {
-            if (_sm != null)
-            {
-                _sm.Close();
-            }
-
-            Console.WriteLine("");
-        }
-
-        private void create_SLH()
-        {
-            if (_slh != null && !_slh.CheckAccess())
-            {
-                try
-                {
-                    Callback2 d = create_SLH;
-                    Dispatcher.UIThread.Invoke(() => d());
                 }
-                catch (ObjectDisposedException ex)
+            }
+        }
+
+        private void regenerate_SLH()
+        {
+            if (_slhEnabled)
+            {
+                if (_slh != null && !_slh.CheckAccess())
                 {
-                    //
+                    try
+                    {
+                        Callback2 d = regenerate_SLH;
+                        Dispatcher.UIThread.Invoke(() => d());
+                    }
+                    catch (ObjectDisposedException ex)
+                    {
+                        //
+                    }
+                }
+                else
+                {
+                    if (_slh != null)
+                        _slh.Close();
+
+                    _slh = new Square(_size, _borderWidth, _color1, _color2)
+                    {
+                        Topmost = true,
+                        Height = _size,
+                        Width = _size
+                    };
+                    _slh.Show();
+                    _slh.Hide();
                 }
             }
             else
             {
                 if (_slh != null)
+                {
                     _slh.Close();
-
-                _slh = new Square(_size, _borderWidth, _color1, _color2)
-                {
-                    Topmost = true,
-                    Height = _size,
-                    Width = _size
-                };
-                _slh.Show();
-                _slh.Hide();
-            }
-        }
-
-        private void destroy_SLH()
-        {
-            if (_slh != null)
-            {
-                _slh.Close();
-            }
-
-            Console.WriteLine("");
-        }
-
-        private void create_SRH()
-        {
-            if (_srh != null && !_srh.CheckAccess())
-            {
-                try
-                {
-                    Callback2 d = create_SRH;
-                    Dispatcher.UIThread.Invoke(() => d());
                 }
-                catch (ObjectDisposedException ex)
+            }
+        }
+
+        private void regenerate_SRH()
+        {
+            if (_srhEnabled)
+            {
+                if (_srh != null && !_srh.CheckAccess())
                 {
-                    //
+                    try
+                    {
+                        Callback2 d = regenerate_SRH;
+                        Dispatcher.UIThread.Invoke(() => d());
+                    }
+                    catch (ObjectDisposedException ex)
+                    {
+                        //
+                    }
+                }
+                else
+                {
+                    if (_srh != null)
+                        _srh.Close();
+
+                    _srh = new Square(_size, _borderWidth, _color1, _color2)
+                    {
+                        Topmost = true,
+                        Height = _size,
+                        Width = _size
+                    };
+                    _srh.Show();
+                    _srh.Hide();
                 }
             }
             else
             {
                 if (_srh != null)
-                    _srh.Close();
-
-                _srh = new Square(_size, _borderWidth, _color1, _color2)
                 {
-                    Topmost = true,
-                    Height = _size,
-                    Width = _size
-                };
-                _srh.Show();
-                _srh.Hide();
+                    _srh.Close();
+                }
             }
         }
 
         private void destroy_SRH()
         {
-            if (_srh != null)
-            {
-                _srh.Close();
-            }
-
             Console.WriteLine("");
         }
         //----------------------------------------------------------------------------------
@@ -1281,7 +1292,7 @@ namespace ClicklessMouse
         [DllImport("USER32.DLL")]
         public static extern bool SetForegroundWindow(IntPtr hWnd);
 
-     private void Wmain_StateChanged(object? sender, AvaloniaPropertyChangedEventArgs e)
+        private void Wmain_StateChanged(object? sender, AvaloniaPropertyChangedEventArgs e)
         {
             if (e.Property.ToString() == "WindowState" && Wmain.WindowState == WindowState.Minimized)
             {
@@ -1293,26 +1304,29 @@ namespace ClicklessMouse
                 }
             }
         }
+
         private void Wmain_Loaded(object? sender, RoutedEventArgs e)
         {
             if (CHBstart_minimized.IsChecked == true)
             {
-                
                 Wmain.WindowState = WindowState.Minimized;
-                
+
                 if (CHBminimize_to_tray.IsChecked == true)
                 {
                     Wmain.Hide();
                     GetPrimaryTrayIcon().IsVisible = true;
-                };
+                }
+
+                ;
             }
         }
+
         private void ti_MouseClick()
         {
             Wmain.Show();
             Wmain.ShowInTaskbar = true;
-            GetPrimaryTrayIcon().IsVisible=false;
-           }
+            GetPrimaryTrayIcon().IsVisible = false;
+        }
 
         private void Window_Closing(object sender, WindowClosingEventArgs e)
         {
@@ -1341,7 +1355,7 @@ namespace ClicklessMouse
             Bsquare_color2.Background = new SolidColorBrush(Color.FromUInt32(_squareColor2Uint));
             _color2 = Color.FromUInt32(_squareColor2Uint);
 
-            // regenerate_squares();
+            regenerate_squares();
 
             _savingEnabled = true;
 
@@ -1381,7 +1395,7 @@ namespace ClicklessMouse
 
         private void MImanual_Click(object sender, RoutedEventArgs e)
         {
-        WindowManual wmanual = new WindowManual();
+            WindowManual wmanual = new WindowManual();
             Uri assetUri;
             Stream stream;
             StreamReader reader;
@@ -1451,7 +1465,8 @@ namespace ClicklessMouse
             }
             catch (Exception ex)
             {
-                var box = MessageBoxManager.GetMessageBoxStandard(L10NResourceMgr["error_title"].ToString() ?? "!!!!", ex.Message, ButtonEnum.Ok,
+                var box = MessageBoxManager.GetMessageBoxStandard(L10NResourceMgr["error_title"].ToString() ?? "!!!!",
+                    ex.Message, ButtonEnum.Ok,
                     MsBox.Avalonia.Enums.Icon.Error);
                 await box.ShowAsync();
             }
@@ -1471,18 +1486,18 @@ namespace ClicklessMouse
             if (CHBLMB.IsChecked == true)
             {
                 _slEnabled = true;
-                create_SL();
             }
             else
             {
                 _slEnabled = false;
-                destroy_SL();
             }
 
             if (_savingEnabled)
             {
                 save_settings();
             }
+
+            regenerate_SL();
         }
 
         private void CHBRMB_CheckedChanged(object sender, RoutedEventArgs e)
@@ -1499,18 +1514,18 @@ namespace ClicklessMouse
             if (CHBRMB.IsChecked == true)
             {
                 _srEnabled = true;
-                create_SR();
             }
             else
             {
                 _srEnabled = false;
-                destroy_SR();
             }
 
             if (_savingEnabled)
             {
                 save_settings();
             }
+
+            regenerate_SR();
         }
 
         private void CHBdoubleLMB_CheckedChanged(object sender, RoutedEventArgs e)
@@ -1527,18 +1542,18 @@ namespace ClicklessMouse
             if (CHBdoubleLMB.IsChecked == true)
             {
                 _smEnabled = true;
-                create_SM();
             }
             else
             {
                 _smEnabled = false;
-                destroy_SM();
             }
 
             if (_savingEnabled)
             {
                 save_settings();
             }
+
+            regenerate_SM();
         }
 
         private void CHBholdLMB_CheckedChanged(object sender, RoutedEventArgs e)
@@ -1555,18 +1570,18 @@ namespace ClicklessMouse
             if (CHBholdLMB.IsChecked == true)
             {
                 _slhEnabled = true;
-                create_SLH();
             }
             else
             {
                 _slhEnabled = false;
-                destroy_SLH();
             }
 
             if (_savingEnabled)
             {
                 save_settings();
             }
+
+            regenerate_SLH();
         }
 
         private void CHBholdRMB_CheckedChanged(object sender, RoutedEventArgs e)
@@ -1583,18 +1598,18 @@ namespace ClicklessMouse
             if (CHBholdRMB.IsChecked == true)
             {
                 _srhEnabled = true;
-                create_SRH();
             }
             else
             {
                 _srhEnabled = false;
-                destroy_SRH();
             }
 
             if (_savingEnabled)
             {
                 save_settings();
             }
+
+            regenerate_SRH();
         }
 
         private void CHBscreen_panning_CheckedChanged(object sender, RoutedEventArgs e)
@@ -1624,7 +1639,7 @@ namespace ClicklessMouse
 
         private void CHBcheck_for_updates_CheckedChanged(object sender, RoutedEventArgs e)
         {
-            if (CHBcheck_for_updates.IsChecked==true)
+            if (CHBcheck_for_updates.IsChecked == true)
             {
                 update_app_if_necessary();
             }
@@ -1667,7 +1682,8 @@ namespace ClicklessMouse
             }
             catch (Exception ex)
             {
-                var box = MessageBoxManager.GetMessageBoxStandard(L10NResourceMgr["error_title"].ToString() ?? "!!!!", ex.Message, ButtonEnum.Ok,
+                var box = MessageBoxManager.GetMessageBoxStandard(L10NResourceMgr["error_title"].ToString() ?? "!!!!",
+                    ex.Message, ButtonEnum.Ok,
                     MsBox.Avalonia.Enums.Icon.Error);
                 await box.ShowAsync();
             }
@@ -1705,7 +1721,8 @@ namespace ClicklessMouse
             }
             catch (Exception ex)
             {
-                var box = MessageBoxManager.GetMessageBoxStandard(L10NResourceMgr["error_title"].ToString() ?? "!!!!", ex.Message, ButtonEnum.Ok,
+                var box = MessageBoxManager.GetMessageBoxStandard(L10NResourceMgr["error_title"].ToString() ?? "!!!!",
+                    ex.Message, ButtonEnum.Ok,
                     MsBox.Avalonia.Enums.Icon.Error);
                 await box.ShowAsync();
             }
@@ -1737,7 +1754,8 @@ namespace ClicklessMouse
             }
             catch (Exception ex)
             {
-                var box = MessageBoxManager.GetMessageBoxStandard(L10NResourceMgr["error_title"].ToString() ?? "!!!!", ex.Message, ButtonEnum.Ok,
+                var box = MessageBoxManager.GetMessageBoxStandard(L10NResourceMgr["error_title"].ToString() ?? "!!!!",
+                    ex.Message, ButtonEnum.Ok,
                     MsBox.Avalonia.Enums.Icon.Error);
                 await box.ShowAsync();
             }
@@ -1762,8 +1780,10 @@ namespace ClicklessMouse
 #elif _LINUX
                     if (!File.Exists(Path.Combine(_appFolderPath, "clicklessmouse.desktop")))
                     {
-                        File.Copy(Path.Combine("/usr/share", prog_name.Replace(" ", String.Empty), "clicklessmouse.desktop"), Path.Combine("/home", Environment.UserName, ".config/autostart", "clicklessmouse.desktop"));
-                }
+                        File.Copy(
+                            Path.Combine("/usr/share", prog_name.Replace(" ", String.Empty), "clicklessmouse.desktop"),
+                            Path.Combine("/home", Environment.UserName, ".config/autostart", "clicklessmouse.desktop"));
+                    }
 #endif
                 }
 #if _WINDOWS
@@ -1772,9 +1792,11 @@ namespace ClicklessMouse
                     rkApp.DeleteValue(prog_name, false);
                 }
 #elif _LINUX
-                else if (File.Exists(Path.Combine("/home", Environment.UserName, ".config/autostart", "clicklessmouse.desktop")))
+                else if (File.Exists(Path.Combine("/home", Environment.UserName, ".config/autostart",
+                             "clicklessmouse.desktop")))
                 {
-                    File.Delete(Path.Combine("/home", Environment.UserName, ".config/autostart", "clicklessmouse.desktop"));
+                    File.Delete(Path.Combine("/home", Environment.UserName, ".config/autostart",
+                        "clicklessmouse.desktop"));
                 }
 #endif
                 save_settings();
@@ -1817,14 +1839,15 @@ namespace ClicklessMouse
 
                     if (_savingEnabled)
                     {
-                        // regenerate_squares();
+                        regenerate_squares();
                         save_settings();
                     }
                 }
             }
             catch (Exception ex)
             {
-                var box = MessageBoxManager.GetMessageBoxStandard(L10NResourceMgr["error_title"].ToString() ?? "!!!!", ex.Message, ButtonEnum.Ok,
+                var box = MessageBoxManager.GetMessageBoxStandard(L10NResourceMgr["error_title"].ToString() ?? "!!!!",
+                    ex.Message, ButtonEnum.Ok,
                     MsBox.Avalonia.Enums.Icon.Error);
                 await box.ShowAsync();
             }
@@ -1847,14 +1870,15 @@ namespace ClicklessMouse
 
                     if (_savingEnabled)
                     {
-                        // regenerate_squares();
+                        regenerate_squares();
                         save_settings();
                     }
                 }
             }
             catch (Exception ex)
             {
-                var box = MessageBoxManager.GetMessageBoxStandard(L10NResourceMgr["error_title"].ToString() ?? "!!!!", ex.Message, ButtonEnum.Ok,
+                var box = MessageBoxManager.GetMessageBoxStandard(L10NResourceMgr["error_title"].ToString() ?? "!!!!",
+                    ex.Message, ButtonEnum.Ok,
                     MsBox.Avalonia.Enums.Icon.Error);
                 await box.ShowAsync();
             }
@@ -1875,7 +1899,7 @@ namespace ClicklessMouse
 
                     _squareColor1Uint = colorDialog1.Color.ToUInt32();
 
-                    // regenerate_squares();
+                    regenerate_squares();
 
                     if (_savingEnabled)
                     {
@@ -1885,7 +1909,8 @@ namespace ClicklessMouse
             }
             catch (Exception ex)
             {
-                var box = MessageBoxManager.GetMessageBoxStandard(L10NResourceMgr["error_title"].ToString() ?? "!!!!", ex.Message, ButtonEnum.Ok,
+                var box = MessageBoxManager.GetMessageBoxStandard(L10NResourceMgr["error_title"].ToString() ?? "!!!!",
+                    ex.Message, ButtonEnum.Ok,
                     MsBox.Avalonia.Enums.Icon.Error);
                 await box.ShowAsync();
             }
@@ -1901,13 +1926,12 @@ namespace ClicklessMouse
 
                 if (dr)
                 {
-
                     Bsquare_color2.Background = new SolidColorBrush(colorDialog2.Color);
                     _color2 = colorDialog2.Color;
 
                     _squareColor2Uint = colorDialog2.Color.ToUInt32();
 
-                    // regenerate_squares();
+                    regenerate_squares();
 
                     if (_savingEnabled)
                     {
@@ -1917,7 +1941,8 @@ namespace ClicklessMouse
             }
             catch (Exception ex)
             {
-                var box = MessageBoxManager.GetMessageBoxStandard(L10NResourceMgr["error_title"].ToString() ?? "!!!!", ex.Message, ButtonEnum.Ok,
+                var box = MessageBoxManager.GetMessageBoxStandard(L10NResourceMgr["error_title"].ToString() ?? "!!!!",
+                    ex.Message, ButtonEnum.Ok,
                     MsBox.Avalonia.Enums.Icon.Error);
                 await box.ShowAsync();
             }
@@ -1956,7 +1981,8 @@ namespace ClicklessMouse
             }
             catch (Exception ex)
             {
-                var box = MessageBoxManager.GetMessageBoxStandard(L10NResourceMgr["error_title"].ToString() ?? "!!!!", ex.Message, ButtonEnum.Ok,
+                var box = MessageBoxManager.GetMessageBoxStandard(L10NResourceMgr["error_title"].ToString() ?? "!!!!",
+                    ex.Message, ButtonEnum.Ok,
                     MsBox.Avalonia.Enums.Icon.Error);
                 await box.ShowAsync();
             }
@@ -1993,13 +2019,14 @@ namespace ClicklessMouse
                         TBsquare_border.Text = Math.Round(2 * 0.06939 / pixelSizeMm).ToString();
                     }
 
-                    // regenerate_squares();
+                    regenerate_squares();
                     save_settings();
                 }
             }
             catch (Exception ex)
             {
-                var box = MessageBoxManager.GetMessageBoxStandard(L10NResourceMgr["error_title"].ToString() ?? "!!!!", ex.Message, ButtonEnum.Ok,
+                var box = MessageBoxManager.GetMessageBoxStandard(L10NResourceMgr["error_title"].ToString() ?? "!!!!",
+                    ex.Message, ButtonEnum.Ok,
                     MsBox.Avalonia.Enums.Icon.Error);
                 await box.ShowAsync();
             }
@@ -2013,8 +2040,8 @@ namespace ClicklessMouse
                     Directory.CreateDirectory(_appFolderPath);
 
                 File.Copy(_defaultSettingsPath, _settingsPath);
-
             }
+
             // Load the JSON file
             string json = File.ReadAllText(_settingsPath);
 
@@ -2026,6 +2053,7 @@ namespace ClicklessMouse
                 Console.WriteLine("Failed to load JSON.");
                 // throw Exception h;
             }
+
             foreach (ILogical control in Wmain.GetLogicalDescendants())
             {
                 if (control is CheckBox cb)
@@ -2055,16 +2083,15 @@ namespace ClicklessMouse
                         root?["square_color2_uint"] = _squareColor2Uint.ToString();
                 }
             }
+
             root?["lang"] = _lang.ToString();
 
             var options = new JsonSerializerOptions { WriteIndented = true };
             File.WriteAllText(_settingsPath, root?.ToJsonString(options));
-
         }
 
         private async void load_settings()
         {
-
             try
             {
                 if (!File.Exists(_settingsPath))
@@ -2096,9 +2123,11 @@ namespace ClicklessMouse
                     else if (control is Button btn)
                     {
                         if (btn.Name == "Bsquare_color1")
-                            _squareColor1Uint = uint.Parse(root?["Bsquare_color1"]?.ToString() ?? default_color1_uint.ToString());
+                            _squareColor1Uint =
+                                uint.Parse(root?["Bsquare_color1"]?.ToString() ?? default_color1_uint.ToString());
                         else if (btn.Name == "Bsquare_color2")
-                            _squareColor2Uint = uint.Parse(root?["Bsquare_color2"]?.ToString() ?? default_color2_uint.ToString());
+                            _squareColor2Uint =
+                                uint.Parse(root?["Bsquare_color2"]?.ToString() ?? default_color2_uint.ToString());
                     }
                 }
 
@@ -2109,12 +2138,12 @@ namespace ClicklessMouse
                 _color2 = Color.FromUInt32(_squareColor2Uint);
 
                 Enum.TryParse(root?["lang"]?.ToString(), out _lang);
-
             }
             catch (Exception ex)
             {
                 _loadingError = true;
-                var box = MessageBoxManager.GetMessageBoxStandard(L10NResourceMgr["error_title"].ToString() ?? "!!!!", ex.Message + L10NResourceMgr["loading_error_msg"],
+                var box = MessageBoxManager.GetMessageBoxStandard(L10NResourceMgr["error_title"].ToString() ?? "!!!!",
+                    ex.Message + L10NResourceMgr["loading_error_msg"],
                     ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error);
                 await box.ShowAsync();
             }
@@ -2142,10 +2171,11 @@ namespace ClicklessMouse
                 updateAvailable = true;
             }
 
-            if (CHBcheck_for_updates.IsChecked==true && updateAvailable)
+            if (CHBcheck_for_updates.IsChecked == true && updateAvailable)
             {
                 var box = MessageBoxManager.GetMessageBoxStandard("New Version Available", "A new program version" +
-                    " is available. Do you want to download it now?", ButtonEnum.YesNo, MsBox.Avalonia.Enums.Icon.Question);
+                    " is available. Do you want to download it now?", ButtonEnum.YesNo,
+                    MsBox.Avalonia.Enums.Icon.Question);
                 var dialogResult = await box.ShowWindowAsync();
                 if (dialogResult == ButtonResult.Yes)
                 {
@@ -2155,7 +2185,6 @@ namespace ClicklessMouse
             }
         }
 
-        
 
         private class MyWebClient : WebClient
         {
