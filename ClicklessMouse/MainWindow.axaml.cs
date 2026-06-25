@@ -132,7 +132,7 @@ namespace ClicklessMouse
             return TrayIcon.GetIcons(app)?.FirstOrDefault();
         }
 
-        public ReactiveCommand<Unit, Unit> ni_MouseClickCommand { get; }
+        public ReactiveCommand<Unit, Unit> ti_MouseClickCommand { get; }
 
         public MainWindow()
         {
@@ -158,8 +158,8 @@ namespace ClicklessMouse
 
             _settingsPath = Path.Combine(_appFolderPath, _settingsFilename);
 
-            ni_MouseClickCommand = ReactiveCommand.Create(ni_MouseClick);
-            GetPrimaryTrayIcon().Command = ni_MouseClickCommand;
+            ti_MouseClickCommand = ReactiveCommand.Create(ti_MouseClick);
+            GetPrimaryTrayIcon().Command = ti_MouseClickCommand;
             
             Wmain.Title = prog_name + " " + prog_version;
 

@@ -21,7 +21,7 @@
     <TrayIcon.Icons>
         <TrayIcons>
             <TrayIcon Icon="/Assets/icons/clicklessmouse.ico"
-                      Command="{Binding ni_MouseClickCommand}"
+                      Command="{Binding ti_MouseClickCommand}"
                       ToolTipText="Clickless Mouse"
                       IsVisible="False">
             </TrayIcon>
