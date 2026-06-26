@@ -89,14 +89,14 @@ namespace ClicklessMouse
         //----------------------------------
 
         private const string prog_name = "Clickless Mouse";
-        private const string prog_version = "3.0";
+        private const string prog_version = "3.2";
 
         private const string url_latest_version =
             "https://raw.githubusercontent.com/gband85/ClicklessMouse/rebuild/other/latest_version.txt";
 
         private const string url_homepage = "github.com/gband85/Clickless-Mouse";
         private string _latestVersion = "";
-        private const string copyright_text = "Copyright © 2025 Garrett Anderson. All rights reserved.";
+        private const string copyright_text = "Copyright © 2025-2026 Garrett Anderson. All rights reserved.";
         private string _settingsFilename = "appsettings.json";
         private string _defaultSettingsFilename = "defaults.json";
         private Square _sl, _sr, _sm, _slh, _srh;
