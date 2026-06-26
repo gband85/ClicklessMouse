@@ -1,7 +1,7 @@
 # Clickless Mouse
 
 ## Download
-[Download latest version](https://github.com/ProperCode/clickless-mouse/releases)<br/>
+[Download latest version](https://github.com/Gband85/ClicklessMouse/releases)<br/>
 
 **Languages:** English, Polish
 
@@ -10,13 +10,10 @@
 Clickless Mouse makes using a computer easier for people with repetitive strain injury, carpal tunnel syndrome, 
 some motor disabilities and other health problems.<br/>
 
-This application allows using a mouse without clicking - by moving it only.<br/>
+This application allows using a mouse without clicking.<br/>
 
 By reacting to user mouse movements this program simulates left/right mouse button click, 
 double left mouse button click and left/right mouse button holding. <br/>
-
-Clickless Mouse can be used with a virtual keyboard to type by moving a mouse 
-(e.g. [Free Virtual Keyboard](https://freevirtualkeyboard.com/)). <br/>
 
 By using Clickless Mouse with a virtual keyboard a user can fully control a computer by moving a mouse.<br/>
 
@@ -27,7 +24,7 @@ When you want to click/hold a mouse button: stop moving the mouse, wait for the 
 - Left square = left mouse button holding on/off
 - Right square = right mouse button holding on/off<br/>
  
-![alt text](https://raw.githubusercontent.com/ProperCode/clickless-mouse/master/other/images/1en.jpg) 
+![alt text](https://raw.githubusercontent.com/Gband85/ClicklessMouse/rebuild/other/diagram.jpg) 
 
 When the mouse cursor is located inside a square long enough (depending on cursor time 
 in square to register click setting), it automatically moves back to the previous position 
@@ -70,19 +67,4 @@ from a user.
 
 ## Screenshot
 
-![alt text](https://raw.githubusercontent.com/ProperCode/clickless-mouse/master/other/images/2en.jpg)
-
-## Awards
-[![Softpedia Clean Award](https://raw.githubusercontent.com/ProperCode/clickless-mouse/master/other/awards/softpedia_100_free.png)](https://www.softpedia.com/get/Desktop-Enhancements/Other-Desktop-Enhancements/Clickless-Mouse.shtml#status)
-[![Uptodown Clean Award](https://raw.githubusercontent.com/ProperCode/clickless-mouse/master/other/awards/certified-free.png)](https://clickless-mouse.en.uptodown.com/windows)
-[![Updatestar Clean Award](https://raw.githubusercontent.com/ProperCode/clickless-mouse/master/other/awards/updatestar.com.jpg)](https://www.updatestar.com/virus-report/clickless-mouse/4021684)
-[![Majorgeeks Award](https://raw.githubusercontent.com/ProperCode/clickless-mouse/master/other/awards/majorgeektested.gif)](https://www.majorgeeks.com/files/details/clickless_mouse.html)
-[![File Transit 5/5 Award](https://raw.githubusercontent.com/ProperCode/clickless-mouse/master/other/awards/filetransit_5of5.gif)](http://www.filetransit.com/view.php?id=454284)
-
-## Bug Report and Feedback
-If you wish to report a bug or send feedback, you can do so by sending me an e-mail: ![alt text](https://raw.githubusercontent.com/ProperCode/clickless-mouse/master/other/images/email.jpg) .
-Please include as much information as possible and provide screenshot(s) if applicable.
-
-## My Other Open Source Projects
-[Aspiring Keyboard](https://github.com/ProperCode/Aspiring-Keyboard)<br/><br/>
-[Work by Speech](https://github.com/ProperCode/Work-by-Speech)<br/>
+![alt text](https://raw.githubusercontent.com/Gband85/ClicklessMouse/rebuild/other/screenshot.jpg)
