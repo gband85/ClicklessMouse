@@ -94,7 +94,7 @@ namespace ClicklessMouse
         private const string url_latest_version =
             "https://raw.githubusercontent.com/gband85/ClicklessMouse/rebuild/other/latest_version.txt";
 
-        private const string url_homepage = "github.com/gband85/Clickless-Mouse";
+        private const string url_homepage = "github.com/gband85/ClicklessMouse";
         private string _latestVersion = "";
         private const string copyright_text = "Copyright © 2025-2026 Garrett Anderson. All rights reserved.";
         private string _settingsFilename = "appsettings.json";
