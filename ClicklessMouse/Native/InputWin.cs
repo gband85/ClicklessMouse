@@ -1,4 +1,7 @@
-﻿namespace ClicklessMouse.Native
+﻿using System.Drawing;
+using System.Runtime.InteropServices;
+
+namespace ClicklessMouse.Native
 {
 
 #if _WINDOWS
