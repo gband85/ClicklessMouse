@@ -17,7 +17,7 @@ public partial class WindowChangelog : Window
             TB.Text = """
                       All notable changes to Clickless Mouse will be documented here.
                       
-                      [3.2] - June 26, 2026:
+                      [3.2.0] - June 26, 2026:
                       - Ported to AvaloniaUI.
                       - Now cross-platform for Windows and X11 on Linux.
                       - Other minor improvements.
