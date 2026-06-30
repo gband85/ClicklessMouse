@@ -147,7 +147,7 @@ namespace ClicklessMouse
 
             InitializeComponent();
             DataContext = this;
-            Wmain.PropertyChanged += Wmain_StateChanged;
+            WindowMain.PropertyChanged += WindowMain_StateChanged;
 
 #if _WINDOWS
            _appFolderPath =
@@ -166,7 +166,7 @@ namespace ClicklessMouse
             ti_MouseClickCommand = ReactiveCommand.Create(ti_MouseClick);
             GetPrimaryTrayIcon().Command = ti_MouseClickCommand;
 
-            Wmain.Title = prog_name + " " + prog_version;
+            WindowMain.Title = prog_name + " " + prog_version;
 
             restore_default_settings();
 
@@ -1292,28 +1292,28 @@ namespace ClicklessMouse
         [DllImport("USER32.DLL")]
         public static extern bool SetForegroundWindow(IntPtr hWnd);
 
-        private void Wmain_StateChanged(object? sender, AvaloniaPropertyChangedEventArgs e)
+        private void WindowMain_StateChanged(object? sender, AvaloniaPropertyChangedEventArgs e)
         {
-            if (e.Property.ToString() == "WindowState" && Wmain.WindowState == WindowState.Minimized)
+            if (e.Property.ToString() == "WindowState" && WindowMain.WindowState == WindowState.Minimized)
             {
                 if (CHBminimize_to_tray.IsChecked == true)
                 {
-                    Wmain.Hide();
-                    Wmain.ShowInTaskbar = false;
+                    WindowMain.Hide();
+                    WindowMain.ShowInTaskbar = false;
                     GetPrimaryTrayIcon().IsVisible = true;
                 }
             }
         }
 
-        private void Wmain_Loaded(object? sender, RoutedEventArgs e)
+        private void WindowMain_Loaded(object? sender, RoutedEventArgs e)
         {
             if (CHBstart_minimized.IsChecked == true)
             {
-                Wmain.WindowState = WindowState.Minimized;
+                WindowMain.WindowState = WindowState.Minimized;
 
                 if (CHBminimize_to_tray.IsChecked == true)
                 {
-                    Wmain.Hide();
+                    WindowMain.Hide();
                     GetPrimaryTrayIcon().IsVisible = true;
                 }
 
@@ -1323,12 +1323,12 @@ namespace ClicklessMouse
 
         private void ti_MouseClick()
         {
-            Wmain.Show();
-            Wmain.ShowInTaskbar = true;
+            WindowMain.Show();
+            WindowMain.ShowInTaskbar = true;
             GetPrimaryTrayIcon().IsVisible = false;
         }
 
-        private void Window_Closing(object sender, WindowClosingEventArgs e)
+        private void WindowMain_Closing(object sender, WindowClosingEventArgs e)
         {
             MIexit_Click(null, null);
         }
@@ -1395,7 +1395,7 @@ namespace ClicklessMouse
 
         private void MImanual_Click(object sender, RoutedEventArgs e)
         {
-            WindowManual wmanual = new WindowManual();
+            WindowManual windowManual = new WindowManual();
             Uri assetUri;
             Stream stream;
             StreamReader reader;
@@ -1405,7 +1405,7 @@ namespace ClicklessMouse
                 assetUri = new Uri("avares://ClicklessMouse/Assets/1en.md");
                 stream = AssetLoader.Open(assetUri);
                 reader = new StreamReader(stream);
-                wmanual.RTBinstructions.Markdown = reader.ReadToEnd();
+                windowManual.RTBinstructions.Markdown = reader.ReadToEnd();
             }
 
             else if (_lang == UiLanguage.Pl)
@@ -1413,7 +1413,7 @@ namespace ClicklessMouse
                 assetUri = new Uri("avares://ClicklessMouse/Assets/1pl.md");
                 stream = AssetLoader.Open(assetUri);
                 reader = new StreamReader(stream);
-                wmanual.RTBinstructions.Markdown = reader.ReadToEnd();
+                windowManual.RTBinstructions.Markdown = reader.ReadToEnd();
             }
 
             windowManual.DataContext = this;
@@ -1436,7 +1436,7 @@ namespace ClicklessMouse
 
             try
             {
-                WindowAbout w = new WindowAbout
+                WindowAbout windowAbout = new WindowAbout
                 {
                     Lprogram_name =
                     {
@@ -2054,7 +2054,7 @@ namespace ClicklessMouse
                 // throw Exception h;
             }
 
-            foreach (ILogical control in Wmain.GetLogicalDescendants())
+            foreach (ILogical control in WindowMain.GetLogicalDescendants())
             {
                 if (control is CheckBox cb)
                 {
@@ -2108,7 +2108,7 @@ namespace ClicklessMouse
                 // Parse JSON as JsonNode
                 JsonNode root = JsonNode.Parse(json);
 
-                foreach (ILogical control in Wmain.GetLogicalDescendants())
+                foreach (ILogical control in WindowMain.GetLogicalDescendants())
                 {
                     if (control is CheckBox cb)
                     {

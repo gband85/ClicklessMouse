@@ -1,4 +1,4 @@
-<Window x:Name="Wmain" x:Class="ClicklessMouse.MainWindow"
+<Window x:Name="WindowMain" x:Class="ClicklessMouse.MainWindow"
         xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -8,8 +8,8 @@
         x:DataType="local:MainWindow"
         Title="Clickless Mouse" Width="627" Height="453"
         d:DesignHeight="462" d:DesignWidth="632" CanMaximize="False" CanMinimize="True" CanResize="False"
-        FontSize="13" WindowStartupLocation="CenterScreen" mc:Ignorable="d" Loaded="Wmain_Loaded" 
-        Closing="Window_Closing">
+        FontSize="13" WindowStartupLocation="CenterScreen" mc:Ignorable="d" Loaded="WindowMain_Loaded" 
+        Closing="WindowMain_Closing">
     <Window.Styles>
         <Style Selector="Label">
             <Setter Property="Padding" Value="0" />
