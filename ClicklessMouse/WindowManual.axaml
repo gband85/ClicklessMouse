@@ -8,8 +8,8 @@
         x:DataType="local:MainWindow"
 		xmlns:md="using:Markdown.Avalonia"
         Title="{Binding L10NResourceMgr[MImanual],Mode=OneWay}" Height="703" Width="745" WindowStartupLocation="CenterScreen"
-        FontSize="12" x:Name="Wmanual" Padding="0,0,5,10">
+        FontSize="12" Padding="0,0,5,10" CanResize="False">
     <Border BorderThickness="1" BorderBrush="LightBlue">
-	<md:MarkdownScrollViewer x:Name="RTBinstructions" xml:space="preserve" SelectionEnabled="True" Margin="10,0,0,0"/>
+	<md:MarkdownScrollViewer x:Name="RTBinstructions" xml:space="preserve" SelectionEnabled="True" Width="724" Margin="10,0,0,0"/>
     </Border>
 </Window>

@@ -4,10 +4,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="ClicklessMouse.WindowChangelog"
-        xmlns:local="clr-namespace:ClicklessMouse"
-        Title="Changelog" Height="680" Width="730" WindowStartupLocation="CenterScreen" CanResize="False">
+        Title="Changelog" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" CanResize="False">
     <Grid>
-        <TextBox Name="TB" TextWrapping="Wrap" AcceptsReturn="True" ScrollViewer.VerticalScrollBarVisibility="Visible" 
+        <TextBox Name="TB" TextWrapping="Wrap" AcceptsReturn="True" ScrollViewer.VerticalScrollBarVisibility="Hidden" 
                  Margin="10" FontSize="14">
         </TextBox>
     </Grid>
