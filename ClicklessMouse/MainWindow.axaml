@@ -69,8 +69,7 @@
             </Grid.RowDefinitions>
             <GroupBox x:Name="GBmain_settings" Grid.Row="0" Grid.Column="0" Height="257" Width="308"
                            Header="{Binding L10NResourceMgr[GBmain_settings],Mode=OneWay}"
-                           RenderOptions.EdgeMode="Antialias"
-                           Theme="{StaticResource GroupBoxClassic}" HorizontalAlignment="Left" Margin="10,3,0,0">
+                           RenderOptions.EdgeMode="Antialias" HorizontalAlignment="Left" Margin="10,3,0,0">
                 <Grid Margin="10,10,0,0" RowSpacing="15">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"></RowDefinition>
@@ -159,8 +158,7 @@
         </GroupBox>
         <GroupBox x:Name="GBother_settings" Grid.Row="1" HorizontalAlignment="Left"
                        Header="{Binding L10NResourceMgr[GBother_settings],Mode=OneWay}"
-                       RenderOptions.EdgeMode="Antialias"
-                       Theme="{StaticResource GroupBoxClassic}" Width="308" Height="140" Margin="10,0,0,0">
+                       RenderOptions.EdgeMode="Antialias" Width="308" Height="140" Margin="10,0,0,0">
             <StackPanel Margin="10">
                 <CheckBox x:Name="CHBrun_at_startup" Margin="0,0,0,0" HorizontalAlignment="Left"
                           VerticalAlignment="Top" IsCheckedChanged="CHBrun_at_startup_CheckedChanged"
@@ -181,7 +179,7 @@
         <GroupBox x:Name="GBsquare_settings" Grid.Row="0" Grid.Column="1" Width="291" Height="257"
                        HorizontalAlignment="Left"
                        Header="{Binding L10NResourceMgr[GBsquare_settings],Mode=OneWay}"
-                       RenderOptions.EdgeMode="Antialias" Theme="{StaticResource GroupBoxClassic}" Margin="0,2,0,0">
+                       RenderOptions.EdgeMode="Antialias" Margin="0,2,0,0">
             <Grid RowSpacing="20" ColumnSpacing="10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="163" />
@@ -230,8 +228,7 @@
         <GroupBox x:Name="GBrecommended_square_size" Grid.Row="1" Grid.Column="1" Width="291" Height="140"
                        HorizontalAlignment="Left" VerticalAlignment="Top"
                        Header="{Binding L10NResourceMgr[GBrecommended_square_size],Mode=OneWay}"
-                       RenderOptions.EdgeMode="Antialias"
-                       Theme="{StaticResource GroupBoxClassic}">
+                       RenderOptions.EdgeMode="Antialias">
             <Grid RowSpacing="12" ColumnSpacing="10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
