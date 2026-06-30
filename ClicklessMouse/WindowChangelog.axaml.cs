@@ -22,7 +22,7 @@ public partial class WindowChangelog : Window
                       - Now cross-platform for Windows and X11 on Linux.
                       - Other minor improvements.
                       
-                      [2.2] - Januray 28, 2024:
+                      [2.2] - January 28, 2024:
                       - Added automatic check for updates.
                       - Changed recommended square size.
                       - Improved UI.

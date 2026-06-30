@@ -1282,11 +1282,6 @@ namespace ClicklessMouse
                 }
             }
         }
-
-        private void destroy_SRH()
-        {
-            Console.WriteLine("");
-        }
         //----------------------------------------------------------------------------------
 
         [DllImport("USER32.DLL")]
@@ -1453,7 +1448,7 @@ namespace ClicklessMouse
                     HBhomepage =
                     {
                         Content = url_homepage,
-                        NavigateUri = new Uri("http://" + url_homepage)
+                        NavigateUri = new Uri("https://" + url_homepage)
                     },
                     Lcopyright =
                     {
