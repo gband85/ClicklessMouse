@@ -23,19 +23,20 @@ namespace ClicklessMouse
 
         async private void ShowError(Exception ex)
         {
-var box = MessageBoxManager.GetMessageBoxStandard("Error WC001", ex.Message, ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error);
-                var result = await box.ShowAsync();
+            var box = MessageBoxManager.GetMessageBoxStandard("Error WC001", ex.Message, ButtonEnum.Ok,
+                MsBox.Avalonia.Enums.Icon.Error);
+            var result = await box.ShowAsync();
         }
         private void Beula_Click(object sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
-            WindowEula w = new WindowEula();
-            w.Show();
+            WindowEula windowEula = new WindowEula();
+            windowEula.ShowDialog(this);
         }
 
         private void Bchangelog_Click(object sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
-            WindowChangelog wc = new WindowChangelog();
-            wc.Show();
+            WindowChangelog windowChangelog = new WindowChangelog();
+            windowChangelog.ShowDialog(this);
         }
     }
 }

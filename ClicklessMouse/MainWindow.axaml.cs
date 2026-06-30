@@ -1416,8 +1416,8 @@ namespace ClicklessMouse
                 wmanual.RTBinstructions.Markdown = reader.ReadToEnd();
             }
 
-            wmanual.DataContext = this;
-            wmanual.Show();
+            windowManual.DataContext = this;
+            windowManual.ShowDialog(this);
         }
 
         private async void MIabout_Click(object sender, RoutedEventArgs e)
@@ -1461,7 +1461,7 @@ namespace ClicklessMouse
                     }
                 };
 
-                w.Show();
+                windowAbout.ShowDialog(this);
             }
             catch (Exception ex)
             {
