@@ -1,6 +1,9 @@
 bin/
 obj/
 .vs/
+publish/
+Output/
+artifacts/
 /ClicklessMouse/.avalonia-build-tasks
 /ClicklessMouse/.vscode
 /.idea/.idea.ClicklessMouse/.idea
