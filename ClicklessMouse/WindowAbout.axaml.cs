@@ -1,6 +1,7 @@
 using MsBox.Avalonia;
 using MsBox.Avalonia.Enums;
 using System;
+using Avalonia;
 
 namespace ClicklessMouse
 {
@@ -19,6 +20,8 @@ namespace ClicklessMouse
             {
                 ShowError(ex);
             }
+
+            HBhomepage.PropertyChanged += HBhomepage_StateChanged;
         }
 
         async private void ShowError(Exception ex)
@@ -37,6 +40,13 @@ namespace ClicklessMouse
         {
             WindowChangelog windowChangelog = new WindowChangelog();
             windowChangelog.ShowDialog(this);
+        }
+        private void HBhomepage_StateChanged(object? sender, AvaloniaPropertyChangedEventArgs e)
+        {
+            if (e.Property.ToString() == "IsVisited" && HBhomepage.IsVisited == true)
+            {
+                HBhomepage.IsVisited = false;
+            }
         }
     }
 }
