@@ -1776,7 +1776,7 @@ namespace ClicklessMouse
                     if (!File.Exists(Path.Combine(_appFolderPath, "clicklessmouse.desktop")))
                     {
                         File.Copy(
-                            Path.Combine("/usr/share", prog_name.Replace(" ", String.Empty), "clicklessmouse.desktop"),
+                            Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "clicklessmouse.desktop"),
                             Path.Combine("/home", Environment.UserName, ".config/autostart", "clicklessmouse.desktop"));
                     }
 #endif
