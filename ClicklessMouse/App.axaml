@@ -2,14 +2,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:dialog="clr-namespace:Egorozh.ColorPicker.Dialog;assembly=Egorozh.ColorPicker.Avalonia.Dialog"
              x:Class="ClicklessMouse.App"
-             RequestedThemeVariant="Light"
+             RequestedThemeVariant="Default"
              xmlns:local="clr-namespace:ClicklessMouse"
              x:DataType="local:MainWindow">
     <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
 
     <Application.Styles>
-        <SimpleTheme />
-        <dialog:SimpleTheme />
+        <FluentTheme />
+        <dialog:FluentTheme />
     </Application.Styles>
     <Application.Resources>
         <ResourceDictionary>
