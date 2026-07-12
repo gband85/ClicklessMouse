@@ -6,24 +6,23 @@
         xmlns:local="clr-namespace:ClicklessMouse"
         xmlns:p="clr-namespace:ClicklessMouse.Properties"
         x:DataType="local:MainWindow"
-        Title="Clickless Mouse" Width="627" Height="453"
+        Title="Clickless Mouse" SizeToContent="WidthAndHeight"
         d:DesignHeight="462" d:DesignWidth="632" CanMaximize="False" CanMinimize="True" CanResize="False"
-        FontSize="13" WindowStartupLocation="CenterScreen" mc:Ignorable="d" Loaded="WindowMain_Loaded" 
+        WindowStartupLocation="CenterScreen" mc:Ignorable="d" Loaded="WindowMain_Loaded" 
         Closing="WindowMain_Closing">
     <Window.Styles>
-        <Style Selector="Label">
-            <Setter Property="Padding" Value="0" />
-            <Setter Property="VerticalContentAlignment" Value="Bottom" />
-        </Style>
-        <Style Selector="MenuItem">
-            <Setter Property="Background" Value="#ffeaeaea" />
-        </Style>
-        <!-- remove white border around menu items -->
-        <Style Selector="MenuItem:open /template/ Popup#PART_Popup > Border">
-            <Setter Property="Background" Value="#ffeaeaea"></Setter>
-        </Style>
-        <Style Selector="Menu /template/ ItemsPresenter#PART_ItemsPresenter">
+        <Style Selector="Label, TextBlock, TextBox">
             <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        </Style>
+        <Style Selector="TextBox">
+            <Setter Property="Width" Value="33"></Setter>
+        </Style>
+        <Style Selector="GroupBox">
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="Padding" Value="10" />
+        </Style>
+        <Style Selector="AccessText">
+            <Setter Property="TextWrapping" Value="Wrap"></Setter>
         </Style>
     </Window.Styles>
     <Grid ShowGridLines="False">
@@ -33,7 +32,7 @@
         </Grid.RowDefinitions>
 
         <DockPanel Grid.Row="0">
-            <Menu x:Name="Mmain" Height="28" VerticalAlignment="Center" Background="#FFEAEAEA" DockPanel.Dock="Top">
+            <Menu x:Name="Mmain" Height="28" VerticalAlignment="Center" DockPanel.Dock="Top" BorderThickness="0,0,0,1" BorderBrush="White">
                 <MenuItem x:Name="MIfile" Header="{Binding L10NResourceMgr[MIfile],Mode=OneWay}">
                     <MenuItem x:Name="MIexit" Click="MIexit_Click"
                               Header="{Binding L10NResourceMgr[MIexit],Mode=OneWay}" />
@@ -58,131 +57,102 @@
                 </MenuItem>
             </Menu>
         </DockPanel>
-        <Grid Grid.Row="1" Margin="0" ColumnSpacing="7" RowSpacing="8">
+        <Grid Grid.Row="1" ColumnSpacing="32" RowSpacing="32" Margin="16">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="318" />
+                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <GroupBox x:Name="GBmain_settings" Grid.Row="0" Grid.Column="0" Height="257" Width="308"
+            <GroupBox x:Name="GBmain_settings" Grid.Row="0" Grid.Column="0"
                            Header="{Binding L10NResourceMgr[GBmain_settings],Mode=OneWay}"
-                           RenderOptions.EdgeMode="Antialias" HorizontalAlignment="Left" Margin="10,3,0,0">
-                <Grid Margin="10,10,0,0" RowSpacing="15">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"></RowDefinition>
-                        <RowDefinition Height="Auto"></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <Grid Grid.Row="0" RowSpacing="15" Margin="0,0,0,0" ColumnSpacing="">
+                           RenderOptions.EdgeMode="Antialias">
+                <StackPanel Spacing="20" Orientation="Vertical">
+                    <Grid Grid.Row="0" RowSpacing="15" ColumnSpacing="20">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="130" />
                             <ColumnDefinition Width="Auto" />
-                            <!-- <ColumnDefinition Width="65" /> -->
+                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
-                        <CheckBox x:Name="CHBLMB" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left"
-                                  VerticalAlignment="Top" IsCheckedChanged="CHBLMB_CheckedChanged"
+                        <CheckBox x:Name="CHBLMB" Grid.Row="0" Grid.Column="0" IsCheckedChanged="CHBLMB_CheckedChanged"
                                   Content="{Binding L10NResourceMgr[CHBLMB],Mode=OneWay}"
                                   />
-                        <CheckBox x:Name="CHBRMB" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left"
-                                  VerticalAlignment="Top" IsCheckedChanged="CHBRMB_CheckedChanged"
+                        <CheckBox x:Name="CHBRMB" Grid.Row="1" Grid.Column="0" IsCheckedChanged="CHBRMB_CheckedChanged"
                                   Content="{Binding L10NResourceMgr[CHBRMB],Mode=OneWay}"  />
                         <CheckBox x:Name="CHBdoubleLMB" Grid.Row="2" Grid.Column="0"
-                                  HorizontalAlignment="Left" VerticalAlignment="Top"
                                   IsCheckedChanged="CHBdoubleLMB_CheckedChanged"
                                   Content="{Binding L10NResourceMgr[CHBdoubleLMB],Mode=OneWay}"
                                   />
-                        <CheckBox x:Name="CHBholdLMB" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left"
-                                  VerticalAlignment="Top" IsCheckedChanged="CHBholdLMB_CheckedChanged"
+                        <CheckBox x:Name="CHBholdLMB" Grid.Row="0" Grid.Column="1" IsCheckedChanged="CHBholdLMB_CheckedChanged"
                                   Content="{Binding L10NResourceMgr[CHBholdLMB],Mode=OneWay}"
                                   />
-                        <CheckBox x:Name="CHBholdRMB" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left"
-                                  VerticalAlignment="Top" IsCheckedChanged="CHBholdRMB_CheckedChanged"
+                        <CheckBox x:Name="CHBholdRMB" Grid.Row="1" Grid.Column="1" IsCheckedChanged="CHBholdRMB_CheckedChanged"
                                   Content="{Binding L10NResourceMgr[CHBholdRMB],Mode=OneWay}" />
-                        <CheckBox x:Name="CHBscreen_panning" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left"
-                                  VerticalAlignment="Top" IsCheckedChanged="CHBscreen_panning_CheckedChanged"
+                        <CheckBox x:Name="CHBscreen_panning" Grid.Row="2" Grid.Column="1" IsCheckedChanged="CHBscreen_panning_CheckedChanged"
                                   Content="{Binding L10NResourceMgr[CHBscreen_panning],Mode=OneWay}" />
                     </Grid>
-                    <Grid Grid.Row="1" RowSpacing="15" Margin="0,0,0,0" ColumnSpacing="5">
+                    <Grid Grid.Row="1" RowSpacing="15" ColumnSpacing="5">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
-                            <!-- <ColumnDefinition Width="65" /> -->
+                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
-                        <Label x:Name="Lcursor_idle_before_squares_appear" Grid.Row="0" Grid.Column="0" Width="220"
-                               Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <Label x:Name="Lcursor_idle_before_squares_appear" Grid.Row="0" Grid.Column="0" Width="220">
                             <AccessText
-                                Text="{Binding L10NResourceMgr[Lcursor_idle_before_squares_appear],Mode=OneWay}"
-                                TextWrapping="WrapWithOverflow" />
+                                Text="{Binding L10NResourceMgr[Lcursor_idle_before_squares_appear],Mode=OneWay}"/>
                         </Label>
-                        <TextBox x:Name="TBcursor_idle_before_squares_appear" Grid.Row="0" Grid.Column="1" Width="50"
-                                 Height="25" HorizontalAlignment="Left" VerticalAlignment="Center"
+                        <TextBox x:Name="TBcursor_idle_before_squares_appear" Grid.Row="0" Grid.Column="1"
                                  ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                                 TextChanged="TBcursor_idle_before_squares_appear_TextChanged" TextWrapping="Wrap" />
-                        <Label x:Name="Ltime_to_start_mouse" Grid.Row="1" Grid.Column="0" Width="220" Margin="0,0,0,0"
-                               HorizontalAlignment="Left" VerticalAlignment="Top">
-                            <AccessText Text="{Binding L10NResourceMgr[Ltime_to_start_mouse],Mode=OneWay}"
-                                        TextWrapping="WrapWithOverflow" />
+                                 TextChanged="TBcursor_idle_before_squares_appear_TextChanged" TextWrapping="Wrap"/>
+                        <Label x:Name="Ltime_to_start_mouse" Grid.Row="1" Grid.Column="0" Width="220">
+                            <AccessText Text="{Binding L10NResourceMgr[Ltime_to_start_mouse],Mode=OneWay}"/>
                         </Label>
-                        <TextBox x:Name="TBtime_to_start_mouse" Grid.Row="1" Grid.Column="1" Width="50" Height="25"
-                                 HorizontalAlignment="Left" VerticalAlignment="Center"
+                        <TextBox x:Name="TBtime_to_start_mouse" Grid.Row="1" Grid.Column="1"
                                  ScrollViewer.VerticalScrollBarVisibility="Hidden"
                                  TextChanged="TBtime_to_start_mouse_TextChanged" TextWrapping="Wrap" />
-                        <Label x:Name="Lcursor_time_in_square" Grid.Row="2" Grid.Column="0" Width="220"
-                               Margin="0,0,0,10" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <Label x:Name="Lcursor_time_in_square" Grid.Row="2" Grid.Column="0" Width="220">
                             <AccessText
-                                Text="{Binding L10NResourceMgr[Lcursor_time_in_square],Mode=OneWay}"
-                                TextWrapping="WrapWithOverflow" />
+                                Text="{Binding L10NResourceMgr[Lcursor_time_in_square],Mode=OneWay}"/>
                         </Label>
-                        <TextBox x:Name="TBcursor_time_in_square" Grid.Row="2" Grid.Column="1" Width="50" Height="25"
-                                 HorizontalAlignment="Left" VerticalAlignment="Center"
+                        <TextBox x:Name="TBcursor_time_in_square" Grid.Row="2" Grid.Column="1"
                                  ScrollViewer.VerticalScrollBarVisibility="Hidden"
                                  TextChanged="TBcursor_time_in_square_TextChanged" TextWrapping="Wrap"
-                                 Margin="0,0,0,10" />
+                                  />
                     </Grid>
-</Grid>
-
-        
-
+</StackPanel>
         </GroupBox>
-        <GroupBox x:Name="GBother_settings" Grid.Row="1" HorizontalAlignment="Left"
+        <GroupBox x:Name="GBother_settings" Grid.Row="1"
                        Header="{Binding L10NResourceMgr[GBother_settings],Mode=OneWay}"
-                       RenderOptions.EdgeMode="Antialias" Width="308" Height="140" Margin="10,0,0,0">
-            <StackPanel Margin="10">
-                <CheckBox x:Name="CHBrun_at_startup" Margin="0,0,0,0" HorizontalAlignment="Left"
-                          VerticalAlignment="Top" IsCheckedChanged="CHBrun_at_startup_CheckedChanged"
+                       RenderOptions.EdgeMode="Antialias">
+            <StackPanel>
+                <CheckBox x:Name="CHBrun_at_startup" IsCheckedChanged="CHBrun_at_startup_CheckedChanged"
                           Content="{Binding L10NResourceMgr[CHBrun_at_startup],Mode=OneWay}" />
-                <CheckBox x:Name="CHBstart_minimized" Margin="0,10,0,0" HorizontalAlignment="Left"
-                          VerticalAlignment="Top" IsCheckedChanged="CHBstart_minimized_CheckedChanged"
+                <CheckBox x:Name="CHBstart_minimized" IsCheckedChanged="CHBstart_minimized_CheckedChanged"
                           Content="{Binding L10NResourceMgr[CHBstart_minimized],Mode=OneWay}"
                           />
-                <CheckBox x:Name="CHBminimize_to_tray" Margin="0,10,0,0" HorizontalAlignment="Left"
-                          VerticalAlignment="Top" IsCheckedChanged="CHBminimize_to_tray_CheckedChanged"
+                <CheckBox x:Name="CHBminimize_to_tray" IsCheckedChanged="CHBminimize_to_tray_CheckedChanged"
                           Content="{Binding L10NResourceMgr[CHBminimize_to_tray],Mode=OneWay}"
                           />
-                <CheckBox x:Name="CHBcheck_for_updates" Margin="0,10,0,0" HorizontalAlignment="Left"
-                          VerticalAlignment="Top" IsCheckedChanged="CHBcheck_for_updates_CheckedChanged"
+                <CheckBox x:Name="CHBcheck_for_updates" IsCheckedChanged="CHBcheck_for_updates_CheckedChanged"
                           Content="{Binding L10NResourceMgr[CHBcheck_for_updates],Mode=OneWay}" />
             </StackPanel>
         </GroupBox>
-        <GroupBox x:Name="GBsquare_settings" Grid.Row="0" Grid.Column="1" Width="291" Height="257"
-                       HorizontalAlignment="Left"
+        <GroupBox x:Name="GBsquare_settings" Grid.Row="0" Grid.Column="1"
                        Header="{Binding L10NResourceMgr[GBsquare_settings],Mode=OneWay}"
-                       RenderOptions.EdgeMode="Antialias" Margin="0,2,0,0">
-            <Grid RowSpacing="20" ColumnSpacing="10">
+                       RenderOptions.EdgeMode="Antialias">
+            <Grid RowSpacing="30.70" ColumnSpacing="72">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="163" />
+                    <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
@@ -192,41 +162,32 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <Label x:Name="Lsquare_size" Grid.Row="0" Grid.Column="0" Margin="10,10,0,0"
-                       HorizontalAlignment="Left"
+                <Label x:Name="Lsquare_size" Grid.Row="0" Grid.Column="0"
                        Content="{Binding L10NResourceMgr[Lsquare_size],Mode=OneWay}" />
-                <Label x:Name="Lsquare_border" Grid.Row="1" Grid.Column="0" Margin="10,0,0,0"
-                       HorizontalAlignment="Left"
+                <Label x:Name="Lsquare_border" Grid.Row="1" Grid.Column="0"
                        Content="{Binding L10NResourceMgr[Lsquare_border],Mode=OneWay}" />
-                <Label x:Name="Lsquare_color1" Grid.Row="2" Grid.Column="0" Margin="10,0,0,0"
-                       HorizontalAlignment="Left"
+                <Label x:Name="Lsquare_color1" Grid.Row="2" Grid.Column="0"
                        Content="{Binding L10NResourceMgr[Lsquare_color1],Mode=OneWay}" />
-                <Label x:Name="Lsquare_color2" Grid.Row="3" Grid.Column="0" Margin="10,0,0,0"
-                       HorizontalAlignment="Left"
+                <Label x:Name="Lsquare_color2" Grid.Row="3" Grid.Column="0"
                        Content="{Binding L10NResourceMgr[Lsquare_color2],Mode=OneWay}" />
-                <Label x:Name="Lmin_square_size" Grid.Row="4" Grid.Column="0" Margin="10,0,0,0"
-                       HorizontalAlignment="Left"
+                <Label x:Name="Lmin_square_size" Grid.Row="4" Grid.Column="0"
+                       
                        Content="{Binding L10NResourceMgr[Lmin_square_size],Mode=OneWay}" />
-                <TextBox x:Name="TBsquare_size" Grid.Row="0" Grid.Column="1" Width="45" Height="25"
-                         Margin="0,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"
-                         VerticalContentAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                <TextBox x:Name="TBsquare_size" Grid.Row="0" Grid.Column="1" ScrollViewer.VerticalScrollBarVisibility="Hidden"
                          TextChanged="TBsquare_size_TextChanged" TextWrapping="Wrap" />
-                <TextBox x:Name="TBsquare_border" Grid.Row="1" Grid.Column="1" Width="60" Height="25"
-                         HorizontalAlignment="Left" VerticalAlignment="Top"
+                <TextBox x:Name="TBsquare_border" Grid.Row="1" Grid.Column="1"
                          ScrollViewer.VerticalScrollBarVisibility="Hidden"
                          TextChanged="TBsquare_border_TextChanged" TextWrapping="Wrap" />
-                <Button x:Name="Bsquare_color1" Grid.Row="2" Grid.Column="1" Width="95" Height="25"
+                <Button x:Name="Bsquare_color1" Grid.Row="2" Grid.Column="1" Width="64" Height="32"
                         HorizontalAlignment="Left" VerticalAlignment="Top" Click="Bsquare_color1_Click" />
-                <Button x:Name="Bsquare_color2" Grid.Row="3" Grid.Column="1" Width="95" Height="25"
+                <Button x:Name="Bsquare_color2" Grid.Row="3" Grid.Column="1" Width="64" Height="32"
                         HorizontalAlignment="Left" VerticalAlignment="Top" Click="Bsquare_color2_Click" />
-                <TextBox x:Name="TBmin_square_size" Grid.Row="4" Grid.Column="1" Width="45" Height="25"
-                         HorizontalAlignment="Left" VerticalAlignment="Top"
+                <TextBox x:Name="TBmin_square_size" Grid.Row="4" Grid.Column="1"
                          ScrollViewer.VerticalScrollBarVisibility="Hidden"
                          TextChanged="TBmin_square_size_TextChanged" TextWrapping="Wrap" />
             </Grid>
         </GroupBox>
-        <GroupBox x:Name="GBrecommended_square_size" Grid.Row="1" Grid.Column="1" Width="291" Height="140"
-                       HorizontalAlignment="Left" VerticalAlignment="Top"
+        <GroupBox x:Name="GBrecommended_square_size" Grid.Row="1" Grid.Column="1"
                        Header="{Binding L10NResourceMgr[GBrecommended_square_size],Mode=OneWay}"
                        RenderOptions.EdgeMode="Antialias">
             <Grid RowSpacing="12" ColumnSpacing="10">
@@ -239,21 +200,18 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <Label x:Name="Lscreen_size" Grid.Row="0" Grid.Column="0" Margin="10,10,0,0"
-                       HorizontalAlignment="Center" VerticalAlignment="Center"
+                <Label x:Name="Lscreen_size" Grid.Row="0" Grid.Column="0"
                        Content="{Binding L10NResourceMgr[Lscreen_size],Mode=OneWay}" Width="155"/>
-                <TextBox x:Name="TBscreen_size" Grid.Row="0" Grid.Column="1" Width="50" Height="25"
-                         Margin="0,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"
+                <TextBox x:Name="TBscreen_size" Grid.Row="0" Grid.Column="1"
                          ScrollViewer.VerticalScrollBarVisibility="Hidden" TextWrapping="Wrap" />
-                <Label x:Name="Lscreen_resolution" Grid.Row="1" Grid.Column="0" Margin="10,0,0,0"
-                       VerticalAlignment="Center" Content="{Binding L10NResourceMgr[Lscreen_resolution],Mode=OneWay}" />
-                <TextBlock x:Name="TBLscreen_resolution" Grid.Row="1" Grid.Column="1" Width="100"
+                <Label x:Name="Lscreen_resolution" Grid.Row="1" Grid.Column="0"
+                       Content="{Binding L10NResourceMgr[Lscreen_resolution],Mode=OneWay}" />
+                <TextBlock x:Name="TBLscreen_resolution" Grid.Row="1" Grid.Column="1"
                            Grid.ColumnSpan="2"
-                           HorizontalAlignment="Left" VerticalAlignment="Center" TextWrapping="Wrap"
+                           TextWrapping="Wrap"
                            Text="" />
                 <Button x:Name="Bset_recommended_square" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
-                        HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFEAEAEA"
-                        Click="Click_Bset_recommended_square"
+                        Click="Click_Bset_recommended_square" HorizontalAlignment="Center"
                         Content="{Binding L10NResourceMgr[Bset_recommended_square],Mode=OneWay}" />
             </Grid>
         </GroupBox>
