@@ -11,13 +11,6 @@
         <FluentTheme />
         <dialog:FluentTheme />
     </Application.Styles>
-    <Application.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <MergeResourceInclude Source="Controls/CheckBox.axaml"></MergeResourceInclude>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Application.Resources>
     <TrayIcon.Icons>
         <TrayIcons>
             <TrayIcon Icon="/Assets/icons/clicklessmouse.ico"
