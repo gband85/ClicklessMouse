@@ -16,7 +16,7 @@ namespace ClicklessMouse
 
         public Square(int side, int lineWidth, Color color1, Color color2)
         {
-            InitializeComponent();
+            // InitializeComponent();
 
             Background = new SolidColorBrush(Colors.Transparent);
             WindowDecorations = WindowDecorations.None;
