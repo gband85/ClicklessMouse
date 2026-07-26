@@ -34,7 +34,7 @@ namespace ClicklessMouse
         //square toggles
         private bool _slEnabled;
         private bool _srEnabled;
-        private bool _smEnabled;
+        private bool _sldEnabled;
         private bool _slhEnabled;
         private bool _srhEnabled;
         private bool _screenPanning;
@@ -99,7 +99,7 @@ namespace ClicklessMouse
         private const string copyright_text = "Copyright © 2025-2026 Garrett Anderson. All rights reserved.";
         private string _settingsFilename = "appsettings.json";
         private string _defaultSettingsFilename = "defaults.json";
-        private Square _sl, _sr, _sm, _slh, _srh;
+        private Square _sl, _sr, _sld, _slh, _srh;
         private DateTime _lastClickTime;
         private CancellationTokenSource _cts1, _cts2;
         private Thread _thRmouseMonitor, _thRsquaresMonitor, _thRmouseMonitor2;
@@ -314,7 +314,7 @@ namespace ClicklessMouse
         {
             regenerate_SL();
             regenerate_SR();
-            regenerate_SM();
+            regenerate_SLD();
             regenerate_SLH();
             regenerate_SRH();
         }
@@ -332,10 +332,10 @@ namespace ClicklessMouse
         private int _srStartY;
         private int _srEndX;
         private int _srEndY;
-        private int _smStartX;
-        private int _smStartY;
-        private int _smEndX;
-        private int _smEndY;
+        private int _sldStartX;
+        private int _sldStartY;
+        private int _sldEndX;
+        private int _sldEndY;
         private int _slhStartX;
         private int _slhStartY;
         private int _slhEndX;
@@ -436,10 +436,10 @@ namespace ClicklessMouse
             _srEndX = _srStartX + _size;
             _srEndY = _srStartY + _size;
 
-            _smStartX = X - _displacement;
-            _smStartY = Y - 2 * _size;
-            _smEndX = _smStartX + _size;
-            _smEndY = _smStartY + _size;
+            _sldStartX = X - _displacement;
+            _sldStartY = Y - 2 * _size;
+            _sldEndX = _sldStartX + _size;
+            _sldEndY = _sldStartY + _size;
 
             _slhStartX = X - 2 * _size;
             _slhStartY = Y - _displacement;
@@ -578,7 +578,7 @@ namespace ClicklessMouse
                         }
 
                         //if top screen edge would cover squares show them below mouse cursor instead
-                        if (_smEnabled && _smStartY < -1 * _size * 0.75 || (_smEnabled == false
+                        if (_sldEnabled && _sldStartY < -1 * _size * 0.75 || (_sldEnabled == false
                                                                             && (_slEnabled || _srEnabled) &&
                                                                             _slStartY < -1 * _size * 0.75))
                         {
@@ -588,8 +588,8 @@ namespace ClicklessMouse
                             _srStartY = Y + _displacement;
                             _srEndY = _srStartY + _size;
 
-                            _smStartY = Y + _size;
-                            _smEndY = _smStartY + _size;
+                            _sldStartY = Y + _size;
+                            _sldEndY = _sldStartY + _size;
                         }
 
                         bool mi_file_open = false;
@@ -612,8 +612,8 @@ namespace ClicklessMouse
                             show_SL(true);
                         if (_srEnabled)
                             show_SR(true);
-                        if (_smEnabled)
-                            show_SM(true);
+                        if (_sldEnabled)
+                            show_SLD(true);
                         if (_slhEnabled)
                             show_SLH(true);
                         if (_srhEnabled)
@@ -664,8 +664,8 @@ namespace ClicklessMouse
                         show_SL(false);
                     if (_srEnabled)
                         show_SR(false);
-                    if (_smEnabled)
-                        show_SM(false);
+                    if (_sldEnabled)
+                        show_SLD(false);
                     if (_slhEnabled)
                         show_SLH(false);
                     if (_srhEnabled)
@@ -679,12 +679,12 @@ namespace ClicklessMouse
 
         private void monitor_squares(CancellationToken token)
         {
-            int iSl = 0, iSr = 0, iSm = 0, iSlh = 0, iSrh = 0;
+            int iSl = 0, iSr = 0, iSld = 0, iSlh = 0, iSrh = 0;
             int iMax = _cursorTimeInSquareMs / loop_time_ms;
             int posX, posY;
             int[] mouseCoords;
 
-            while (iSl < iMax && iSr < iMax && iSm < iMax
+            while (iSl < iMax && iSr < iMax && iSld < iMax
                    && iSlh < iMax && iSrh < iMax && SquaresVisible)
             {
                 if (token.IsCancellationRequested)
@@ -714,13 +714,13 @@ namespace ClicklessMouse
                     else iSr = 0;
                 }
 
-                if (_smEnabled)
+                if (_sldEnabled)
                 {
-                    if (is_cursor_in_SM(posX, posY))
+                    if (is_cursor_in_SLD(posX, posY))
                     {
-                        iSm++;
+                        iSld++;
                     }
-                    else iSm = 0;
+                    else iSld = 0;
                 }
 
                 if (_slhEnabled)
@@ -751,8 +751,8 @@ namespace ClicklessMouse
                     show_SL(false);
                 if (_srEnabled)
                     show_SR(false);
-                if (_smEnabled)
-                    show_SM(false);
+                if (_sldEnabled)
+                    show_SLD(false);
                 if (_slhEnabled)
                     show_SLH(false);
                 if (_srhEnabled)
@@ -767,8 +767,8 @@ namespace ClicklessMouse
                     show_SL(false);
                 if (_srEnabled)
                     show_SR(false);
-                if (_smEnabled)
-                    show_SM(false);
+                if (_sldEnabled)
+                    show_SLD(false);
                 if (_slhEnabled)
                     show_SLH(false);
                 if (_srhEnabled)
@@ -776,7 +776,7 @@ namespace ClicklessMouse
                 _lastClickTime = DateTime.Now;
                 SquaresVisible = false;
             }
-            else if (iSm >= iMax)
+            else if (iSld >= iMax)
             {
                 DlmbClick(X, Y, 100);
                 if (_slEnabled)
@@ -785,6 +785,8 @@ namespace ClicklessMouse
                     show_SR(false);
                 if (_smEnabled)
                     show_SM(false);
+                if (_sldEnabled)
+                    show_SLD(false);
                 if (_slhEnabled)
                     show_SLH(false);
                 if (_srhEnabled)
@@ -800,8 +802,8 @@ namespace ClicklessMouse
                     show_SL(false);
                 if (_srEnabled)
                     show_SR(false);
-                if (_smEnabled)
-                    show_SM(false);
+                if (_sldEnabled)
+                    show_SLD(false);
                 if (_slhEnabled)
                     show_SLH(false);
                 if (_srhEnabled)
@@ -816,8 +818,8 @@ namespace ClicklessMouse
                     show_SL(false);
                 if (_srEnabled)
                     show_SR(false);
-                if (_smEnabled)
-                    show_SM(false);
+                if (_sldEnabled)
+                    show_SLD(false);
                 if (_slhEnabled)
                     show_SLH(false);
                 if (_srhEnabled)
@@ -842,8 +844,8 @@ namespace ClicklessMouse
                         show_SL(false);
                     if (_srEnabled)
                         show_SR(false);
-                    if (_smEnabled)
-                        show_SM(false);
+                    if (_sldEnabled)
+                        show_SLD(false);
                     if (_slhEnabled)
                         show_SLH(false);
                     if (_srhEnabled)
@@ -873,10 +875,10 @@ namespace ClicklessMouse
             else return false;
         }
 
-        private bool is_cursor_in_SM(int x1, int y1)
+        private bool is_cursor_in_SLD(int x1, int y1)
         {
-            if (x1 >= _smStartX && x1 <= _smEndX
-                                && y1 >= _smStartY && y1 <= _smEndY)
+            if (x1 >= _sldStartX && x1 <= _sldEndX
+                                && y1 >= _sldStartY && y1 <= _sldEndY)
             {
                 return true;
             }
@@ -999,15 +1001,15 @@ namespace ClicklessMouse
             }
         }
 
-        private void show_SM(bool show)
+        private void show_SLD(bool show)
         {
-            if (_sm == null)
+            if (_sld == null)
                 return;
-            if (!_sm.CheckAccess())
+            if (!_sld.CheckAccess())
             {
                 try
                 {
-                    Callback1 d = show_SM;
+                    Callback1 d = show_SLD;
                     Dispatcher.UIThread.Invoke(() => d(show));
                 }
                 catch (ObjectDisposedException ex)
@@ -1019,10 +1021,10 @@ namespace ClicklessMouse
             {
                 if (show)
                 {
-                    _sm.Position = new PixelPoint(_smStartX, _smStartY);
-                    _sm.Show();
+                    _sld.Position = new PixelPoint(_sldStartX, _sldStartY);
+                    _sld.Show();
                 }
-                else _sm.Hide();
+                else _sld.Hide();
             }
         }
 
@@ -1163,15 +1165,15 @@ namespace ClicklessMouse
             }
         }
 
-        private void regenerate_SM()
+        private void regenerate_SLD()
         {
-            if (_smEnabled)
+            if (_sldEnabled)
             {
-                if (_sm != null && !_sm.CheckAccess())
+                if (_sld != null && !_sld.CheckAccess())
                 {
                     try
                     {
-                        Callback2 d = regenerate_SM;
+                        Callback2 d = regenerate_SLD;
                         Dispatcher.UIThread.Invoke(() => d());
                     }
                     catch (ObjectDisposedException ex)
@@ -1181,24 +1183,24 @@ namespace ClicklessMouse
                 }
                 else
                 {
-                    if (_sm != null)
-                        _sm.Close();
+                    if (_sld != null)
+                        _sld.Close();
 
-                    _sm = new Square(_size, _borderWidth, _color1, _color2)
+                    _sld = new Square(_size, _borderWidth, _color1, _color2)
                     {
                         Topmost = true,
                         Height = _size,
                         Width = _size
                     };
-                    _sm.Show();
-                    _sm.Hide();
+                    _sld.Show();
+                    _sld.Hide();
                 }
             }
             else
             {
-                if (_sm != null)
+                if (_sld != null)
                 {
-                    _sm.Close();
+                    _sld.Close();
                 }
             }
         }
@@ -1473,7 +1475,7 @@ namespace ClicklessMouse
             {
                 show_SL(false);
                 show_SR(false);
-                show_SM(false);
+                show_SLD(false);
                 show_SLH(false);
                 show_SRH(false);
             }
@@ -1501,7 +1503,7 @@ namespace ClicklessMouse
             {
                 show_SL(false);
                 show_SR(false);
-                show_SM(false);
+                show_SLD(false);
                 show_SLH(false);
                 show_SRH(false);
             }
@@ -1529,18 +1531,18 @@ namespace ClicklessMouse
             {
                 show_SL(false);
                 show_SR(false);
-                show_SM(false);
+                show_SLD(false);
                 show_SLH(false);
                 show_SRH(false);
             }
 
             if (CHBdoubleLMB.IsChecked == true)
             {
-                _smEnabled = true;
+                _sldEnabled = true;
             }
             else
             {
-                _smEnabled = false;
+                _sldEnabled = false;
             }
 
             if (_savingEnabled)
@@ -1548,7 +1550,7 @@ namespace ClicklessMouse
                 save_settings();
             }
 
-            regenerate_SM();
+            regenerate_SLD();
         }
 
         private void CHBholdLMB_CheckedChanged(object sender, RoutedEventArgs e)
@@ -1557,7 +1559,7 @@ namespace ClicklessMouse
             {
                 show_SL(false);
                 show_SR(false);
-                show_SM(false);
+                show_SLD(false);
                 show_SLH(false);
                 show_SRH(false);
             }
@@ -1585,7 +1587,7 @@ namespace ClicklessMouse
             {
                 show_SL(false);
                 show_SR(false);
-                show_SM(false);
+                show_SLD(false);
                 show_SLH(false);
                 show_SRH(false);
             }
