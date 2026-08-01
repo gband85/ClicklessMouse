@@ -13,6 +13,7 @@ namespace ClicklessMouse
         private int _lineWidth = 1;
         private Color _c1;
         private Color _c2;
+        public int StartX, StartY, EndX, EndY;
 
         public Square(int side, int lineWidth, Color color1, Color color2)
         {

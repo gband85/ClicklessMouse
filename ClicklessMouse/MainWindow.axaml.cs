@@ -324,26 +324,6 @@ namespace ClicklessMouse
         private int _maxY;
         public bool SquaresVisible;
         private int _showZone;
-        private int _slStartX;
-        private int _slStartY;
-        private int _slEndX;
-        private int _slEndY;
-        private int _srStartX;
-        private int _srStartY;
-        private int _srEndX;
-        private int _srEndY;
-        private int _sldStartX;
-        private int _sldStartY;
-        private int _sldEndX;
-        private int _sldEndY;
-        private int _slhStartX;
-        private int _slhStartY;
-        private int _slhEndX;
-        private int _slhEndY;
-        private int _srhStartX;
-        private int _srhStartY;
-        private int _srhEndX;
-        private int _srhEndY;
 
         private void monitor_mouse2(CancellationToken token)
         {
@@ -517,7 +497,7 @@ namespace ClicklessMouse
 
                             //if SLH is visible when at minimum_size and 80% or more of SLH 
                             //is out of left screen edge
-                            if (_slhEnabled && X > minimumSize && _slhStartX <= -1 * _size * 0.8)
+                            if (_slhEnabled && X > minimumSize && _slh.StartX <= -1 * _size * 0.8)
                             {
                                 //decrease square size so at least 25% is visible, but square size >= minimum_size
                                 _size = (int)(X / 1.25);
@@ -529,7 +509,7 @@ namespace ClicklessMouse
                             }
                             //if SL is visible when at minimum_size and 80% or more of SL 
                             //is out of left screen edge
-                            else if (_slEnabled && X > minimumSize / 2 && _slStartX <= -1 * _size * 0.8)
+                            else if (_slEnabled && X > minimumSize / 2 && _sl.StartX <= -1 * _size * 0.8)
                             {
                                 //decrease square size so at least 25% is visible, but square size >= minimum_size
                                 _size = (int)(X / 0.75);
@@ -542,7 +522,7 @@ namespace ClicklessMouse
                             //if SRH is visible when at minimum_size and 80% or more of SRH 
                             //is out of left screen edge
                             else if (_srhEnabled && X < (screenWidth - 1) - minimumSize
-                                                 && _srhStartX >= (screenWidth - 1) - _size * 0.2)
+                                                 && _srh.StartX >= (screenWidth - 1) - _size * 0.2)
                             {
                                 //decrease square size so at least 25% is visible, but square size >= minimum_size
                                 _size = (int)(((screenWidth - 1) - X) / 1.25);
@@ -555,7 +535,7 @@ namespace ClicklessMouse
                             //if SR is visible when at minimum_size and 80% or more of SR
                             //is out of left screen edge
                             else if (_srEnabled && X < (screenWidth - 1) - 0.5 * minimumSize
-                                                && _srStartX >= (screenWidth - 1) - _size * 0.2)
+                                                && _sr.StartX >= (screenWidth - 1) - _size * 0.2)
                             {
                                 //decrease square size so at least 25% is visible, but square size >= minimum_size
                                 _size = (int)(((screenWidth - 1) - X) / 0.75);
@@ -609,15 +589,15 @@ namespace ClicklessMouse
                         //     new Action(() => { is_instructions_focused = Wmanual.IsActive; }));
 
                         if (_slEnabled)
-                            show_SL(true);
+                            show_square(_sl, true);
                         if (_srEnabled)
-                            show_SR(true);
+                            show_square(_sr, true);
                         if (_sldEnabled)
-                            show_SLD(true);
+                            show_square(_sld, true);
                         if (_slhEnabled)
-                            show_SLH(true);
+                            show_square(_slh, true);
                         if (_srhEnabled)
-                            show_SRH(true);
+                            show_square(_srh, true);
 
                         SquaresVisible = true;
 
@@ -661,15 +641,15 @@ namespace ClicklessMouse
                     _cts1.Dispose();
                     SquaresVisible = false;
                     if (_slEnabled)
-                        show_SL(false);
+                        show_square(_sl, false);
                     if (_srEnabled)
-                        show_SR(false);
+                        show_square(_sr, false);
                     if (_sldEnabled)
-                        show_SLD(false);
+                        show_square(_sld, false);
                     if (_slhEnabled)
-                        show_SLH(false);
+                        show_square(_slh, false);
                     if (_srhEnabled)
-                        show_SRH(false);
+                        show_square(_srh, false);
                     i = 0;
                     _bannedX = X;
                     _bannedY = Y;
@@ -698,7 +678,7 @@ namespace ClicklessMouse
 
                 if (_slEnabled)
                 {
-                    if (is_cursor_in_SL(posX, posY))
+                    if (is_cursor_in_square(posX, posY, _sl))
                     {
                         iSl++;
                     }
@@ -707,7 +687,7 @@ namespace ClicklessMouse
 
                 if (_srEnabled)
                 {
-                    if (is_cursor_in_SR(posX, posY))
+                    if (is_cursor_in_square(posX, posY, _sr))
                     {
                         iSr++;
                     }
@@ -716,7 +696,7 @@ namespace ClicklessMouse
 
                 if (_sldEnabled)
                 {
-                    if (is_cursor_in_SLD(posX, posY))
+                    if (is_cursor_in_square(posX, posY, _sld))
                     {
                         iSld++;
                     }
@@ -725,7 +705,7 @@ namespace ClicklessMouse
 
                 if (_slhEnabled)
                 {
-                    if (is_cursor_in_SLH(posX, posY))
+                    if (is_cursor_in_square(posX, posY, _slh))
                     {
                         iSlh++;
                     }
@@ -734,7 +714,7 @@ namespace ClicklessMouse
 
                 if (_srhEnabled)
                 {
-                    if (is_cursor_in_SRH(posX, posY))
+                    if (is_cursor_in_square(posX, posY, _srh))
                     {
                         iSrh++;
                     }
@@ -748,15 +728,15 @@ namespace ClicklessMouse
             {
                 LmbClick(X, Y, 100);
                 if (_slEnabled)
-                    show_SL(false);
+                    show_square(_sl, false);
                 if (_srEnabled)
-                    show_SR(false);
+                    show_square(_sr, false);
                 if (_sldEnabled)
-                    show_SLD(false);
+                    show_square(_sld, false);
                 if (_slhEnabled)
-                    show_SLH(false);
+                    show_square(_slh, false);
                 if (_srhEnabled)
-                    show_SRH(false);
+                    show_square(_srh, false);
                 _lastClickTime = DateTime.Now;
                 SquaresVisible = false;
             }
@@ -764,15 +744,15 @@ namespace ClicklessMouse
             {
                 RmbClick(X, Y, 100);
                 if (_slEnabled)
-                    show_SL(false);
+                    show_square(_sl, false);
                 if (_srEnabled)
-                    show_SR(false);
+                    show_square(_sr, false);
                 if (_sldEnabled)
-                    show_SLD(false);
+                    show_square(_sld, false);
                 if (_slhEnabled)
-                    show_SLH(false);
+                    show_square(_slh, false);
                 if (_srhEnabled)
-                    show_SRH(false);
+                    show_square(_srh, false);
                 _lastClickTime = DateTime.Now;
                 SquaresVisible = false;
             }
@@ -780,17 +760,15 @@ namespace ClicklessMouse
             {
                 DlmbClick(X, Y, 100);
                 if (_slEnabled)
-                    show_SL(false);
+                    show_square(_sl, false);
                 if (_srEnabled)
-                    show_SR(false);
-                if (_smEnabled)
-                    show_SM(false);
+                    show_square(_sr, false);
                 if (_sldEnabled)
-                    show_SLD(false);
+                    show_square(_sld, false);
                 if (_slhEnabled)
-                    show_SLH(false);
+                    show_square(_slh, false);
                 if (_srhEnabled)
-                    show_SRH(false);
+                    show_square(_srh, false);
                 _lastClickTime = DateTime.Now;
                 SquaresVisible = false;
             }
@@ -799,15 +777,15 @@ namespace ClicklessMouse
             {
                 LmbHold(X, Y, 100);
                 if (_slEnabled)
-                    show_SL(false);
+                    show_square(_sl, false);
                 if (_srEnabled)
-                    show_SR(false);
+                    show_square(_sr, false);
                 if (_sldEnabled)
-                    show_SLD(false);
+                    show_square(_sld, false);
                 if (_slhEnabled)
-                    show_SLH(false);
+                    show_square(_slh, false);
                 if (_srhEnabled)
-                    show_SRH(false);
+                    show_square(_srh, false);
                 _lastClickTime = DateTime.Now;
                 SquaresVisible = false;
             }
@@ -815,15 +793,15 @@ namespace ClicklessMouse
             {
                 RmbHold(X, Y, 100);
                 if (_slEnabled)
-                    show_SL(false);
+                    show_square(_sl, false);
                 if (_srEnabled)
-                    show_SR(false);
+                    show_square(_sr, false);
                 if (_sldEnabled)
-                    show_SLD(false);
+                    show_square(_sld, false);
                 if (_slhEnabled)
-                    show_SLH(false);
+                    show_square(_slh, false);
                 if (_srhEnabled)
-                    show_SRH(false);
+                    show_square(_srh, false);
                 _lastClickTime = DateTime.Now;
                 SquaresVisible = false;
             }
@@ -841,68 +819,32 @@ namespace ClicklessMouse
                 if (is_cursor_outside_zone(x1, y1))
                 {
                     if (_slEnabled)
-                        show_SL(false);
+                        show_square(_sl, false);
                     if (_srEnabled)
-                        show_SR(false);
+                        show_square(_sr, false);
                     if (_sldEnabled)
-                        show_SLD(false);
+                        show_square(_sld, false);
                     if (_slhEnabled)
-                        show_SLH(false);
+                        show_square(_slh, false);
                     if (_srhEnabled)
-                        show_SRH(false);
+                        show_square(_srh, false);
                     SquaresVisible = false;
                 }
             }
         }
 
-        private bool is_cursor_in_SL(int x1, int y1)
+        private bool is_cursor_in_square(int x1, int y1, Square square)
         {
-            if (x1 >= _slStartX && x1 <= _slEndX
-                                && y1 >= _slStartY && y1 <= _slEndY)
+            if (square != null)
             {
-                return true;
+                if (x1 >= square.StartX && x1 <= square.EndX
+                                        && y1 >= square.StartY && y1 <= square.EndY)
+                {
+                    return true;
+                }
             }
-            else return false;
-        }
 
-        private bool is_cursor_in_SR(int x1, int y1)
-        {
-            if (x1 >= _srStartX && x1 <= _srEndX
-                                && y1 >= _srStartY && y1 <= _srEndY)
-            {
-                return true;
-            }
-            else return false;
-        }
-
-        private bool is_cursor_in_SLD(int x1, int y1)
-        {
-            if (x1 >= _sldStartX && x1 <= _sldEndX
-                                && y1 >= _sldStartY && y1 <= _sldEndY)
-            {
-                return true;
-            }
-            else return false;
-        }
-
-        private bool is_cursor_in_SLH(int x1, int y1)
-        {
-            if (x1 >= _slhStartX && x1 <= _slhEndX
-                                 && y1 >= _slhStartY && y1 <= _slhEndY)
-            {
-                return true;
-            }
-            else return false;
-        }
-
-        private bool is_cursor_in_SRH(int x1, int y1)
-        {
-            if (x1 >= _srhStartX && x1 <= _srhEndX
-                                 && y1 >= _srhStartY && y1 <= _srhEndY)
-            {
-                return true;
-            }
-            else return false;
+            return false;
         }
 
         private bool is_cursor_outside_zone(int x1, int y1)
@@ -930,7 +872,8 @@ namespace ClicklessMouse
             {
                 return true;
             }
-            else return false;
+
+            return false;
         }
 
         private void real_sleep(int time)
@@ -945,262 +888,46 @@ namespace ClicklessMouse
             stopwatch.Stop();
         }
 
-        private delegate void Callback1(bool show);
-
-        private void show_SL(bool show)
+        private void show_square(Square square, bool show)
         {
-            if (_sl == null)
+            if (square == null)
                 return;
-            if (!_sl.CheckAccess())
+            if (show)
             {
-                try
-                {
-                    Callback1 d = show_SL;
-                    Dispatcher.UIThread.Invoke(() => d(show));
-                }
-                catch (ObjectDisposedException ex)
-                {
-                    //
-                }
+                square.Position = new PixelPoint(square.StartX, square.StartY);
+                Dispatcher.UIThread.InvokeAsync(() => square.Show());
             }
-            else
-            {
-                if (show)
-                {
-                    _sl.Position = new PixelPoint(_slStartX, _slStartY);
-                    _sl.Show();
-                }
-                else _sl.Hide();
-            }
+            else Dispatcher.UIThread.InvokeAsync(() => square.Hide());
         }
 
-        private void show_SR(bool show)
+        private void create_square(ref Square square)
         {
-            if (_sr == null)
-                return;
-            if (!_sr.CheckAccess())
+            if (square != null)
             {
-                try
+                if (square.IsAttachedToVisualTree())
                 {
-                    Callback1 d = show_SR;
-                    Dispatcher.UIThread.Invoke(() => d(show));
-                }
-                catch (ObjectDisposedException ex)
-                {
-                    //
+                    square.Close();
                 }
             }
-            else
+
+            square = new Square(_size, _borderWidth, _color1, _color2)
             {
-                if (show)
-                {
-                    _sr.Position = new PixelPoint(_srStartX, _srStartY);
-                    _sr.Show();
-                }
-                else _sr.Hide();
-            }
+                Topmost = true,
+                Height = _size,
+                Width = _size
+            };
+            Dispatcher.UIThread.InvokeAsync(square.Show);
+
+            Dispatcher.UIThread.InvokeAsync(square.Hide);
         }
 
-        private void show_SLD(bool show)
+        void destroy_square(Square square)
         {
-            if (_sld == null)
-                return;
-            if (!_sld.CheckAccess())
+            if (square != null)
             {
-                try
+                if (square.IsAttachedToVisualTree())
                 {
-                    Callback1 d = show_SLD;
-                    Dispatcher.UIThread.Invoke(() => d(show));
-                }
-                catch (ObjectDisposedException ex)
-                {
-                    //
-                }
-            }
-            else
-            {
-                if (show)
-                {
-                    _sld.Position = new PixelPoint(_sldStartX, _sldStartY);
-                    _sld.Show();
-                }
-                else _sld.Hide();
-            }
-        }
-
-        private void show_SLH(bool show)
-        {
-            if (_slh == null)
-                return;
-            if (!_slh.CheckAccess())
-            {
-                try
-                {
-                    Callback1 d = show_SLH;
-                    Dispatcher.UIThread.Invoke(() => d(show));
-                }
-                catch (ObjectDisposedException ex)
-                {
-                    //
-                }
-            }
-            else
-            {
-                if (show)
-                {
-                    _slh.Position = new PixelPoint(_slhStartX, _slhStartY);
-                    _slh.Show();
-                }
-                else _slh.Hide();
-            }
-        }
-
-        private void show_SRH(bool show)
-        {
-            if (_srh == null)
-                return;
-            if (!_srh.CheckAccess())
-            {
-                try
-                {
-                    Callback1 d = show_SRH;
-                    Dispatcher.UIThread.Invoke(() => d(show));
-                }
-                catch (ObjectDisposedException ex)
-                {
-                    //
-                }
-            }
-            else
-            {
-                if (show)
-                {
-                    _srh.Position = new PixelPoint(_srhStartX, _srhStartY);
-                    _srh.Show();
-                }
-                else _srh.Hide();
-            }
-        }
-
-        private delegate void Callback2();
-
-        private void regenerate_SL()
-        {
-            if (_slEnabled)
-            {
-                if (_sl != null && !_sl.CheckAccess())
-                {
-                    try
-                    {
-                        Callback2 d = regenerate_SL;
-                        Dispatcher.UIThread.Invoke(() => d());
-                    }
-                    catch (ObjectDisposedException ex)
-                    {
-                        //
-                    }
-                }
-                else
-                {
-                    if (_sl != null)
-                        _sl.Close();
-
-                    _sl = new Square(_size, _borderWidth, _color1, _color2)
-                    {
-                        Topmost = true,
-                        Height = _size,
-                        Width = _size
-                    };
-
-                    _sl.Show();
-                    _sl.Hide();
-                }
-            }
-            else
-            {
-                if (_sl != null)
-                {
-                    _sl.Close();
-                }
-            }
-        }
-
-        private void regenerate_SR()
-        {
-            if (_srEnabled)
-            {
-                if (_sr != null && !_sr.CheckAccess())
-                {
-                    try
-                    {
-                        Callback2 d = regenerate_SR;
-                        Dispatcher.UIThread.Invoke(() => d());
-                    }
-                    catch (ObjectDisposedException ex)
-                    {
-                        //
-                    }
-                }
-                else
-                {
-                    if (_sr != null)
-                        _sr.Close();
-
-                    _sr = new Square(_size, _borderWidth, _color1, _color2)
-                    {
-                        Topmost = true,
-                        Height = _size,
-                        Width = _size
-                    };
-                    _sr.Show();
-                    _sr.Hide();
-                }
-            }
-            else
-            {
-                if (_sr != null)
-                {
-                    _sr.Close();
-                }
-            }
-        }
-
-        private void regenerate_SLD()
-        {
-            if (_sldEnabled)
-            {
-                if (_sld != null && !_sld.CheckAccess())
-                {
-                    try
-                    {
-                        Callback2 d = regenerate_SLD;
-                        Dispatcher.UIThread.Invoke(() => d());
-                    }
-                    catch (ObjectDisposedException ex)
-                    {
-                        //
-                    }
-                }
-                else
-                {
-                    if (_sld != null)
-                        _sld.Close();
-
-                    _sld = new Square(_size, _borderWidth, _color1, _color2)
-                    {
-                        Topmost = true,
-                        Height = _size,
-                        Width = _size
-                    };
-                    _sld.Show();
-                    _sld.Hide();
-                }
-            }
-            else
-            {
-                if (_sld != null)
-                {
-                    _sld.Close();
+                    square.Close();
                 }
             }
         }
@@ -1313,8 +1040,6 @@ namespace ClicklessMouse
                     WindowMain.Hide();
                     GetPrimaryTrayIcon().IsVisible = true;
                 }
-
-                ;
             }
         }
 
@@ -1473,132 +1198,134 @@ namespace ClicklessMouse
         {
             if (_savingEnabled)
             {
-                show_SL(false);
-                show_SR(false);
-                show_SLD(false);
-                show_SLH(false);
-                show_SRH(false);
+                show_square(_sl, false);
+                show_square(_sr, false);
+                show_square(_sld, false);
+                show_square(_slh, false);
+                show_square(_srh, false);
             }
 
             if (CHBLMB.IsChecked == true)
             {
                 _slEnabled = true;
+                create_square(ref _sl);
             }
             else
             {
                 _slEnabled = false;
+                destroy_square(_sl);
             }
 
             if (_savingEnabled)
             {
                 save_settings();
             }
-
-            regenerate_SL();
         }
 
         private void CHBRMB_CheckedChanged(object sender, RoutedEventArgs e)
         {
             if (_savingEnabled)
             {
-                show_SL(false);
-                show_SR(false);
-                show_SLD(false);
-                show_SLH(false);
-                show_SRH(false);
+                show_square(_sl, false);
+                show_square(_sr, false);
+                show_square(_sld, false);
+                show_square(_slh, false);
+                show_square(_srh, false);
             }
 
             if (CHBRMB.IsChecked == true)
             {
                 _srEnabled = true;
+                create_square(ref _sr);
             }
             else
             {
                 _srEnabled = false;
+                destroy_square(_sr);
             }
 
             if (_savingEnabled)
             {
                 save_settings();
             }
-
-            regenerate_SR();
         }
 
         private void CHBdoubleLMB_CheckedChanged(object sender, RoutedEventArgs e)
         {
             if (_savingEnabled)
             {
-                show_SL(false);
-                show_SR(false);
-                show_SLD(false);
-                show_SLH(false);
-                show_SRH(false);
+                show_square(_sl, false);
+                show_square(_sr, false);
+                show_square(_sld, false);
+                show_square(_slh, false);
+                show_square(_srh, false);
             }
 
             if (CHBdoubleLMB.IsChecked == true)
             {
                 _sldEnabled = true;
+                create_square(ref _sld);
             }
             else
             {
                 _sldEnabled = false;
+                destroy_square(_sld);
             }
 
             if (_savingEnabled)
             {
                 save_settings();
             }
-
-            regenerate_SLD();
         }
 
         private void CHBholdLMB_CheckedChanged(object sender, RoutedEventArgs e)
         {
             if (_savingEnabled)
             {
-                show_SL(false);
-                show_SR(false);
-                show_SLD(false);
-                show_SLH(false);
-                show_SRH(false);
+                show_square(_sl, false);
+                show_square(_sr, false);
+                show_square(_sld, false);
+                show_square(_slh, false);
+                show_square(_srh, false);
             }
 
             if (CHBholdLMB.IsChecked == true)
             {
                 _slhEnabled = true;
+                create_square(ref _slh);
             }
             else
             {
                 _slhEnabled = false;
+                destroy_square(_slh);
             }
 
             if (_savingEnabled)
             {
                 save_settings();
             }
-
-            regenerate_SLH();
         }
 
         private void CHBholdRMB_CheckedChanged(object sender, RoutedEventArgs e)
         {
             if (_savingEnabled)
             {
-                show_SL(false);
-                show_SR(false);
-                show_SLD(false);
-                show_SLH(false);
-                show_SRH(false);
+                show_square(_sl, false);
+                show_square(_sr, false);
+                show_square(_sld, false);
+                show_square(_slh, false);
+                show_square(_srh, false);
             }
 
             if (CHBholdRMB.IsChecked == true)
             {
                 _srhEnabled = true;
+                create_square(ref _srh);
             }
             else
             {
                 _srhEnabled = false;
+                destroy_square(_srh);
             }
 
             if (_savingEnabled)
