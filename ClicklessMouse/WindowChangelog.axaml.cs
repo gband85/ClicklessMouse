@@ -16,8 +16,19 @@ public partial class WindowChangelog : Window
 
             TB.Text = """
                       All notable changes to Clickless Mouse will be documented here.
+
+                      [3.2.0]
+                      - Generalized square functions
+                      - Changed theme
+                      - Fixed layout
                       
-                      [3.2.0] - June 26, 2026:
+                      [3.1.1]
+                      - Fixed autostart on linux
+                      
+                      [3.1.0] - June 30, 2026:
+                      - Miscellaneous Changes
+                      
+                      [3.0.0] - June 26, 2026:
                       - Ported to AvaloniaUI.
                       - Now cross-platform for Windows and X11 on Linux.
                       - Other minor improvements.

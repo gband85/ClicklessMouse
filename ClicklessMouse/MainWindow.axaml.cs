@@ -16,6 +16,7 @@ using RoutedEventArgs = Avalonia.Interactivity.RoutedEventArgs;
 using WindowState = Avalonia.Controls.WindowState;
 using Avalonia;
 using Avalonia.LogicalTree;
+using Avalonia.VisualTree;
 using Egorozh.ColorPicker.Dialog;
 using MsBox.Avalonia;
 using MsBox.Avalonia.Enums;
@@ -78,6 +79,7 @@ namespace ClicklessMouse
 
         private int _size;
         private int _borderWidth;
+        private string _name;
         private Color _color1 = Color.FromUInt32(default_color1_uint); //square color 1
         private Color _color2 = Color.FromUInt32(default_color2_uint); //square color 2
         private uint _squareColor1Uint;
@@ -162,9 +164,6 @@ namespace ClicklessMouse
 #endif
 
             _settingsPath = Path.Combine(_appFolderPath, _settingsFilename);
-
-            ti_MouseClickCommand = ReactiveCommand.Create(ti_MouseClick);
-            GetPrimaryTrayIcon().Command = ti_MouseClickCommand;
 
             WindowMain.Title = prog_name + " " + prog_version;
 
@@ -268,7 +267,6 @@ namespace ClicklessMouse
             CHBholdLMB.IsChecked = false;
             CHBholdRMB.IsChecked = false;
             CHBscreen_panning.IsChecked = false;
-
 
             TBcursor_idle_before_squares_appear.Text = default_cursor_idle_time_ms.ToString();
             _cursorIdleTimeMs = default_cursor_idle_time_ms;
@@ -406,30 +404,45 @@ namespace ClicklessMouse
             _displacement = _size / 2;
             _showZone = _size + _displacement;
 
-            _slStartX = X - _showZone;
-            _slStartY = Y - _showZone;
-            _slEndX = _slStartX + _size;
-            _slEndY = _slStartY + _size;
+            if (_slEnabled)
+            {
+                _sl.StartX = X - _showZone;
+                _sl.StartY = Y - _showZone;
+                _sl.EndX = _sl.StartX + _size;
+                _sl.EndY = _sl.StartY + _size;
+            }
 
-            _srStartX = X + _displacement;
-            _srStartY = Y - _showZone;
-            _srEndX = _srStartX + _size;
-            _srEndY = _srStartY + _size;
+            if (_srEnabled)
+            {
+                _sr.StartX = X + _displacement;
+                _sr.StartY = Y - _showZone;
+                _sr.EndX = _sr.StartX + _size;
+                _sr.EndY = _sr.StartY + _size;
+            }
 
-            _sldStartX = X - _displacement;
-            _sldStartY = Y - 2 * _size;
-            _sldEndX = _sldStartX + _size;
-            _sldEndY = _sldStartY + _size;
+            if (_sldEnabled)
+            {
+                _sld.StartX = X - _displacement;
+                _sld.StartY = Y - 2 * _size;
+                _sld.EndX = _sld.StartX + _size;
+                _sld.EndY = _sld.StartY + _size;
+            }
 
-            _slhStartX = X - 2 * _size;
-            _slhStartY = Y - _displacement;
-            _slhEndX = _slhStartX + _size;
-            _slhEndY = _slhStartY + _size;
+            if (_slhEnabled)
+            {
+                _slh.StartX = X - 2 * _size;
+                _slh.StartY = Y - _displacement;
+                _slh.EndX = _slh.StartX + _size;
+                _slh.EndY = _slh.StartY + _size;
+            }
 
-            _srhStartX = X + _size;
-            _srhStartY = Y - _displacement;
-            _srhEndX = _srhStartX + _size;
-            _srhEndY = _srhStartY + _size;
+            if (_srhEnabled)
+            {
+                _srh.StartX = X + _size;
+                _srh.StartY = Y - _displacement;
+                _srh.EndX = _srh.StartX + _size;
+                _srh.EndY = _srh.StartY + _size;
+            }
         }
 
         private int _bannedX = -1;
@@ -558,19 +571,33 @@ namespace ClicklessMouse
                         }
 
                         //if top screen edge would cover squares show them below mouse cursor instead
-                        if (_sldEnabled && _sldStartY < -1 * _size * 0.75 || (_sldEnabled == false
-                                                                            && (_slEnabled || _srEnabled) &&
-                                                                            _slStartY < -1 * _size * 0.75))
+                        if (_sldEnabled)
                         {
-                            _slStartY = Y + _displacement;
-                            _slEndY = _slStartY + _size;
-
-                            _srStartY = Y + _displacement;
-                            _srEndY = _srStartY + _size;
-
-                            _sldStartY = Y + _size;
-                            _sldEndY = _sldStartY + _size;
+                            if (_sld.StartY < -1 * _size * 0.75)
+                            {
+                                _sld.StartY = Y + _size;
+                                _sld.EndY = _sld.StartY + _size;
+                            }
                         }
+
+                        if (_slEnabled)
+                        {
+                            if (_sl.StartY < -1 * _size * 0.75)
+                            {
+                                _sl.StartY = Y + _displacement;
+                                _sl.EndY = _sl.StartY + _size;
+                            }
+                        }
+
+                        if (_srEnabled)
+                        {
+                            if (_sr.StartY < -1 * _size * 0.75)
+                            {
+                                _sr.StartY = Y + _displacement;
+                                _sr.EndY = _sr.StartY + _size;
+                            }
+                        }
+
 
                         bool mi_file_open = false;
                         bool mi_restore_open = false;

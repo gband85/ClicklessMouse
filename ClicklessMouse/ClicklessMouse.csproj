@@ -81,4 +81,7 @@
       <HintPath>Lib\Egorozh.ColorPicker.Avalonia.Dialog.dll</HintPath>
     </Reference>
   </ItemGroup>
+  <ItemGroup>
+    <AvaloniaXaml Remove="Icons.axaml" />
+  </ItemGroup>
 </Project>
