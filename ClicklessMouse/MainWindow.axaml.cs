@@ -127,17 +127,10 @@ namespace ClicklessMouse
         public L10NResourceMgr L10NResourceMgr
             => L10NResourceMgr.Instance;
 
-        public static TrayIcon? GetPrimaryTrayIcon()
-        {
-            var app = Application.Current;
+        private TrayIcon _trayIcon;
+        private TrayIcons _trayIcons;
 
-            if (app is null)
-                return null;
-
-            return TrayIcon.GetIcons(app)?.FirstOrDefault();
-        }
-
-        public ReactiveCommand<Unit, Unit> ti_MouseClickCommand { get; }
+        public ReactiveCommand<Unit, Unit> trayIcon_ClickCommand;
 
         public MainWindow()
         {
@@ -152,9 +145,9 @@ namespace ClicklessMouse
             WindowMain.PropertyChanged += WindowMain_StateChanged;
 
 #if _WINDOWS
-           _appFolderPath =
- Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), prog_name); 
-           _defaultSettingsPath = Path.Combine(AppContext.BaseDirectory,_defaultSettingsFilename);
+            _appFolderPath =
+                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), prog_name);
+            _defaultSettingsPath = Path.Combine(AppContext.BaseDirectory, _defaultSettingsFilename);
 
 #elif _LINUX
             _appFolderPath = Path.Combine("/home", Environment.UserName, ".config",
@@ -162,6 +155,18 @@ namespace ClicklessMouse
             _defaultSettingsPath = Path.Combine(AppContext.BaseDirectory, _defaultSettingsFilename);
 
 #endif
+            trayIcon_ClickCommand = ReactiveCommand.Create(trayIcon_Click);
+            _trayIcon = new TrayIcon
+            {
+                Icon = new WindowIcon(
+                    AssetLoader.Open(new Uri("avares://ClicklessMouse/Assets/icons/clicklessmouse.ico"))),
+                Command = trayIcon_ClickCommand,
+                IsVisible = false,
+                ToolTipText = "Clickless Mouse"
+            };
+            _trayIcons = new TrayIcons();
+            _trayIcons.Add(_trayIcon);
+            TrayIcon.SetIcons(Application.Current, _trayIcons);
 
             _settingsPath = Path.Combine(_appFolderPath, _settingsFilename);
 
@@ -189,6 +194,16 @@ namespace ClicklessMouse
                 Priority = ThreadPriority.Highest
             };
             _thRmouseMonitor.Start();
+        }
+
+        public static TrayIcon? GetPrimaryTrayIcon()
+        {
+            var app = Application.Current;
+
+            if (app is null)
+                return null;
+
+            return TrayIcon.GetIcons(app)?.FirstOrDefault();
         }
 
         private async void is_program_already_running()
@@ -310,11 +325,16 @@ namespace ClicklessMouse
 
         private void regenerate_squares()
         {
-            regenerate_SL();
-            regenerate_SR();
-            regenerate_SLD();
-            regenerate_SLH();
-            regenerate_SRH();
+            if (_slEnabled)
+                Dispatcher.Post(() => create_square(ref _sl));
+            if (_srEnabled)
+                Dispatcher.Post(() => create_square(ref _sr));
+            if (_sldEnabled)
+                Dispatcher.Post(() => create_square(ref _sld));
+            if (_slhEnabled)
+                Dispatcher.Post(() => create_square(ref _slh));
+            if (_srhEnabled)
+                Dispatcher.Post(() => create_square(ref _srh));
         }
 
         public int X, Y;
@@ -563,11 +583,11 @@ namespace ClicklessMouse
                         if (originalSize != _size)
                         {
                             calculate_squares_start_positions();
-                            // regenerate_squares();
+                            regenerate_squares();
                         }
                         else if (_previousSize != _size)
                         {
-                            // regenerate_squares();
+                            regenerate_squares();
                         }
 
                         //if top screen edge would cover squares show them below mouse cursor instead
@@ -606,12 +626,12 @@ namespace ClicklessMouse
                         bool is_this_focused = false;
                         bool is_instructions_focused = false;
 
-                        Dispatcher.UIThread.Invoke(() => { mi_file_open = MIfile.IsSubMenuOpen; });
-                        Dispatcher.UIThread.Invoke(() => { mi_restore_open = MIrestore.IsSubMenuOpen; });
-                        Dispatcher.UIThread.Invoke(() => { mi_language_open = MIlanguage.IsSubMenuOpen; });
-                        Dispatcher.UIThread.Invoke(() => { mi_help_open = MIhelp.IsSubMenuOpen; });
+                        Dispatcher.UIThread.Post(() => { mi_file_open = MIfile.IsSubMenuOpen; });
+                        Dispatcher.UIThread.Post(() => { mi_restore_open = MIrestore.IsSubMenuOpen; });
+                        Dispatcher.UIThread.Post(() => { mi_language_open = MIlanguage.IsSubMenuOpen; });
+                        Dispatcher.UIThread.Post(() => { mi_help_open = MIhelp.IsSubMenuOpen; });
 
-                        Dispatcher.UIThread.Invoke(() => { is_this_focused = this.IsFocused; });
+                        Dispatcher.UIThread.Post(() => { is_this_focused = this.IsFocused; });
                         // Dispatcher.UIThread.Invoke(
                         //     new Action(() => { is_instructions_focused = Wmanual.IsActive; }));
 
@@ -630,19 +650,19 @@ namespace ClicklessMouse
 
 //reopen submenu that was closed because squares appeared
                         if (mi_file_open)
-                            Dispatcher.UIThread.Invoke(() => { MIfile.Open(); });
+                            Dispatcher.UIThread.Post(() => { MIfile.Open(); });
                         if (mi_restore_open)
-                            Dispatcher.UIThread.Invoke(() => { MIrestore.IsSubMenuOpen = mi_restore_open; });
+                            Dispatcher.UIThread.Post(() => { MIrestore.IsSubMenuOpen = mi_restore_open; });
                         if (mi_language_open)
-                            Dispatcher.UIThread.Invoke(() => { MIlanguage.IsSubMenuOpen = mi_language_open; });
+                            Dispatcher.UIThread.Post(() => { MIlanguage.IsSubMenuOpen = mi_language_open; });
                         if (mi_help_open)
-                            Dispatcher.UIThread.Invoke(() => { MIhelp.IsSubMenuOpen = mi_help_open; });
+                            Dispatcher.UIThread.Post(() => { MIhelp.IsSubMenuOpen = mi_help_open; });
 
                         //give back stolen focus (by squares) to a Window if it
                         //was focused before they appeared
                         if (is_this_focused)
                         {
-                            Dispatcher.UIThread.Invoke(() => { this.Focus(); });
+                            Dispatcher.UIThread.Post(() => { this.Focus(); });
                         }
                         // else if (is_instructions_focused)
                         // {
@@ -921,10 +941,13 @@ namespace ClicklessMouse
                 return;
             if (show)
             {
-                square.Position = new PixelPoint(square.StartX, square.StartY);
-                Dispatcher.UIThread.InvokeAsync(() => square.Show());
+                Dispatcher.UIThread.InvokeAsync(() =>
+                {
+                    square.Position = new PixelPoint(square.StartX, square.StartY);
+                    square.Show();
+                });
             }
-            else Dispatcher.UIThread.InvokeAsync(() => square.Hide());
+            else Dispatcher.UIThread.Post(() => square.Hide());
         }
 
         private void create_square(ref Square square)
@@ -937,15 +960,15 @@ namespace ClicklessMouse
                 }
             }
 
-            square = new Square(_size, _borderWidth, _color1, _color2)
+            square = new Square(_name, _size, _borderWidth, _color1, _color2)
             {
                 Topmost = true,
                 Height = _size,
                 Width = _size
             };
-            Dispatcher.UIThread.InvokeAsync(square.Show);
+            square.Show();
 
-            Dispatcher.UIThread.InvokeAsync(square.Hide);
+            square.Hide();
         }
 
         void destroy_square(Square square)
@@ -959,85 +982,6 @@ namespace ClicklessMouse
             }
         }
 
-        private void regenerate_SLH()
-        {
-            if (_slhEnabled)
-            {
-                if (_slh != null && !_slh.CheckAccess())
-                {
-                    try
-                    {
-                        Callback2 d = regenerate_SLH;
-                        Dispatcher.UIThread.Invoke(() => d());
-                    }
-                    catch (ObjectDisposedException ex)
-                    {
-                        //
-                    }
-                }
-                else
-                {
-                    if (_slh != null)
-                        _slh.Close();
-
-                    _slh = new Square(_size, _borderWidth, _color1, _color2)
-                    {
-                        Topmost = true,
-                        Height = _size,
-                        Width = _size
-                    };
-                    _slh.Show();
-                    _slh.Hide();
-                }
-            }
-            else
-            {
-                if (_slh != null)
-                {
-                    _slh.Close();
-                }
-            }
-        }
-
-        private void regenerate_SRH()
-        {
-            if (_srhEnabled)
-            {
-                if (_srh != null && !_srh.CheckAccess())
-                {
-                    try
-                    {
-                        Callback2 d = regenerate_SRH;
-                        Dispatcher.UIThread.Invoke(() => d());
-                    }
-                    catch (ObjectDisposedException ex)
-                    {
-                        //
-                    }
-                }
-                else
-                {
-                    if (_srh != null)
-                        _srh.Close();
-
-                    _srh = new Square(_size, _borderWidth, _color1, _color2)
-                    {
-                        Topmost = true,
-                        Height = _size,
-                        Width = _size
-                    };
-                    _srh.Show();
-                    _srh.Hide();
-                }
-            }
-            else
-            {
-                if (_srh != null)
-                {
-                    _srh.Close();
-                }
-            }
-        }
         //----------------------------------------------------------------------------------
 
         [DllImport("USER32.DLL")]
@@ -1061,19 +1005,16 @@ namespace ClicklessMouse
             if (CHBstart_minimized.IsChecked == true)
             {
                 WindowMain.WindowState = WindowState.Minimized;
-
-                if (CHBminimize_to_tray.IsChecked == true)
-                {
-                    WindowMain.Hide();
-                    GetPrimaryTrayIcon().IsVisible = true;
-                }
             }
         }
 
-        private void ti_MouseClick()
+        private void trayIcon_Click()
         {
-            WindowMain.Show();
             WindowMain.ShowInTaskbar = true;
+            WindowMain.SetValue(ShowInTaskbarProperty, true);
+            WindowMain.Show();
+            WindowMain.Focus();
+
             GetPrimaryTrayIcon().IsVisible = false;
         }
 
@@ -1117,7 +1058,7 @@ namespace ClicklessMouse
 
             restore_default_settings();
 
-            // regenerate_squares();
+            regenerate_squares();
 
             _savingEnabled = true;
             save_settings();
@@ -1364,8 +1305,6 @@ namespace ClicklessMouse
             {
                 save_settings();
             }
-
-            regenerate_SRH();
         }
 
         private void CHBscreen_panning_CheckedChanged(object sender, RoutedEventArgs e)

@@ -11,13 +11,4 @@
         <FluentTheme />
         <dialog:FluentTheme />
     </Application.Styles>
-    <TrayIcon.Icons>
-        <TrayIcons>
-            <TrayIcon Icon="/Assets/icons/clicklessmouse.ico"
-                      Command="{Binding ti_MouseClickCommand}"
-                      ToolTipText="Clickless Mouse"
-                      IsVisible="False">
-            </TrayIcon>
-        </TrayIcons>
-    </TrayIcon.Icons>
 </Application>
