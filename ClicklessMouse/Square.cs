@@ -1,3 +1,4 @@
+using System.Globalization;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Platform;
@@ -14,14 +15,16 @@ namespace ClicklessMouse
         private Color _c1;
         private Color _c2;
         public int StartX, StartY, EndX, EndY;
+        private string _name;
 
-        public Square(int side, int lineWidth, Color color1, Color color2)
+        public Square(string name, int side, int lineWidth, Color color1, Color color2)
         {
             // InitializeComponent();
 
             Background = new SolidColorBrush(Colors.Transparent);
             WindowDecorations = WindowDecorations.None;
             ShowInTaskbar = false;
+            _name = name;
             _side = side;
             _lineWidth = lineWidth;
             _c1 = color1;
@@ -51,6 +54,16 @@ X11Properties.SetNetWmWindowType(this,X11NetWmWindowType.Dock);
                         _side - 3 * _lineWidth, _side - 3 * _lineWidth);
                     p = new Pen(new SolidColorBrush(_c2), _lineWidth);
                     context.DrawRectangle(null, p, rectangle2);
+                    
+                    var text = new FormattedText(
+                        _name,
+                        CultureInfo.CurrentCulture,
+                        FlowDirection.LeftToRight,
+                        new Typeface("Segoe UI"),
+                        12,
+                        new SolidColorBrush(_c2,0.4));
+
+                    context.DrawText(text, new Point((_lineWidth * 2)+(_side/4), (_lineWidth * 2)+(_side/4)));
                 }
                     );
             }

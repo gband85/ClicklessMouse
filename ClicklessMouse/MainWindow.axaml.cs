@@ -1235,6 +1235,7 @@ namespace ClicklessMouse
             if (CHBLMB.IsChecked == true)
             {
                 _slEnabled = true;
+                _name = "LC";
                 create_square(ref _sl);
             }
             else
@@ -1263,6 +1264,7 @@ namespace ClicklessMouse
             if (CHBRMB.IsChecked == true)
             {
                 _srEnabled = true;
+                _name = "RC";
                 create_square(ref _sr);
             }
             else
@@ -1291,6 +1293,7 @@ namespace ClicklessMouse
             if (CHBdoubleLMB.IsChecked == true)
             {
                 _sldEnabled = true;
+                _name = "LD";
                 create_square(ref _sld);
             }
             else
@@ -1319,6 +1322,7 @@ namespace ClicklessMouse
             if (CHBholdLMB.IsChecked == true)
             {
                 _slhEnabled = true;
+                _name = "LH";
                 create_square(ref _slh);
             }
             else
@@ -1347,6 +1351,7 @@ namespace ClicklessMouse
             if (CHBholdRMB.IsChecked == true)
             {
                 _srhEnabled = true;
+                _name = "RH";
                 create_square(ref _srh);
             }
             else
