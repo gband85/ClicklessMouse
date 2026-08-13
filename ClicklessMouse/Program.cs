@@ -16,8 +16,10 @@ namespace ClicklessMouse
         public static AppBuilder BuildAvaloniaApp()
             => AppBuilder.Configure<App>()
                 .UsePlatformDetect()
+#if DEBUG
+            .WithDeveloperTools()
+#endif
                 .WithInterFont()
-                .WithDeveloperTools()
                 .LogToTrace();
     }
 }

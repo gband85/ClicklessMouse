@@ -310,11 +310,16 @@ namespace ClicklessMouse
 
         private void regenerate_squares()
         {
-            regenerate_SL();
-            regenerate_SR();
-            regenerate_SLD();
-            regenerate_SLH();
-            regenerate_SRH();
+            if (_slEnabled)
+                Dispatcher.Post(() => create_square(ref _sl));
+            if (_srEnabled)
+                Dispatcher.Post(() => create_square(ref _sr));
+            if (_sldEnabled)
+                Dispatcher.Post(() => create_square(ref _sld));
+            if (_slhEnabled)
+                Dispatcher.Post(() => create_square(ref _slh));
+            if (_srhEnabled)
+                Dispatcher.Post(() => create_square(ref _srh));
         }
 
         public int X, Y;
@@ -958,86 +963,6 @@ namespace ClicklessMouse
                 }
             }
         }
-
-        private void regenerate_SLH()
-        {
-            if (_slhEnabled)
-            {
-                if (_slh != null && !_slh.CheckAccess())
-                {
-                    try
-                    {
-                        Callback2 d = regenerate_SLH;
-                        Dispatcher.UIThread.Invoke(() => d());
-                    }
-                    catch (ObjectDisposedException ex)
-                    {
-                        //
-                    }
-                }
-                else
-                {
-                    if (_slh != null)
-                        _slh.Close();
-
-                    _slh = new Square(_size, _borderWidth, _color1, _color2)
-                    {
-                        Topmost = true,
-                        Height = _size,
-                        Width = _size
-                    };
-                    _slh.Show();
-                    _slh.Hide();
-                }
-            }
-            else
-            {
-                if (_slh != null)
-                {
-                    _slh.Close();
-                }
-            }
-        }
-
-        private void regenerate_SRH()
-        {
-            if (_srhEnabled)
-            {
-                if (_srh != null && !_srh.CheckAccess())
-                {
-                    try
-                    {
-                        Callback2 d = regenerate_SRH;
-                        Dispatcher.UIThread.Invoke(() => d());
-                    }
-                    catch (ObjectDisposedException ex)
-                    {
-                        //
-                    }
-                }
-                else
-                {
-                    if (_srh != null)
-                        _srh.Close();
-
-                    _srh = new Square(_size, _borderWidth, _color1, _color2)
-                    {
-                        Topmost = true,
-                        Height = _size,
-                        Width = _size
-                    };
-                    _srh.Show();
-                    _srh.Hide();
-                }
-            }
-            else
-            {
-                if (_srh != null)
-                {
-                    _srh.Close();
-                }
-            }
-        }
         //----------------------------------------------------------------------------------
 
         [DllImport("USER32.DLL")]
@@ -1359,8 +1284,6 @@ namespace ClicklessMouse
             {
                 save_settings();
             }
-
-            regenerate_SRH();
         }
 
         private void CHBscreen_panning_CheckedChanged(object sender, RoutedEventArgs e)
