@@ -3,7 +3,7 @@
 ; Non-commercial use only
 
 #define MyAppName "Clickless Mouse"
-#define MyAppVersion "3.2"
+#define MyAppVersion "4.0.0"
 #define MyAppPublisher "Garrett Anderson"
 #define MyAppURL "https://github.com/gband85/ClicklessMouse"
 #define MyAppExeName "ClicklessMouse.exe"
@@ -11,7 +11,7 @@
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
-AppId={{E5F77259-EEAC-4F75-8D0B-A9315F55F57B}
+AppId=E5F77259-EEAC-4F75-8D0B-A9315F55F57B
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 ;AppVerName={#MyAppName} {#MyAppVersion}
