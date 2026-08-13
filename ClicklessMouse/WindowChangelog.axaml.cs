@@ -17,7 +17,7 @@ public partial class WindowChangelog : Window
             TB.Text = """
                       All notable changes to Clickless Mouse will be documented here.
 
-                      [3.2.0]
+                      [4.0.0]
                       - Generalized square functions
                       - Changed theme
                       - Fixed layout

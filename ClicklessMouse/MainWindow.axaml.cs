@@ -91,7 +91,7 @@ namespace ClicklessMouse
         //----------------------------------
 
         private const string prog_name = "Clickless Mouse";
-        private const string prog_version = "3.2.0";
+        private const string prog_version = "4.0.0";
 
         private const string url_latest_version =
             "https://raw.githubusercontent.com/gband85/ClicklessMouse/rebuild/other/latest_version.txt";
